@@ -141,7 +141,12 @@ def main():
         "- Browser checks: recovery, false claims, escalation, trace/report downloads, evaluation "
         "navigation and mobile overflow verified in headless Microsoft Edge.",
         "- A clean virtual environment installed the wheel and exercised its CLI, HTTP API and bundled static assets.",
-        "- GitHub Actions configuration is included. Hosted CI has not been run for this local release.",
+        (
+            f"- Hosted CI passed for Python {', '.join(validation['ci']['python_versions'])} "
+            f"on commit `{validation['ci']['commit'][:7]}`: [workflow run]({validation['ci']['url']})."
+            if validation["hosted_ci"] == "success"
+            else "- GitHub Actions configuration is included; hosted CI has not yet been verified."
+        ),
         "",
         "## Evidence",
         "",

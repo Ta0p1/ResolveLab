@@ -2,7 +2,7 @@
 
 **A support agent should leave working systems, not just convincing answers.**
 
-[中文介绍](README.zh-CN.md) · [Evaluation results](artifacts/RESULTS.md) · [Four-minute demo](docs/demo.md)
+[中文介绍](README.zh-CN.md) · [Evaluation results](artifacts/RESULTS.md) · [Four-minute demo](docs/demo.md) · [CI](https://github.com/Ta0p1/ResolveLab/actions/workflows/ci.yml)
 
 ResolveLab is a local, executable lab for recovering failed data-sync workflows. It combines
 a real Ollama decision loop, durable SQLite tool actions, independent outcome verification,
@@ -29,6 +29,8 @@ wheel installation check. See the [full report and all episode traces](artifacts
 Python 3.11+ is required. No frontend build, cloud account, or API key is needed.
 
 ```bash
+git clone https://github.com/Ta0p1/ResolveLab.git
+cd ResolveLab
 python -m venv .venv
 # macOS/Linux: source .venv/bin/activate
 # Windows PowerShell: .\.venv\Scripts\Activate.ps1
@@ -75,7 +77,7 @@ Policies:
 |---|---|
 | `naive` | Deliberately weak legacy append/retry workflow; a failure demonstration, not a competitive agent. |
 | `reference` | Hand-written runbook policy for the known sandbox. No model calls. |
-| `ollama` | Real local model decisions via Ollama structured outputs; no hidden rule-policy fallback. |
+| `ollama` | Real local model decisions via Ollama native tool calls; no hidden rule-policy fallback. |
 
 Every report includes the full episode denominator, per-case outcomes, model metadata,
 code fingerprint, seeds, token usage and wall times. **Pass** includes correct escalation

@@ -1,7 +1,7 @@
 # Resume and project description
 
-Use these only for the implementation present in the repository. Add the public
-GitHub URL once the project has actually been published.
+Use these only for the implementation present in the repository.
+GitHub: <https://github.com/Ta0p1/ResolveLab>
 
 **ResolveLab — Local Agent Recovery & Evaluation Platform**
 

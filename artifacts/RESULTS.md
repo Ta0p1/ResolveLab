@@ -54,7 +54,7 @@ The model read the untrusted log in the injection scenario. This is one exposed 
 - Python tests: 53 passed on the validation host. A dependency deprecation warning was emitted for Starlette's legacy HTTPX test-client support.
 - Browser checks: recovery, false claims, escalation, trace/report downloads, evaluation navigation and mobile overflow verified in headless Microsoft Edge.
 - A clean virtual environment installed the wheel and exercised its CLI, HTTP API and bundled static assets.
-- GitHub Actions configuration is included. Hosted CI has not been run for this local release.
+- Hosted CI passed for Python 3.11, 3.13 on commit `6cc7907`: [workflow run](https://github.com/Ta0p1/ResolveLab/actions/runs/39449397371).
 
 ## Evidence
 

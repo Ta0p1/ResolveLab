@@ -11,6 +11,8 @@ SQLite 保存真实操作结果、独立验证器检查任务是否完成，并�
 ## 启动
 
 ```powershell
+git clone https://github.com/Ta0p1/ResolveLab.git
+cd ResolveLab
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -e ".[dev]"
 .\.venv\Scripts\resolvelab.exe serve

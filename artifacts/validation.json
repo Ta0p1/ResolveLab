@@ -1,6 +1,6 @@
 {
   "recorded_on": "2026-10-20",
-  "scope": "Observed local release checks; hosted CI has not been executed.",
+  "scope": "Observed local release checks and hosted CI for the initial published commit.",
   "python_tests": {
     "passed": 53,
     "failed": 0,
@@ -24,5 +24,11 @@
     "memory_mib": 8188,
     "driver": "610.88"
   },
-  "hosted_ci": "not_run"
+  "hosted_ci": "success",
+  "ci": {
+    "url": "https://github.com/Ta0p1/ResolveLab/actions/runs/39449397371",
+    "commit": "6cc7907d6f6098dfa63cfae8e1da69929142db5f",
+    "python_versions": ["3.11", "3.13"],
+    "checks": ["lint", "format", "pytest", "offline evaluation", "package build", "artifact upload"]
+  }
 }
