@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#142720" />
+    <title>ResolveLab — Recovery, verified.</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%231f7358'/%3E%3Cpath d='M11 21l6 6 13-15' fill='none' stroke='%23fff' stroke-width='4'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="/static/style.css" />
+    <script src="/static/app.js" defer></script>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <a class="brand" href="/"
+        ><span class="brand-mark">R<span>↗</span></span
+        ><span>ResolveLab<small>AGENT ENGINEERING LAB</small></span></a
+      >
+      <div class="workspace-label">
+        <span class="workspace-dot"></span> Local workspace
+        <span class="version">v0.1</span>
+      </div>
+      <nav aria-label="Main navigation">
+        <button class="nav-item active" data-page="workbench">
+          <span>◫</span> Workbench
+        </button>
+        <button class="nav-item" data-page="evaluations">
+          <span>▥</span> Evaluations
+          <span class="nav-count" id="report-count">0</span>
+        </button>
+        <button class="nav-item" data-page="guide">
+          <span>⌘</span> How it works
+        </button>
+      </nav>
+      <div class="sidebar-section">
+        <span class="eyebrow">RECENT RUNS</span
+        ><button
+          id="refresh-runs"
+          class="icon-button"
+          title="Refresh recent runs"
+        >
+          ↻
+        </button>
+      </div>
+      <div id="recent-runs" class="recent-runs">
+        <p class="subtle">Your runs will appear here.</p>
+      </div>
+      <div class="sidebar-bottom">
+        <span class="local-dot"></span>
+        <div>
+          Built to be inspected<small>Local data. Reproducible results.</small>
+        </div>
+      </div>
+    </aside>
+    <main>
+      <header class="topbar">
+        <div>
+          <span class="breadcrumb">Workspace</span><span class="divider">/</span
+          ><span id="page-label">Workbench</span>
+        </div>
+        <div class="top-actions">
+          <span id="model-status" class="connection">Checking Ollama…</span
+          ><a href="/docs" target="_blank" rel="noopener">API docs ↗</a>
+        </div>
+      </header>
+      <section id="page-workbench" class="page">
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow green">EXECUTE · OBSERVE · VERIFY</div>
+            <h1>Recovery, verified.</h1>
+            <p>
+              Break a sync. Let the agent recover it. Check what actually
+              changed.
+            </p>
+          </div>
+          <span class="outline-badge">SYNTHETIC SANDBOX</span>
+        </div>
+        <div class="mission">
+          <span class="mission-icon">↳</span>
+          <div>
+            <span class="eyebrow">THE CUSTOMER REQUEST</span>
+            <p>
+              “Recover last night’s failed sync. Fill in the missing records.<br
+                class="desktop-only"
+              />
+              Don’t duplicate anything, and verify the result.”
+            </p>
+          </div>
+          <span class="mission-tag">DATA SYNC / RECOVERY</span>
+        </div>
+        <div class="work-grid">
+          <section class="panel scenario-panel">
+            <div class="panel-title">
+              <h2>Choose an incident</h2>
+              <span class="small-count">10 scenarios</span>
+            </div>
+            <div id="scenarios" class="scenario-list"></div>
+          </section>
+          <div class="run-area">
+            <section class="panel launch-panel">
+              <div class="launch-title">
+                <span class="step-number">01</span>
+                <div>
+                  <h2 id="selected-title">Select an incident</h2>
+                  <p id="selected-description">
+                    Choose a scenario to get started.
+                  </p>
+                </div>
+              </div>
+              <div class="launch-controls">
+                <label
+                  >Decision policy<select id="policy">
+                    <option value="reference">
+                      Runbook reference · scripted
+                    </option>
+                    <option value="ollama">Local LLM · Ollama</option>
+                    <option value="naive">Legacy retry · weak baseline</option>
+                  </select></label
+                >
+                <label id="model-field" class="hidden"
+                  >Model<input
+                    id="model"
+                    value="qwen3:4b"
+                    list="model-list" /><datalist id="model-list"></datalist
+                ></label>
+                <label class="seed-field"
+                  >Data seed<input
+                    id="seed"
+                    type="number"
+                    min="0"
+                    max="1000000"
+                    value="42"
+                /></label>
+                <button id="run-button" class="primary">
+                  Run recovery <span>↗</span>
+                </button>
+              </div>
+              <div class="policy-note" id="policy-note">
+                A deterministic runbook policy. No model calls; useful for
+                checking the environment.
+              </div>
+            </section>
+            <div class="state-grid">
+              <div class="stat">
+                <span>RUN STATUS</span><strong id="run-status">Ready</strong
+                ><small id="run-id">Waiting for an episode</small>
+              </div>
+              <div class="stat">
+                <span>DESTINATION / SOURCE</span
+                ><strong id="row-count">— <em>/ —</em></strong
+                ><small>Actual persisted records</small>
+              </div>
+              <div class="stat">
+                <span>TOOL CALLS</span><strong id="tool-count">—</strong
+                ><small id="token-count">No run yet</small>
+              </div>
+              <div class="stat">
+                <span>ELAPSED</span><strong id="elapsed">—</strong
+                ><small>Wall-clock time</small>
+              </div>
+            </div>
+            <section class="panel trace-panel">
+              <div class="panel-title">
+                <div class="inline-title">
+                  <h2>Execution trace</h2>
+                  <span class="live-label hidden" id="live-label"
+                    ><i></i> LIVE</span
+                  >
+                </div>
+                <div class="trace-actions">
+                  <button id="resume-button" class="secondary hidden">
+                    Resume run</button
+                  ><button id="export-button" class="text-button" disabled>
+                    Export JSONL ↓
+                  </button>
+                </div>
+              </div>
+              <div id="trace-empty" class="empty-state">
+                <div class="empty-symbol">⌁</div>
+                <h3>Every action leaves evidence.</h3>
+                <p>
+                  Start a recovery to inspect the tool calls,<br />service
+                  responses, and independent verdict.
+                </p>
+                <div class="empty-flow">
+                  <span>Inspect</span><b>→</b><span>Recover</span><b>→</b
+                  ><span>Verify</span>
+                </div>
+              </div>
+              <div id="trace" class="trace-list"></div>
+            </section>
+            <section
+              id="verdict"
+              class="panel verdict-panel hidden"
+              aria-live="polite"
+            ></section>
+          </div>
+        </div>
+        <footer>
+          Outcome checks read database state independently of the agent’s final
+          claim. <span>Environment: Sync Service v1</span>
+        </footer>
+      </section>
+      <section id="page-evaluations" class="page hidden">
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow green">MEASURE BEFORE YOU CLAIM</div>
+            <h1>Evidence over anecdotes.</h1>
+            <p>
+              Compare policies on the same scenarios, records, and outcome
+              checks.
+            </p>
+          </div>
+        </div>
+        <section class="panel eval-launch">
+          <div class="panel-title">
+            <h2>Run a comparison</h2>
+            <span class="outline-badge">PUBLIC REGRESSION SUITE</span>
+          </div>
+          <div class="eval-controls">
+            <fieldset>
+              <legend>Policies</legend>
+              <label
+                ><input
+                  type="checkbox"
+                  name="eval-policy"
+                  value="naive"
+                  checked
+                />
+                Legacy retry</label
+              ><label
+                ><input
+                  type="checkbox"
+                  name="eval-policy"
+                  value="reference"
+                  checked
+                />
+                Runbook reference</label
+              ><label
+                ><input type="checkbox" name="eval-policy" value="ollama" />
+                Local LLM</label
+              >
+            </fieldset>
+            <label
+              >Coverage<select id="eval-suite">
+                <option value="full">Full suite · 10 scenarios</option>
+                <option value="smoke">Smoke test · 3 scenarios</option>
+              </select></label
+            >
+            <label
+              >Model<input id="eval-model" value="qwen3:4b" list="model-list"
+            /></label>
+            <button id="eval-button" class="primary">Run evaluation ↗</button>
+          </div>
+          <p class="hint">
+            Same data seed (42) for each policy. Local model runs take longer.
+            Provider failures stay in the denominator.
+          </p>
+        </section>
+        <div
+          id="eval-progress"
+          class="eval-progress hidden"
+          aria-live="polite"
+        ></div>
+        <div class="report-picker">
+          <label for="report-select">Saved evaluation</label
+          ><select id="report-select">
+            <option>No reports yet</option></select
+          ><button id="download-report" class="text-button" disabled>
+            Download report ↓
+          </button>
+        </div>
+        <div id="eval-results">
+          <section class="panel empty-state">
+            <div class="empty-symbol">▥</div>
+            <h3>Build your first comparison.</h3>
+            <p>
+              Run the offline policies in seconds,<br />or evaluate an installed
+              local model.
+            </p>
+          </section>
+        </div>
+        <section class="methodology">
+          <span class="eyebrow">HOW TO READ THESE NUMBERS</span>
+          <p>
+            “Pass” means either verified recovery or appropriate escalation for
+            a read-only task. These are synthetic, public development cases. A
+            perfect runbook score validates the sandbox; it does not demonstrate
+            model generalization. No training improvement or production adoption
+            is implied.
+          </p>
+        </section>
+      </section>
+      <section id="page-guide" class="page hidden">
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow green">
+              SMALL ENVIRONMENT. INSPECTABLE SYSTEM.
+            </div>
+            <h1>From a claim to a check.</h1>
+            <p>A complete recovery loop you can run, inspect, and reproduce.</p>
+          </div>
+        </div>
+        <div class="architecture-flow">
+          <div>
+            <span>01 / DECIDE</span>
+            <h2>Policy</h2>
+            <p>Ollama model or an explicitly scripted baseline.</p>
+          </div>
+          <b>→</b>
+          <div>
+            <span>02 / EXECUTE</span>
+            <h2>Tool runtime</h2>
+            <p>Typed arguments, permissions, idempotency receipts.</p>
+          </div>
+          <b>→</b>
+          <div>
+            <span>03 / PERSIST</span>
+            <h2>Sync service</h2>
+            <p>Isolated SQLite records, atomic writes, durable events.</p>
+          </div>
+          <b>→</b>
+          <div>
+            <span>04 / CHECK</span>
+            <h2>Verifier</h2>
+            <p>IDs, payloads, duplicates, permissions and evidence.</p>
+          </div>
+        </div>
+        <div class="guide-grid">
+          <section class="panel guide-card">
+            <h2>Run it locally</h2>
+            <pre>
+pip install -e ".[dev]"
+ollama pull qwen3:4b
+resolvelab serve</pre
+            >
+            <p>
+              Each episode receives a fresh copy of the seeded dataset. No
+              external customer systems are connected.
+            </p>
+          </section>
+          <section class="panel guide-card">
+            <h2>Reproduce a comparison</h2>
+            <pre>
+resolvelab eval \
+  --policies reference ollama \
+  --seeds 42 73 101 \
+  --output artifacts/comparison.json</pre
+            >
+            <p>
+              Reports record model digest, code fingerprint, per-case outcomes,
+              token counts and runtime.
+            </p>
+          </section>
+          <section class="panel guide-card">
+            <h2>What is real in v0.1?</h2>
+            <p>
+              Local model inference, database mutations, operation receipts,
+              exported traces and measured evaluation results.
+            </p>
+            <p>
+              The service and fault scenarios are synthetic. Rate-limit waits
+              advance a virtual clock.
+            </p>
+          </section>
+          <section class="panel guide-card">
+            <h2>What comes next?</h2>
+            <p>
+              Independent task splits, stronger baselines, reviewed training
+              trajectories, small-model SFT and measured cost–quality tradeoffs.
+            </p>
+            <p>
+              Training is a later phase. This release establishes the
+              environment and baseline evidence.
+            </p>
+          </section>
+        </div>
+      </section>
+    </main>
+    <div id="toast" role="alert" class="toast hidden"></div>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "recorded_on": "2026-10-20",
+  "scope": "Observed local release checks; hosted CI has not been executed.",
+  "python_tests": {
+    "passed": 53,
+    "failed": 0,
+    "python_version": "3.13.11",
+    "warning": "StarletteDeprecationWarning for legacy HTTPX TestClient support"
+  },
+  "browser": {
+    "name": "Microsoft Edge",
+    "version": "155.0.4283.62",
+    "checks_passed": 11,
+    "javascript_errors": 0,
+    "mobile_width": 390
+  },
+  "wheel": {
+    "clean_install": "passed",
+    "cli_scenario": "compound",
+    "packaged_http_routes": ["/", "/static/app.js", "/static/style.css", "/api/health"]
+  },
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 4060 Ti",
+    "memory_mib": 8188,
+    "driver": "610.88"
+  },
+  "hosted_ci": "not_run"
+}
