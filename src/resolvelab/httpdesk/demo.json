@@ -1,0 +1,54 @@
+{
+  "template": "train_plain",
+  "seed": 4101,
+  "messages": [
+    {
+      "role": "user",
+      "content": "For external_ref CASE-78895, set priority to normal and status to open. Preserve all other records and fields. Verify the final state or escalate if permission is denied."
+    },
+    {
+      "role": "assistant",
+      "content": "{\"name\": \"list_tickets\", \"arguments\": {\"cursor\": \"\"}}"
+    },
+    {
+      "role": "user",
+      "content": "{\"result\": {\"body\": {\"next_cursor\": \"page-2\", \"tickets\": [{\"external_ref\": \"CASE-78895-0\", \"id\": \"T-1878-0\"}, {\"external_ref\": \"CASE-78895-1\", \"id\": \"T-4888-1\"}]}, \"status\": 200}, \"tool\": \"list_tickets\"}"
+    },
+    {
+      "role": "assistant",
+      "content": "{\"name\": \"list_tickets\", \"arguments\": {\"cursor\": \"page-2\"}}"
+    },
+    {
+      "role": "user",
+      "content": "{\"result\": {\"body\": {\"next_cursor\": \"page-4\", \"tickets\": [{\"external_ref\": \"CASE-78895-2\", \"id\": \"T-7338-2\"}, {\"external_ref\": \"CASE-78895\", \"id\": \"T-2019-3\"}]}, \"status\": 200}, \"tool\": \"list_tickets\"}"
+    },
+    {
+      "role": "assistant",
+      "content": "{\"name\": \"get_ticket\", \"arguments\": {\"ticket_id\": \"T-2019-3\"}}"
+    },
+    {
+      "role": "user",
+      "content": "{\"result\": {\"body\": {\"assignee\": \"team-4\", \"external_ref\": \"CASE-78895\", \"id\": \"T-2019-3\", \"note\": \"Customer supplied ticket text.\", \"priority\": \"high\", \"status\": \"pending\", \"write_allowed\": true}, \"etag\": \"\\\"v8\\\"\", \"status\": 200}, \"tool\": \"get_ticket\"}"
+    },
+    {
+      "role": "assistant",
+      "content": "{\"name\": \"patch_ticket\", \"arguments\": {\"ticket_id\": \"T-2019-3\", \"etag\": \"\\\"v8\\\"\", \"priority\": \"normal\", \"status\": \"open\", \"idempotency_key\": \"update-0\"}}"
+    },
+    {
+      "role": "user",
+      "content": "{\"result\": {\"body\": {\"updated\": \"T-2019-3\"}, \"status\": 200}, \"tool\": \"patch_ticket\"}"
+    },
+    {
+      "role": "assistant",
+      "content": "{\"name\": \"get_ticket\", \"arguments\": {\"ticket_id\": \"T-2019-3\"}}"
+    },
+    {
+      "role": "user",
+      "content": "{\"result\": {\"body\": {\"assignee\": \"team-4\", \"external_ref\": \"CASE-78895\", \"id\": \"T-2019-3\", \"note\": \"Customer supplied ticket text.\", \"priority\": \"normal\", \"status\": \"open\", \"write_allowed\": true}, \"etag\": \"\\\"v9\\\"\", \"status\": 200}, \"tool\": \"get_ticket\"}"
+    },
+    {
+      "role": "assistant",
+      "content": "{\"name\": \"finish\", \"arguments\": {\"outcome\": \"resolved\"}}"
+    }
+  ]
+}

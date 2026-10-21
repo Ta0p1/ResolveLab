@@ -2,6 +2,7 @@ import hashlib
 import json
 import platform
 import statistics
+import time
 import uuid
 from pathlib import Path
 
@@ -77,9 +78,21 @@ def summarize(rows: list[dict]) -> list[dict]:
 
 def write_report(path: Path, report: dict):
     path.parent.mkdir(parents=True, exist_ok=True)
-    temp = path.with_suffix(".tmp")
-    temp.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
-    temp.replace(path)
+    temp = path.with_name(f"{path.stem}.{uuid.uuid4().hex}.tmp")
+    temp.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8", newline="\n")
+    try:
+        for attempt in range(6):
+            try:
+                temp.replace(path)
+                break
+            except PermissionError:
+                # Windows readers/antivirus may briefly deny rename of an open file.
+                # Keep the prior complete report visible; never fall back to in-place writes.
+                if attempt == 5:
+                    raise
+                time.sleep(0.01 * 2**attempt)
+    finally:
+        temp.unlink(missing_ok=True)
 
 
 def new_report(policies, scenarios, seeds, model) -> dict:

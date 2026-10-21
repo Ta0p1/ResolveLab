@@ -1,0 +1,19 @@
+{
+  "phase": "training",
+  "locked_at": "2026-10-21T21:17:18.459805+00:00",
+  "source_sha256": "7c0c00ccdb90c770e6f68070e61794b693eff95b42895f5e94ca888d5eecf41a",
+  "manifest_sha256": "5dec70332652ac24d9235722d9cad67bcd2a144af44e686b527173a54e9379f6",
+  "config_sha256": "27df9ce5974ea22eeff0f62d8b0b834282bb524df196ef55210bc2a9501a5d39",
+  "prompt_sha256": "f9b795186f848bbddee53fa5a5f91635401dbc2eafba211924d66e93774d3695",
+  "schema_sha256": "92cbd4d86b947eaa75abc9cf4c2134be6ee1caac0353db4417c172dce77dc76f",
+  "data_sha256": {
+    "train": "1871c00c8bd499a7c4438e8d9e0cbf5ddd04aa309475e59849e57ca576ecfa0c",
+    "dev": "23a02b6c434f61875dec5ff9dde742ab8986f5274972bf766757ab060441bc48"
+  },
+  "training_seeds": [
+    3407,
+    42,
+    2026
+  ],
+  "holdout_registration_commit": "7e5ffb4"
+}

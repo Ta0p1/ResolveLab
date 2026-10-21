@@ -20,7 +20,10 @@ def file_hash(path):
 
 def encode_example(tokenizer, row, context):
     prefix = prompt_ids(tokenizer, row["messages"])
-    target = tokenizer.encode(dumps(row["target"]) + tokenizer.eos_token, add_special_tokens=False)
+    target_text = row.get("target_text", dumps(row["target"]))
+    if __import__("json").loads(target_text) != row["target"]:
+        raise ValueError("Serialized training target does not match the typed action")
+    target = tokenizer.encode(target_text + tokenizer.eos_token, add_special_tokens=False)
     if not prefix or not target or len(prefix) + len(target) > context:
         raise ValueError("Empty or over-budget training example; truncation is forbidden")
     return prefix + target, len(target)
@@ -38,7 +41,16 @@ def action_loss(model, example):
     return F.cross_entropy(logits[0, :-1].float(), inputs[0, -count:])
 
 
-def train(config, manifest, data_dir: Path, output: Path):
+def train(
+    config,
+    manifest,
+    data_dir: Path,
+    output: Path,
+    *,
+    row_validator=validate_training_rows,
+    teacher="scripted_runbook_v1",
+    fingerprint=source_fingerprint,
+):
     import torch
     from peft import LoraConfig, get_peft_model
     from transformers import AutoModelForCausalLM, AutoTokenizer, get_cosine_schedule_with_warmup
@@ -54,7 +66,7 @@ def train(config, manifest, data_dir: Path, output: Path):
     examples = {}
     for split in ("train", "dev"):
         rows = read_rows(data_dir / f"{split}.jsonl")
-        validate_training_rows(rows, manifest, split)
+        row_validator(rows, manifest, split)
         examples[split] = [encode_example(tokenizer, row, config["context"]) for row in rows]
     output.mkdir(parents=True)
     report = {
@@ -63,8 +75,8 @@ def train(config, manifest, data_dir: Path, output: Path):
         "config": config,
         "config_sha256": digest(config),
         "manifest_sha256": digest(manifest),
-        "source_sha256": source_fingerprint(),
-        "teacher": "scripted_runbook_v1",
+        "source_sha256": fingerprint(),
+        "teacher": teacher,
         "data_sha256": {s: file_hash(data_dir / f"{s}.jsonl") for s in examples},
         "examples": {s: len(v) for s, v in examples.items()},
         "max_sequence_tokens": max(len(x[0]) for v in examples.values() for x in v),

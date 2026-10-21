@@ -23,8 +23,8 @@ environment check, never a model baseline. Test episodes never become SFT data.
 
 ## Comparators and selection
 
-- Qwen3-0.6B with JSON Schema constrained decoding, zero-shot.
-- Qwen3-1.7B with the identical prompt, schema and action/context budgets, zero-shot.
+- Qwen3-0.6B with JSON Schema constrained decoding and one verified training example.
+- Qwen3-1.7B with the identical one-shot prompt, schema and action/context budgets.
 - Qwen3-0.6B with action-only LoRA and the identical constrained decoder.
 - Three registered training seeds: 3407, 42, 2026. Each checkpoint selected by minimum
   development action-token loss; no test-based checkpoint or seed selection.
@@ -57,3 +57,20 @@ Raw actions, HTTP requests/responses, independent final snapshots and hashes are
 retained. GPU-free replay re-executes the recorded actions against the HTTP service
 and compares observations and verdicts. Freeze source, schema, prompt, manifest,
 configuration, training data and adapter hashes before test evaluation.
+
+## Development-only amendment (before test access)
+
+Initial zero-shot development runs had valid tool calls but hallucinated IDs (0.6B)
+and repeated pagination (1.7B). To strengthen both baselines, the final shared prompt
+includes one complete, verified `train_plain / 4101` conversation. The same example
+is supplied to every base and SFT arm. It is packaged as `httpdesk/demo.json`, rebuilt
+by `scripts/build_http_demo.py`, and covered by source/prompt hashes. It contains no
+fault recovery examples and no development/test records. Initial development runs
+are exploratory, not part of the final paired test. This amendment changes the
+registered zero-shot comparison to a stronger one-shot comparison before test runs.
+
+The final decoder uses a fixed JSON field order (`name` before `arguments`, then
+the public parameter declaration order). This reduces branch ambiguity in the
+grammar and is identical for all arms. Demonstrations and training targets use
+that same serialization. Field order does not restrict which tool or argument
+value the model can choose. Development-only variants remain archived.
