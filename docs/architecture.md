@@ -1,8 +1,54 @@
 # Architecture
 
-ResolveLab v0.1 is one Python process, one local SQLite database, an optional Ollama
-process, and a static browser UI. The domain is intentionally narrow: recover a
-failed data sync while preserving data correctness and respecting access limits.
+ResolveLab has two synthetic services: a durable SQLite sync sandbox and a ticket
+service reached through a real HTTP adapter. The local workbench presents recorded
+experiments and interactive sync runs. Optional Transformers/PEFT workers train and
+evaluate CaseDesk policies on a local CUDA GPU.
+
+## CaseDesk HTTP boundary (v0.3)
+
+```mermaid
+flowchart LR
+    Model[Base or LoRA policy] --> Grammar[Static tool JSON Schema]
+    Grammar --> Adapter[Typed HTTP adapter]
+    Adapter -->|TCP / HTTP| Server[CaseDesk FastAPI service]
+    Server -->|Status, ETag, Retry-After, payload| Model
+    Server --> State[Fixture state + commit audit]
+    State --> Grader[Independent outcome grader]
+    Grader --> Evidence[Paired reports + replayable traces]
+```
+
+`httpdesk/adapter.py` knows the API routes and headers, but has no access to fault
+flags, expected outcomes or server state. It performs one request per action, with
+no hidden retry or recovery. The model sees the task, one verified training example
+and tool observations. Its grammar always allows all six tools and does not inject
+known IDs, ETags, cursors or correct arguments into decoding constraints.
+
+The backend serializes requests with a lock. A successful PATCH and its idempotency
+receipt are created atomically within that process. A receipt binds key, path, body
+and If-Match. Conflicting reuse returns 409; stale ETags return 412. A fault may
+commit then return 502. Retry-After uses a deterministic virtual clock, advanced by
+an explicit HTTP tool action. Permission can be revoked between a GET and PATCH.
+
+This backend is a **synthetic process-lifetime service**, not durable remote storage.
+State/receipts do not survive its restart. The adapter exercises real TCP requests,
+not an in-process mock transport. Evaluation starts an isolated bound socket for
+each episode; `scripts/serve_casedesk.py` also runs it as a separate process for
+manual inspection. No fixture/admin API is exposed to the model.
+
+`httpdesk/grading.py` reads the server's records and commit/read audit independently
+of model text and scripted teacher decisions. It checks the exact target, requested
+values, all unrelated payloads, fresh read verification, unnecessary commits and
+justified escalation. The backend's permitted concurrent update is accounted for
+separately from agent mutations. It does not use the agent's own verification claim
+as a ground-truth label. Published replay re-executes every test model action through
+HTTP and compares the resulting observations, records and verdict.
+
+The two services have distinct tool contracts. The v0.3 adapter is trained on
+CaseDesk data; success there is **not** a zero-shot transfer result from sync training.
+See [the registered protocol](httpdesk-protocol.md).
+
+## SQLite sync boundary (v0.1–v0.2)
 
 ```mermaid
 flowchart LR

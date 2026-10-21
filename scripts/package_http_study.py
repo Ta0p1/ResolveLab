@@ -14,6 +14,7 @@ local = root / ".local"
 config = json.loads((root / "benchmarks/httpdesk-sft-v1.json").read_text(encoding="utf-8"))
 lock = json.loads((bundle / "test-lock.json").read_text(encoding="utf-8"))
 names = ["base-test", "large-test", *[f"sft-{s}-test" for s in config["training_seeds"]]]
+names.append("ollama-4b-test")
 reports, previews, training = {}, {}, {}
 for name in names:
     source = local / f"http-{name}.json"
@@ -53,7 +54,8 @@ evidence = {
     "previews": previews,
     "manifest": json.loads((root / "benchmarks/httpdesk-v1.json").read_text(encoding="utf-8")),
 }
+evidence["supplementary"] = evidence["reports"].pop("ollama-4b-test")
 write_report(root / "src/resolvelab/static/http-experiment.json", evidence)
 print(
-    f"Published {sum(len(r['rows']) for r in reports.values())} model episodes and three training runs."
+    f"Published {sum(len(r['rows']) for r in reports.values())} primary + {len(evidence['supplementary']['rows'])} supplementary episodes and three training runs."
 )

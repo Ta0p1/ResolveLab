@@ -1,0 +1,88 @@
+{
+  "version": "0.3.0",
+  "validated_at": "2026-10-21T22:39:25.788744+00:00",
+  "runtime_sha256": "7c0c00ccdb90c770e6f68070e61794b693eff95b42895f5e94ca888d5eecf41a",
+  "pytest": {
+    "environment": "WSL Ubuntu / Python 3.12",
+    "command": "python -m pytest -q",
+    "passed": 129,
+    "skipped": 0,
+    "seconds": 64.52,
+    "warnings": [
+      "Upstream Starlette TestClient httpx deprecation"
+    ]
+  },
+  "http_audit": {
+    "command": "python scripts/verify_http_study.py",
+    "episodes_replayed": 180,
+    "status": "passed"
+  },
+  "historical_audit": {
+    "command": "python scripts/verify_experiment.py",
+    "episodes_replayed": 120,
+    "status": "passed"
+  },
+  "browser": {
+    "status": "passed",
+    "browser": "155.0.4283.62",
+    "checks": [
+      "verified recovery",
+      "trace details",
+      "JSONL download",
+      "false claim rejected",
+      "read-only escalation",
+      "evaluation from UI",
+      "report download",
+      "episode navigation",
+      "guide navigation",
+      "post-training results and evidence download",
+      "post-training mobile overflow",
+      "HTTP study five model arms and 150 episodes",
+      "supplementary 4B control and 30 episodes",
+      "HTTP model/case selection and request details",
+      "HTTP evidence download",
+      "HTTP displayed scores match downloaded evidence",
+      "HTTP study mobile overflow",
+      "mobile overflow",
+      "no JS exceptions"
+    ]
+  },
+  "clean_wheel": {
+    "file": "resolvelab-0.3.0-py3-none-any.whl",
+    "sha256": "c6dd079ab9995b61871a9a4f5576acf9ead7d21037367e6efe8d6033170d12c0",
+    "status": "passed",
+    "checks": [
+      "non-editable install outside source path",
+      "package version and CLI entry point",
+      "180 recorded evidence rows and static assets",
+      "frozen source fingerprint",
+      "real HTTP scripted episode without torch"
+    ]
+  },
+  "local_adapter_archives": {
+    "artifacts": [
+      {
+        "seed": 3407,
+        "file": "ResolveLab-CaseDesk-Qwen3-0.6B-LoRA-seed-3407-v0.3.zip",
+        "bytes": 22678469,
+        "archive_sha256": "0418254f4b8d608b5329a00dd381994eb68fb451f467fc072ab255c25fc4007f",
+        "adapter_sha256": "8c127eb59c1e97bc8edf6e9dcdc5debc67de62bc03645edbb141bd3d274c122f"
+      },
+      {
+        "seed": 42,
+        "file": "ResolveLab-CaseDesk-Qwen3-0.6B-LoRA-seed-42-v0.3.zip",
+        "bytes": 22664428,
+        "archive_sha256": "ceb17b88237d2a28c6c126ebae5ddfa6fa56ca358d1611c946b6ada0c5000656",
+        "adapter_sha256": "77ae182823d2bb0e6b44916d270c0572111eb24b9924df42b9a995b62b8e966f"
+      },
+      {
+        "seed": 2026,
+        "file": "ResolveLab-CaseDesk-Qwen3-0.6B-LoRA-seed-2026-v0.3.zip",
+        "bytes": 22671878,
+        "archive_sha256": "c5974bd6f9fcc733606b8f6a590415b8b5aa925b5522e89db6261988a4df2db9",
+        "adapter_sha256": "c6119d23d3bcfe094e1c56022c283e645317cec320a937bc4eec1d47c01f1446"
+      }
+    ]
+  },
+  "remote_ci": "See the published commit checks; this file records local validation."
+}

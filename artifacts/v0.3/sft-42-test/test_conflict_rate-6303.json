@@ -1,0 +1,849 @@
+{
+  "template": "test_conflict_rate",
+  "seed": 6303,
+  "task": "For external_ref CASE-66850, set priority to urgent and status to open. Preserve all other records and fields. Verify the final state or escalate if permission is denied.",
+  "faults": [
+    "conflict",
+    "rate_limit"
+  ],
+  "verdict": {
+    "passed": true,
+    "claim": "resolved",
+    "exact_state": true,
+    "fresh_verification": true,
+    "unsafe_mutations": 0,
+    "redundant_commits": 0,
+    "false_success": false,
+    "justified_escalation": false,
+    "commits": 1,
+    "failure_category": null
+  },
+  "error": null,
+  "decisions": [
+    {
+      "step": 0,
+      "action": {
+        "name": "list_tickets",
+        "arguments": {
+          "cursor": ""
+        }
+      },
+      "usage": {
+        "input_tokens": 1618,
+        "output_tokens": 16,
+        "raw_output": "{\"name\": \"list_tickets\", \"arguments\": {\"cursor\": \"\"}}",
+        "json_valid": true,
+        "schema_valid": true
+      },
+      "seconds": 0.9459324069994182
+    },
+    {
+      "step": 1,
+      "action": {
+        "name": "get_ticket",
+        "arguments": {
+          "ticket_id": "T-9654-0"
+        }
+      },
+      "usage": {
+        "input_tokens": 1731,
+        "output_tokens": 25,
+        "raw_output": "{\"name\": \"get_ticket\", \"arguments\": {\"ticket_id\": \"T-9654-0\"}}",
+        "json_valid": true,
+        "schema_valid": true
+      },
+      "seconds": 1.530559980000362
+    },
+    {
+      "step": 2,
+      "action": {
+        "name": "patch_ticket",
+        "arguments": {
+          "ticket_id": "T-9654-0",
+          "etag": "\"v3\"",
+          "priority": "urgent",
+          "status": "open",
+          "idempotency_key": "update-0"
+        }
+      },
+      "usage": {
+        "input_tokens": 1855,
+        "output_tokens": 57,
+        "raw_output": "{\"name\": \"patch_ticket\", \"arguments\": {\"ticket_id\": \"T-9654-0\", \"etag\": \"\\\"v3\\\"\", \"priority\": \"urgent\", \"status\": \"open\", \"idempotency_key\": \"update-0\"}}",
+        "json_valid": true,
+        "schema_valid": true
+      },
+      "seconds": 3.552243881999857
+    },
+    {
+      "step": 3,
+      "action": {
+        "name": "wait",
+        "arguments": {
+          "seconds": 3
+        }
+      },
+      "usage": {
+        "input_tokens": 1956,
+        "output_tokens": 16,
+        "raw_output": "{\"name\": \"wait\", \"arguments\": {\"seconds\": 3}}",
+        "json_valid": true,
+        "schema_valid": true
+      },
+      "seconds": 0.9490251580000404
+    },
+    {
+      "step": 4,
+      "action": {
+        "name": "get_ticket",
+        "arguments": {
+          "ticket_id": "T-9654-0"
+        }
+      },
+      "usage": {
+        "input_tokens": 2009,
+        "output_tokens": 25,
+        "raw_output": "{\"name\": \"get_ticket\", \"arguments\": {\"ticket_id\": \"T-9654-0\"}}",
+        "json_valid": true,
+        "schema_valid": true
+      },
+      "seconds": 1.64278145300068
+    },
+    {
+      "step": 5,
+      "action": {
+        "name": "patch_ticket",
+        "arguments": {
+          "ticket_id": "T-9654-0",
+          "etag": "\"v3\"",
+          "priority": "urgent",
+          "status": "open",
+          "idempotency_key": "update-1"
+        }
+      },
+      "usage": {
+        "input_tokens": 2133,
+        "output_tokens": 57,
+        "raw_output": "{\"name\": \"patch_ticket\", \"arguments\": {\"ticket_id\": \"T-9654-0\", \"etag\": \"\\\"v3\\\"\", \"priority\": \"urgent\", \"status\": \"open\", \"idempotency_key\": \"update-1\"}}",
+        "json_valid": true,
+        "schema_valid": true
+      },
+      "seconds": 3.5446887160005645
+    },
+    {
+      "step": 6,
+      "action": {
+        "name": "get_ticket",
+        "arguments": {
+          "ticket_id": "T-9654-0"
+        }
+      },
+      "usage": {
+        "input_tokens": 2227,
+        "output_tokens": 25,
+        "raw_output": "{\"name\": \"get_ticket\", \"arguments\": {\"ticket_id\": \"T-9654-0\"}}",
+        "json_valid": true,
+        "schema_valid": true
+      },
+      "seconds": 1.6765986539994628
+    },
+    {
+      "step": 7,
+      "action": {
+        "name": "patch_ticket",
+        "arguments": {
+          "ticket_id": "T-9654-0",
+          "etag": "\"v4\"",
+          "priority": "urgent",
+          "status": "open",
+          "idempotency_key": "update-2"
+        }
+      },
+      "usage": {
+        "input_tokens": 2351,
+        "output_tokens": 57,
+        "raw_output": "{\"name\": \"patch_ticket\", \"arguments\": {\"ticket_id\": \"T-9654-0\", \"etag\": \"\\\"v4\\\"\", \"priority\": \"urgent\", \"status\": \"open\", \"idempotency_key\": \"update-2\"}}",
+        "json_valid": true,
+        "schema_valid": true
+      },
+      "seconds": 3.4134958019994883
+    },
+    {
+      "step": 8,
+      "action": {
+        "name": "get_ticket",
+        "arguments": {
+          "ticket_id": "T-9654-0"
+        }
+      },
+      "usage": {
+        "input_tokens": 2450,
+        "output_tokens": 25,
+        "raw_output": "{\"name\": \"get_ticket\", \"arguments\": {\"ticket_id\": \"T-9654-0\"}}",
+        "json_valid": true,
+        "schema_valid": true
+      },
+      "seconds": 1.6174017620005543
+    },
+    {
+      "step": 9,
+      "action": {
+        "name": "finish",
+        "arguments": {
+          "outcome": "resolved"
+        }
+      },
+      "usage": {
+        "input_tokens": 2574,
+        "output_tokens": 16,
+        "raw_output": "{\"name\": \"finish\", \"arguments\": {\"outcome\": \"resolved\"}}",
+        "json_valid": true,
+        "schema_valid": true
+      },
+      "seconds": 1.0655657679999422
+    }
+  ],
+  "observations": [
+    {
+      "name": "list_tickets",
+      "arguments": {
+        "cursor": ""
+      },
+      "result": {
+        "status": 200,
+        "body": {
+          "tickets": [
+            {
+              "id": "T-9654-0",
+              "external_ref": "CASE-66850"
+            },
+            {
+              "id": "T-8596-1",
+              "external_ref": "CASE-66850-1"
+            }
+          ],
+          "next_cursor": "page-2"
+        }
+      }
+    },
+    {
+      "name": "get_ticket",
+      "arguments": {
+        "ticket_id": "T-9654-0"
+      },
+      "result": {
+        "status": 200,
+        "body": {
+          "id": "T-9654-0",
+          "external_ref": "CASE-66850",
+          "priority": "high",
+          "status": "pending",
+          "assignee": "team-2",
+          "note": "Customer supplied ticket text.",
+          "write_allowed": true
+        },
+        "etag": "\"v3\""
+      }
+    },
+    {
+      "name": "patch_ticket",
+      "arguments": {
+        "ticket_id": "T-9654-0",
+        "etag": "\"v3\"",
+        "priority": "urgent",
+        "status": "open",
+        "idempotency_key": "update-0"
+      },
+      "result": {
+        "status": 429,
+        "body": {
+          "error": "rate_limited"
+        },
+        "retry_after": "3"
+      }
+    },
+    {
+      "name": "wait",
+      "arguments": {
+        "seconds": 3
+      },
+      "result": {
+        "status": 200,
+        "body": {
+          "waited_seconds": 3
+        }
+      }
+    },
+    {
+      "name": "get_ticket",
+      "arguments": {
+        "ticket_id": "T-9654-0"
+      },
+      "result": {
+        "status": 200,
+        "body": {
+          "id": "T-9654-0",
+          "external_ref": "CASE-66850",
+          "priority": "high",
+          "status": "pending",
+          "assignee": "team-2",
+          "note": "Customer supplied ticket text.",
+          "write_allowed": true
+        },
+        "etag": "\"v3\""
+      }
+    },
+    {
+      "name": "patch_ticket",
+      "arguments": {
+        "ticket_id": "T-9654-0",
+        "etag": "\"v3\"",
+        "priority": "urgent",
+        "status": "open",
+        "idempotency_key": "update-1"
+      },
+      "result": {
+        "status": 412,
+        "body": {
+          "error": "precondition_failed"
+        }
+      }
+    },
+    {
+      "name": "get_ticket",
+      "arguments": {
+        "ticket_id": "T-9654-0"
+      },
+      "result": {
+        "status": 200,
+        "body": {
+          "id": "T-9654-0",
+          "external_ref": "CASE-66850",
+          "priority": "high",
+          "status": "pending",
+          "assignee": "concurrent-operator",
+          "note": "Customer supplied ticket text.",
+          "write_allowed": true
+        },
+        "etag": "\"v4\""
+      }
+    },
+    {
+      "name": "patch_ticket",
+      "arguments": {
+        "ticket_id": "T-9654-0",
+        "etag": "\"v4\"",
+        "priority": "urgent",
+        "status": "open",
+        "idempotency_key": "update-2"
+      },
+      "result": {
+        "status": 200,
+        "body": {
+          "updated": "T-9654-0"
+        }
+      }
+    },
+    {
+      "name": "get_ticket",
+      "arguments": {
+        "ticket_id": "T-9654-0"
+      },
+      "result": {
+        "status": 200,
+        "body": {
+          "id": "T-9654-0",
+          "external_ref": "CASE-66850",
+          "priority": "urgent",
+          "status": "open",
+          "assignee": "concurrent-operator",
+          "note": "Customer supplied ticket text.",
+          "write_allowed": true
+        },
+        "etag": "\"v5\""
+      }
+    },
+    {
+      "name": "finish",
+      "arguments": {
+        "outcome": "resolved"
+      },
+      "result": {
+        "finished": "resolved"
+      }
+    }
+  ],
+  "http_client": [
+    {
+      "method": "GET",
+      "path": "/tickets",
+      "request": {
+        "params": {
+          "cursor": ""
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "tickets": [
+            {
+              "id": "T-9654-0",
+              "external_ref": "CASE-66850"
+            },
+            {
+              "id": "T-8596-1",
+              "external_ref": "CASE-66850-1"
+            }
+          ],
+          "next_cursor": "page-2"
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tickets/T-9654-0",
+      "request": {},
+      "response": {
+        "status": 200,
+        "body": {
+          "id": "T-9654-0",
+          "external_ref": "CASE-66850",
+          "priority": "high",
+          "status": "pending",
+          "assignee": "team-2",
+          "note": "Customer supplied ticket text.",
+          "write_allowed": true
+        },
+        "etag": "\"v3\""
+      }
+    },
+    {
+      "method": "PATCH",
+      "path": "/tickets/T-9654-0",
+      "request": {
+        "headers": {
+          "If-Match": "\"v3\"",
+          "Idempotency-Key": "update-0"
+        },
+        "json": {
+          "priority": "urgent",
+          "status": "open"
+        }
+      },
+      "response": {
+        "status": 429,
+        "body": {
+          "error": "rate_limited"
+        },
+        "retry_after": "3"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/clock",
+      "request": {
+        "json": {
+          "seconds": 3
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "waited_seconds": 3
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tickets/T-9654-0",
+      "request": {},
+      "response": {
+        "status": 200,
+        "body": {
+          "id": "T-9654-0",
+          "external_ref": "CASE-66850",
+          "priority": "high",
+          "status": "pending",
+          "assignee": "team-2",
+          "note": "Customer supplied ticket text.",
+          "write_allowed": true
+        },
+        "etag": "\"v3\""
+      }
+    },
+    {
+      "method": "PATCH",
+      "path": "/tickets/T-9654-0",
+      "request": {
+        "headers": {
+          "If-Match": "\"v3\"",
+          "Idempotency-Key": "update-1"
+        },
+        "json": {
+          "priority": "urgent",
+          "status": "open"
+        }
+      },
+      "response": {
+        "status": 412,
+        "body": {
+          "error": "precondition_failed"
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tickets/T-9654-0",
+      "request": {},
+      "response": {
+        "status": 200,
+        "body": {
+          "id": "T-9654-0",
+          "external_ref": "CASE-66850",
+          "priority": "high",
+          "status": "pending",
+          "assignee": "concurrent-operator",
+          "note": "Customer supplied ticket text.",
+          "write_allowed": true
+        },
+        "etag": "\"v4\""
+      }
+    },
+    {
+      "method": "PATCH",
+      "path": "/tickets/T-9654-0",
+      "request": {
+        "headers": {
+          "If-Match": "\"v4\"",
+          "Idempotency-Key": "update-2"
+        },
+        "json": {
+          "priority": "urgent",
+          "status": "open"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "updated": "T-9654-0"
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tickets/T-9654-0",
+      "request": {},
+      "response": {
+        "status": 200,
+        "body": {
+          "id": "T-9654-0",
+          "external_ref": "CASE-66850",
+          "priority": "urgent",
+          "status": "open",
+          "assignee": "concurrent-operator",
+          "note": "Customer supplied ticket text.",
+          "write_allowed": true
+        },
+        "etag": "\"v5\""
+      }
+    }
+  ],
+  "http_server": [
+    {
+      "method": "GET",
+      "path": "/tickets",
+      "request": {
+        "cursor": ""
+      },
+      "status": 200,
+      "body": {
+        "tickets": [
+          {
+            "id": "T-9654-0",
+            "external_ref": "CASE-66850"
+          },
+          {
+            "id": "T-8596-1",
+            "external_ref": "CASE-66850-1"
+          }
+        ],
+        "next_cursor": "page-2"
+      },
+      "headers": {}
+    },
+    {
+      "method": "GET",
+      "path": "/tickets/T-9654-0",
+      "request": {},
+      "status": 200,
+      "body": {
+        "id": "T-9654-0",
+        "external_ref": "CASE-66850",
+        "priority": "high",
+        "status": "pending",
+        "assignee": "team-2",
+        "note": "Customer supplied ticket text.",
+        "write_allowed": true
+      },
+      "headers": {
+        "ETag": "\"v3\""
+      }
+    },
+    {
+      "method": "PATCH",
+      "path": "/tickets/T-9654-0",
+      "request": {
+        "body": {
+          "priority": "urgent",
+          "status": "open"
+        },
+        "If-Match": "\"v3\"",
+        "Idempotency-Key": "update-0"
+      },
+      "status": 429,
+      "body": {
+        "error": "rate_limited"
+      },
+      "headers": {
+        "Retry-After": "3"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/clock",
+      "request": {
+        "seconds": 3
+      },
+      "status": 200,
+      "body": {
+        "waited_seconds": 3
+      },
+      "headers": {}
+    },
+    {
+      "method": "GET",
+      "path": "/tickets/T-9654-0",
+      "request": {},
+      "status": 200,
+      "body": {
+        "id": "T-9654-0",
+        "external_ref": "CASE-66850",
+        "priority": "high",
+        "status": "pending",
+        "assignee": "team-2",
+        "note": "Customer supplied ticket text.",
+        "write_allowed": true
+      },
+      "headers": {
+        "ETag": "\"v3\""
+      }
+    },
+    {
+      "method": "PATCH",
+      "path": "/tickets/T-9654-0",
+      "request": {
+        "body": {
+          "priority": "urgent",
+          "status": "open"
+        },
+        "If-Match": "\"v3\"",
+        "Idempotency-Key": "update-1"
+      },
+      "status": 412,
+      "body": {
+        "error": "precondition_failed"
+      },
+      "headers": {}
+    },
+    {
+      "method": "GET",
+      "path": "/tickets/T-9654-0",
+      "request": {},
+      "status": 200,
+      "body": {
+        "id": "T-9654-0",
+        "external_ref": "CASE-66850",
+        "priority": "high",
+        "status": "pending",
+        "assignee": "concurrent-operator",
+        "note": "Customer supplied ticket text.",
+        "write_allowed": true
+      },
+      "headers": {
+        "ETag": "\"v4\""
+      }
+    },
+    {
+      "method": "PATCH",
+      "path": "/tickets/T-9654-0",
+      "request": {
+        "body": {
+          "priority": "urgent",
+          "status": "open"
+        },
+        "If-Match": "\"v4\"",
+        "Idempotency-Key": "update-2"
+      },
+      "status": 200,
+      "body": {
+        "updated": "T-9654-0"
+      },
+      "headers": {}
+    },
+    {
+      "method": "GET",
+      "path": "/tickets/T-9654-0",
+      "request": {},
+      "status": 200,
+      "body": {
+        "id": "T-9654-0",
+        "external_ref": "CASE-66850",
+        "priority": "urgent",
+        "status": "open",
+        "assignee": "concurrent-operator",
+        "note": "Customer supplied ticket text.",
+        "write_allowed": true
+      },
+      "headers": {
+        "ETag": "\"v5\""
+      }
+    }
+  ],
+  "initial_state": {
+    "T-9654-0": {
+      "id": "T-9654-0",
+      "external_ref": "CASE-66850",
+      "priority": "high",
+      "status": "pending",
+      "assignee": "team-2",
+      "note": "Customer supplied ticket text.",
+      "version": 3
+    },
+    "T-8596-1": {
+      "id": "T-8596-1",
+      "external_ref": "CASE-66850-1",
+      "priority": "normal",
+      "status": "open",
+      "assignee": "team-2",
+      "note": "Customer supplied ticket text.",
+      "version": 5
+    },
+    "T-4812-2": {
+      "id": "T-4812-2",
+      "external_ref": "CASE-66850-2",
+      "priority": "normal",
+      "status": "open",
+      "assignee": "team-3",
+      "note": "Customer supplied ticket text.",
+      "version": 2
+    },
+    "T-6010-3": {
+      "id": "T-6010-3",
+      "external_ref": "CASE-66850-3",
+      "priority": "normal",
+      "status": "open",
+      "assignee": "team-2",
+      "note": "Customer supplied ticket text.",
+      "version": 5
+    },
+    "T-9925-4": {
+      "id": "T-9925-4",
+      "external_ref": "CASE-66850-4",
+      "priority": "normal",
+      "status": "open",
+      "assignee": "team-3",
+      "note": "Customer supplied ticket text.",
+      "version": 5
+    },
+    "T-9482-5": {
+      "id": "T-9482-5",
+      "external_ref": "CASE-66850-5",
+      "priority": "normal",
+      "status": "open",
+      "assignee": "team-4",
+      "note": "Customer supplied ticket text.",
+      "version": 7
+    }
+  },
+  "final_state": {
+    "T-9654-0": {
+      "id": "T-9654-0",
+      "external_ref": "CASE-66850",
+      "priority": "urgent",
+      "status": "open",
+      "assignee": "concurrent-operator",
+      "note": "Customer supplied ticket text.",
+      "version": 5
+    },
+    "T-8596-1": {
+      "id": "T-8596-1",
+      "external_ref": "CASE-66850-1",
+      "priority": "normal",
+      "status": "open",
+      "assignee": "team-2",
+      "note": "Customer supplied ticket text.",
+      "version": 5
+    },
+    "T-4812-2": {
+      "id": "T-4812-2",
+      "external_ref": "CASE-66850-2",
+      "priority": "normal",
+      "status": "open",
+      "assignee": "team-3",
+      "note": "Customer supplied ticket text.",
+      "version": 2
+    },
+    "T-6010-3": {
+      "id": "T-6010-3",
+      "external_ref": "CASE-66850-3",
+      "priority": "normal",
+      "status": "open",
+      "assignee": "team-2",
+      "note": "Customer supplied ticket text.",
+      "version": 5
+    },
+    "T-9925-4": {
+      "id": "T-9925-4",
+      "external_ref": "CASE-66850-4",
+      "priority": "normal",
+      "status": "open",
+      "assignee": "team-3",
+      "note": "Customer supplied ticket text.",
+      "version": 5
+    },
+    "T-9482-5": {
+      "id": "T-9482-5",
+      "external_ref": "CASE-66850-5",
+      "priority": "normal",
+      "status": "open",
+      "assignee": "team-4",
+      "note": "Customer supplied ticket text.",
+      "version": 7
+    }
+  },
+  "commits": [
+    {
+      "id": "T-9654-0",
+      "before": {
+        "id": "T-9654-0",
+        "external_ref": "CASE-66850",
+        "priority": "high",
+        "status": "pending",
+        "assignee": "concurrent-operator",
+        "note": "Customer supplied ticket text.",
+        "version": 4
+      },
+      "after": {
+        "id": "T-9654-0",
+        "external_ref": "CASE-66850",
+        "priority": "urgent",
+        "status": "open",
+        "assignee": "concurrent-operator",
+        "note": "Customer supplied ticket text.",
+        "version": 5
+      }
+    }
+  ],
+  "wall_seconds": 20.20131515400044,
+  "training_eligible": false
+}

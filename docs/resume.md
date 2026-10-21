@@ -5,7 +5,28 @@ GitHub: <https://github.com/Ta0p1/ResolveLab>
 
 **ResolveLab — Agent Recovery, Evaluation & Post-Training**
 
-Python · PyTorch · PEFT/LoRA · FastAPI · SQLite · Ollama · Qwen3 · Pytest
+Python · PyTorch · PEFT/LoRA · FastAPI · HTTP/ETag · SQLite · Constrained decoding · Pytest
+
+## Current v0.3 bullets
+
+- Engineered an agent recovery lab spanning SQLite sync and a real HTTP ticket
+  adapter, with pagination, optimistic concurrency, idempotency and permission
+  revocation; independently graded final state, unsafe writes and false success.
+- Built a controlled post-training study with static JSON Schema constrained
+  baselines, a larger 1.7B model, one-shot prompting and three LoRA training seeds;
+  froze 30 test episodes across 10 fault compositions before model runs and selected
+  checkpoints on development loss.
+- Made results auditable through exact data/prompt/weight hashes, raw HTTP traces
+  and GPU-free replay of all 180 published HTTP test episodes.
+
+<!-- HTTP_RESUME_RESULT_START -->
+
+- Improved Qwen3-0.6B task success from 0.0% to 77.8% mean (66.7–100.0% across three LoRA seeds) on a registered 30-episode, 10-composition synthetic HTTP recovery holdout; used identical one-shot prompts and schema-constrained decoding, with independent state verification and complete trace replay.
+
+Both baseline and adapted arms had 100% schema-valid calls; this comparison controls the format-rejection confound.
+<!-- HTTP_RESUME_RESULT_END -->
+
+## Historical v0.2 bullets
 
 - Built a local tool-using support-agent workbench with nine typed tools and ten
   fault scenarios, including schema drift, ambiguous commits, partial writes,
@@ -19,7 +40,7 @@ Python · PyTorch · PEFT/LoRA · FastAPI · SQLite · Ollama · Qwen3 · Pytest
 - Made model claims auditable with source/data/weight hashes and GPU-free replay
   of all published test tool trajectories against fresh databases.
 
-Current training results are in `artifacts/v0.2/RESULTS.md`; the historical baseline
+Historical v0.2 training results are in `artifacts/v0.2/RESULTS.md`; the original baseline
 is in `artifacts/RESULTS.md`. When including a number, specify the relevant
 **synthetic composition holdout** or **development suite** and the denominator.
 Do not describe scripted reference results as LLM accuracy.
@@ -46,10 +67,12 @@ Historical v0.1 alternative:
 > actually fixes a failed workflow. I built a stateful sync sandbox with faults
 > such as a committed write whose acknowledgement is lost. The model chooses
 > typed tool actions, while a separate checker evaluates the final database.
-> I then trained a small LoRA policy on verified expert actions and compared it
-> with the same base model on frozen fault combinations. The workbench exposes
-> the outcomes and failures, and another developer can replay the traces without
-> a GPU. My next step is testing transfer to a second service and new fault families.
+> I added a second service over real HTTP and compared small-model LoRA policies
+> with schema-constrained baselines under the same prompts and budgets. The grader
+> checks the actual records and write history, so valid JSON and convincing success
+> claims are not enough. The workbench exposes every failure, and another developer
+> can replay the actions without a GPU. The current results are limited to known
+> contracts and held-out fault combinations, not production incidents.
 
 ## Claims that are not established
 

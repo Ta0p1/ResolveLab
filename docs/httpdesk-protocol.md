@@ -75,7 +75,7 @@ registered zero-shot comparison to a stronger one-shot comparison before test ru
 
 The final decoder uses a fixed JSON field order (`name` before `arguments`, then
 the public parameter declaration order). This reduces branch ambiguity in the
-grammar and is identical for all arms. Demonstrations and training targets use
+grammar and is identical for all primary arms. Demonstrations and training targets use
 that same serialization. Field order does not restrict which tool or argument
 value the model can choose. Development-only variants remain archived.
 

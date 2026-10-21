@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.3.0 — 2026-10-21
+
+- Add CaseDesk, a second synthetic service behind real HTTP sockets, with paginated
+  lookup, ETag/If-Match, idempotency keys, post-commit 502, Retry-After and permission
+  revocation. Keep the adapter free of hidden retries or scripted recovery.
+- Independently reject wrong-record writes, stale verification, redundant commits
+  and unjustified escalations, with real-HTTP contract and concurrency tests.
+- Register a fresh 48/8/30 train/development/test split before model runs. Strengthen
+  the development-tested baseline with a shared training demonstration and full
+  static schema constraints; report serialization validity separately from outcomes.
+- Run three Qwen3-0.6B LoRA seeds with development-loss checkpoint selection and a
+  matched 0.6B comparison, plus a larger Qwen3-1.7B baseline. Preserve every test failure.
+- Add a separately registered Qwen3-4B Q4_K_M / Ollama control; disclose its distinct
+  inference backend and retain development prompt comparisons separately from test.
+- Add per-episode HTTP inspection, raw traces, reproducibility locks and GPU-free
+  executable audits. Retain v0.1/v0.2 results and their limitations.
+- Keep atomic report writes reliable during brief Windows rename denials; preserve
+  the previous complete report and fail after bounded retries on permanent errors.
+
 ## 0.2.0 — 2026-10-21
 
 - Recover a zero-tool-call generation cutoff with one bounded inference retry;

@@ -36,20 +36,22 @@ or the local model if time permits. Show the escalation ticket and unchanged
 destination. Explain why correct escalation counts as passing the assigned task
 but is not counted as a resolved sync.
 
-## 4. Show evaluation and engineering evidence (55 seconds)
+## 4. Show controlled evaluation and engineering evidence (55 seconds)
 
-Open **Post-training**. Show the base/SFT denominator, false claims, resolved tasks,
-escalations and per-template outcomes. Explain that the checkpoint was selected on
-development loss before test inference. Download the evidence; point to the raw
-trajectories and `python scripts/verify_experiment.py`, which re-executes their tools.
-Show the tests covering concurrent retries, transaction rollback, action-loss
-equivalence, split leakage and provider failures.
+Open **HTTP study**. Show the call-validity and task-success columns separately.
+All five arms use the same grammar and one-shot example. Select a baseline failure
+and the same task under LoRA; expand HTTP requests and show whether the correct
+ticket was written and verified. Do not substitute a scripted trace for a model run.
+Explain development-loss checkpoint selection and the three reported seeds.
+Download the evidence and point to `python scripts/verify_http_study.py`, which
+replays all published test actions through actual HTTP sockets without a GPU.
 
 Close with what you would improve:
 
-> The first post-training experiment tests held-out combinations of known faults.
-> The next step is a new service adapter and a new holdout, plus repeated training
-> seeds. Those would test whether the result survives beyond this small environment.
+> This comparison controls the output-format confound and repeats training, but it
+> still tests known mechanisms within a synthetic API. Next I would add off-policy
+> failure states and evaluate a stronger reasoning model on a newly frozen holdout.
+> Durable remote recovery and real SaaS integration remain separate engineering work.
 
 ## Interview questions to prepare
 
@@ -63,3 +65,5 @@ Close with what you would improve:
 8. Why supervise only action tokens, and how was the loss implementation verified?
 9. Why can lower development loss coexist with failures during model rollouts?
 10. Why does the bootstrap resample templates rather than individual record seeds?
+
+See [interview notes](interview-notes.md) for evidence-backed answers and limitations.

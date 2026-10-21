@@ -11,6 +11,7 @@
     />
     <link rel="stylesheet" href="/static/style.css" />
     <script src="/static/app.js" defer></script>
+    <script src="/static/http-study.js" defer></script>
   </head>
   <body>
     <aside class="sidebar">
@@ -20,7 +21,7 @@
       >
       <div class="workspace-label">
         <span class="workspace-dot"></span> Local workspace
-        <span class="version">v0.2</span>
+        <span class="version">v0.3</span>
       </div>
       <nav aria-label="Main navigation">
         <button class="nav-item active" data-page="workbench">
@@ -32,6 +33,9 @@
         </button>
         <button class="nav-item" data-page="experiments">
           <span>↗</span> Post-training
+        </button>
+        <button class="nav-item" data-page="http-study">
+          <span>⇄</span> HTTP study
         </button>
         <button class="nav-item" data-page="guide">
           <span>⌘</span> How it works
@@ -297,6 +301,13 @@
         </section>
       </section>
       <section id="page-experiments" class="page hidden">
+        <p class="table-note">
+          New:
+          <a class="text-button" href="/?page=http-study"
+            >CaseDesk HTTP study — constrained baselines and three training
+            seeds ↗</a
+          >
+        </p>
         <div class="page-heading">
           <div>
             <div class="eyebrow green">FROZEN TASKS · PAIRED MEASUREMENTS</div>
@@ -325,6 +336,40 @@
             seed. It does not establish production reliability or generalization
             to new tools. The test set is now public; future tuning needs a new
             holdout.
+          </p>
+        </section>
+      </section>
+      <section id="page-http-study" class="page hidden">
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow green">
+              REAL HTTP · CONSTRAINED DECODING · THREE SEEDS
+            </div>
+            <h1>Beyond valid JSON.</h1>
+            <p>
+              Find the right ticket. Recover from API errors. Verify the actual
+              outcome.
+            </p>
+          </div>
+          <a
+            class="secondary"
+            href="/static/http-experiment.json"
+            download="resolvelab-http-study.json"
+            >Download HTTP evidence ↓</a
+          >
+        </div>
+        <div id="http-study-results" aria-live="polite">
+          <p>Loading recorded experiment…</p>
+        </div>
+        <section class="methodology">
+          <span class="eyebrow">SCOPE OF THE EVIDENCE</span>
+          <p>
+            A synthetic ticket service over real loopback TCP, not a commercial
+            SaaS deployment. The primary arms share one training example, a
+            static tool schema and the same action/token limits. Results measure
+            new combinations within this API contract. They do not establish
+            transfer to unseen services, production reliability or superiority
+            over frontier agents.
           </p>
         </section>
       </section>
@@ -390,11 +435,11 @@ resolvelab eval \
             </p>
           </section>
           <section class="panel guide-card">
-            <h2>What is real in v0.2?</h2>
+            <h2>What is real in v0.3?</h2>
             <p>
               Local model inference, database mutations, operation receipts,
-              exported traces, LoRA training and measured base-versus-SFT
-              results.
+              exported traces, HTTP requests, three LoRA training runs and
+              measured comparisons under identical structured decoding.
             </p>
             <p>
               The service and fault scenarios are synthetic. Rate-limit waits
@@ -404,12 +449,12 @@ resolvelab eval \
           <section class="panel guide-card">
             <h2>What comes next?</h2>
             <p>
-              External service adapters, larger held-out task families and
-              repeated training seeds to check whether improvements persist.
+              A real SaaS sandbox, durable HTTP recovery, off-policy training
+              states and stronger reasoning baselines on a new holdout.
             </p>
             <p>
-              The Post-training view documents the first experiment, its
-              failures and the limits of the evidence.
+              HTTP study documents the latest experiment. Post-training
+              preserves the first study and its format-confound disclosure.
             </p>
           </section>
         </div>

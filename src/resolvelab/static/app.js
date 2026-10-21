@@ -71,9 +71,15 @@ function showPage(page) {
     workbench: "Workbench",
     evaluations: "Evaluations",
     experiments: "Post-training",
+    "http-study": "HTTP study",
     guide: "How it works",
   }[page];
   if (page === "evaluations") refreshReports().catch((e) => toast(e.message));
+  if (page === "http-study")
+    loadHTTPStudy().catch((e) => {
+      $("http-study-results").textContent =
+        "HTTP evidence is unavailable: " + e.message;
+    });
   if (page === "experiments")
     loadExperiment().catch((e) => {
       $("experiment-results").textContent =
@@ -492,6 +498,8 @@ $("download-report").addEventListener("click", () => {
     await Promise.all([refreshRuns(), refreshModels(), refreshReports()]);
     const run = new URLSearchParams(location.search).get("run");
     if (run) await loadRun(run);
+    else if (new URLSearchParams(location.search).get("page") === "http-study")
+      showPage("http-study");
     else if (new URLSearchParams(location.search).get("page") === "experiments")
       showPage("experiments");
   } catch (e) {

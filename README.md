@@ -2,18 +2,65 @@
 
 **A support agent should leave working systems, not just convincing answers.**
 
-[中文介绍](README.zh-CN.md) · [Post-training results](artifacts/v0.2/RESULTS.md) · [Reproduce training](docs/post-training.md) · [Four-minute demo](docs/demo.md) · [CI](https://github.com/Ta0p1/ResolveLab/actions/workflows/ci.yml)
+[中文介绍](README.zh-CN.md) · [Latest results](artifacts/v0.3/RESULTS.md) · [Reproduce the HTTP study](docs/httpdesk-protocol.md) · [Four-minute demo](docs/demo.md) · [CI](https://github.com/Ta0p1/ResolveLab/actions/workflows/ci.yml)
 
-ResolveLab is a local, executable lab for recovering failed data-sync workflows. It combines
-a real local-model decision loop, durable SQLite tool actions, independent outcome
-verification, and small-model post-training with a frozen composition holdout.
+ResolveLab is an agent engineering lab for recovery workflows across two synthetic
+services: a durable SQLite sync system and a ticket service over real HTTP. It combines
+local-model tool use, independent outcome checks and small-model post-training with
+registered train/development/test splits.
 
 The service and incidents are synthetic. The project measures recovery within this
 environment; production reliability and generalization to new tools remain open.
 
-![ResolveLab workbench showing a real local-model recovery and its independent verdict](docs/assets/workbench.png)
+![ResolveLab HTTP study with measured structured-output baselines and three LoRA training seeds](docs/assets/http-study.png)
 
-## v0.2: repair, train, evaluate
+## v0.3: control JSON structure, then measure outcomes
+
+- **Stronger baselines:** Qwen3-0.6B and Qwen3-1.7B use full tool-schema constrained
+  decoding and one verified training demonstration. The LoRA arms use the identical
+  prompt, schema and action/token budgets. No model-output repair or rule fallback.
+  A separately labeled Qwen3-4B Q4_K_M / Ollama control checks a larger local model.
+- **A second API contract:** paginated ticket lookup, exact reference matching,
+  If-Match concurrency, idempotency keys, post-commit 502, Retry-After and mid-task
+  permission revocation. Calls cross actual TCP sockets through httpx and FastAPI.
+- **Repeated local training:** three registered LoRA seeds, 322 verified expert
+  actions from 48 training episodes, development-loss checkpoint selection.
+- **Fresh test:** 30 new episodes across 10 compositions and 3 disjoint record seeds,
+  frozen before model runs.
+  Valid-call rate, task success, unsafe writes, false success and unnecessary writes
+  are separate measurements. All failures and all training seeds remain visible.
+- **Executable evidence:** inspect every model episode in **HTTP study**, or audit
+  source/data/weight provenance and replay the published actions with
+  `python scripts/verify_http_study.py`—no GPU or model download needed.
+
+<!-- HTTP_RESULTS_START -->
+
+| Policy | Task success | Schema-valid calls | False success |
+|---|---:|---:|---:|
+| Qwen3-0.6B base | 0/30 | 100.0% | 10 |
+| Qwen3-1.7B base | 12/30 | 100.0% | 14 |
+| 0.6B LoRA / 3407 | 20/30 | 100.0% | 0 |
+| 0.6B LoRA / 42 | 30/30 | 100.0% | 0 |
+| 0.6B LoRA / 2026 | 20/30 | 100.0% | 10 |
+
+Supplementary Qwen3-4B Q4_K_M / Ollama: **6/30** passed, **100.0%** schema-valid calls. Different quantization/backend; not a matched training effect.
+
+[Full results, paired intervals and failures](artifacts/v0.3/RESULTS.md).
+<!-- HTTP_RESULTS_END -->
+
+[Release validation](artifacts/v0.3/validation.json): 129 tests, all 180 HTTP episode
+replays, browser checks and a clean wheel installation passed.
+
+The HTTP backend is synthetic and process-local. This tests composition recovery
+within its known contract; it does not demonstrate production reliability or
+zero-shot transfer from sync training to a new service. See the
+[model card](docs/httpdesk-model-card.md), [architecture](docs/architecture.md) and
+[interview notes](docs/interview-notes.md) for exact claims and limits.
+
+<details>
+<summary>Earlier studies: v0.1 and v0.2, including the format confound</summary>
+
+## Historical v0.2: repair, train, evaluate
 
 - **Operational repair:** a bounded, usage-accounted inference retry recovers the
   previously failing partial-commit path. Qwen3-4B passed 3/3 targeted regression
@@ -55,6 +102,8 @@ held-out benchmark or a training gain.
 The v0.1 release also passed **53 Python tests**, browser workflow checks and a clean
 wheel installation check. See the [full report and all episode traces](artifacts/RESULTS.md).
 
+</details>
+
 ## Quick start
 
 Python 3.11+ is required. No frontend build, cloud account, or API key is needed.
@@ -70,6 +119,8 @@ resolvelab serve
 ```
 
 Open <http://127.0.0.1:8765>. Select a scenario and run the **Runbook reference** for an offline demonstration.
+Open **HTTP study** for the recorded constrained-model comparison and per-episode
+HTTP inspector. This view contains measured runs; it does not execute live inference.
 
 For a real local model, install [Ollama](https://ollama.com/), start it, and:
 
@@ -121,10 +172,14 @@ families. The `resolvelab eval` command runs the public regression suite. Use
 
 `Policy → validated tool router → SQLite service → independent state verifier`
 
-The service is simulated in-process, but all records, configuration changes, receipts and
+The sync service is simulated in-process, but all records, configuration changes, receipts and
 traces are real database transactions. Mutations and their receipts commit together.
 Policies receive tool observations, never fault flags or the evaluator's hidden mutation metadata.
 Run recovery rebuilds the conversation from committed tool events.
+
+CaseDesk adds `constrained policy → HTTP adapter → ticket service → outcome grader`.
+Its HTTP receipts are atomic within one process lifetime, without crash durability.
+The model never receives fault flags or expected-state snapshots.
 
 The local HTTP API is documented at `/docs`. It has no authentication and binds to localhost;
 deploying a shared service requires authentication, tenant isolation and a managed worker queue.

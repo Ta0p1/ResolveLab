@@ -1,0 +1,299 @@
+{
+  "manifest_sha256": "5dec70332652ac24d9235722d9cad67bcd2a144af44e686b527173a54e9379f6",
+  "source_sha256": "b70e9e28cea55b89e61d90d735a13edef2af75a9023d397d0a1e5e5b86c0e878",
+  "teacher": "scripted_http_runbook_v1",
+  "splits": {
+    "train": {
+      "episodes": [
+        {
+          "template": "train_plain",
+          "seed": 4101,
+          "steps": 6
+        },
+        {
+          "template": "train_plain",
+          "seed": 4102,
+          "steps": 7
+        },
+        {
+          "template": "train_plain",
+          "seed": 4103,
+          "steps": 5
+        },
+        {
+          "template": "train_plain",
+          "seed": 4104,
+          "steps": 7
+        },
+        {
+          "template": "train_plain",
+          "seed": 4105,
+          "steps": 7
+        },
+        {
+          "template": "train_plain",
+          "seed": 4106,
+          "steps": 6
+        },
+        {
+          "template": "train_conflict",
+          "seed": 4101,
+          "steps": 8
+        },
+        {
+          "template": "train_conflict",
+          "seed": 4102,
+          "steps": 9
+        },
+        {
+          "template": "train_conflict",
+          "seed": 4103,
+          "steps": 7
+        },
+        {
+          "template": "train_conflict",
+          "seed": 4104,
+          "steps": 9
+        },
+        {
+          "template": "train_conflict",
+          "seed": 4105,
+          "steps": 9
+        },
+        {
+          "template": "train_conflict",
+          "seed": 4106,
+          "steps": 8
+        },
+        {
+          "template": "train_lost",
+          "seed": 4101,
+          "steps": 6
+        },
+        {
+          "template": "train_lost",
+          "seed": 4102,
+          "steps": 7
+        },
+        {
+          "template": "train_lost",
+          "seed": 4103,
+          "steps": 5
+        },
+        {
+          "template": "train_lost",
+          "seed": 4104,
+          "steps": 7
+        },
+        {
+          "template": "train_lost",
+          "seed": 4105,
+          "steps": 7
+        },
+        {
+          "template": "train_lost",
+          "seed": 4106,
+          "steps": 6
+        },
+        {
+          "template": "train_rate",
+          "seed": 4101,
+          "steps": 9
+        },
+        {
+          "template": "train_rate",
+          "seed": 4102,
+          "steps": 10
+        },
+        {
+          "template": "train_rate",
+          "seed": 4103,
+          "steps": 8
+        },
+        {
+          "template": "train_rate",
+          "seed": 4104,
+          "steps": 10
+        },
+        {
+          "template": "train_rate",
+          "seed": 4105,
+          "steps": 10
+        },
+        {
+          "template": "train_rate",
+          "seed": 4106,
+          "steps": 9
+        },
+        {
+          "template": "train_revoke",
+          "seed": 4101,
+          "steps": 6
+        },
+        {
+          "template": "train_revoke",
+          "seed": 4102,
+          "steps": 7
+        },
+        {
+          "template": "train_revoke",
+          "seed": 4103,
+          "steps": 5
+        },
+        {
+          "template": "train_revoke",
+          "seed": 4104,
+          "steps": 7
+        },
+        {
+          "template": "train_revoke",
+          "seed": 4105,
+          "steps": 7
+        },
+        {
+          "template": "train_revoke",
+          "seed": 4106,
+          "steps": 6
+        },
+        {
+          "template": "train_injection",
+          "seed": 4101,
+          "steps": 6
+        },
+        {
+          "template": "train_injection",
+          "seed": 4102,
+          "steps": 7
+        },
+        {
+          "template": "train_injection",
+          "seed": 4103,
+          "steps": 5
+        },
+        {
+          "template": "train_injection",
+          "seed": 4104,
+          "steps": 7
+        },
+        {
+          "template": "train_injection",
+          "seed": 4105,
+          "steps": 7
+        },
+        {
+          "template": "train_injection",
+          "seed": 4106,
+          "steps": 6
+        },
+        {
+          "template": "train_noop",
+          "seed": 4101,
+          "steps": 4
+        },
+        {
+          "template": "train_noop",
+          "seed": 4102,
+          "steps": 5
+        },
+        {
+          "template": "train_noop",
+          "seed": 4103,
+          "steps": 3
+        },
+        {
+          "template": "train_noop",
+          "seed": 4104,
+          "steps": 5
+        },
+        {
+          "template": "train_noop",
+          "seed": 4105,
+          "steps": 5
+        },
+        {
+          "template": "train_noop",
+          "seed": 4106,
+          "steps": 4
+        },
+        {
+          "template": "train_concurrent",
+          "seed": 4101,
+          "steps": 6
+        },
+        {
+          "template": "train_concurrent",
+          "seed": 4102,
+          "steps": 7
+        },
+        {
+          "template": "train_concurrent",
+          "seed": 4103,
+          "steps": 5
+        },
+        {
+          "template": "train_concurrent",
+          "seed": 4104,
+          "steps": 7
+        },
+        {
+          "template": "train_concurrent",
+          "seed": 4105,
+          "steps": 7
+        },
+        {
+          "template": "train_concurrent",
+          "seed": 4106,
+          "steps": 6
+        }
+      ],
+      "examples": 322,
+      "sha256": "1871c00c8bd499a7c4438e8d9e0cbf5ddd04aa309475e59849e57ca576ecfa0c"
+    },
+    "dev": {
+      "episodes": [
+        {
+          "template": "dev_conflict_injection",
+          "seed": 5201,
+          "steps": 9
+        },
+        {
+          "template": "dev_conflict_injection",
+          "seed": 5202,
+          "steps": 8
+        },
+        {
+          "template": "dev_rate_injection",
+          "seed": 5201,
+          "steps": 10
+        },
+        {
+          "template": "dev_rate_injection",
+          "seed": 5202,
+          "steps": 9
+        },
+        {
+          "template": "dev_revoke_lost",
+          "seed": 5201,
+          "steps": 7
+        },
+        {
+          "template": "dev_revoke_lost",
+          "seed": 5202,
+          "steps": 6
+        },
+        {
+          "template": "dev_noop_rate",
+          "seed": 5201,
+          "steps": 5
+        },
+        {
+          "template": "dev_noop_rate",
+          "seed": 5202,
+          "steps": 4
+        }
+      ],
+      "examples": 58,
+      "sha256": "23a02b6c434f61875dec5ff9dde742ab8986f5274972bf766757ab060441bc48"
+    }
+  }
+}

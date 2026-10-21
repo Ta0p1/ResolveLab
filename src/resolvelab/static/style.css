@@ -1180,7 +1180,8 @@ td.mono {
   }
 }
 @media (max-width: 520px) {
-  #page-experiments .page-heading {
+  #page-experiments .page-heading,
+  #page-http-study .page-heading {
     flex-wrap: wrap;
   }
   .page {
@@ -1234,5 +1235,96 @@ td.mono {
   }
   .trace-duration {
     display: none;
+  }
+}
+/* HTTP study: preserve long route/payload inspection without widening the page. */
+.http-inspector {
+  padding: 22px;
+}
+#http-study-results .stat strong {
+  font-size: 21px;
+}
+.http-pickers {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+.http-pickers label {
+  display: grid;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--muted, #69766c);
+}
+.http-pickers select {
+  width: 100%;
+  min-width: 0;
+}
+.http-action {
+  border-top: 1px solid #dfe5de;
+  padding: 12px 0;
+}
+.http-action summary {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.http-action summary::before {
+  content: "+";
+  color: #24765d;
+}
+.http-action[open] summary::before {
+  content: "−";
+}
+.http-route {
+  color: #718078;
+  font-family: monospace;
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+.http-status {
+  color: #24765d;
+  background: #e9f2ec;
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin-left: auto;
+}
+.http-error {
+  color: #996633;
+  background: #faf0dc;
+}
+.http-payload {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 15px;
+}
+.http-payload > * {
+  min-width: 0;
+}
+.http-payload pre {
+  overflow: auto;
+  max-height: 340px;
+  background: #f2f5ef;
+  padding: 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+@media (max-width: 700px) {
+  #http-study-results .stat strong {
+    font-size: 18px;
+  }
+  .http-pickers,
+  .http-payload {
+    grid-template-columns: 1fr;
+  }
+  .http-route {
+    display: none;
+  }
+  .http-inspector {
+    padding: 15px;
   }
 }

@@ -1,0 +1,59 @@
+{
+  "paired_episodes": 30,
+  "templates": 10,
+  "wins": 30,
+  "regressions": 0,
+  "ties": 0,
+  "success_delta": 1,
+  "template_bootstrap_95ci": [
+    1,
+    1
+  ],
+  "base": {
+    "episodes": 30,
+    "passed": 0,
+    "success_rate": 0.0,
+    "decision_attempts": 150,
+    "json_valid_rate": 1.0,
+    "schema_valid_rate": 1.0,
+    "unsafe_mutations": 0,
+    "redundant_commits": 0,
+    "false_successes": 10,
+    "mean_tools": 5,
+    "median_seconds": 3.1429051689999596,
+    "output_tokens": 2600,
+    "resolved_passed": 0,
+    "escalated_passed": 0,
+    "semantic_failures_with_valid_calls": 30,
+    "passed_after_http_error": {
+      "403": 0,
+      "412": 0,
+      "429": 0,
+      "502": 0
+    }
+  },
+  "trained": {
+    "episodes": 30,
+    "passed": 30,
+    "success_rate": 1.0,
+    "decision_attempts": 227,
+    "json_valid_rate": 1.0,
+    "schema_valid_rate": 1.0,
+    "unsafe_mutations": 0,
+    "redundant_commits": 0,
+    "false_successes": 0,
+    "mean_tools": 7.566666666666666,
+    "median_seconds": 13.885976356499668,
+    "output_tokens": 6524,
+    "resolved_passed": 24,
+    "escalated_passed": 6,
+    "semantic_failures_with_valid_calls": 0,
+    "passed_after_http_error": {
+      "403": 6,
+      "412": 15,
+      "429": 15,
+      "502": 12
+    }
+  },
+  "limitation": "Public synthetic composition holdout; clusters are templates, not independent record seeds."
+}

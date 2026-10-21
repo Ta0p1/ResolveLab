@@ -74,6 +74,37 @@ def main():
         page.set_viewport_size({"width": 390, "height": 844})
         assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
         page.screenshot(path=str(output / "post-training-mobile.png"), full_page=True)
+        page.locator('[data-page="http-study"]').click()
+        page.set_viewport_size({"width": 1536, "height": 1040})
+        expect(page.get_by_role("heading", name="Same grammar. Different decisions.")).to_be_visible()
+        expect(page.locator("#http-study-results table").first.locator("tbody tr")).to_have_count(5)
+        expect(page.locator("#http-case option")).to_have_count(30)
+        page.locator("#http-model").select_option("sft-3407-test")
+        expect(page.locator("#http-case option")).to_have_count(30)
+        page.locator("#http-trace .http-action summary").first.click()
+        expect(page.locator("#http-trace .http-action").first.locator("pre").first).to_be_visible()
+        with page.expect_download() as downloaded:
+            page.get_by_role("link", name="Download HTTP evidence").click()
+        http_evidence = json.loads(Path(downloaded.value.path()).read_text())
+        assert len(http_evidence["reports"]) == 5
+        assert sum(len(r["rows"]) for r in http_evidence["reports"].values()) == 150
+        assert len(http_evidence["supplementary"]["rows"]) == 30
+        for index, report in enumerate(http_evidence["reports"].values()):
+            row = page.locator("#http-study-results table").first.locator("tbody tr").nth(index)
+            summary = report["summary"]
+            expect(row.locator("td").nth(1)).to_contain_text(f"{summary['passed']}/30")
+            expect(row.locator("td").nth(2)).to_have_text(f"{100 * summary['schema_valid_rate']:.1f}%")
+            expect(row.locator("td").nth(3)).to_have_text(str(summary["unsafe_mutations"]))
+            expect(row.locator("td").nth(4)).to_have_text(str(summary["false_successes"]))
+        page.locator("#http-model").select_option("ollama-4b-test")
+        expect(page.locator("#http-case option")).to_have_count(30)
+        page.locator("#http-model").select_option("sft-3407-test")
+        page.screenshot(path=str(output / "http-study-desktop.png"), full_page=True)
+        page.evaluate("window.scrollTo(0, 0)")
+        page.screenshot(path=str(output / "http-study-overview.png"))
+        page.set_viewport_size({"width": 390, "height": 844})
+        assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+        page.screenshot(path=str(output / "http-study-mobile.png"), full_page=True)
         page.locator('[data-page="workbench"]').click()
         page.set_viewport_size({"width": 390, "height": 844})
         assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
@@ -96,6 +127,12 @@ def main():
                         "guide navigation",
                         "post-training results and evidence download",
                         "post-training mobile overflow",
+                        "HTTP study five model arms and 150 episodes",
+                        "supplementary 4B control and 30 episodes",
+                        "HTTP model/case selection and request details",
+                        "HTTP evidence download",
+                        "HTTP displayed scores match downloaded evidence",
+                        "HTTP study mobile overflow",
                         "mobile overflow",
                         "no JS exceptions",
                     ],
