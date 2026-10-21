@@ -1,4 +1,5 @@
 .venv/
+.train-venv/
 .local/
 __pycache__/
 *.py[cod]

@@ -115,7 +115,7 @@ def evaluate_compositions(
             trace_dir = output.parent / (output.stem + "-traces")
             trace_dir.mkdir(parents=True, exist_ok=True)
             trace = trace_dir / f"{spec.id}-{seed}.jsonl"
-            trace.write_text(export_trace(store, run_id), encoding="utf-8")
+            trace.write_text(export_trace(store, run_id), encoding="utf-8", newline="\n")
             row["trace"] = f"{trace_dir.name}/{trace.name}"
             row["trace_sha256"] = file_hash(trace)
             report["rows"].append(row)
