@@ -1,0 +1,4 @@
+# Install CUDA PyTorch separately for your platform. Tested: torch==2.7.1+cu126 (Linux).
+transformers==4.57.6
+peft==0.18.0
+accelerate==1.12.0

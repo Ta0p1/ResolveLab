@@ -10,8 +10,9 @@ MAX_STEPS = 18
 
 
 class Runner:
-    def __init__(self, store: Store):
+    def __init__(self, store: Store, provider=None):
         self.store = store
+        self.provider = provider
         self._guard = threading.Lock()
         self._active: set[str] = set()
         self._model_lock = threading.Lock()
@@ -50,7 +51,11 @@ class Runner:
             for e in run["events"]
             if e["kind"] == "tool"
         ]
-        provider = OllamaPolicy(run["model"] or "qwen3:4b") if run["policy"] == "ollama" else None
+        provider = self.provider
+        if run["policy"] == "ollama" and provider is None:
+            provider = OllamaPolicy(run["model"] or "qwen3:4b")
+        if run["policy"] not in {"naive", "reference", "ollama"} and provider is None:
+            raise ValueError("A model provider must be supplied for this policy")
         # Reconstruct from committed tool events: a crash between an action and a message update is recoverable.
         messages = provider.initial_messages() if provider else []
         for observation in observations:

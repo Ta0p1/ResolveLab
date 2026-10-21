@@ -40,6 +40,8 @@ def model_metadata(model: str) -> dict:
             "generation_seed": 42,
             "context_tokens": provider.context,
             "max_output_tokens": provider.max_output,
+            "truncation_retries": 1,
+            "retry_max_output_tokens": provider.retry_max_output,
         }
     except (httpx.HTTPError, ValueError):
         return {"name": model, "available": False}

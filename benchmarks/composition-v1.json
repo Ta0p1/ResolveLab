@@ -1,0 +1,43 @@
+{
+  "schema": "resolvelab-composition-v1",
+  "name": "sync-composition-v1",
+  "scope": "Disjoint fault compositions in one synthetic sync service; not unseen tools or external incidents.",
+  "splits": {
+    "train": {
+      "seeds": [1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108],
+      "templates": [
+        {"id": "train_normal", "faults": []},
+        {"id": "train_mapping", "faults": ["mapping"]},
+        {"id": "train_rate", "faults": ["rate"]},
+        {"id": "train_partial", "faults": ["partial"]},
+        {"id": "train_lost", "faults": ["lost"]},
+        {"id": "train_readonly", "faults": ["readonly"]},
+        {"id": "train_stale", "faults": ["stale"]},
+        {"id": "train_corrupt", "faults": ["corrupt"]},
+        {"id": "train_injection", "faults": ["injection"]}
+      ]
+    },
+    "dev": {
+      "seeds": [2201, 2202],
+      "templates": [
+        {"id": "dev_mapping_rate", "faults": ["mapping", "rate"]},
+        {"id": "dev_partial_corrupt", "faults": ["partial", "corrupt"]},
+        {"id": "dev_lost_stale", "faults": ["lost", "stale"]},
+        {"id": "dev_readonly_injection", "faults": ["readonly", "injection"]}
+      ]
+    },
+    "test": {
+      "seeds": [3301, 3302, 3303],
+      "templates": [
+        {"id": "test_mapping_partial", "faults": ["mapping", "partial"]},
+        {"id": "test_rate_partial", "faults": ["rate", "partial"]},
+        {"id": "test_mapping_corrupt_lost", "faults": ["mapping", "corrupt", "lost"]},
+        {"id": "test_stale_corrupt", "faults": ["stale", "corrupt"]},
+        {"id": "test_rate_lost_injection", "faults": ["rate", "lost", "injection"]},
+        {"id": "test_mapping_readonly_stale", "faults": ["mapping", "readonly", "stale"]},
+        {"id": "test_partial_stale_injection", "faults": ["partial", "stale", "injection"]},
+        {"id": "test_mapping_rate_partial", "faults": ["mapping", "rate", "partial"]}
+      ]
+    }
+  }
+}

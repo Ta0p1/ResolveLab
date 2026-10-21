@@ -7,7 +7,7 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .scenarios import BY_ID, TASK, make_records
+from .scenarios import BY_ID, TASK, Scenario, make_records
 
 
 def utcnow() -> str:
@@ -69,9 +69,17 @@ class Store:
             c.close()
 
     def create(
-        self, scenario: str, seed: int = 42, policy: str = "reference", model: str | None = None
+        self,
+        scenario: str,
+        seed: int = 42,
+        policy: str = "reference",
+        model: str | None = None,
+        *,
+        spec: Scenario | None = None,
     ) -> str:
-        spec = BY_ID[scenario]
+        spec = spec or BY_ID[scenario]
+        if spec.id != scenario:
+            raise ValueError("Scenario and specification IDs differ")
         records = make_records(seed)
         run_id = uuid.uuid4().hex
         initial = records[: len(records) // 3]
@@ -79,6 +87,8 @@ class Store:
             initial = [dict(r) for r in initial]
             initial[0]["amount_cents"] += 999
         state = {
+            "scenario_spec": spec.public(),
+            "faults": list(spec.faults),
             "key_field": "legacy_id" if "mapping" in spec.faults else "record_id",
             "write_allowed": "readonly" not in spec.faults,
             "job_status": "completed" if "stale" in spec.faults else "failed",
@@ -114,7 +124,9 @@ class Store:
             for key in ("state", "messages", "verdict"):
                 result[key] = json.loads(result[key]) if result[key] is not None else None
             result["task"] = TASK
-            result["scenario_info"] = BY_ID[row["scenario"]].public()
+            result["scenario_info"] = result["state"].get("scenario_spec")
+            if result["scenario_info"] is None:
+                result["scenario_info"] = BY_ID[row["scenario"]].public()
             result["source_count"] = c.execute(
                 "SELECT COUNT(*) FROM source WHERE run_id=?", (run_id,)
             ).fetchone()[0]

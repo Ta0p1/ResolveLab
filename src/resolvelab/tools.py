@@ -89,7 +89,9 @@ class Toolbox:
             if row["status"] in {"completed", "error"}:
                 raise ValueError("Run is terminal")
             state = json.loads(row["state"])
-            faults = BY_ID[row["scenario"]].faults
+            faults = state.get("faults")
+            if faults is None:
+                faults = BY_ID[row["scenario"]].faults
             result = self._dispatch(c, state, faults, name, args)
             c.execute(
                 "UPDATE runs SET state=?,updated_at=? WHERE id=?", (dumps(state), utcnow(), self.run_id)

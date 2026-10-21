@@ -68,7 +68,38 @@ def test_non_single_tool_response_is_rejected(monkeypatch, calls):
     monkeypatch.setattr("resolvelab.policies.httpx.Client", lambda **_: client)
     with pytest.raises(PolicyResponseError) as caught:
         OllamaPolicy("test").next([])
-    assert caught.value.usage["output_tokens"] == 60
+    assert caught.value.usage["output_tokens"] == (60 if calls else 120)
+
+
+def test_truncation_retry_is_bounded_accounted_and_does_not_mutate_history(monkeypatch):
+    requests = []
+
+    def handle(request):
+        requests.append(json.loads(request.content))
+        return httpx.Response(
+            200,
+            json={
+                "message": {
+                    "tool_calls": []
+                    if len(requests) == 1
+                    else [{"function": {"name": "verify_sync", "arguments": {}}}]
+                },
+                "done_reason": "length" if len(requests) == 1 else "stop",
+                "prompt_eval_count": 100,
+                "eval_count": 2048 if len(requests) == 1 else 25,
+            },
+        )
+
+    client = httpx.Client(transport=httpx.MockTransport(handle))
+    monkeypatch.setattr("resolvelab.policies.httpx.Client", lambda **_: client)
+    messages = OllamaPolicy("test").initial_messages()
+    before = json.dumps(messages)
+    action, usage, _ = OllamaPolicy("test").next(messages)
+    assert action.name == "verify_sync"
+    assert usage["input_tokens"] == 200 and usage["output_tokens"] == 2073
+    assert len(usage["attempts"]) == 2
+    assert requests[1]["options"]["num_predict"] == 4096
+    assert json.dumps(messages) == before
 
 
 def test_invalid_model_response_records_usage_as_failure(tmp_path, monkeypatch):

@@ -28,9 +28,9 @@ packages = ["src/resolvelab"]
 
 [tool.hatch.build.targets.sdist]
 include = [
-  "/src", "/tests", "/scripts", "/docs", "/artifacts", "/.github",
+  "/src", "/tests", "/scripts", "/docs", "/artifacts", "/.github", "/benchmarks",
   "/pyproject.toml", "/README.md", "/README.zh-CN.md", "/CONTRIBUTING.md",
-  "/LICENSE", "/constraints.txt", "/.gitignore", "/.gitattributes",
+  "/LICENSE", "/constraints.txt", "/requirements-training.txt", "/.gitignore", "/.gitattributes",
 ]
 exclude = ["/artifacts/browser"]
 
