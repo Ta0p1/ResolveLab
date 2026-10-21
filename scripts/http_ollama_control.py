@@ -1,6 +1,7 @@
 """Supplementary 4B quantized control. Kept separate from the matched HF/LoRA experiment."""
 
 import argparse
+import copy
 import json
 import time
 from pathlib import Path
@@ -53,10 +54,31 @@ class OllamaSchemaPolicy:
             "backend_template_sha256": digest(details.get("template", "")),
             "model_parameters": details.get("parameters"),
             "capabilities": details.get("capabilities"),
+            "execution_mode": "CPU integration smoke"
+            if config.get("cpu_smoke")
+            else "Ollama default offload",
         }
+        self.metadata["base_prompt_sha256"] = self.metadata["prompt_sha256"]
+        self.metadata["prompt_sha256"] = digest(
+            {
+                "base_prompt": initial_messages("TASK_PLACEHOLDER"),
+                "system_addendum": config["system_addendum"],
+                "observation_reminder": config["observation_reminder"],
+            }
+        )
 
     def next(self, messages):
         config = self.config
+        messages = copy.deepcopy(messages)
+        task = next(
+            m["content"]
+            for m in reversed(messages)
+            if m["role"] == "user" and m["content"].startswith("New independent task:")
+        )
+        if config["system_addendum"]:
+            messages[0]["content"] += "\n" + config["system_addendum"]
+        if config["observation_reminder"] and messages[-1]["content"] != task:
+            messages[-1]["content"] += "\n" + config["observation_reminder"] + task
         guard_tokens = len(prompt_ids(self.tokenizer, messages))
         if guard_tokens + config["max_output"] > config["context"]:
             raise PolicyResponseError(
@@ -77,6 +99,7 @@ class OllamaSchemaPolicy:
                     "seed": config["seed"],
                     "num_ctx": config["context"],
                     "num_predict": config["max_output"],
+                    **({"num_gpu": 0, "num_thread": 2} if config.get("cpu_smoke") else {}),
                 },
             },
         )
@@ -117,6 +140,11 @@ def evaluate(config, manifest, split, output):
         assert lock["source_sha256"] == source_hash()
         assert lock["ollama_control_config_sha256"] == digest(config)
         assert lock["ollama_control_script_sha256"] == file_hash(__file__)
+    if split == "test" and config.get("cpu_smoke"):
+        raise ValueError("CPU smoke is development-only")
+    selected_cases = list(cases(manifest, split))
+    if config.get("cpu_smoke"):
+        selected_cases = selected_cases[:2]
     policy = OllamaSchemaPolicy(config)
     report = {
         "status": "running",
@@ -129,14 +157,14 @@ def evaluate(config, manifest, split, output):
         "manifest_sha256": digest(manifest),
         "model": policy.metadata,
         "created_at": utcnow(),
-        "total": len(list(cases(manifest, split))),
+        "total": len(selected_cases),
         "rows": [],
     }
     traces = output.with_suffix("")
     traces.mkdir(parents=True)
     write_report(output, report)
     try:
-        for template, seed in cases(manifest, split):
+        for template, seed in selected_cases:
             trace = episode(template, seed, policy, config["max_tools"])
             trace.pop("training")
             trace["training_eligible"] = False
@@ -176,6 +204,14 @@ def evaluate(config, manifest, split, output):
                 flush=True,
             )
         report["status"] = "completed"
+        try:
+            loaded = policy.client.get("/api/ps").json().get("models", [])
+            current = next((m for m in loaded if m.get("name") == config["model"]), {})
+            report["model"]["runtime_snapshot"] = {
+                k: current.get(k) for k in ("name", "digest", "size", "size_vram", "context_length")
+            }
+        except (httpx.HTTPError, ValueError):
+            report["model"]["runtime_snapshot"] = None
         report["finished_at"] = utcnow()
         write_report(output, report)
     finally:
@@ -187,7 +223,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--split", choices=["dev", "test"], default="dev")
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--cpu-smoke", action="store_true", help="Two development episodes on CPU only")
     args = parser.parse_args()
     config = json.loads(Path("benchmarks/httpdesk-ollama-control.json").read_text(encoding="utf-8"))
+    if args.cpu_smoke:
+        if args.split != "dev":
+            parser.error("CPU smoke cannot be used for test")
+        config["cpu_smoke"] = True
     report = evaluate(config, load_manifest("benchmarks/httpdesk-v1.json"), args.split, args.output)
     print(json.dumps(report["summary"], indent=2))

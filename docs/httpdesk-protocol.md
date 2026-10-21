@@ -17,6 +17,10 @@ The test has 10 templates × 3 seeds = 30 episodes. Templates, not record varian
 are the bootstrap unit. This measures composition generalization inside one synthetic
 API contract, not unseen APIs or production performance. The test is public after release.
 
+There are three distinct test record/task seeds, each reused under ten fault
+compositions. Thus 30 episodes are not 30 independent customer requests. Training,
+development and test reference identifiers are disjoint (6 / 2 / 3 respectively).
+
 The manifest may be used to validate the environment with the scripted oracle. The
 oracle may see only the same task and tool observations as a model. Its result is an
 environment check, never a model baseline. Test episodes never become SFT data.
@@ -81,12 +85,15 @@ value the model can choose. Development-only variants remain archived.
 
 Add the locally installed `qwen3:4b` Q4_K_M model through Ollama JSON Schema output
 as a separately labeled control. `httpdesk-ollama-control.json` pins its digest and
-192-token / 8192-context / 24-action budgets. It receives the identical messages
-and static schema. It has no parser repair, inference retry or scripted fallback.
-Temperature 0, thinking disabled. Development smoke testing checks integration only.
+192-token / 8192-context / 24-action budgets. It receives the same base instructions,
+training example and static schema. It has no parser repair, inference retry or
+scripted fallback. Temperature 0, thinking disabled. Two CPU-only development probes
+compared the original prompt (1/2 passed) with a task-continuity reminder (0/2).
+The original prompt was selected before test access; both probes are archived.
+The reminder configuration is empty in the locked test run.
 
-This is **not** a matched training comparison: model size, quantization, backend,
-chat template details and grammar implementation differ. The primary causal
+This is **not** a matched training comparison: model size, quantization,
+backend, chat template details and grammar implementation differ. The primary causal
 adapter comparison remains HF 0.6B versus HF 0.6B + LoRA. Keep this control's
 30 episodes separate from the primary 150. The test lock additionally hashes
 its script and configuration. Token counts and model-load duration are retained.

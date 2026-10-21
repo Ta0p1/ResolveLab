@@ -9,5 +9,7 @@
   "temperature": 0,
   "seed": 42,
   "thinking": false,
+  "system_addendum": "",
+  "observation_reminder": "",
   "role": "Supplementary quantized runtime control; not a matched LoRA training comparison"
 }

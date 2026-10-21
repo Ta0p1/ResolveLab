@@ -1,3 +1,4 @@
+import copy
 import importlib.util
 import json
 from contextlib import closing
@@ -15,6 +16,10 @@ spec = importlib.util.spec_from_file_location(
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 CONFIG = json.loads((ROOT / "benchmarks/httpdesk-ollama-control.json").read_text(encoding="utf-8"))
+MESSAGES = [
+    {"role": "system", "content": "rules"},
+    {"role": "user", "content": "New independent task:\ntask"},
+]
 
 
 class Tokenizer:
@@ -64,7 +69,7 @@ def make_policy(content):
 def test_control_uses_static_schema_without_retry_and_retains_failed_usage():
     policy, requests = make_policy("invalid JSON")
     with closing(policy.client), pytest.raises(PolicyResponseError) as error:
-        policy.next([{"role": "user", "content": "task"}])
+        policy.next(MESSAGES)
     posts = [r for r in requests if r.url.path == "/api/chat"]
     assert len(posts) == 1
     body = json.loads(posts[0].content)
@@ -79,10 +84,34 @@ def test_control_uses_static_schema_without_retry_and_retains_failed_usage():
 def test_control_validates_schema_and_preserves_backend_counts():
     policy, requests = make_policy('{"name":"finish","arguments":{"outcome":"resolved"}}')
     with closing(policy.client):
-        result, usage, _ = policy.next([])
+        result, usage, _ = policy.next(MESSAGES)
     assert result.name == "finish"
     assert usage["schema_valid"] is True
     assert usage["context_guard_tokens"] == 3
     assert usage["input_tokens"] == 2000
     assert usage["load_duration_ns"] == 10
     assert len([r for r in requests if r.url.path == "/api/chat"]) == 1
+    body = json.loads(next(r.content for r in requests if r.url.path == "/api/chat"))
+    assert body["messages"] == MESSAGES
+
+
+def test_task_reminder_preserves_history_without_selecting_actions():
+    messages = copy.deepcopy(MESSAGES)
+    observation = '{"tool":"list_tickets","result":{"status":200,"body":{"next_cursor":"page-2"}}}'
+    messages.extend(
+        [
+            {"role": "assistant", "content": '{"name":"list_tickets","arguments":{"cursor":""}}'},
+            {"role": "user", "content": observation},
+        ]
+    )
+    original = copy.deepcopy(messages)
+    policy, requests = make_policy('{"name":"finish","arguments":{"outcome":"resolved"}}')
+    policy.config = {**CONFIG, "observation_reminder": "Continue task: "}
+    with closing(policy.client):
+        policy.next(messages)
+    body = json.loads(next(r.content for r in requests if r.url.path == "/api/chat"))
+    assert messages == original
+    assert body["messages"][1:-1] == original[1:-1]
+    assert body["messages"][-1]["content"] == (
+        observation + "\n" + policy.config["observation_reminder"] + MESSAGES[1]["content"]
+    )
