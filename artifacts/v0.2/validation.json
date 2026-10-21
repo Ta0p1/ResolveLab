@@ -1,0 +1,32 @@
+{
+  "tests": {
+    "environment": "WSL Ubuntu / Python 3.12.3 / actual training dependencies",
+    "passed": 73,
+    "skipped": 0
+  },
+  "trace_replays": 120,
+  "browser": {
+    "status": "passed",
+    "browser": "155.0.4283.62",
+    "checks": [
+      "verified recovery",
+      "trace details",
+      "JSONL download",
+      "false claim rejected",
+      "read-only escalation",
+      "evaluation from UI",
+      "report download",
+      "episode navigation",
+      "guide navigation",
+      "post-training results and evidence download",
+      "post-training mobile overflow",
+      "mobile overflow",
+      "no JS exceptions"
+    ]
+  },
+  "portable_data_reproduction": {
+    "train": true,
+    "dev": true
+  },
+  "source_sha256": "b6772564546198d7437d10dcb4335be8e5295c60a72dd8410748c453262bf415"
+}

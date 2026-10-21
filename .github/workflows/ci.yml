@@ -20,7 +20,19 @@ jobs:
       - run: pytest -q
       - run: resolvelab eval --seeds 42 73 101 --require-policy reference --output artifacts/ci-evaluation.json
       - run: python -m build
+      - run: python scripts/verify_experiment.py
       - uses: actions/upload-artifact@v7
         with:
           name: evaluation-python-${{ matrix.python }}
           path: artifacts/ci-evaluation.json
+
+  training-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install -r requirements-training.txt -e ".[dev]"
+      - run: pytest tests/test_training_loss.py -q

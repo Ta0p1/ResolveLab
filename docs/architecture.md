@@ -88,6 +88,18 @@ usage includes the provider's reported generation count. Raw model reasoning is
 not displayed or exported; the trace records chosen actions and tool observations.
 Ollama hardware and software changes can affect repeatability.
 
+v0.2 permits one additional inference request when a generation ends at its token
+limit with zero tool calls. That request permits 4096 output tokens and includes
+a concise protocol reminder. No service action is replayed. Returned token usage
+from both attempts is retained; other protocol errors still fail immediately.
+
+The optional Transformers policy uses strict JSON actions and Qwen's non-thinking
+template, with identical settings before and after LoRA. Training, model loading
+and evaluation are explicit CLI operations; the lightweight workbench does not
+import PyTorch. See [post-training.md](post-training.md) for the split, loss and
+checkpoint-selection contracts. Source fingerprints distinguish the original
+Ollama baseline, training launch and paired evaluation implementations.
+
 ## Scope and operation
 
 The server binds to `127.0.0.1` and rejects cross-origin mutation requests. Use one

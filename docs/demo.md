@@ -38,16 +38,18 @@ but is not counted as a resolved sync.
 
 ## 4. Show evaluation and engineering evidence (55 seconds)
 
-Open **Evaluations**. Show the denominator, false claims, resolved tasks, escalations,
-tool counts and model metadata. Open a failed episode, then export its JSONL trace.
-Point to the tests covering concurrent identical retries, transaction rollback,
-corrupt payloads, recovery after restart and provider failures.
+Open **Post-training**. Show the base/SFT denominator, false claims, resolved tasks,
+escalations and per-template outcomes. Explain that the checkpoint was selected on
+development loss before test inference. Download the evidence; point to the raw
+trajectories and `python scripts/verify_experiment.py`, which re-executes their tools.
+Show the tests covering concurrent retries, transaction rollback, action-loss
+equivalence, split leakage and provider failures.
 
 Close with what you would improve:
 
-> This is a ten-family synthetic development suite. I would next freeze a held-out
-> task split, add stronger model baselines and only then measure whether SFT improves
-> recovery without increasing false-success claims.
+> The first post-training experiment tests held-out combinations of known faults.
+> The next step is a new service adapter and a new holdout, plus repeated training
+> seeds. Those would test whether the result survives beyond this small environment.
 
 ## Interview questions to prepare
 
@@ -58,3 +60,6 @@ Close with what you would improve:
 5. What happens if the process crashes between a commit and a conversation checkpoint?
 6. Why is a new data seed weaker than a new held-out task family?
 7. Which guarantees change when the SQLite service becomes an external API?
+8. Why supervise only action tokens, and how was the loss implementation verified?
+9. Why can lower development loss coexist with failures during model rollouts?
+10. Why does the bootstrap resample templates rather than individual record seeds?

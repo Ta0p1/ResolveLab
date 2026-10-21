@@ -1,0 +1,121 @@
+diff --git a/src/resolvelab/evaluation.py b/src/resolvelab/evaluation.py
+index 0f940ad..c94c88b 100644
+--- a/src/resolvelab/evaluation.py
++++ b/src/resolvelab/evaluation.py
+@@ -40,6 +40,8 @@ def model_metadata(model: str) -> dict:
+             "generation_seed": 42,
+             "context_tokens": provider.context,
+             "max_output_tokens": provider.max_output,
++            "truncation_retries": 1,
++            "retry_max_output_tokens": provider.retry_max_output,
+         }
+     except (httpx.HTTPError, ValueError):
+         return {"name": model, "available": False}
+diff --git a/src/resolvelab/policies.py b/src/resolvelab/policies.py
+index 7439f10..d8d3735 100644
+--- a/src/resolvelab/policies.py
++++ b/src/resolvelab/policies.py
+@@ -100,6 +100,7 @@ class OllamaPolicy:
+         ).rstrip("/")
+         self.context = int(os.getenv("RESOLVELAB_CONTEXT", "8192"))
+         self.max_output = 2048
++        self.retry_max_output = 4096
+ 
+     def initial_messages(self) -> list[dict]:
+         return [
+@@ -127,31 +128,43 @@ class OllamaPolicy:
+ 
+     def next(self, messages: list[dict]) -> tuple[Decision, dict, float]:
+         start = time.perf_counter()
++        usage = {"input_tokens": 0, "output_tokens": 0}
++        attempts = []
+         with httpx.Client(timeout=httpx.Timeout(180, connect=5), trust_env=False) as client:
+-            response = client.post(
+-                self.base_url + "/api/chat",
+-                json={
+-                    "model": self.model,
+-                    "messages": messages,
+-                    "stream": False,
+-                    "think": True,
+-                    "tools": [{"type": "function", "function": tool} for tool in tool_catalog()],
+-                    "keep_alive": "10m",
+-                    "options": {
+-                        "temperature": 0.6,
+-                        "seed": 42,
+-                        "num_ctx": self.context,
+-                        "num_predict": self.max_output,
+-                    },
+-                },
+-            )
+-            response.raise_for_status()
+-            payload = response.json()
+-        usage = {
+-            "input_tokens": payload.get("prompt_eval_count", 0),
+-            "output_tokens": payload.get("eval_count", 0),
+-        }
+-        calls = payload["message"].get("tool_calls", [])
++            for attempt in range(2):
++                request_messages = messages
++                if attempt:
++                    # No tool was executed. Retry inference, never replay an uncertain write.
++                    request_messages = messages + [
++                        {
++                            "role": "user",
++                            "content": "The previous generation reached its token limit without a tool call. "
++                            "Choose exactly one supplied function now. Keep reasoning brief and use the "
++                            "existing observations. No operation was executed by that generation.",
++                        }
++                    ]
++                try:
++                    payload = self._request(client, request_messages, attempt).json()
++                except (httpx.HTTPError, ValueError) as exc:
++                    raise PolicyResponseError(
++                        f"Inference request failed: {exc}",
++                        {**usage, "attempts": attempts},
++                        time.perf_counter() - start,
++                    ) from exc
++                measured = {
++                    "input_tokens": payload.get("prompt_eval_count", 0),
++                    "output_tokens": payload.get("eval_count", 0),
++                    "done_reason": payload.get("done_reason", "unknown"),
++                    "tool_calls": len(payload.get("message", {}).get("tool_calls", [])),
++                }
++                attempts.append(measured)
++                for key in usage:
++                    usage[key] += measured[key]
++                calls = payload.get("message", {}).get("tool_calls", [])
++                if calls or measured["done_reason"] != "length":
++                    break
++        if len(attempts) > 1:
++            usage["attempts"] = attempts
+         if len(calls) != 1:
+             raise PolicyResponseError(
+                 f"Expected one tool call; received {len(calls)}. "
+@@ -172,6 +185,27 @@ class OllamaPolicy:
+             ) from exc
+         return action, usage, time.perf_counter() - start
+ 
++    def _request(self, client, messages, attempt):
++        response = client.post(
++            self.base_url + "/api/chat",
++            json={
++                "model": self.model,
++                "messages": messages,
++                "stream": False,
++                "think": True,
++                "tools": [{"type": "function", "function": tool} for tool in tool_catalog()],
++                "keep_alive": "10m",
++                "options": {
++                    "temperature": 0.6,
++                    "seed": 42,
++                    "num_ctx": self.context,
++                    "num_predict": self.retry_max_output if attempt else self.max_output,
++                },
++            },
++        )
++        response.raise_for_status()
++        return response
++
+ 
+ class PolicyResponseError(ValueError):
+     """Keep measured usage when inference finishes without a usable action."""

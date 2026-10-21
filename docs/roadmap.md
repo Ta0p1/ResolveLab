@@ -11,31 +11,29 @@
 This release establishes the system and evidence. It does not claim training,
 generalization, production deployment or external users.
 
-## v0.2 — Stronger evaluation before training
+## v0.2 — Composition holdout and first local SFT
 
-1. Add genuinely different service adapters and fault compositions, including
-   pagination, timestamp windows, conflicting updates and authorization changes.
-2. Freeze train/development/test manifests by task template, not merely data seed.
-3. Evaluate at least two local model sizes with a fixed budget and full traces.
-4. Add prompt and recovery-strategy ablations with unchanged graders.
-5. Report invalid-call rate, intervention rate, latency distributions and all failures.
+Delivered: bounded inference recovery for truncated tool decisions; frozen
+train/dev/test compositions; verified scripted training data; action-only LoRA;
+development-loss checkpoint selection; paired base/SFT evaluation; failure traces;
+GPU-free executable evidence replay; experiment view and reproduction protocol.
 
-Acceptance criterion: an external contributor can reproduce results and explain
-every failed episode without relying on a screenshot or a selected success story.
+The scope is one model, one training seed and one synthetic service. Public test
+results are an initial experiment, not evidence of broad agent capability. The
+first test manifest must not become a tuning target while still called held-out.
 
-## v0.3 — Reviewed trajectories and SFT
+## v0.3 — External integration and stronger generalization evidence
 
-1. Generate teacher trajectories on training environments only.
-2. Filter with executable outcome checks and review ambiguous cases.
-3. Preserve task, environment, model, prompt and reviewer provenance.
-4. Train a small model with a reproducible adapter-based SFT configuration.
-5. Compare base versus SFT on the frozen held-out set at the same action budget.
+1. Implement a second sandbox adapter with a real HTTP boundary, pagination,
+   optimistic concurrency and permissions changing during a task.
+2. Add task and tool-schema variation, then freeze a new holdout before tuning.
+3. Compare stronger models and recovery strategies at explicitly matched budgets.
+4. Repeat training with at least three seeds; report distributions and regressions.
+5. Introduce off-policy failure states to reduce expert-trajectory exposure bias.
+6. Add server job leases and multi-process recovery before expanding deployment.
 
-No GPU training is scheduled or charged by this release. Select a model, license,
-dataset and compute plan before launching a training experiment.
-
-Acceptance criterion: any claimed gain survives held-out evaluation and does not
-trade off data correctness, permission boundaries or false-success rate.
+Acceptance: another developer can reproduce the comparison, replay every failure
+and identify which reliability guarantees survive the external API boundary.
 
 ## Later
 

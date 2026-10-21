@@ -70,9 +70,82 @@ function showPage(page) {
   $("page-label").textContent = {
     workbench: "Workbench",
     evaluations: "Evaluations",
+    experiments: "Post-training",
     guide: "How it works",
   }[page];
   if (page === "evaluations") refreshReports().catch((e) => toast(e.message));
+  if (page === "experiments")
+    loadExperiment().catch((e) => {
+      $("experiment-results").textContent =
+        "Experiment evidence is unavailable: " + e.message;
+    });
+}
+
+async function loadExperiment() {
+  const evidence = await api("/static/experiment.json");
+  const {
+    comparison,
+    training,
+    manifest,
+    base,
+    sft,
+    format_control: control,
+  } = evidence;
+  const baseSummary = comparison.base[0],
+    sftSummary = comparison.sft[0];
+  const splitCards = Object.entries(manifest.splits)
+    .map(
+      ([name, split]) =>
+        `<div class="stat"><span>${esc(name.toUpperCase())} EPISODES</span><strong>${split.templates.length * split.seeds.length}</strong><small>${split.templates.length} disjoint templates × ${split.seeds.length} seeds</small></div>`,
+    )
+    .join("");
+  const rowLabels = [
+    "Base · strict JSON",
+    "LoRA · strict JSON",
+    "Base · fence control",
+    "LoRA · fence control",
+  ];
+  const rows = [
+    baseSummary,
+    sftSummary,
+    control.comparison.base[0],
+    control.comparison.sft[0],
+  ]
+    .map(
+      (r, i) =>
+        `<tr><td><strong>${rowLabels[i]}</strong></td><td class="score">${r.passed}/${r.episodes}<span class="bar"><i style="width:${100 * r.pass_rate}%"></i></span></td><td>${r.resolved}/${r.resolvable_episodes}</td><td>${r.escalations}</td><td>${r.false_successes}</td><td>${r.errors}</td><td>${r.median_seconds.toFixed(2)}s</td></tr>`,
+    )
+    .join("");
+  const templateRows = manifest.splits.test.templates
+    .map((t) => {
+      const before = control.base.rows.filter((r) => r.scenario === t.id);
+      const after = control.sft.rows.filter((r) => r.scenario === t.id);
+      const count = (r) => r.filter((x) => x.verdict.passed).length;
+      const failed = after.filter((r) => !r.verdict.passed);
+      return `<tr><td>${esc(t.faults.join(" + "))}</td><td>${count(before)}/${before.length}</td><td>${count(after)}/${after.length}</td><td>${failed.length ? esc([...new Set(failed.map((r) => r.failure_category))].join(", ")) : "All passed"}</td></tr>`;
+    })
+    .join("");
+  const losses = training.steps;
+  const maxLoss = Math.max(...losses.map((s) => s.loss));
+  const points = losses
+    .map(
+      (s, i) =>
+        `${40 + (520 * i) / Math.max(1, losses.length - 1)},${145 - (110 * s.loss) / maxLoss}`,
+    )
+    .join(" ");
+  const interval = control.comparison.template_bootstrap_95_interval
+    .map((n) => (100 * n).toFixed(1))
+    .join(" to ");
+  $("experiment-results").innerHTML = `
+    <div class="state-grid experiment-stats">${splitCards}<div class="stat"><span>TRAINABLE PARAMETERS</span><strong>${(training.trainable_parameters / 1e6).toFixed(2)}M</strong><small>LoRA rank ${training.config.rank} · BF16</small></div></div>
+    <section class="panel"><div class="results-header"><div><h2>Held-out composition test</h2><p>Same base weights, prompt, greedy decoding and ${base.max_tools}-action budget.</p></div><span class="outline-badge">${comparison.paired_episodes} PAIRED EPISODES</span></div>
+    <div class="table-note"><strong>Format sensitivity matters.</strong> The strict base failed before its first tool; the fence-tolerant base failed after reading the runbook. Both comparisons remain dominated by protocol errors, not 24 independent planning failures. The fence-only control is exploratory; no prompts, weights or tool decisions were repaired.</div>
+    <div class="table-scroll"><table><thead><tr><th>POLICY</th><th>PASS / TOTAL</th><th>RESOLVED</th><th>ESCALATED</th><th>FALSE CLAIMS</th><th>ERRORS</th><th>MEDIAN TIME</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="table-note">Fence-only control: ${control.comparison.wins} improvements · ${control.comparison.regressions} regressions · ${control.comparison.ties} ties. Exploratory template-bootstrap interval: ${interval} percentage points (${comparison.templates} templates).</div></section>
+    <div class="guide-grid experiment-details"><section class="panel guide-card"><h2>Training trace</h2><svg class="loss-chart" viewBox="0 0 600 185" role="img" aria-label="Training action loss over optimizer steps"><path d="M40 25V145H560" fill="none" stroke="#cbd5ce"/><polyline points="${points}" fill="none" stroke="#227457" stroke-width="2"/><text x="40" y="18">${maxLoss.toFixed(2)} loss</text><text x="40" y="170">Step 1</text><text x="470" y="170">Step ${losses.length}</text></svg><p>${training.examples.train} action examples · ${training.epochs.length} epochs · ${(training.wall_seconds / 60).toFixed(1)} minutes on ${esc(training.hardware)}.</p></section>
+    <section class="panel guide-card"><h2>Selection and provenance</h2><p>${esc(training.selection)}.</p><p>Selected: <strong>${esc(training.selected_checkpoint)}</strong>. Peak allocated VRAM: ${training.peak_allocated_gib.toFixed(2)} GiB. Scripted demonstrations, accepted only after executable outcome checks.</p><p class="experiment-hash">Manifest SHA-256<br><code>${esc(comparison.manifest_sha256)}</code></p><a class="text-button" href="https://github.com/Ta0p1/ResolveLab/blob/main/docs/post-training.md" target="_blank" rel="noopener">Protocol and reproduction commands ↗</a></section></div>
+    <h2 class="episode-heading">Fence-only control by fault composition</h2><section class="panel table-scroll"><table><thead><tr><th>TEST TEMPLATE</th><th>BASE</th><th>LoRA</th><th>LoRA FAILURES</th></tr></thead><tbody>${templateRows}</tbody></table></section>
+    <p class="hint">The downloaded evidence includes all per-case outcomes. <a class="text-button" href="https://github.com/Ta0p1/ResolveLab/tree/main/artifacts/v0.2" target="_blank" rel="noopener">Inspect raw trajectories on GitHub ↗</a></p>`;
 }
 document
   .querySelectorAll(".nav-item")
@@ -419,6 +492,8 @@ $("download-report").addEventListener("click", () => {
     await Promise.all([refreshRuns(), refreshModels(), refreshReports()]);
     const run = new URLSearchParams(location.search).get("run");
     if (run) await loadRun(run);
+    else if (new URLSearchParams(location.search).get("page") === "experiments")
+      showPage("experiments");
   } catch (e) {
     toast("Could not connect to the local service: " + e.message);
   }

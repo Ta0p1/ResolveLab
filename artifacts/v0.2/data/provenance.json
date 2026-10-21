@@ -1,0 +1,423 @@
+{
+  "manifest_sha256": "f7811a869f67e5374ee8333e1359456de856c078c306b9ada5ea30efdcf1076c",
+  "source_sha256": "c79daba5f8decae6dfc449a808988453db99647172cc9c8213293f4d595d2bc9",
+  "teacher": "scripted_runbook_v1",
+  "splits": {
+    "train": {
+      "episodes": 72,
+      "examples": 528,
+      "accepted": [
+        {
+          "template": "train_normal",
+          "seed": 1101,
+          "steps": 7
+        },
+        {
+          "template": "train_normal",
+          "seed": 1102,
+          "steps": 7
+        },
+        {
+          "template": "train_normal",
+          "seed": 1103,
+          "steps": 7
+        },
+        {
+          "template": "train_normal",
+          "seed": 1104,
+          "steps": 7
+        },
+        {
+          "template": "train_normal",
+          "seed": 1105,
+          "steps": 7
+        },
+        {
+          "template": "train_normal",
+          "seed": 1106,
+          "steps": 7
+        },
+        {
+          "template": "train_normal",
+          "seed": 1107,
+          "steps": 7
+        },
+        {
+          "template": "train_normal",
+          "seed": 1108,
+          "steps": 7
+        },
+        {
+          "template": "train_mapping",
+          "seed": 1101,
+          "steps": 8
+        },
+        {
+          "template": "train_mapping",
+          "seed": 1102,
+          "steps": 8
+        },
+        {
+          "template": "train_mapping",
+          "seed": 1103,
+          "steps": 8
+        },
+        {
+          "template": "train_mapping",
+          "seed": 1104,
+          "steps": 8
+        },
+        {
+          "template": "train_mapping",
+          "seed": 1105,
+          "steps": 8
+        },
+        {
+          "template": "train_mapping",
+          "seed": 1106,
+          "steps": 8
+        },
+        {
+          "template": "train_mapping",
+          "seed": 1107,
+          "steps": 8
+        },
+        {
+          "template": "train_mapping",
+          "seed": 1108,
+          "steps": 8
+        },
+        {
+          "template": "train_rate",
+          "seed": 1101,
+          "steps": 9
+        },
+        {
+          "template": "train_rate",
+          "seed": 1102,
+          "steps": 9
+        },
+        {
+          "template": "train_rate",
+          "seed": 1103,
+          "steps": 9
+        },
+        {
+          "template": "train_rate",
+          "seed": 1104,
+          "steps": 9
+        },
+        {
+          "template": "train_rate",
+          "seed": 1105,
+          "steps": 9
+        },
+        {
+          "template": "train_rate",
+          "seed": 1106,
+          "steps": 9
+        },
+        {
+          "template": "train_rate",
+          "seed": 1107,
+          "steps": 9
+        },
+        {
+          "template": "train_rate",
+          "seed": 1108,
+          "steps": 9
+        },
+        {
+          "template": "train_partial",
+          "seed": 1101,
+          "steps": 9
+        },
+        {
+          "template": "train_partial",
+          "seed": 1102,
+          "steps": 9
+        },
+        {
+          "template": "train_partial",
+          "seed": 1103,
+          "steps": 9
+        },
+        {
+          "template": "train_partial",
+          "seed": 1104,
+          "steps": 9
+        },
+        {
+          "template": "train_partial",
+          "seed": 1105,
+          "steps": 9
+        },
+        {
+          "template": "train_partial",
+          "seed": 1106,
+          "steps": 9
+        },
+        {
+          "template": "train_partial",
+          "seed": 1107,
+          "steps": 9
+        },
+        {
+          "template": "train_partial",
+          "seed": 1108,
+          "steps": 9
+        },
+        {
+          "template": "train_lost",
+          "seed": 1101,
+          "steps": 7
+        },
+        {
+          "template": "train_lost",
+          "seed": 1102,
+          "steps": 7
+        },
+        {
+          "template": "train_lost",
+          "seed": 1103,
+          "steps": 7
+        },
+        {
+          "template": "train_lost",
+          "seed": 1104,
+          "steps": 7
+        },
+        {
+          "template": "train_lost",
+          "seed": 1105,
+          "steps": 7
+        },
+        {
+          "template": "train_lost",
+          "seed": 1106,
+          "steps": 7
+        },
+        {
+          "template": "train_lost",
+          "seed": 1107,
+          "steps": 7
+        },
+        {
+          "template": "train_lost",
+          "seed": 1108,
+          "steps": 7
+        },
+        {
+          "template": "train_readonly",
+          "seed": 1101,
+          "steps": 5
+        },
+        {
+          "template": "train_readonly",
+          "seed": 1102,
+          "steps": 5
+        },
+        {
+          "template": "train_readonly",
+          "seed": 1103,
+          "steps": 5
+        },
+        {
+          "template": "train_readonly",
+          "seed": 1104,
+          "steps": 5
+        },
+        {
+          "template": "train_readonly",
+          "seed": 1105,
+          "steps": 5
+        },
+        {
+          "template": "train_readonly",
+          "seed": 1106,
+          "steps": 5
+        },
+        {
+          "template": "train_readonly",
+          "seed": 1107,
+          "steps": 5
+        },
+        {
+          "template": "train_readonly",
+          "seed": 1108,
+          "steps": 5
+        },
+        {
+          "template": "train_stale",
+          "seed": 1101,
+          "steps": 7
+        },
+        {
+          "template": "train_stale",
+          "seed": 1102,
+          "steps": 7
+        },
+        {
+          "template": "train_stale",
+          "seed": 1103,
+          "steps": 7
+        },
+        {
+          "template": "train_stale",
+          "seed": 1104,
+          "steps": 7
+        },
+        {
+          "template": "train_stale",
+          "seed": 1105,
+          "steps": 7
+        },
+        {
+          "template": "train_stale",
+          "seed": 1106,
+          "steps": 7
+        },
+        {
+          "template": "train_stale",
+          "seed": 1107,
+          "steps": 7
+        },
+        {
+          "template": "train_stale",
+          "seed": 1108,
+          "steps": 7
+        },
+        {
+          "template": "train_corrupt",
+          "seed": 1101,
+          "steps": 7
+        },
+        {
+          "template": "train_corrupt",
+          "seed": 1102,
+          "steps": 7
+        },
+        {
+          "template": "train_corrupt",
+          "seed": 1103,
+          "steps": 7
+        },
+        {
+          "template": "train_corrupt",
+          "seed": 1104,
+          "steps": 7
+        },
+        {
+          "template": "train_corrupt",
+          "seed": 1105,
+          "steps": 7
+        },
+        {
+          "template": "train_corrupt",
+          "seed": 1106,
+          "steps": 7
+        },
+        {
+          "template": "train_corrupt",
+          "seed": 1107,
+          "steps": 7
+        },
+        {
+          "template": "train_corrupt",
+          "seed": 1108,
+          "steps": 7
+        },
+        {
+          "template": "train_injection",
+          "seed": 1101,
+          "steps": 7
+        },
+        {
+          "template": "train_injection",
+          "seed": 1102,
+          "steps": 7
+        },
+        {
+          "template": "train_injection",
+          "seed": 1103,
+          "steps": 7
+        },
+        {
+          "template": "train_injection",
+          "seed": 1104,
+          "steps": 7
+        },
+        {
+          "template": "train_injection",
+          "seed": 1105,
+          "steps": 7
+        },
+        {
+          "template": "train_injection",
+          "seed": 1106,
+          "steps": 7
+        },
+        {
+          "template": "train_injection",
+          "seed": 1107,
+          "steps": 7
+        },
+        {
+          "template": "train_injection",
+          "seed": 1108,
+          "steps": 7
+        }
+      ],
+      "rejected": [],
+      "sha256": "4bea50d6a63066b841a070f200b46b9347a20e5527779ced641e104136cab95a"
+    },
+    "dev": {
+      "episodes": 8,
+      "examples": 62,
+      "accepted": [
+        {
+          "template": "dev_mapping_rate",
+          "seed": 2201,
+          "steps": 10
+        },
+        {
+          "template": "dev_mapping_rate",
+          "seed": 2202,
+          "steps": 10
+        },
+        {
+          "template": "dev_partial_corrupt",
+          "seed": 2201,
+          "steps": 9
+        },
+        {
+          "template": "dev_partial_corrupt",
+          "seed": 2202,
+          "steps": 9
+        },
+        {
+          "template": "dev_lost_stale",
+          "seed": 2201,
+          "steps": 7
+        },
+        {
+          "template": "dev_lost_stale",
+          "seed": 2202,
+          "steps": 7
+        },
+        {
+          "template": "dev_readonly_injection",
+          "seed": 2201,
+          "steps": 5
+        },
+        {
+          "template": "dev_readonly_injection",
+          "seed": 2202,
+          "steps": 5
+        }
+      ],
+      "rejected": [],
+      "sha256": "2573f9fd60e490a9a82a3a9e33119e4a361c332d44f27f2dd39b1e2d7281f2e1"
+    }
+  }
+}

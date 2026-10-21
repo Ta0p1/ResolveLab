@@ -63,6 +63,17 @@ def main():
         expect(page.locator("#page-label")).to_have_text("Workbench")
         page.locator('[data-page="guide"]').click()
         expect(page.get_by_role("heading", name="From a claim to a check.")).to_be_visible()
+        page.locator('[data-page="experiments"]').click()
+        expect(page.get_by_role("heading", name="Held-out composition test")).to_be_visible()
+        expect(page.locator("#experiment-results tbody tr")).to_have_count(12)
+        with page.expect_download() as downloaded:
+            page.get_by_role("link", name="Download evidence").click()
+        evidence = json.loads(Path(downloaded.value.path()).read_text())
+        assert evidence["comparison"]["paired_episodes"] == 24
+        page.screenshot(path=str(output / "post-training-desktop.png"), full_page=True)
+        page.set_viewport_size({"width": 390, "height": 844})
+        assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+        page.screenshot(path=str(output / "post-training-mobile.png"), full_page=True)
         page.locator('[data-page="workbench"]').click()
         page.set_viewport_size({"width": 390, "height": 844})
         assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
@@ -83,6 +94,8 @@ def main():
                         "report download",
                         "episode navigation",
                         "guide navigation",
+                        "post-training results and evidence download",
+                        "post-training mobile overflow",
                         "mobile overflow",
                         "no JS exceptions",
                     ],

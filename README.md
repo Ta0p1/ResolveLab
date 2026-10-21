@@ -2,18 +2,49 @@
 
 **A support agent should leave working systems, not just convincing answers.**
 
-[中文介绍](README.zh-CN.md) · [Evaluation results](artifacts/RESULTS.md) · [Four-minute demo](docs/demo.md) · [CI](https://github.com/Ta0p1/ResolveLab/actions/workflows/ci.yml)
+[中文介绍](README.zh-CN.md) · [Post-training results](artifacts/v0.2/RESULTS.md) · [Reproduce training](docs/post-training.md) · [Four-minute demo](docs/demo.md) · [CI](https://github.com/Ta0p1/ResolveLab/actions/workflows/ci.yml)
 
 ResolveLab is a local, executable lab for recovering failed data-sync workflows. It combines
-a real Ollama decision loop, durable SQLite tool actions, independent outcome verification,
-and reproducible comparisons with two explicitly scripted baselines.
+a real local-model decision loop, durable SQLite tool actions, independent outcome
+verification, and small-model post-training with a frozen composition holdout.
 
-Version 0.1 is a synthetic sandbox and development benchmark. It is not a production support
-service, a trained model, or a claim of general agent reliability.
+The service and incidents are synthetic. The project measures recovery within this
+environment; production reliability and generalization to new tools remain open.
 
 ![ResolveLab workbench showing a real local-model recovery and its independent verdict](docs/assets/workbench.png)
 
-## Recorded baseline
+## v0.2: repair, train, evaluate
+
+- **Operational repair:** a bounded, usage-accounted inference retry recovers the
+  previously failing partial-commit path. Qwen3-4B passed 3/3 targeted regression
+  episodes; the original failure remains available.
+- **Frozen data:** 72 training episodes, 8 development episodes and 24 test
+  episodes, split by fault composition and record seed. No test trajectories train the model.
+- **Actual local LoRA:** Qwen3-0.6B, 528 verified expert actions, 5.05M trainable
+  parameters, BF16 on an 8GB GPU. Checkpoints are selected using development loss.
+- **Paired outcomes:** the base and adapted model use the same prompt, decoding
+  and action budget. See [complete results, failures and traces](artifacts/v0.2/RESULTS.md).
+- **Independent audit:** `python scripts/verify_experiment.py` checks split membership,
+  weight selection, metrics and all test tool traces by replaying them against fresh databases.
+
+Open **Post-training** in the workbench for the learning curve, per-template results
+and downloadable evidence. The [protocol](docs/post-training.md) specifies data,
+optimization, matching conditions and limitations. This is imitation of a scripted
+expert on one service, not an RL or external incident benchmark.
+
+The adapted policy completed **24/24** frozen composition tasks (21 recoveries,
+3 appropriate escalations). The base model's failures are dominated by protocol
+errors, even in an exploratory fence-tolerant control. This is evidence of a
+working adapted policy, not an isolated measure of improved reasoning.
+
+<details>
+<summary>Inspect the post-training workbench</summary>
+
+![Recorded training and paired evaluation, including protocol-confound disclosure](docs/assets/post-training.png)
+
+</details>
+
+## Historical v0.1 baseline
 
 On the ten public development scenarios, **Qwen3 4B (Q4_K_M) passed 9/10**:
 eight verified recoveries and one correct read-only escalation, with zero false-success
@@ -21,7 +52,7 @@ claims. The remaining partial-commit case exhausted its generation budget. The
 scripted reference passed 10/10. These are single-seed development results, not a
 held-out benchmark or a training gain.
 
-The release also passed **53 Python tests**, browser workflow checks and a clean
+The v0.1 release also passed **53 Python tests**, browser workflow checks and a clean
 wheel installation check. See the [full report and all episode traces](artifacts/RESULTS.md).
 
 ## Quick start
@@ -50,7 +81,8 @@ resolvelab run --scenario lost_response --policy ollama --model qwen3:4b
 Select **Local LLM · Ollama** in the workbench. The model chooses native function calls;
 the runtime validates their arguments and the verifier checks actual database state.
 Set `RESOLVELAB_OLLAMA_URL` for another Ollama host and `RESOLVELAB_CONTEXT` to change the
-default 8192-token context. This release supports Ollama, not vLLM yet.
+default 8192-token context. The training pipeline uses Transformers/PEFT directly;
+vLLM serving is future work.
 
 ## What you can demonstrate
 
@@ -82,7 +114,8 @@ Policies:
 Every report includes the full episode denominator, per-case outcomes, model metadata,
 code fingerprint, seeds, token usage and wall times. **Pass** includes correct escalation
 for read-only tasks; resolved tasks are reported separately. Seeds vary records, not fault
-families. These are public development cases, not a held-out generalization benchmark.
+families. The `resolvelab eval` command runs the public regression suite. Use
+[`scripts/post_train.py`](scripts/post_train.py) for the separate composition holdout.
 
 ## Design
 

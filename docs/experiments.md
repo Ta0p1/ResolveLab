@@ -29,3 +29,16 @@ individual factor.
 The adapter follows the official [Ollama tool-calling protocol](https://docs.ollama.com/capabilities/tool-calling).
 Generation settings follow the provider's [thinking controls](https://docs.ollama.com/capabilities/thinking)
 and are included in the machine-readable report.
+
+## v0.2 protocol repair and local SFT
+
+The partial-commit failure was traced to a zero-tool-call generation ending at the
+output limit. A bounded inference-only retry recovered three tested data seeds;
+both attempts' returned token counts remain in the report. This increases the
+worst-case generation budget and is documented as an operational tradeoff.
+
+The first actual LoRA experiment uses Qwen3-0.6B on verified scripted actions,
+with composition splits frozen before training and checkpoint selection on
+development action loss. The full [protocol](post-training.md) and
+[result bundle](../artifacts/v0.2/RESULTS.md) distinguish this matched base/SFT
+comparison from the historical Ollama integration experiments above.

@@ -29,7 +29,14 @@ scenario IDs or fault flags. Distinguish rules from model decisions. Include
 model/prompt settings and complete evaluation denominators in any result claim.
 
 Do not commit `.local/`, model weights, private customer data, credentials or
-unreviewed training datasets. The example records in this repository are synthetic.
+unreviewed training datasets. The public `artifacts/v0.2/data` is a checked,
+synthetic export. Regenerate it through the collector, preserve its provenance
+and run `python scripts/verify_experiment.py` before changing an evidence bundle.
+
+Do not tune on `composition-v1` test outcomes and still call them held out.
+Introduce a new manifest for future selection. The optional training dependency
+environment additionally runs `pytest tests/test_training_loss.py` to check
+action-loss equivalence without downloading model weights.
 
 Small pull requests with a concrete problem, reproducible behavior and relevant
 tests are welcome. Please disclose if a benchmark result follows prompt tuning

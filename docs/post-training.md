@@ -136,6 +136,35 @@ The 4B Ollama regression results use a different inference protocol and budget.
 They are retained as operational evidence, not as a matched model-size ablation.
 No conclusion about superiority over general-purpose agent frameworks follows.
 
+### Exploratory format control, added after the first test run
+
+The strict base model returned its first valid action inside a Markdown JSON code
+block on all 24 tasks. The pre-specified strict parser rejected those responses,
+so a strict-parser gain primarily measures format compliance. Those original
+results remain in `base-test.json` and `sft-test.json` at source commit `f707ae1`.
+
+A second paired evaluation uses `--allow-json-fences`, accepting exactly one
+complete enclosing code block while retaining the same JSON/schema validation.
+It does not extract JSON from prose, repair fields, supply actions or retry model
+inference. The prompt, decoding, adapter, action budget and cases stay fixed for
+both sides. The option and normalization counts are recorded. Because this
+control was motivated by test inspection, its results are explicitly exploratory;
+they do not replace the original test or justify further tuning on it.
+
+The fence-tolerant base executed the runbook read, then produced malformed JSON
+for an unsupported completion in every episode. Consequently the control still
+does not isolate recovery reasoning from protocol capability. The base failures
+share their first observations; they are not independent planning failures.
+A constrained-decoding baseline and a new holdout are needed for stronger claims.
+
+```bash
+python scripts/post_train.py eval --split test --allow-json-fences \
+  --output .local/base-format-test.json --data .local/format-eval
+python scripts/post_train.py eval --split test --allow-json-fences \
+  --adapter .local/sft-v1/SELECTED_CHECKPOINT \
+  --output .local/sft-format-test.json --data .local/format-eval
+```
+
 ## Operational repair: missing action after truncation
 
 The v0.1 partial-commit failure reached 2,048 output tokens without a function

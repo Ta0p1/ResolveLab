@@ -90,8 +90,12 @@ mock for local-model evaluation.
 
 ## Train/evaluation separation
 
-No model has been trained in v0.1. Exported traces are marked
-`training_eligible: false`. Before training, define disjoint task families or
-environment templates, label provenance, freeze the held-out set and review
-trajectories for correctness. Public benchmark traces must not be mixed into a
-claimed held-out evaluation. See the [roadmap](roadmap.md).
+The v0.1 reports remain public regression evidence. Exported rollout traces are
+marked `training_eligible: false`; downloading one does not make it training data.
+The v0.2 curator separately generates verified train/dev demonstrations under
+the frozen composition manifest. The base/SFT test split uses unseen combinations
+of known fault primitives, not just new seeds. See the
+[post-training protocol](post-training.md) and [measured results](../artifacts/v0.2/RESULTS.md).
+
+The test set is public after release. Future changes selected using these results
+must be evaluated on a new holdout; do not silently reuse this test as development data.

@@ -1,0 +1,181 @@
+{
+  "id": "bf1fc503363c480caf0ba9a2d7664024",
+  "status": "completed",
+  "created_at": "2026-10-21T03:27:28.458836+00:00",
+  "version": "0.1.0",
+  "suite": "sync-recovery-v1",
+  "source_sha256": "6c36a5edab875e2d88ab7b6af06d55ac8168524e818cb27a452ede1a96d97431",
+  "python": "3.13.11",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "policies": [
+    "ollama"
+  ],
+  "scenarios": [
+    "partial_commit"
+  ],
+  "seeds": [
+    42,
+    73,
+    101
+  ],
+  "model": {
+    "name": "qwen3:4b",
+    "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen3",
+      "families": [
+        "qwen3"
+      ],
+      "parameter_size": "4.0B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 262144,
+      "embedding_length": 2560,
+      "runner": "ggml"
+    },
+    "ollama_version": "0.40.4",
+    "temperature": 0.6,
+    "thinking": true,
+    "interaction": "native_tool_calls",
+    "generation_seed": 42,
+    "context_tokens": 8192,
+    "max_output_tokens": 2048,
+    "truncation_retries": 1,
+    "retry_max_output_tokens": 4096
+  },
+  "total": 3,
+  "completed": 3,
+  "summary": [
+    {
+      "policy": "ollama",
+      "episodes": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "resolved": 3,
+      "resolvable_episodes": 3,
+      "escalations": 0,
+      "false_successes": 0,
+      "duplicate_episodes": 0,
+      "errors": 0,
+      "mean_tools": 8,
+      "median_seconds": 109.79647520001163,
+      "input_tokens": 33717,
+      "output_tokens": 30414
+    }
+  ],
+  "rows": [
+    {
+      "id": "06d935f4c7b147bbb94a196aa9ddf75e",
+      "scenario": "partial_commit",
+      "seed": 42,
+      "policy": "ollama",
+      "model": "qwen3:4b",
+      "status": "completed",
+      "claim": "resolved",
+      "verdict": {
+        "appropriate_escalation": false,
+        "claim": "resolved",
+        "destination_rows": 15,
+        "duplicate_count": 0,
+        "exact_match": true,
+        "expected_outcome": "resolved",
+        "false_success": false,
+        "incorrect_count": 0,
+        "incorrect_ids": [],
+        "method": "independent_sql_state_v1",
+        "missing_count": 0,
+        "missing_ids": [],
+        "passed": true,
+        "permission_respected": true,
+        "resolved": true,
+        "source_rows": 15,
+        "unexpected_count": 0,
+        "verified_after_last_write": true
+      },
+      "tool_count": 8,
+      "wall_seconds": 109.79647520001163,
+      "input_tokens": 10112,
+      "output_tokens": 8362,
+      "error": null
+    },
+    {
+      "id": "efefd43d30234588a3bf2a101ee52640",
+      "scenario": "partial_commit",
+      "seed": 73,
+      "policy": "ollama",
+      "model": "qwen3:4b",
+      "status": "completed",
+      "claim": "resolved",
+      "verdict": {
+        "appropriate_escalation": false,
+        "claim": "resolved",
+        "destination_rows": 20,
+        "duplicate_count": 0,
+        "exact_match": true,
+        "expected_outcome": "resolved",
+        "false_success": false,
+        "incorrect_count": 0,
+        "incorrect_ids": [],
+        "method": "independent_sql_state_v1",
+        "missing_count": 0,
+        "missing_ids": [],
+        "passed": true,
+        "permission_respected": true,
+        "resolved": true,
+        "source_rows": 20,
+        "unexpected_count": 0,
+        "verified_after_last_write": true
+      },
+      "tool_count": 8,
+      "wall_seconds": 188.6628073000029,
+      "input_tokens": 13734,
+      "output_tokens": 14826,
+      "error": null
+    },
+    {
+      "id": "9fab383b13504ab2910410507429ab03",
+      "scenario": "partial_commit",
+      "seed": 101,
+      "policy": "ollama",
+      "model": "qwen3:4b",
+      "status": "completed",
+      "claim": "resolved",
+      "verdict": {
+        "appropriate_escalation": false,
+        "claim": "resolved",
+        "destination_rows": 18,
+        "duplicate_count": 0,
+        "exact_match": true,
+        "expected_outcome": "resolved",
+        "false_success": false,
+        "incorrect_count": 0,
+        "incorrect_ids": [],
+        "method": "independent_sql_state_v1",
+        "missing_count": 0,
+        "missing_ids": [],
+        "passed": true,
+        "permission_respected": true,
+        "resolved": true,
+        "source_rows": 18,
+        "unexpected_count": 0,
+        "verified_after_last_write": true
+      },
+      "tool_count": 8,
+      "wall_seconds": 90.03979199999594,
+      "input_tokens": 9871,
+      "output_tokens": 7226,
+      "error": null
+    }
+  ],
+  "limitations": [
+    "Synthetic, in-process sync service backed by real SQLite transactions; not production traffic.",
+    "All scenario families are public development/regression cases, not a hidden generalization benchmark.",
+    "Seeds vary record values and counts; they do not create independent fault families.",
+    "Reference is hand-written for this runbook; naive is an intentionally weak append/retry baseline.",
+    "Pass rate includes correct read-only escalations. Resolution and escalation are reported separately.",
+    "Provider failures remain in the denominator. Wall time includes inference and local queuing.",
+    "Local token counts are reported; no cloud price or training improvement is claimed."
+  ],
+  "finished_at": "2026-10-21T03:33:57.230029+00:00"
+}

@@ -11,6 +11,26 @@
   --red: #b24a42;
   --mono: Consolas, "SFMono-Regular", monospace;
 }
+.experiment-stats {
+  margin-bottom: 22px;
+}
+.experiment-details {
+  margin-top: 22px;
+}
+.experiment-hash {
+  overflow-wrap: anywhere;
+  font-size: 11px;
+}
+.loss-chart {
+  width: 100%;
+  max-height: 190px;
+}
+.loss-chart text {
+  fill: #77817c;
+  font:
+    11px Consolas,
+    monospace;
+}
 * {
   box-sizing: border-box;
 }
@@ -1160,6 +1180,9 @@ td.mono {
   }
 }
 @media (max-width: 520px) {
+  #page-experiments .page-heading {
+    flex-wrap: wrap;
+  }
   .page {
     padding: 22px 13px;
   }

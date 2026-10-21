@@ -1,0 +1,56 @@
+{
+  "split": "test",
+  "manifest_sha256": "f7811a869f67e5374ee8333e1359456de856c078c306b9ada5ea30efdcf1076c",
+  "base": [
+    {
+      "policy": "hf-base",
+      "episodes": 24,
+      "passed": 0,
+      "pass_rate": 0.0,
+      "resolved": 0,
+      "resolvable_episodes": 21,
+      "escalations": 0,
+      "false_successes": 0,
+      "duplicate_episodes": 0,
+      "errors": 24,
+      "mean_tools": 1,
+      "median_seconds": 2.177758448499958,
+      "input_tokens": 55752,
+      "output_tokens": 1944
+    }
+  ],
+  "sft": [
+    {
+      "policy": "hf-sft",
+      "episodes": 24,
+      "passed": 24,
+      "pass_rate": 1.0,
+      "resolved": 21,
+      "resolvable_episodes": 21,
+      "escalations": 3,
+      "false_successes": 0,
+      "duplicate_episodes": 0,
+      "errors": 0,
+      "mean_tools": 9,
+      "median_seconds": 9.22727718349995,
+      "input_tokens": 347976,
+      "output_tokens": 4047
+    }
+  ],
+  "paired_episodes": 24,
+  "templates": 8,
+  "wins": 24,
+  "regressions": 0,
+  "ties": 0,
+  "pass_rate_delta": 1.0,
+  "template_bootstrap_95_interval": [
+    1,
+    1
+  ],
+  "limitations": [
+    "Synthetic composition holdout in one service, not external production incidents.",
+    "One model and one training seed. Sampling uncertainty does not include training variance.",
+    "Few fault templates; the cluster interval is exploratory, not a broad capability claim.",
+    "Greedy decoding and JSON protocol are identical for base and SFT; no policy fallback."
+  ]
+}

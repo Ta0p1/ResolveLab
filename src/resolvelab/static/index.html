@@ -20,7 +20,7 @@
       >
       <div class="workspace-label">
         <span class="workspace-dot"></span> Local workspace
-        <span class="version">v0.1</span>
+        <span class="version">v0.2</span>
       </div>
       <nav aria-label="Main navigation">
         <button class="nav-item active" data-page="workbench">
@@ -29,6 +29,9 @@
         <button class="nav-item" data-page="evaluations">
           <span>▥</span> Evaluations
           <span class="nav-count" id="report-count">0</span>
+        </button>
+        <button class="nav-item" data-page="experiments">
+          <span>↗</span> Post-training
         </button>
         <button class="nav-item" data-page="guide">
           <span>⌘</span> How it works
@@ -293,6 +296,38 @@
           </p>
         </section>
       </section>
+      <section id="page-experiments" class="page hidden">
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow green">FROZEN TASKS · PAIRED MEASUREMENTS</div>
+            <h1>Train. Then test.</h1>
+            <p>
+              Action-only LoRA on a local GPU. Every outcome checked against
+              persisted data.
+            </p>
+          </div>
+          <a
+            class="secondary"
+            href="/static/experiment.json"
+            download="resolvelab-experiment.json"
+            >Download evidence ↓</a
+          >
+        </div>
+        <div id="experiment-results" aria-live="polite">
+          <p>Loading recorded experiment…</p>
+        </div>
+        <section class="methodology">
+          <span class="eyebrow">WHAT THIS EXPERIMENT MEASURES</span>
+          <p>
+            Generalization to new combinations of known faults in one synthetic
+            sync service. Task templates and record seeds are disjoint across
+            training, development and test. This is one model and one training
+            seed. It does not establish production reliability or generalization
+            to new tools. The test set is now public; future tuning needs a new
+            holdout.
+          </p>
+        </section>
+      </section>
       <section id="page-guide" class="page hidden">
         <div class="page-heading">
           <div>
@@ -355,10 +390,11 @@ resolvelab eval \
             </p>
           </section>
           <section class="panel guide-card">
-            <h2>What is real in v0.1?</h2>
+            <h2>What is real in v0.2?</h2>
             <p>
               Local model inference, database mutations, operation receipts,
-              exported traces and measured evaluation results.
+              exported traces, LoRA training and measured base-versus-SFT
+              results.
             </p>
             <p>
               The service and fault scenarios are synthetic. Rate-limit waits
@@ -368,12 +404,12 @@ resolvelab eval \
           <section class="panel guide-card">
             <h2>What comes next?</h2>
             <p>
-              Independent task splits, stronger baselines, reviewed training
-              trajectories, small-model SFT and measured cost–quality tradeoffs.
+              External service adapters, larger held-out task families and
+              repeated training seeds to check whether improvements persist.
             </p>
             <p>
-              Training is a later phase. This release establishes the
-              environment and baseline evidence.
+              The Post-training view documents the first experiment, its
+              failures and the limits of the evidence.
             </p>
           </section>
         </div>
