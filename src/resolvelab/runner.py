@@ -51,7 +51,7 @@ class Runner:
             for e in run["events"]
             if e["kind"] == "tool"
         ]
-        provider = self.provider
+        provider = self.provider if run["policy"] not in {"reference", "naive"} else None
         if run["policy"] == "ollama" and provider is None:
             provider = OllamaPolicy(run["model"] or "qwen3:4b")
         if run["policy"] not in {"naive", "reference", "ollama"} and provider is None:

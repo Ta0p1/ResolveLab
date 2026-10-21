@@ -114,3 +114,23 @@ def test_invalid_model_response_records_usage_as_failure(tmp_path, monkeypatch):
     assert run["input_tokens"] == 40
     assert run["output_tokens"] == 60
     assert run["events"][-1]["name"] == "invalid_response"
+
+
+def test_retry_transport_failure_retains_first_attempt_usage(monkeypatch):
+    attempts = []
+
+    def handle(request):
+        attempts.append(request)
+        if len(attempts) == 2:
+            raise httpx.ReadTimeout("retry timed out", request=request)
+        return httpx.Response(
+            200,
+            json={"message": {}, "done_reason": "length", "prompt_eval_count": 40, "eval_count": 2048},
+        )
+
+    client = httpx.Client(transport=httpx.MockTransport(handle))
+    monkeypatch.setattr("resolvelab.policies.httpx.Client", lambda **_: client)
+    with pytest.raises(PolicyResponseError) as caught:
+        OllamaPolicy("test").next([])
+    assert caught.value.usage["output_tokens"] == 2048
+    assert len(attempts) == 2

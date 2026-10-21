@@ -73,7 +73,9 @@ def evaluate_compositions(
         for spec, seed in cases(manifest, split):
             if (spec.id, seed) in done:
                 continue
-            run_id = store.create(spec.id, seed, policy, config["base"], spec=spec)
+            run_id = store.create(
+                spec.id, seed, policy, None if reference else config["base"], spec=spec
+            )
             run = runner.execute(run_id)
             row = {
                 k: run[k]
@@ -137,6 +139,12 @@ def evaluate_compositions(
 
 
 def compare(base, trained):
+    if base["policy"] != "hf-base" or trained["policy"] != "hf-sft":
+        raise ValueError("Compare an unadapted model with its SFT policy")
+    left = {k: v for k, v in base["model"].items() if k != "adapter"}
+    right = {k: v for k, v in trained["model"].items() if k != "adapter"}
+    if left != right:
+        raise ValueError("Inference settings or prompt differ")
     for key in ("manifest_sha256", "config_sha256", "split", "source_sha256", "max_tools"):
         if base[key] != trained[key]:
             raise ValueError(f"Unpaired experiments: {key}")

@@ -1,4 +1,5 @@
 import copy
+import hashlib
 from pathlib import Path
 
 import pytest
@@ -48,6 +49,10 @@ def test_curator_never_exports_test_and_validator_rejects_relabeled_test(tmp_pat
     assert result["splits"]["train"]["episodes"] == 9
     assert not (tmp_path / "test.jsonl").exists()
     rows = read_rows(tmp_path / "train.jsonl")
+    assert (
+        hashlib.sha256((tmp_path / "train.jsonl").read_bytes()).hexdigest()
+        == result["splits"]["train"]["sha256"]
+    )
     assert all(
         "faults" not in dumps(r["messages"]) and "verdict" not in dumps(r["messages"]) for r in rows
     )

@@ -48,7 +48,9 @@ def main():
             json.loads(args.sft_report.read_text(encoding="utf-8")),
         )
         write_report(args.output, result)
-    print(json.dumps({k: v for k, v in result.items() if k not in {"steps", "splits"}}, indent=2))
+    print(
+        json.dumps({k: v for k, v in result.items() if k not in {"steps", "splits", "rows"}}, indent=2)
+    )
 
 
 if __name__ == "__main__":

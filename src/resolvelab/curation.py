@@ -52,7 +52,7 @@ def collect(manifest, output: Path, data_dir: Path):
                 append_observation(messages, event["name"], event["arguments"], result)
         validate_training_rows(rows, manifest, split)
         text = "".join(dumps(row) + "\n" for row in rows)
-        (output / f"{split}.jsonl").write_text(text, encoding="utf-8")
+        (output / f"{split}.jsonl").write_text(text, encoding="utf-8", newline="\n")
         summary["splits"][split] = {
             "episodes": len(accepted),
             "examples": len(rows),
