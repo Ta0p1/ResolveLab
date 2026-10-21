@@ -1,0 +1,43 @@
+{
+  "schema": "resolvelab-httpdesk-v1",
+  "name": "CaseDesk HTTP composition holdout v1",
+  "splits": {
+    "train": {
+      "seeds": [4101, 4102, 4103, 4104, 4105, 4106],
+      "templates": [
+        {"id": "train_plain", "faults": []},
+        {"id": "train_conflict", "faults": ["conflict"]},
+        {"id": "train_lost", "faults": ["lost_ack"]},
+        {"id": "train_rate", "faults": ["rate_limit"]},
+        {"id": "train_revoke", "faults": ["revoke"]},
+        {"id": "train_injection", "faults": ["injection"]},
+        {"id": "train_noop", "faults": ["already_done"]},
+        {"id": "train_concurrent", "faults": ["concurrent_resolve"]}
+      ]
+    },
+    "dev": {
+      "seeds": [5201, 5202],
+      "templates": [
+        {"id": "dev_conflict_injection", "faults": ["conflict", "injection"]},
+        {"id": "dev_rate_injection", "faults": ["rate_limit", "injection"]},
+        {"id": "dev_revoke_lost", "faults": ["revoke", "lost_ack"]},
+        {"id": "dev_noop_rate", "faults": ["already_done", "rate_limit"]}
+      ]
+    },
+    "test": {
+      "seeds": [6301, 6302, 6303],
+      "templates": [
+        {"id": "test_conflict_lost", "faults": ["conflict", "lost_ack"]},
+        {"id": "test_conflict_rate", "faults": ["conflict", "rate_limit"]},
+        {"id": "test_rate_lost", "faults": ["rate_limit", "lost_ack"]},
+        {"id": "test_conflict_rate_lost", "faults": ["conflict", "rate_limit", "lost_ack"]},
+        {"id": "test_revoke_injection", "faults": ["revoke", "injection"]},
+        {"id": "test_rate_revoke", "faults": ["rate_limit", "revoke"]},
+        {"id": "test_noop_injection", "faults": ["already_done", "injection"]},
+        {"id": "test_concurrent_rate", "faults": ["concurrent_resolve", "rate_limit"]},
+        {"id": "test_concurrent_injection", "faults": ["concurrent_resolve", "injection"]},
+        {"id": "test_lost_injection", "faults": ["lost_ack", "injection"]}
+      ]
+    }
+  }
+}
