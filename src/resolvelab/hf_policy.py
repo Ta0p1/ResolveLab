@@ -1,6 +1,7 @@
 """Optional local Transformers policy. Identical prompt/decoder before and after SFT."""
 
 import json
+import re
 import time
 
 from .policies import SYSTEM_PROMPT, Decision, PolicyResponseError
@@ -38,11 +39,21 @@ def prompt_ids(tokenizer, messages):
     )
 
 
+def parse_action(content, allow_json_fences=False):
+    if allow_json_fences:
+        match = re.fullmatch(r"```(?:json)?\s*\n([\s\S]*?)\n```", content.strip())
+        if match:
+            content = match.group(1)
+    return Decision.model_validate(json.loads(content))
+
+
 class HFPolicy:
     initial_messages = staticmethod(initial_messages)
     append_observation = staticmethod(append_observation)
 
-    def __init__(self, base, revision, adapter=None, max_output=192, context=4096):
+    def __init__(
+        self, base, revision, adapter=None, max_output=192, context=4096, allow_json_fences=False
+    ):
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -61,6 +72,7 @@ class HFPolicy:
             self.model = PeftModel.from_pretrained(self.model, adapter)
         self.model.eval()
         self.max_output, self.context = max_output, context
+        self.allow_json_fences = allow_json_fences
         self.metadata = {
             "base": base,
             "revision": revision,
@@ -69,7 +81,7 @@ class HFPolicy:
             "context_tokens": context,
             "thinking": False,
             "do_sample": False,
-            "protocol": "json_action_v1",
+            "protocol": "json_action_v1+outer_fence" if allow_json_fences else "json_action_v1",
             "dtype": "bfloat16",
             "attention": "sdpa",
             "retries": 0,
@@ -103,7 +115,9 @@ class HFPolicy:
         usage = {"input_tokens": len(ids), "output_tokens": len(generated)}
         seconds = time.perf_counter() - start
         try:
-            action = Decision.model_validate(json.loads(content))
+            action = parse_action(content, self.allow_json_fences)
         except (ValueError, TypeError) as exc:
             raise PolicyResponseError(f"Invalid JSON action: {content[:300]}", usage, seconds) from exc
+        if self.allow_json_fences and content.startswith("```"):
+            usage["outer_fence_removed"] = True
         return action, usage, seconds

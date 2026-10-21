@@ -14,7 +14,15 @@ from .training import file_hash
 
 
 def evaluate_compositions(
-    manifest, config, split, output, data_dir, adapter=None, reference=False, resume=False
+    manifest,
+    config,
+    split,
+    output,
+    data_dir,
+    adapter=None,
+    reference=False,
+    resume=False,
+    allow_json_fences=False,
 ):
     output, data_dir = Path(output), Path(data_dir)
     policy = "reference" if reference else "hf-sft" if adapter else "hf-base"
@@ -23,6 +31,8 @@ def evaluate_compositions(
         if not resume:
             raise ValueError("Report exists; use --resume for an incomplete evaluation")
         report = json.loads(output.read_text(encoding="utf-8"))
+        if report.get("allow_json_fences", False) != allow_json_fences:
+            raise ValueError("Cannot change parser during resume")
         expected = (digest(manifest), digest(config), split, policy, adapter_hash, source_fingerprint())
         actual = tuple(
             report[k]
@@ -50,6 +60,7 @@ def evaluate_compositions(
             "source_sha256": source_fingerprint(),
             "adapter_sha256": adapter_hash,
             "max_tools": MAX_STEPS,
+            "allow_json_fences": allow_json_fences,
             "total": len(list(cases(manifest, split))),
             "completed": 0,
             "rows": [],
@@ -61,7 +72,12 @@ def evaluate_compositions(
         from .hf_policy import HFPolicy
 
         provider = HFPolicy(
-            config["base"], config["revision"], adapter, config["max_output"], config["context"]
+            config["base"],
+            config["revision"],
+            adapter,
+            config["max_output"],
+            config["context"],
+            allow_json_fences,
         )
         report["model"] = provider.metadata
     runner = Runner(store, provider)
@@ -100,6 +116,11 @@ def evaluate_compositions(
                 for e in run["events"]
             )
             row["protocol_errors"] = sum(e["name"] == "invalid_response" for e in run["events"])
+            row["outer_fences_removed"] = sum(
+                bool(e["result"].get("outer_fence_removed"))
+                for e in run["events"]
+                if e["kind"] == "model"
+            )
             row["injection_exposed"] = any(
                 e["name"] == "read_logs" and "injection" in spec.faults for e in run["events"]
             )

@@ -22,6 +22,11 @@ def main():
     parser.add_argument("--adapter", type=Path)
     parser.add_argument("--reference", action="store_true")
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument(
+        "--allow-json-fences",
+        action="store_true",
+        help="Exploratory parser control: accept one enclosing JSON code block",
+    )
     parser.add_argument("--base-report", type=Path)
     parser.add_argument("--sft-report", type=Path)
     args = parser.parse_args()
@@ -41,6 +46,7 @@ def main():
             args.adapter,
             args.reference,
             args.resume,
+            args.allow_json_fences,
         )
     else:
         result = compare(
