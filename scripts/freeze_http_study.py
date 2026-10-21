@@ -42,6 +42,22 @@ report = {
     "holdout_registration_commit": "7e5ffb4",
 }
 if args.phase == "test":
+    control_config = json.loads(
+        Path("benchmarks/httpdesk-ollama-control.json").read_text(encoding="utf-8")
+    )
+    report["ollama_control_config_sha256"] = digest(control_config)
+    report["ollama_control_script_sha256"] = file_hash("scripts/http_ollama_control.py")
+    training_lock = json.loads(Path("artifacts/v0.3/training-lock.json").read_text(encoding="utf-8"))
+    for key in (
+        "source_sha256",
+        "manifest_sha256",
+        "config_sha256",
+        "prompt_sha256",
+        "schema_sha256",
+        "data_sha256",
+    ):
+        if report[key] != training_lock[key]:
+            raise ValueError(f"Study changed after training lock: {key}")
     report["selected_adapters"] = {}
     for seed in config["training_seeds"]:
         folder = Path(f".local/http-sft-{seed}")

@@ -1,0 +1,13 @@
+{
+  "model": "qwen3:4b",
+  "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+  "tokenizer": "Qwen/Qwen3-4B",
+  "tokenizer_revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+  "context": 8192,
+  "max_output": 192,
+  "max_tools": 24,
+  "temperature": 0,
+  "seed": 42,
+  "thinking": false,
+  "role": "Supplementary quantized runtime control; not a matched LoRA training comparison"
+}
