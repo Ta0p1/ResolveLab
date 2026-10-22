@@ -26,6 +26,11 @@ Python · PyTorch · PEFT/LoRA · FastAPI · HTTP/ETag · SQLite · Constrained 
 Both baseline and adapted arms had 100% schema-valid calls; this comparison controls the format-rejection confound.
 <!-- HTTP_RESUME_RESULT_END -->
 
+> **Do not lead with the v0.3 number.** The [v0.3 review](v0.3-review.md) shows the 30
+> episodes are three records, the matched base never reached a fault, and a counterfactual
+> shows the adapters copy the demo's layout. If you cite it, cite it as the finding you
+> then took apart; the v0.4 study is the result to quote.
+
 ## Historical v0.2 bullets
 
 - Built a local tool-using support-agent workbench with nine typed tools and ten

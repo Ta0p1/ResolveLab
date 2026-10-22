@@ -55,11 +55,53 @@ All three seeds are reported. There is no test-based selection of the best seed.
 
 The single in-context example is deliberately from training. Fault primitives and
 the API contract are shared across splits; the experiment tests new compositions,
-not unseen mechanisms or tools. Record variants share templates, so paired intervals
-resample templates rather than pretending all episodes are independent. Even that
-interval is descriptive for this small benchmark, not a production reliability bound.
-The task wording is fixed, with only three distinct test record seeds. Paraphrase,
-cross-schema and cross-domain robustness need separate frozen evaluations.
+not unseen mechanisms or tools.
+
+The v0.3 intervals resampled templates, and that was the wrong unit: all ten templates
+reuse the same three records, and for the trained models the record alone decides the
+outcome, which is why the interval collapsed to `[66.7, 66.7]`. v0.4 gives every episode
+its own record and resamples training seeds and records separately; see the
+[review](v0.3-review.md) and the [v2 protocol](casedesk-v2-protocol.md).
+
+## “What did you find wrong with your own result?”
+
+This is the strongest story in the project; tell it with the traces open.
+
+1. Per-record outcomes showed the 30-episode test was three lookup problems: LoRA seeds
+   3407/2026 pass every episode of two records and none of the third.
+2. The matched 0.6B base never read the target ticket in any episode, so "0% → 77.8%"
+   is a workflow/lookup gain; it says nothing about recovery against that base.
+3. The failing record was the only one with its target in slot 0, the demo's target is
+   in slot 3, and training never used slot 0. A counterfactual kept every record fixed
+   and moved only the target (and, separately, the demo's target): all three adapters
+   solve 54/54 later-page targets with the published demo and 0/54 when the demo's
+   target is on page one. The adapters learned the demonstration's layout, not
+   reference matching.
+4. Two latent grader holes (resolving after a needless escalation; escalating before
+   any denial) were fixed in grader v2; re-grading all 180 published traces changed no
+   verdict, which is itself worth saying.
+5. The scripted teacher mislabels learner states (21/91 perturbed states), so it could not
+   be used for recovery data until it was rewritten and every label replay-verified.
+
+What changed as a result: independent records with position as a declared factor,
+an off-policy-safe teacher, and a DAgger study with a size-matched behaviour-cloning
+control, registered with decision rules before any v2 model run.
+
+## “Why DAgger, and not RL?”
+
+Behaviour cloning trains only on states the expert visits. Once the learner makes one
+mistake it is in a state with no correct example, so errors compound over the horizon
+(quadratically in the worst case for BC, linearly for DAgger under its no-regret
+assumptions; Ross & Bagnell 2010,
+Ross, Gordon & Bagnell 2011). The re-listing loop in `sft-3407-test/test_conflict_lost-6303`
+is exactly that. DAgger needs an expert that can be queried at any state; this project has
+one (after making it off-policy safe), so it is cheaper and lower-variance than RL. RL is
+the tool when no such expert exists. Its reward here is the grader, and the grader had two
+holes until v2. A reward-hacking policy would have found them.
+
+The control matters more than the algorithm: `bc-volume` adds the same number of extra
+expert rows from the same training episodes as `dagger` adds learner-state rows, so a
+difference is attributable to the state distribution, not to more data.
 
 ## “What does the HTTP boundary actually add?”
 
@@ -84,8 +126,8 @@ loss and gradients with ordinary masked causal-LM training.
 
 Low token loss is not the task metric. An agent can enter states absent from expert
 trajectories, and one incorrect action changes later observations. Rollout outcomes
-and failure audits are therefore essential. Off-policy states and a larger-model
-baseline are useful next experiments; RL should follow a reward audit, not precede it.
+and failure audits are therefore essential. v0.4 tests learner-state (DAgger) data
+directly; RL should follow a reward audit, not precede it.
 
 ## “How much did the coding assistant do?”
 
