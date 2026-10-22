@@ -58,6 +58,14 @@ def main():
         "manifest_sha256": digest(manifest),
         "study_sha256": digest(study),
         "source_sha256": source_hash(),
+        # The files that hash covers, so later versions can re-check exactly this set.
+        "source_files": sorted(
+            p.relative_to(ROOT / "src/resolvelab").as_posix()
+            for p in [
+                *(ROOT / "src/resolvelab").rglob("*.py"),
+                ROOT / "src/resolvelab/httpdesk/demo.json",
+            ]
+        ),
         "prompt_sha256": digest(initial_messages("TASK_PLACEHOLDER")),
         "schema_sha256": digest(action_schema()),
         "data_sha256": data,

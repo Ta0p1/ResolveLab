@@ -137,7 +137,7 @@ def training_jobs(study):
     return jobs
 
 
-def eval_jobs(study, pool, v03_root, thinking):
+def eval_jobs(study, pool, v03_root, thinking, three_demo=False):
     out = LOCAL / "eval" / pool
     jobs = [
         Job(
@@ -182,6 +182,17 @@ def eval_jobs(study, pool, v03_root, thinking):
                 ],
             )
         )
+    if three_demo:
+        for model in ("0.6b", "1.7b"):
+            name = f"base-{model}-3demo"
+            jobs.append(
+                Job(
+                    f"{pool}-{name}",
+                    out / f"{name}.json",
+                    ["eval", "--pool", pool, "--arm", name, "--model", f"qwen3-{model}", "--three-demo"]
+                    + ["--output", out / f"{name}.json"],
+                )
+            )
     for arm, seed, adapter, deps in adapter_arms(study, v03_root):
         path = out / f"{arm}-{seed}.json"
         jobs.append(
@@ -249,11 +260,12 @@ def main():
     parser.add_argument("--v03-adapters", type=Path, required=True)
     parser.add_argument("--parallel", type=int, default=2, help="concurrent GPU jobs")
     parser.add_argument("--thinking", type=int, default=0, help="add a thinking-mode 1.7B arm")
+    parser.add_argument("--three-demo", action="store_true", help="add three-demo base arms")
     parser.add_argument("--only", nargs="*", help="job-name prefixes")
     args = parser.parse_args()
     study = json.loads((ROOT / "benchmarks/casedesk-v2-study.json").read_text(encoding="utf-8"))
     jobs = training_jobs(study) if args.phase == "dev" else []
-    jobs += eval_jobs(study, args.phase, args.v03_adapters, args.thinking)
+    jobs += eval_jobs(study, args.phase, args.v03_adapters, args.thinking, args.three_demo)
     if args.only:
         jobs = [j for j in jobs if any(j.name.startswith(o) for o in args.only)]
     if args.phase == "test":

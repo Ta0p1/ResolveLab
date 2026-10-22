@@ -39,6 +39,42 @@ def model_config(study, model, **extra):
     return {**study["models"][model], **study["decoding"], **extra}
 
 
+# Stronger in-context baseline: three verified train_core conversations chosen by a fixed rule
+# (first in manifest order) to cover a later-page target with a plain write, a slot-0 target
+# with a 412 refresh, and a slot-1 target with a 403 escalation.
+DEMO_RULE = [
+    ("train_plain", lambda s: s["target_pos"] >= 2),
+    ("train_conflict", lambda s: s["target_pos"] == 0),
+    ("train_revoke", lambda s: s["target_pos"] == 1),
+]
+
+
+class DemoPrompt:
+    """Wraps a policy and swaps the shared one-shot prefix for the three-demo prefix."""
+
+    def __init__(self, inner, manifest):
+        from resolvelab.casedesk.prompts import build_demo, prompt_with_demo
+        from resolvelab.casedesk.world import WorldState
+        from resolvelab.httpdesk.schema import initial_messages
+
+        chosen = [
+            next(s for s in manifest["episodes"]["train_core"] if s["composition"] == c and rule(s))
+            for c, rule in DEMO_RULE
+        ]
+        self.prompt = prompt_with_demo(*(build_demo(WorldState(s)) for s in chosen))
+        self.task_index = len(initial_messages("x")) - 1
+        self.inner = inner
+        self.metadata = inner.metadata | {
+            "prompt": "three_demo_v1",
+            "demo_specs": [s["id"] for s in chosen],
+            "prompt_sha256": digest(self.prompt("TASK_PLACEHOLDER")),
+        }
+
+    def next(self, messages):
+        task = messages[self.task_index]["content"].removeprefix("New independent task:\n")
+        return self.inner.next(self.prompt(task) + messages[self.task_index + 1 :])
+
+
 def collect_expert(manifest, pool, output):
     rows, episodes = expert_rows(manifest, pool)
     sha = write_rows(output, rows)
@@ -145,6 +181,7 @@ def main():
     parser.add_argument("--arm")
     parser.add_argument("--model", default="qwen3-0.6b")
     parser.add_argument("--thinking", type=int, default=0)
+    parser.add_argument("--three-demo", action="store_true")
     parser.add_argument("--limit", type=int)
     parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
@@ -173,7 +210,11 @@ def main():
         if args.thinking:
             arm["thinking_budget"] = args.thinking
             arm["sampling_seed"] = 0
+        if args.three_demo:
+            arm["prompt"] = "three_demo_v1"
         provider = make_policy(arm, args.adapter)
+        if args.three_demo:
+            provider = DemoPrompt(provider, manifest)
         report = evaluate(manifest, args.pool, arm, args.output, provider, args.resume, args.limit)
         print(json.dumps(report["summary"], indent=1))
 
