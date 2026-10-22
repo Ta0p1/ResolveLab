@@ -20,6 +20,28 @@ RUNS = LOCAL / "runs"
 LOCK = ROOT / "artifacts/v0.4/test-lock.json"
 CLI = [sys.executable, "scripts/casedesk_v2.py"]
 TRAINED = ("bc", "bc-volume", "dagger")
+# Peak MiB per job kind on the 8 GB card (measured on the v0.3 runs plus margin). A GPU job
+# starts only when this much is free, and never sooner than SETTLE seconds after the last
+# start, so processes that do not belong to this graph are respected.
+GPU_MIB = {"train": 3000, "rollout": 2400, "eval-0.6b": 2400, "eval-1.7b": 5200}
+SETTLE = 90
+
+
+def gpu_need(job):
+    kind = job.command[0]
+    if kind == "eval":
+        return GPU_MIB["eval-1.7b" if "qwen3-1.7b" in map(str, job.command) else "eval-0.6b"]
+    return GPU_MIB.get(kind, 0)
+
+
+def free_mib():
+    out = subprocess.run(
+        ["nvidia-smi", "--query-gpu=memory.free", "--format=csv,noheader,nounits"],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    return int(out.stdout.split()[0])
 
 
 def selected(run):
@@ -185,6 +207,15 @@ def eval_jobs(study, pool, v03_root, thinking):
     return jobs
 
 
+def complete(job):
+    """Reports must say ``completed``; a running/errored report or training log is not done."""
+    if not job.output.exists():
+        return False
+    if job.output.suffix == ".json":
+        return json.loads(job.output.read_text(encoding="utf-8")).get("status") == "completed"
+    return True
+
+
 def command(job):
     parts = []
     for part in job.command:
@@ -192,6 +223,10 @@ def command(job):
         parts.append(
             str(selected(part.removeprefix("SELECTED:"))) if part.startswith("SELECTED:") else part
         )
+    if parts[0] == "eval" and job.output.exists():
+        parts.append("--resume")
+    if parts[0] == "train" and job.output.exists():
+        raise SystemExit(f"{job.output.parent} holds an incomplete run; inspect and move it aside")
     return CLI + parts
 
 
@@ -226,8 +261,9 @@ def main():
             raise SystemExit("Test evaluation requires artifacts/v0.4/test-lock.json")
         check_lock(jobs)
     names = {j.name for j in jobs}
-    done = {j.name for j in jobs if j.output.exists()}
+    done = {j.name for j in jobs if complete(j)}
     running, failed = {}, set()
+    last_gpu_start = -SETTLE
     (LOCAL / "logs").mkdir(parents=True, exist_ok=True)
     while True:
         for name, (job, process, log) in list(running.items()):
@@ -235,7 +271,7 @@ def main():
                 continue
             log.close()
             del running[name]
-            ok = process.returncode == 0 and job.output.exists()
+            ok = process.returncode == 0 and complete(job)
             (done if ok else failed).add(name)
             print(time.strftime("%H:%M:%S"), name, "ok" if ok else "FAILED", flush=True)
         waiting = [j for j in jobs if j.name not in done | failed | set(running)]
@@ -249,8 +285,12 @@ def main():
         ]
         busy = sum(job.gpu for job, _, _ in running.values())
         for job in ready:
-            if job.gpu and busy >= args.parallel:
-                continue
+            if job.gpu:
+                if busy >= args.parallel or time.monotonic() - last_gpu_start < SETTLE:
+                    continue
+                if free_mib() < gpu_need(job) + 300:
+                    continue
+                last_gpu_start = time.monotonic()
             log = open(LOCAL / "logs" / f"{job.name}.log", "a", encoding="utf-8")
             print(time.strftime("%H:%M:%S"), "start", job.name, flush=True)
             process = subprocess.Popen(command(job), cwd=ROOT, stdout=log, stderr=subprocess.STDOUT)
