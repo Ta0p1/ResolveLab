@@ -7,6 +7,23 @@ GitHub: <https://github.com/Ta0p1/ResolveLab>
 
 Python · PyTorch · PEFT/LoRA · FastAPI · HTTP/ETag · SQLite · Constrained decoding · Pytest
 
+## v0.4 bullets (quote these, with their scope)
+
+- Found a shortcut in my own fine-tuned agent with a counterfactual: holding records fixed,
+  the v0.3 Qwen3-0.6B LoRA adapters solved 54/54 later-page lookups under the published
+  in-context demo and 0/54 when only the demo's layout changed; rebuilt the benchmark with
+  288 independent records, declared position/decoy/wording factors and held-out wording.
+- Ran a pre-registered DAgger study with a size-matched behaviour-cloning control and a
+  replay-verified, off-policy-safe teacher: 98.3% vs 90.8% success on a locked 120-episode
+  synthetic HTTP holdout (+7.5 pp, 95% CI [1.9, 13.3] over three training seeds and records),
+  removing a compounding ETag-copy failure that extra expert data did not fix.
+- Kept the evidence executable: hash-locked inputs and adapters, a GPU-free verifier that
+  re-derives every DAgger label and replays all 1,920 test episodes over real HTTP.
+
+Scope to say out loud: synthetic, process-local service with a known contract; held-out
+compositions, records and wording, not new tools or real incidents; one model family, three
+seeds, one DAgger iteration; small local baselines only.
+
 ## Current v0.3 bullets
 
 - Engineered an agent recovery lab spanning SQLite sync and a real HTTP ticket

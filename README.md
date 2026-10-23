@@ -2,7 +2,7 @@
 
 **A support agent should leave working systems, not just convincing answers.**
 
-[中文介绍](README.zh-CN.md) · [Latest results](artifacts/v0.3/RESULTS.md) · [Reproduce the HTTP study](docs/httpdesk-protocol.md) · [Four-minute demo](docs/demo.md) · [CI](https://github.com/Ta0p1/ResolveLab/actions/workflows/ci.yml)
+[中文介绍](README.zh-CN.md) · [Latest results](artifacts/v0.4/RESULTS.md) · [v0.3 self-review](docs/v0.3-review.md) · [v2 protocol](docs/casedesk-v2-protocol.md) · [Four-minute demo](docs/demo.md) · [CI](https://github.com/Ta0p1/ResolveLab/actions/workflows/ci.yml)
 
 ResolveLab is an agent engineering lab for recovery workflows across two synthetic
 services: a durable SQLite sync system and a ticket service over real HTTP. It combines
@@ -14,7 +14,41 @@ environment; production reliability and generalization to new tools remain open.
 
 ![ResolveLab HTTP study with measured structured-output baselines and three LoRA training seeds](docs/assets/http-study.png)
 
+## v0.4: take the v0.3 result apart, then test DAgger against a size-matched control
+
+- **Self-review first.** The v0.3 test was three records reused across ten compositions; the
+  matched base never reached a fault; and a counterfactual that moves only the target shows
+  the v0.3 adapters solve 54/54 later-page targets with the published demo and 0/54 when the
+  demo's target is on page one. They had learned the demo's layout. ([Review](docs/v0.3-review.md))
+- **New benchmark.** 288 episodes, each with its own record; target slot, decoy shapes and
+  wording are declared factors; half the test uses wording never seen in training.
+- **Off-policy-safe teacher.** The v0.3 runbook mislabels learner states (21/91 perturbed
+  states). The rewrite recovers from all fuzzed states, and every label is verified by
+  finishing the episode from that exact state.
+- **Controlled question.** DAgger adds verified labels at the learner's own states;
+  `bc-volume` adds the same number of extra expert rows from the same episodes. Registered,
+  with decision rules, before any v2 model run; test inputs and adapters locked before testing.
+
+| Test (120 independent episodes) | Seeds 3407 / 42 / 2026 | Mean |
+|---|---|---:|
+| Qwen3-0.6B base | 0/120 | 0.0% |
+| Qwen3-1.7B base (one-shot / three-demo) | 28/120 / 18/120 | 23.3% / 15.0% |
+| v0.3 published adapters | 42, 30, 34 | 29.4% |
+| Behaviour cloning (`bc`) | 113, 112, 102 | 90.8% |
+| BC + extra expert rows (`bc-volume`) | 115, 108, 104 | 90.8% |
+| BC + verified DAgger rows (`dagger`) | **118, 117, 119** | **98.3%** |
+
+`dagger − bc-volume` = **+7.5 pp, 95% CI [1.9, 13.3]** over training seeds and records
+(registered rule: supported), with equal safety-violation counts. Extra expert data alone
+changed nothing. The difference is one compounding error that expert data never shows: a
+mis-copied ETag that triggers a self-inflicted 412 loop. 26 of 33 `bc-volume` failures,
+0 `dagger` failures. [Full results, failure taxonomy and limits](artifacts/v0.4/RESULTS.md);
+audit without a GPU with `python scripts/verify_casedesk_v2.py`.
+
 ## v0.3: control JSON structure, then measure outcomes
+
+> Superseded as a headline by the [v0.3 self-review](docs/v0.3-review.md); kept unchanged as
+> the registered record.
 
 - **Stronger baselines:** Qwen3-0.6B and Qwen3-1.7B use full tool-schema constrained
   decoding and one verified training demonstration. The LoRA arms use the identical

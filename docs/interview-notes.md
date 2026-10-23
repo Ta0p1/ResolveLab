@@ -103,6 +103,16 @@ The control matters more than the algorithm: `bc-volume` adds the same number of
 expert rows from the same training episodes as `dagger` adds learner-state rows, so a
 difference is attributable to the state distribution, not to more data.
 
+What happened ([results](../artifacts/v0.4/RESULTS.md)): 98.3% vs 90.8% on the locked test,
++7.5 pp with a seed × record interval of [1.9, 13.3]; `bc-volume − bc` was 0.0. Be ready to
+show the mechanism from traces: behaviour cloning occasionally mis-copies an ETag, gets 412,
+re-reads and repeats the same mis-copy until the budget runs out (or extends the string to
+the output cap). 26 of 33 `bc-volume` failures are that loop; `dagger` has none, because the
+learner produced those states in training rollouts and the teacher labelled the way out.
+Expect the follow-up "isn't that a narrow fix?" — yes: it shows why learner-state labels help
+here, on one contract; it is not evidence that DAgger helps everywhere. Also say that rows,
+not tokens, were matched (DAgger rows carry 1–9% more target tokens per epoch).
+
 ## “What does the HTTP boundary actually add?”
 
 The adapter sends real httpx requests over a bound TCP socket to a separate FastAPI

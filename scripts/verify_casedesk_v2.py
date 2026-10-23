@@ -50,7 +50,8 @@ def prefix_actions(messages):
     return [json.loads(m["content"]) for m in messages[start:] if m["role"] == "assistant"]
 
 
-def verify(every=1):
+def verify(every=1, replay_every=1):
+    """Hashes of every trace and data file are always checked; sampling only thins replays."""
     lock = read(BUNDLE / "test-lock.json")
     study = read(ROOT / "benchmarks/casedesk-v2-study.json")
     manifest = load_manifest(ROOT / study["manifest"])
@@ -101,9 +102,11 @@ def verify(every=1):
         if key in lock["adapters"]:
             assert report["adapter_sha256"] == lock["adapters"][key]["sha256"], key
         traces = zipfile.ZipFile(BUNDLE / "traces" / "test" / f"{report_path.stem}.zip")
-        for row in report["rows"]:
+        for index, row in enumerate(report["rows"]):
             raw = traces.read(row["trace"])
             assert sha(raw) == row["trace_sha256"]
+            if index % replay_every:
+                continue
             trace = json.loads(raw)
             spec = specs[row["spec_id"]]
             actions = [d["action"] for d in trace["decisions"] if "action" in d]
@@ -122,5 +125,7 @@ def verify(every=1):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--dagger-every", type=int, default=1, help="re-verify every Nth DAgger label")
-    labels, replayed = verify(parser.parse_args().dagger_every)
+    parser.add_argument("--replay-every", type=int, default=1, help="replay every Nth test episode")
+    args = parser.parse_args()
+    labels, replayed = verify(args.dagger_every, args.replay_every)
     print(f"Verified provenance, {labels} DAgger labels and {replayed} real-HTTP test episode replays.")
