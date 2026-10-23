@@ -119,6 +119,25 @@ targets effects of about 10 pp; smaller ones will be reported as inconclusive, n
 - Compute cap ≈ 16 GPU-hours on the RTX 4060 Ti 8 GB. If exceeded, the thinking baseline is
   dropped first; registered arms are not.
 
+### Amendment 1 (2026-10-22, after the registered dev runs, before any baseline-amendment run)
+
+The registered dev runs finished (all 15 arms/seeds). Before running any additional
+baseline on dev, two baselines are added with fixed inclusion rules:
+
+- `base-0.6b-3demo`, `base-1.7b-3demo`: the base models with three verified `train_core`
+  demonstrations chosen by a fixed rule (first in manifest order: `train_plain` with a target
+  on page 2+, `train_conflict` with the target in slot 0, `train_revoke` with it in slot 1;
+  `scripts/casedesk_v2.py`, `DEMO_RULE`) in place of the single v0.3 demo. Same schema,
+  decoder and budgets. **Both go to test regardless of their dev score.**
+- `think512-1.7b`: Qwen3-1.7B in thinking mode, up to 512 reasoning tokens per action
+  (Qwen3's recommended thinking sampling: T 0.6, top-p 0.95, top-k 20, seeded), then the
+  same constrained action. A smoke test measured ≈140 s per episode at 256 tokens, so a test
+  run costs ≈5 GPU-hours. **It goes to test if its dev pass rate is ≥ 50%;** otherwise it is
+  reported as a dev-only baseline under the compute cap. This rule is fixed before its first
+  dev episode.
+
+The trained arms, their data and checkpoint selection are unchanged.
+
 ## Reproduction
 
 ```bash
