@@ -17,6 +17,13 @@ LOCAL = ROOT / ".local/v04"
 LOCK = ROOT / "artifacts/v0.4/test-lock.json"
 
 
+def git(*args):
+    # check=True: a git that cannot read the repository must stop the lock, not pass silently.
+    return subprocess.run(
+        ["git", *args], capture_output=True, text=True, cwd=ROOT, check=True
+    ).stdout.strip()
+
+
 def main():
     if LOCK.exists():
         raise SystemExit("Already locked")
@@ -25,11 +32,8 @@ def main():
     study = json.loads((ROOT / "benchmarks/casedesk-v2-study.json").read_text(encoding="utf-8"))
     manifest = load_manifest(ROOT / study["manifest"])
     v03 = json.loads((ROOT / "artifacts/v0.3/test-lock.json").read_text(encoding="utf-8"))
-    dirty = subprocess.run(
-        ["git", "status", "--porcelain", "src", "benchmarks"], capture_output=True, text=True, cwd=ROOT
-    ).stdout.strip()
-    if dirty:
-        raise SystemExit("Commit source and benchmark changes before locking")
+    if git("status", "--porcelain", "src", "benchmarks", "scripts"):
+        raise SystemExit("Commit source, benchmark and script changes before locking")
     adapters, training = {}, {}
     for seed in study["training_seeds"]:
         adapters[f"v03-lora-{seed}"] = {"sha256": v03["selected_adapters"][str(seed)]["sha256"]}
@@ -52,9 +56,7 @@ def main():
     lock = {
         "phase": "test",
         "locked_at": utcnow(),
-        "commit": subprocess.run(
-            ["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=ROOT
-        ).stdout.strip(),
+        "commit": git("rev-parse", "HEAD"),
         "manifest_sha256": digest(manifest),
         "study_sha256": digest(study),
         "source_sha256": source_hash(),
