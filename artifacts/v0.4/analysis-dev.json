@@ -1,0 +1,1097 @@
+{
+  "pool": "dev",
+  "episodes": 40,
+  "arms": {
+    "base-0.6b-3demo": {
+      "seeds": {
+        "None": {
+          "passed": 1,
+          "episodes": 40,
+          "wilson_95": [
+            0.004426831453704344,
+            0.12881369088183614
+          ],
+          "safety_violations": 2,
+          "unsafe_mutations": 0,
+          "false_successes": 2,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 3,
+          "v03_grader_passed": 1,
+          "failure_categories": {
+            "false_success": 2,
+            "unfinished": 9,
+            "unjustified_escalation": 28
+          },
+          "mean_tools": 8.275,
+          "output_tokens": 5985,
+          "input_tokens": 1215417,
+          "median_seconds": 2.985861245499109
+        }
+      },
+      "success": {
+        "mean": 0.025,
+        "min": 0.025,
+        "max": 0.025,
+        "per_seed": [
+          0.025
+        ]
+      },
+      "slices": {
+        "target_slot_0": {
+          "episodes": 8,
+          "mean_rate": 0.125
+        },
+        "target_slot_1": {
+          "episodes": 8,
+          "mean_rate": 0.0
+        },
+        "target_later_page": {
+          "episodes": 24,
+          "mean_rate": 0.0
+        },
+        "phrasing_seen": {
+          "episodes": 40,
+          "mean_rate": 0.025
+        },
+        "phrasing_held_out": {
+          "episodes": 0,
+          "mean_rate": null
+        },
+        "dev_conflict_injection": {
+          "episodes": 10,
+          "mean_rate": 0.0
+        },
+        "dev_rate_injection": {
+          "episodes": 10,
+          "mean_rate": 0.0
+        },
+        "dev_revoke_lost": {
+          "episodes": 10,
+          "mean_rate": 0.1
+        },
+        "dev_noop_rate": {
+          "episodes": 10,
+          "mean_rate": 0.0
+        }
+      }
+    },
+    "base-0.6b": {
+      "seeds": {
+        "None": {
+          "passed": 0,
+          "episodes": 40,
+          "wilson_95": [
+            0.0,
+            0.08762160245846368
+          ],
+          "safety_violations": 0,
+          "unsafe_mutations": 0,
+          "false_successes": 0,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 0,
+          "v03_grader_passed": 0,
+          "failure_categories": {
+            "unfinished": 4,
+            "unjustified_escalation": 36
+          },
+          "mean_tools": 5.625,
+          "output_tokens": 3953,
+          "input_tokens": 516018,
+          "median_seconds": 3.4971132170001056
+        }
+      },
+      "success": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "per_seed": [
+          0.0
+        ]
+      },
+      "slices": {
+        "target_slot_0": {
+          "episodes": 8,
+          "mean_rate": 0.0
+        },
+        "target_slot_1": {
+          "episodes": 8,
+          "mean_rate": 0.0
+        },
+        "target_later_page": {
+          "episodes": 24,
+          "mean_rate": 0.0
+        },
+        "phrasing_seen": {
+          "episodes": 40,
+          "mean_rate": 0.0
+        },
+        "phrasing_held_out": {
+          "episodes": 0,
+          "mean_rate": null
+        },
+        "dev_conflict_injection": {
+          "episodes": 10,
+          "mean_rate": 0.0
+        },
+        "dev_rate_injection": {
+          "episodes": 10,
+          "mean_rate": 0.0
+        },
+        "dev_revoke_lost": {
+          "episodes": 10,
+          "mean_rate": 0.0
+        },
+        "dev_noop_rate": {
+          "episodes": 10,
+          "mean_rate": 0.0
+        }
+      }
+    },
+    "base-1.7b-3demo": {
+      "seeds": {
+        "None": {
+          "passed": 11,
+          "episodes": 40,
+          "wilson_95": [
+            0.16108016177777446,
+            0.4283495593285342
+          ],
+          "safety_violations": 28,
+          "unsafe_mutations": 10,
+          "false_successes": 22,
+          "spurious_escalations": 6,
+          "redundant_commits": 1,
+          "located_target": 16,
+          "v03_grader_passed": 11,
+          "failure_categories": {
+            "false_success": 12,
+            "spurious_escalation": 6,
+            "unjustified_escalation": 1,
+            "unsafe_mutation": 10
+          },
+          "mean_tools": 6.15,
+          "output_tokens": 7409,
+          "input_tokens": 757905,
+          "median_seconds": 9.574061855999389
+        }
+      },
+      "success": {
+        "mean": 0.275,
+        "min": 0.275,
+        "max": 0.275,
+        "per_seed": [
+          0.275
+        ]
+      },
+      "slices": {
+        "target_slot_0": {
+          "episodes": 8,
+          "mean_rate": 0.75
+        },
+        "target_slot_1": {
+          "episodes": 8,
+          "mean_rate": 0.625
+        },
+        "target_later_page": {
+          "episodes": 24,
+          "mean_rate": 0.0
+        },
+        "phrasing_seen": {
+          "episodes": 40,
+          "mean_rate": 0.275
+        },
+        "phrasing_held_out": {
+          "episodes": 0,
+          "mean_rate": null
+        },
+        "dev_conflict_injection": {
+          "episodes": 10,
+          "mean_rate": 0.3
+        },
+        "dev_rate_injection": {
+          "episodes": 10,
+          "mean_rate": 0.0
+        },
+        "dev_revoke_lost": {
+          "episodes": 10,
+          "mean_rate": 0.4
+        },
+        "dev_noop_rate": {
+          "episodes": 10,
+          "mean_rate": 0.4
+        }
+      }
+    },
+    "base-1.7b": {
+      "seeds": {
+        "None": {
+          "passed": 15,
+          "episodes": 40,
+          "wilson_95": [
+            0.24222979078963872,
+            0.5296756098249772
+          ],
+          "safety_violations": 22,
+          "unsafe_mutations": 6,
+          "false_successes": 14,
+          "spurious_escalations": 8,
+          "redundant_commits": 2,
+          "located_target": 28,
+          "v03_grader_passed": 15,
+          "failure_categories": {
+            "false_success": 7,
+            "redundant_write": 1,
+            "spurious_escalation": 8,
+            "unfinished": 1,
+            "unjustified_escalation": 2,
+            "unsafe_mutation": 6
+          },
+          "mean_tools": 8.775,
+          "output_tokens": 9295,
+          "input_tokens": 736657,
+          "median_seconds": 9.25650530600069
+        }
+      },
+      "success": {
+        "mean": 0.375,
+        "min": 0.375,
+        "max": 0.375,
+        "per_seed": [
+          0.375
+        ]
+      },
+      "slices": {
+        "target_slot_0": {
+          "episodes": 8,
+          "mean_rate": 0.375
+        },
+        "target_slot_1": {
+          "episodes": 8,
+          "mean_rate": 0.375
+        },
+        "target_later_page": {
+          "episodes": 24,
+          "mean_rate": 0.375
+        },
+        "phrasing_seen": {
+          "episodes": 40,
+          "mean_rate": 0.375
+        },
+        "phrasing_held_out": {
+          "episodes": 0,
+          "mean_rate": null
+        },
+        "dev_conflict_injection": {
+          "episodes": 10,
+          "mean_rate": 0.0
+        },
+        "dev_rate_injection": {
+          "episodes": 10,
+          "mean_rate": 0.1
+        },
+        "dev_revoke_lost": {
+          "episodes": 10,
+          "mean_rate": 0.7
+        },
+        "dev_noop_rate": {
+          "episodes": 10,
+          "mean_rate": 0.7
+        }
+      }
+    },
+    "bc": {
+      "seeds": {
+        "2026": {
+          "passed": 33,
+          "episodes": 40,
+          "wilson_95": [
+            0.6805000953869541,
+            0.9125458630150444
+          ],
+          "safety_violations": 2,
+          "unsafe_mutations": 2,
+          "false_successes": 2,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 38,
+          "v03_grader_passed": 33,
+          "failure_categories": {
+            "unfinished": 5,
+            "unsafe_mutation": 2
+          },
+          "mean_tools": 7.825,
+          "output_tokens": 9735,
+          "input_tokens": 692301,
+          "median_seconds": 17.90996163899763
+        },
+        "3407": {
+          "passed": 40,
+          "episodes": 40,
+          "wilson_95": [
+            0.9123783975415363,
+            1.0
+          ],
+          "safety_violations": 0,
+          "unsafe_mutations": 0,
+          "false_successes": 0,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 40,
+          "v03_grader_passed": 40,
+          "failure_categories": {},
+          "mean_tools": 6.825,
+          "output_tokens": 7377,
+          "input_tokens": 541510,
+          "median_seconds": 16.029096747999574
+        },
+        "42": {
+          "passed": 39,
+          "episodes": 40,
+          "wilson_95": [
+            0.8711863091181636,
+            0.9955731685462955
+          ],
+          "safety_violations": 1,
+          "unsafe_mutations": 1,
+          "false_successes": 1,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 39,
+          "v03_grader_passed": 39,
+          "failure_categories": {
+            "unsafe_mutation": 1
+          },
+          "mean_tools": 6.775,
+          "output_tokens": 7339,
+          "input_tokens": 536287,
+          "median_seconds": 13.59911899799954
+        }
+      },
+      "success": {
+        "mean": 0.9333333333333332,
+        "min": 0.825,
+        "max": 1.0,
+        "per_seed": [
+          0.825,
+          1.0,
+          0.975
+        ]
+      },
+      "slices": {
+        "target_slot_0": {
+          "episodes": 8,
+          "mean_rate": 0.9583333333333334
+        },
+        "target_slot_1": {
+          "episodes": 8,
+          "mean_rate": 0.9166666666666666
+        },
+        "target_later_page": {
+          "episodes": 24,
+          "mean_rate": 0.9305555555555557
+        },
+        "phrasing_seen": {
+          "episodes": 40,
+          "mean_rate": 0.9333333333333332
+        },
+        "phrasing_held_out": {
+          "episodes": 0,
+          "mean_rate": null
+        },
+        "dev_conflict_injection": {
+          "episodes": 10,
+          "mean_rate": 0.9
+        },
+        "dev_rate_injection": {
+          "episodes": 10,
+          "mean_rate": 0.9
+        },
+        "dev_revoke_lost": {
+          "episodes": 10,
+          "mean_rate": 0.9666666666666667
+        },
+        "dev_noop_rate": {
+          "episodes": 10,
+          "mean_rate": 0.9666666666666667
+        }
+      }
+    },
+    "bc-volume": {
+      "seeds": {
+        "2026": {
+          "passed": 36,
+          "episodes": 40,
+          "wilson_95": [
+            0.7694822464406407,
+            0.9604204715925885
+          ],
+          "safety_violations": 0,
+          "unsafe_mutations": 0,
+          "false_successes": 0,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 40,
+          "v03_grader_passed": 36,
+          "failure_categories": {
+            "unfinished": 3,
+            "unjustified_escalation": 1
+          },
+          "mean_tools": 7.95,
+          "output_tokens": 9619,
+          "input_tokens": 700543,
+          "median_seconds": 15.232783233999726
+        },
+        "3407": {
+          "passed": 40,
+          "episodes": 40,
+          "wilson_95": [
+            0.9123783975415363,
+            1.0
+          ],
+          "safety_violations": 0,
+          "unsafe_mutations": 0,
+          "false_successes": 0,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 40,
+          "v03_grader_passed": 40,
+          "failure_categories": {},
+          "mean_tools": 6.825,
+          "output_tokens": 7377,
+          "input_tokens": 541510,
+          "median_seconds": 14.777713266999854
+        },
+        "42": {
+          "passed": 35,
+          "episodes": 40,
+          "wilson_95": [
+            0.7388788003201471,
+            0.9454049978360052
+          ],
+          "safety_violations": 1,
+          "unsafe_mutations": 1,
+          "false_successes": 1,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 39,
+          "v03_grader_passed": 35,
+          "failure_categories": {
+            "unfinished": 4,
+            "unsafe_mutation": 1
+          },
+          "mean_tools": 8.3,
+          "output_tokens": 9958,
+          "input_tokens": 743830,
+          "median_seconds": 24.539596028000233
+        }
+      },
+      "success": {
+        "mean": 0.9249999999999999,
+        "min": 0.875,
+        "max": 1.0,
+        "per_seed": [
+          0.9,
+          1.0,
+          0.875
+        ]
+      },
+      "slices": {
+        "target_slot_0": {
+          "episodes": 8,
+          "mean_rate": 0.9166666666666666
+        },
+        "target_slot_1": {
+          "episodes": 8,
+          "mean_rate": 0.9166666666666666
+        },
+        "target_later_page": {
+          "episodes": 24,
+          "mean_rate": 0.9305555555555555
+        },
+        "phrasing_seen": {
+          "episodes": 40,
+          "mean_rate": 0.9249999999999999
+        },
+        "phrasing_held_out": {
+          "episodes": 0,
+          "mean_rate": null
+        },
+        "dev_conflict_injection": {
+          "episodes": 10,
+          "mean_rate": 0.7999999999999999
+        },
+        "dev_rate_injection": {
+          "episodes": 10,
+          "mean_rate": 0.9
+        },
+        "dev_revoke_lost": {
+          "episodes": 10,
+          "mean_rate": 1.0
+        },
+        "dev_noop_rate": {
+          "episodes": 10,
+          "mean_rate": 1.0
+        }
+      }
+    },
+    "dagger": {
+      "seeds": {
+        "2026": {
+          "passed": 40,
+          "episodes": 40,
+          "wilson_95": [
+            0.9123783975415363,
+            1.0
+          ],
+          "safety_violations": 0,
+          "unsafe_mutations": 0,
+          "false_successes": 0,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 40,
+          "v03_grader_passed": 40,
+          "failure_categories": {},
+          "mean_tools": 6.825,
+          "output_tokens": 7377,
+          "input_tokens": 541510,
+          "median_seconds": 13.352452280001671
+        },
+        "3407": {
+          "passed": 39,
+          "episodes": 40,
+          "wilson_95": [
+            0.8711863091181636,
+            0.9955731685462955
+          ],
+          "safety_violations": 1,
+          "unsafe_mutations": 0,
+          "false_successes": 1,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 40,
+          "v03_grader_passed": 39,
+          "failure_categories": {
+            "false_success": 1
+          },
+          "mean_tools": 6.775,
+          "output_tokens": 7295,
+          "input_tokens": 536993,
+          "median_seconds": 13.226904749999449
+        },
+        "42": {
+          "passed": 40,
+          "episodes": 40,
+          "wilson_95": [
+            0.9123783975415363,
+            1.0
+          ],
+          "safety_violations": 0,
+          "unsafe_mutations": 0,
+          "false_successes": 0,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 40,
+          "v03_grader_passed": 40,
+          "failure_categories": {},
+          "mean_tools": 6.825,
+          "output_tokens": 7377,
+          "input_tokens": 541510,
+          "median_seconds": 30.513433290498142
+        }
+      },
+      "success": {
+        "mean": 0.9916666666666667,
+        "min": 0.975,
+        "max": 1.0,
+        "per_seed": [
+          1.0,
+          0.975,
+          1.0
+        ]
+      },
+      "slices": {
+        "target_slot_0": {
+          "episodes": 8,
+          "mean_rate": 1.0
+        },
+        "target_slot_1": {
+          "episodes": 8,
+          "mean_rate": 0.9583333333333334
+        },
+        "target_later_page": {
+          "episodes": 24,
+          "mean_rate": 1.0
+        },
+        "phrasing_seen": {
+          "episodes": 40,
+          "mean_rate": 0.9916666666666667
+        },
+        "phrasing_held_out": {
+          "episodes": 0,
+          "mean_rate": null
+        },
+        "dev_conflict_injection": {
+          "episodes": 10,
+          "mean_rate": 0.9666666666666667
+        },
+        "dev_rate_injection": {
+          "episodes": 10,
+          "mean_rate": 1.0
+        },
+        "dev_revoke_lost": {
+          "episodes": 10,
+          "mean_rate": 1.0
+        },
+        "dev_noop_rate": {
+          "episodes": 10,
+          "mean_rate": 1.0
+        }
+      }
+    },
+    "think512-1.7b": {
+      "seeds": {
+        "None": {
+          "passed": 10,
+          "episodes": 40,
+          "wilson_95": [
+            0.1418711857438798,
+            0.40193961548535195
+          ],
+          "safety_violations": 29,
+          "unsafe_mutations": 4,
+          "false_successes": 19,
+          "spurious_escalations": 10,
+          "redundant_commits": 0,
+          "located_target": 19,
+          "v03_grader_passed": 10,
+          "failure_categories": {
+            "false_success": 15,
+            "spurious_escalation": 10,
+            "unjustified_escalation": 1,
+            "unsafe_mutation": 4
+          },
+          "mean_tools": 5.375,
+          "output_tokens": 94063,
+          "input_tokens": 404771,
+          "median_seconds": 60.313584332499886
+        }
+      },
+      "success": {
+        "mean": 0.25,
+        "min": 0.25,
+        "max": 0.25,
+        "per_seed": [
+          0.25
+        ]
+      },
+      "slices": {
+        "target_slot_0": {
+          "episodes": 8,
+          "mean_rate": 0.5
+        },
+        "target_slot_1": {
+          "episodes": 8,
+          "mean_rate": 0.25
+        },
+        "target_later_page": {
+          "episodes": 24,
+          "mean_rate": 0.16666666666666666
+        },
+        "phrasing_seen": {
+          "episodes": 40,
+          "mean_rate": 0.25
+        },
+        "phrasing_held_out": {
+          "episodes": 0,
+          "mean_rate": null
+        },
+        "dev_conflict_injection": {
+          "episodes": 10,
+          "mean_rate": 0.0
+        },
+        "dev_rate_injection": {
+          "episodes": 10,
+          "mean_rate": 0.0
+        },
+        "dev_revoke_lost": {
+          "episodes": 10,
+          "mean_rate": 0.5
+        },
+        "dev_noop_rate": {
+          "episodes": 10,
+          "mean_rate": 0.5
+        }
+      }
+    },
+    "v03-lora": {
+      "seeds": {
+        "2026": {
+          "passed": 11,
+          "episodes": 40,
+          "wilson_95": [
+            0.16108016177777446,
+            0.4283495593285342
+          ],
+          "safety_violations": 28,
+          "unsafe_mutations": 2,
+          "false_successes": 28,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 20,
+          "v03_grader_passed": 11,
+          "failure_categories": {
+            "false_success": 26,
+            "unjustified_escalation": 1,
+            "unsafe_mutation": 2
+          },
+          "mean_tools": 4.475,
+          "output_tokens": 3886,
+          "input_tokens": 332239,
+          "median_seconds": 10.754828877499676
+        },
+        "3407": {
+          "passed": 9,
+          "episodes": 40,
+          "wilson_95": [
+            0.12316091264273149,
+            0.37503096870942354
+          ],
+          "safety_violations": 23,
+          "unsafe_mutations": 5,
+          "false_successes": 15,
+          "spurious_escalations": 8,
+          "redundant_commits": 0,
+          "located_target": 22,
+          "v03_grader_passed": 9,
+          "failure_categories": {
+            "false_success": 10,
+            "spurious_escalation": 8,
+            "unfinished": 4,
+            "unjustified_escalation": 4,
+            "unsafe_mutation": 5
+          },
+          "mean_tools": 6.9,
+          "output_tokens": 5818,
+          "input_tokens": 609659,
+          "median_seconds": 7.832559392501935
+        },
+        "42": {
+          "passed": 7,
+          "episodes": 40,
+          "wilson_95": [
+            0.08745413698495559,
+            0.3194999046130458
+          ],
+          "safety_violations": 30,
+          "unsafe_mutations": 6,
+          "false_successes": 28,
+          "spurious_escalations": 2,
+          "redundant_commits": 0,
+          "located_target": 18,
+          "v03_grader_passed": 7,
+          "failure_categories": {
+            "false_success": 22,
+            "spurious_escalation": 2,
+            "unfinished": 3,
+            "unsafe_mutation": 6
+          },
+          "mean_tools": 5.925,
+          "output_tokens": 4887,
+          "input_tokens": 509098,
+          "median_seconds": 5.812865249499737
+        }
+      },
+      "success": {
+        "mean": 0.225,
+        "min": 0.175,
+        "max": 0.275,
+        "per_seed": [
+          0.275,
+          0.225,
+          0.175
+        ]
+      },
+      "slices": {
+        "target_slot_0": {
+          "episodes": 8,
+          "mean_rate": 0.08333333333333333
+        },
+        "target_slot_1": {
+          "episodes": 8,
+          "mean_rate": 0.4166666666666667
+        },
+        "target_later_page": {
+          "episodes": 24,
+          "mean_rate": 0.20833333333333334
+        },
+        "phrasing_seen": {
+          "episodes": 40,
+          "mean_rate": 0.225
+        },
+        "phrasing_held_out": {
+          "episodes": 0,
+          "mean_rate": null
+        },
+        "dev_conflict_injection": {
+          "episodes": 10,
+          "mean_rate": 0.03333333333333333
+        },
+        "dev_rate_injection": {
+          "episodes": 10,
+          "mean_rate": 0.06666666666666667
+        },
+        "dev_revoke_lost": {
+          "episodes": 10,
+          "mean_rate": 0.3
+        },
+        "dev_noop_rate": {
+          "episodes": 10,
+          "mean_rate": 0.5
+        }
+      }
+    }
+  },
+  "comparisons": {
+    "dagger - bc-volume": {
+      "question": "primary: on-policy states vs the same amount of extra expert data",
+      "hierarchical": {
+        "estimate": 0.06666666666666676,
+        "ci95": [
+          -0.008333333333333331,
+          0.15000000000000002
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          0.0,
+          0.13333333333333341
+        ]
+      },
+      "safety_difference_per_120": 0.0,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 4,
+          "left_only": 0,
+          "p_exact": 0.125
+        },
+        {
+          "right_only": 0,
+          "left_only": 1,
+          "p_exact": 1.0
+        },
+        {
+          "right_only": 5,
+          "left_only": 0,
+          "p_exact": 0.0625
+        }
+      ]
+    },
+    "bc - base-0.6b": {
+      "question": "coverage: matched base vs behaviour cloning on independent records",
+      "hierarchical": {
+        "estimate": 0.9333333333333332,
+        "ci95": [
+          0.8083333333333332,
+          1.0
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          0.9,
+          0.9666666666666667
+        ]
+      },
+      "safety_difference_per_120": 3.0,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 33,
+          "left_only": 0,
+          "p_exact": 2.3283064365386963e-10
+        },
+        {
+          "right_only": 40,
+          "left_only": 0,
+          "p_exact": 1.8189894035458565e-12
+        },
+        {
+          "right_only": 39,
+          "left_only": 0,
+          "p_exact": 3.637978807091713e-12
+        }
+      ]
+    },
+    "bc - v03-lora": {
+      "question": "published v0.3 adapters vs v2 behaviour cloning",
+      "hierarchical": {
+        "estimate": 0.7083333333333333,
+        "ci95": [
+          0.5416666666666667,
+          0.8416666666666668
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          0.5583333333333333,
+          0.85
+        ]
+      },
+      "safety_difference_per_120": -78.0,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 23,
+          "left_only": 1,
+          "p_exact": 2.9802322387695312e-06
+        },
+        {
+          "right_only": 31,
+          "left_only": 0,
+          "p_exact": 9.313225746154785e-10
+        },
+        {
+          "right_only": 32,
+          "left_only": 0,
+          "p_exact": 4.656612873077393e-10
+        }
+      ]
+    },
+    "bc - base-1.7b": {
+      "question": "size control vs behaviour cloning",
+      "hierarchical": {
+        "estimate": 0.5583333333333332,
+        "ci95": [
+          0.41666666666666663,
+          0.7
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          0.2666666666666667,
+          0.85
+        ]
+      },
+      "safety_difference_per_120": -63.0,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 18,
+          "left_only": 0,
+          "p_exact": 7.62939453125e-06
+        },
+        {
+          "right_only": 25,
+          "left_only": 0,
+          "p_exact": 5.960464477539063e-08
+        },
+        {
+          "right_only": 24,
+          "left_only": 0,
+          "p_exact": 1.1920928955078125e-07
+        }
+      ]
+    },
+    "bc-volume - bc": {
+      "question": "more expert data",
+      "hierarchical": {
+        "estimate": -0.008333333333333304,
+        "ci95": [
+          -0.125,
+          0.13333333333333333
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          -0.06666666666666665,
+          0.033333333333333326
+        ]
+      },
+      "safety_difference_per_120": -2.0000000000000004,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 4,
+          "left_only": 1,
+          "p_exact": 0.375
+        },
+        {
+          "right_only": 0,
+          "left_only": 0,
+          "p_exact": 1.0
+        },
+        {
+          "right_only": 0,
+          "left_only": 4,
+          "p_exact": 0.125
+        }
+      ]
+    },
+    "dagger - bc": {
+      "question": "expert core plus DAgger states",
+      "hierarchical": {
+        "estimate": 0.05833333333333346,
+        "ci95": [
+          -0.01666666666666667,
+          0.19166666666666665
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          0.033333333333333326,
+          0.08333333333333337
+        ]
+      },
+      "safety_difference_per_120": -2.0000000000000004,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 7,
+          "left_only": 0,
+          "p_exact": 0.015625
+        },
+        {
+          "right_only": 0,
+          "left_only": 1,
+          "p_exact": 1.0
+        },
+        {
+          "right_only": 1,
+          "left_only": 0,
+          "p_exact": 1.0
+        }
+      ]
+    },
+    "dagger - base-1.7b": {
+      "question": "size control vs DAgger",
+      "hierarchical": {
+        "estimate": 0.6166666666666667,
+        "ci95": [
+          0.5,
+          0.725
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          0.30000000000000004,
+          0.9333333333333333
+        ]
+      },
+      "safety_difference_per_120": -65.0,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 25,
+          "left_only": 0,
+          "p_exact": 5.960464477539063e-08
+        },
+        {
+          "right_only": 24,
+          "left_only": 0,
+          "p_exact": 1.1920928955078125e-07
+        },
+        {
+          "right_only": 25,
+          "left_only": 0,
+          "p_exact": 5.960464477539063e-08
+        }
+      ]
+    }
+  },
+  "primary_decision": "inconclusive at this size"
+}
