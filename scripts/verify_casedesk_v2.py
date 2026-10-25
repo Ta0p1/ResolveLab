@@ -11,6 +11,7 @@ import argparse
 import hashlib
 import io
 import json
+import math
 import zipfile
 from pathlib import Path
 
@@ -34,6 +35,26 @@ def read(path):
 
 def sha(data):
     return hashlib.sha256(data).hexdigest()
+
+
+def assert_same(recomputed, published, path="analysis"):
+    """Exact for structure, counts and decisions; floats to 1e-12.
+
+    Python 3.12 made sum() over floats compensated (Neumaier), so recomputing on 3.11 changes
+    the last bit of a few means (at most 2.2e-16 here). Nothing discrete may differ.
+    """
+    if isinstance(published, dict):
+        assert isinstance(recomputed, dict) and recomputed.keys() == published.keys(), path
+        for key in published:
+            assert_same(recomputed[key], published[key], f"{path}/{key}")
+    elif isinstance(published, list):
+        assert isinstance(recomputed, list) and len(recomputed) == len(published), path
+        for i, (a, b) in enumerate(zip(recomputed, published)):
+            assert_same(a, b, f"{path}[{i}]")
+    elif isinstance(published, float) or isinstance(recomputed, float):
+        assert math.isclose(recomputed, published, rel_tol=0, abs_tol=1e-12), path
+    else:
+        assert recomputed == published, path
 
 
 def locked_source_hash(files):
@@ -118,7 +139,7 @@ def verify(every=1, replay_every=1):
         assert summarize(report["rows"]) == report["summary"]
 
     published = read(BUNDLE / "analysis-test.json")
-    assert json.loads(json.dumps(analyze(BUNDLE / "test", manifest, "test"))) == published
+    assert_same(json.loads(json.dumps(analyze(BUNDLE / "test", manifest, "test"))), published)
     return labels, replayed
 
 
