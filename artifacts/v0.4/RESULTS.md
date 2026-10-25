@@ -1,9 +1,14 @@
 # CaseDesk v2 study — v0.4
 
 Registered before any v2 model run ([protocol](../../docs/casedesk-v2-protocol.md), commit
-`d99dc61`); test inputs and all 12 adapters locked before the first test episode
-([lock](test-lock.json), commit `f5d30bb`). Synthetic ticket service over real HTTP, local
-inference on one RTX 4060 Ti 8 GB. Motivation: the [v0.3 review](../../docs/v0.3-review.md).
+`286b30d`); test inputs and all 12 adapters locked before the first test episode
+([lock](test-lock.json), committed in `5fc0c21`). Synthetic ticket service over real HTTP,
+local inference on one RTX 4060 Ti 8 GB. Motivation: the [v0.3 review](../../docs/v0.3-review.md).
+
+Commit messages on this branch were edited once before its first push (a trailer line
+removed; no file changed), so hashes recorded during the run are pre-edit. The lock's
+`commit` field, `c2f75c6`, is today's `7ace095`: both have tree `18bf466`
+(`git rev-parse 7ace095^{tree}`).
 
 **Primary result.** Adding verified DAgger labels at the learner's own states beat adding the
 same number of extra expert rows from the same episodes: **98.3% vs 90.8%** test success
