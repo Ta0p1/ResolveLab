@@ -34,18 +34,25 @@ This is a synthetic backend, not a commercial SaaS integration. The CaseDesk mod
 is trained for its own contract; this is not zero-shot transfer from the sync model.
 The HTTP backend's receipts are process-local, without restart durability.
 
-## v0.4 — Stronger policies and durable external recovery
+## v0.4 — Self-review and a controlled DAgger study (delivered, unreleased)
 
-1. Collect off-policy failure states using train/development tasks, then freeze a
-   new test set before optimizing recovery or performing preference/RL experiments.
-   Expand independent record seeds and stratify target positions, pagination depth
-   and task values; report those slices rather than only fault compositions.
-2. Compare a larger reasoning model and stronger in-context strategies, reporting
-   compute and token budgets alongside success, safety and latency.
-3. Add persisted HTTP idempotency receipts, job leases, crash-injection tests and
-   multi-process workers before making deployment reliability claims.
-4. Integrate one real SaaS sandbox with authentication and least-privilege scopes.
-5. Evaluate new tool/response schemas and genuinely unseen recovery mechanisms.
+Delivered: a review of v0.3 against its own traces and a counterfactual showing the v0.3
+adapters copied the demo's layout; an independent-record benchmark with stratified target
+slots, decoy shapes and held-out wording; an off-policy-safe teacher with replay-verified
+labels; grader v2; a registered DAgger vs size-matched behaviour-cloning comparison (98.3% vs
+90.8%, +7.5 pp, CI [1.9, 13.3]); stronger in-context and thinking-mode baselines (neither
+helped); test lock and a GPU-free verifier that re-derives every DAgger label.
+
+## v0.5 — candidates, one at a time
+
+1. Durable recovery as an engineering loop: persisted HTTP idempotency receipts, crash
+   injection between commit and response, process restart and multi-worker races.
+   Strongest fit for application-engineering roles.
+2. Transfer: a second contract with different tools/schemas, evaluated zero-shot and after
+   a small amount of DAgger, to test whether learner-state labels help beyond one contract.
+3. Token-matched control and more DAgger iterations, if the v0.4 effect is to be sized
+   rather than only detected.
+4. A real SaaS sandbox with authentication, least-privilege scopes and cleanup.
 
 ## Later
 

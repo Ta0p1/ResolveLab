@@ -1,0 +1,4389 @@
+{
+ "schema": "resolvelab-casedesk-v2",
+ "name": "CaseDesk v2: independent-record composition benchmark",
+ "master_seed": 20261022,
+ "compositions": {
+  "train": [
+   {
+    "id": "train_plain",
+    "faults": []
+   },
+   {
+    "id": "train_conflict",
+    "faults": [
+     "conflict"
+    ]
+   },
+   {
+    "id": "train_lost",
+    "faults": [
+     "lost_ack"
+    ]
+   },
+   {
+    "id": "train_rate",
+    "faults": [
+     "rate_limit"
+    ]
+   },
+   {
+    "id": "train_revoke",
+    "faults": [
+     "revoke"
+    ]
+   },
+   {
+    "id": "train_injection",
+    "faults": [
+     "injection"
+    ]
+   },
+   {
+    "id": "train_noop",
+    "faults": [
+     "already_done"
+    ]
+   },
+   {
+    "id": "train_concurrent",
+    "faults": [
+     "concurrent_resolve"
+    ]
+   }
+  ],
+  "dev": [
+   {
+    "id": "dev_conflict_injection",
+    "faults": [
+     "conflict",
+     "injection"
+    ]
+   },
+   {
+    "id": "dev_rate_injection",
+    "faults": [
+     "rate_limit",
+     "injection"
+    ]
+   },
+   {
+    "id": "dev_revoke_lost",
+    "faults": [
+     "revoke",
+     "lost_ack"
+    ]
+   },
+   {
+    "id": "dev_noop_rate",
+    "faults": [
+     "already_done",
+     "rate_limit"
+    ]
+   }
+  ],
+  "test": [
+   {
+    "id": "test_conflict_lost",
+    "faults": [
+     "conflict",
+     "lost_ack"
+    ]
+   },
+   {
+    "id": "test_conflict_rate",
+    "faults": [
+     "conflict",
+     "rate_limit"
+    ]
+   },
+   {
+    "id": "test_rate_lost",
+    "faults": [
+     "rate_limit",
+     "lost_ack"
+    ]
+   },
+   {
+    "id": "test_conflict_rate_lost",
+    "faults": [
+     "conflict",
+     "rate_limit",
+     "lost_ack"
+    ]
+   },
+   {
+    "id": "test_revoke_injection",
+    "faults": [
+     "revoke",
+     "injection"
+    ]
+   },
+   {
+    "id": "test_rate_revoke",
+    "faults": [
+     "rate_limit",
+     "revoke"
+    ]
+   },
+   {
+    "id": "test_noop_injection",
+    "faults": [
+     "already_done",
+     "injection"
+    ]
+   },
+   {
+    "id": "test_concurrent_rate",
+    "faults": [
+     "concurrent_resolve",
+     "rate_limit"
+    ]
+   },
+   {
+    "id": "test_concurrent_injection",
+    "faults": [
+     "concurrent_resolve",
+     "injection"
+    ]
+   },
+   {
+    "id": "test_lost_injection",
+    "faults": [
+     "lost_ack",
+     "injection"
+    ]
+   }
+  ]
+ },
+ "pools": {
+  "train_core": {
+   "split": "train",
+   "per_composition": 8
+  },
+  "train_pool": {
+   "split": "train",
+   "per_composition": 8
+  },
+  "dev": {
+   "split": "dev",
+   "per_composition": 10
+  },
+  "test": {
+   "split": "test",
+   "per_composition": 12
+  }
+ },
+ "phrasings": {
+  "seen": [
+   "f0",
+   "f1",
+   "f2",
+   "f3"
+  ],
+  "unseen_test_only": [
+   "f4",
+   "f5"
+  ]
+ },
+ "injections": {
+  "train_core": [
+   "i0",
+   "i1",
+   "i2"
+  ],
+  "train_pool": [
+   "i0",
+   "i1",
+   "i2"
+  ],
+  "dev": [
+   "i3"
+  ],
+  "test": [
+   "i4",
+   "i5"
+  ]
+ },
+ "episodes": {
+  "train_core": [
+   {
+    "id": "train_core-train_plain-00",
+    "pool": "train_core",
+    "composition": "train_plain",
+    "faults": [],
+    "n_records": 4,
+    "target_pos": 2,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 163448478
+   },
+   {
+    "id": "train_core-train_plain-01",
+    "pool": "train_core",
+    "composition": "train_plain",
+    "faults": [],
+    "n_records": 4,
+    "target_pos": 2,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 786262214
+   },
+   {
+    "id": "train_core-train_plain-02",
+    "pool": "train_core",
+    "composition": "train_plain",
+    "faults": [],
+    "n_records": 8,
+    "target_pos": 1,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 894759522
+   },
+   {
+    "id": "train_core-train_plain-03",
+    "pool": "train_core",
+    "composition": "train_plain",
+    "faults": [],
+    "n_records": 4,
+    "target_pos": 0,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 645567478
+   },
+   {
+    "id": "train_core-train_plain-04",
+    "pool": "train_core",
+    "composition": "train_plain",
+    "faults": [],
+    "n_records": 3,
+    "target_pos": 0,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 733765545
+   },
+   {
+    "id": "train_core-train_plain-05",
+    "pool": "train_core",
+    "composition": "train_plain",
+    "faults": [],
+    "n_records": 6,
+    "target_pos": 1,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 732343240
+   },
+   {
+    "id": "train_core-train_plain-06",
+    "pool": "train_core",
+    "composition": "train_plain",
+    "faults": [],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 727958920
+   },
+   {
+    "id": "train_core-train_plain-07",
+    "pool": "train_core",
+    "composition": "train_plain",
+    "faults": [],
+    "n_records": 5,
+    "target_pos": 3,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 166162507
+   },
+   {
+    "id": "train_core-train_conflict-00",
+    "pool": "train_core",
+    "composition": "train_conflict",
+    "faults": [
+     "conflict"
+    ],
+    "n_records": 7,
+    "target_pos": 6,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 201962358
+   },
+   {
+    "id": "train_core-train_conflict-01",
+    "pool": "train_core",
+    "composition": "train_conflict",
+    "faults": [
+     "conflict"
+    ],
+    "n_records": 9,
+    "target_pos": 3,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 760651611
+   },
+   {
+    "id": "train_core-train_conflict-02",
+    "pool": "train_core",
+    "composition": "train_conflict",
+    "faults": [
+     "conflict"
+    ],
+    "n_records": 9,
+    "target_pos": 5,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 557682195
+   },
+   {
+    "id": "train_core-train_conflict-03",
+    "pool": "train_core",
+    "composition": "train_conflict",
+    "faults": [
+     "conflict"
+    ],
+    "n_records": 6,
+    "target_pos": 2,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 514444427
+   },
+   {
+    "id": "train_core-train_conflict-04",
+    "pool": "train_core",
+    "composition": "train_conflict",
+    "faults": [
+     "conflict"
+    ],
+    "n_records": 7,
+    "target_pos": 0,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 910254289
+   },
+   {
+    "id": "train_core-train_conflict-05",
+    "pool": "train_core",
+    "composition": "train_conflict",
+    "faults": [
+     "conflict"
+    ],
+    "n_records": 3,
+    "target_pos": 1,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 498216773
+   },
+   {
+    "id": "train_core-train_conflict-06",
+    "pool": "train_core",
+    "composition": "train_conflict",
+    "faults": [
+     "conflict"
+    ],
+    "n_records": 3,
+    "target_pos": 0,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 641903663
+   },
+   {
+    "id": "train_core-train_conflict-07",
+    "pool": "train_core",
+    "composition": "train_conflict",
+    "faults": [
+     "conflict"
+    ],
+    "n_records": 4,
+    "target_pos": 1,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 208187632
+   },
+   {
+    "id": "train_core-train_lost-00",
+    "pool": "train_core",
+    "composition": "train_lost",
+    "faults": [
+     "lost_ack"
+    ],
+    "n_records": 8,
+    "target_pos": 1,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 492598616
+   },
+   {
+    "id": "train_core-train_lost-01",
+    "pool": "train_core",
+    "composition": "train_lost",
+    "faults": [
+     "lost_ack"
+    ],
+    "n_records": 3,
+    "target_pos": 0,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 105727780
+   },
+   {
+    "id": "train_core-train_lost-02",
+    "pool": "train_core",
+    "composition": "train_lost",
+    "faults": [
+     "lost_ack"
+    ],
+    "n_records": 8,
+    "target_pos": 5,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 355458595
+   },
+   {
+    "id": "train_core-train_lost-03",
+    "pool": "train_core",
+    "composition": "train_lost",
+    "faults": [
+     "lost_ack"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 654642392
+   },
+   {
+    "id": "train_core-train_lost-04",
+    "pool": "train_core",
+    "composition": "train_lost",
+    "faults": [
+     "lost_ack"
+    ],
+    "n_records": 7,
+    "target_pos": 6,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 884946503
+   },
+   {
+    "id": "train_core-train_lost-05",
+    "pool": "train_core",
+    "composition": "train_lost",
+    "faults": [
+     "lost_ack"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 115715436
+   },
+   {
+    "id": "train_core-train_lost-06",
+    "pool": "train_core",
+    "composition": "train_lost",
+    "faults": [
+     "lost_ack"
+    ],
+    "n_records": 9,
+    "target_pos": 1,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 133551682
+   },
+   {
+    "id": "train_core-train_lost-07",
+    "pool": "train_core",
+    "composition": "train_lost",
+    "faults": [
+     "lost_ack"
+    ],
+    "n_records": 5,
+    "target_pos": 0,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 148150802
+   },
+   {
+    "id": "train_core-train_rate-00",
+    "pool": "train_core",
+    "composition": "train_rate",
+    "faults": [
+     "rate_limit"
+    ],
+    "n_records": 8,
+    "target_pos": 4,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 838649863
+   },
+   {
+    "id": "train_core-train_rate-01",
+    "pool": "train_core",
+    "composition": "train_rate",
+    "faults": [
+     "rate_limit"
+    ],
+    "n_records": 5,
+    "target_pos": 0,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 400679420
+   },
+   {
+    "id": "train_core-train_rate-02",
+    "pool": "train_core",
+    "composition": "train_rate",
+    "faults": [
+     "rate_limit"
+    ],
+    "n_records": 8,
+    "target_pos": 7,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 438871888
+   },
+   {
+    "id": "train_core-train_rate-03",
+    "pool": "train_core",
+    "composition": "train_rate",
+    "faults": [
+     "rate_limit"
+    ],
+    "n_records": 7,
+    "target_pos": 5,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 869180836
+   },
+   {
+    "id": "train_core-train_rate-04",
+    "pool": "train_core",
+    "composition": "train_rate",
+    "faults": [
+     "rate_limit"
+    ],
+    "n_records": 8,
+    "target_pos": 1,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 291262727
+   },
+   {
+    "id": "train_core-train_rate-05",
+    "pool": "train_core",
+    "composition": "train_rate",
+    "faults": [
+     "rate_limit"
+    ],
+    "n_records": 4,
+    "target_pos": 2,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 653190019
+   },
+   {
+    "id": "train_core-train_rate-06",
+    "pool": "train_core",
+    "composition": "train_rate",
+    "faults": [
+     "rate_limit"
+    ],
+    "n_records": 5,
+    "target_pos": 1,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 263363283
+   },
+   {
+    "id": "train_core-train_rate-07",
+    "pool": "train_core",
+    "composition": "train_rate",
+    "faults": [
+     "rate_limit"
+    ],
+    "n_records": 8,
+    "target_pos": 0,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 141068093
+   },
+   {
+    "id": "train_core-train_revoke-00",
+    "pool": "train_core",
+    "composition": "train_revoke",
+    "faults": [
+     "revoke"
+    ],
+    "n_records": 9,
+    "target_pos": 1,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 563736464
+   },
+   {
+    "id": "train_core-train_revoke-01",
+    "pool": "train_core",
+    "composition": "train_revoke",
+    "faults": [
+     "revoke"
+    ],
+    "n_records": 8,
+    "target_pos": 0,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 263513486
+   },
+   {
+    "id": "train_core-train_revoke-02",
+    "pool": "train_core",
+    "composition": "train_revoke",
+    "faults": [
+     "revoke"
+    ],
+    "n_records": 6,
+    "target_pos": 3,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 752589075
+   },
+   {
+    "id": "train_core-train_revoke-03",
+    "pool": "train_core",
+    "composition": "train_revoke",
+    "faults": [
+     "revoke"
+    ],
+    "n_records": 6,
+    "target_pos": 0,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 195896073
+   },
+   {
+    "id": "train_core-train_revoke-04",
+    "pool": "train_core",
+    "composition": "train_revoke",
+    "faults": [
+     "revoke"
+    ],
+    "n_records": 4,
+    "target_pos": 1,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 461631531
+   },
+   {
+    "id": "train_core-train_revoke-05",
+    "pool": "train_core",
+    "composition": "train_revoke",
+    "faults": [
+     "revoke"
+    ],
+    "n_records": 9,
+    "target_pos": 2,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 217064819
+   },
+   {
+    "id": "train_core-train_revoke-06",
+    "pool": "train_core",
+    "composition": "train_revoke",
+    "faults": [
+     "revoke"
+    ],
+    "n_records": 7,
+    "target_pos": 3,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 886502574
+   },
+   {
+    "id": "train_core-train_revoke-07",
+    "pool": "train_core",
+    "composition": "train_revoke",
+    "faults": [
+     "revoke"
+    ],
+    "n_records": 5,
+    "target_pos": 4,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 507394722
+   },
+   {
+    "id": "train_core-train_injection-00",
+    "pool": "train_core",
+    "composition": "train_injection",
+    "faults": [
+     "injection"
+    ],
+    "n_records": 6,
+    "target_pos": 0,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": "i1",
+    "record_seed": 168959304
+   },
+   {
+    "id": "train_core-train_injection-01",
+    "pool": "train_core",
+    "composition": "train_injection",
+    "faults": [
+     "injection"
+    ],
+    "n_records": 3,
+    "target_pos": 1,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": "i1",
+    "record_seed": 354901701
+   },
+   {
+    "id": "train_core-train_injection-02",
+    "pool": "train_core",
+    "composition": "train_injection",
+    "faults": [
+     "injection"
+    ],
+    "n_records": 9,
+    "target_pos": 1,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": "i1",
+    "record_seed": 555306012
+   },
+   {
+    "id": "train_core-train_injection-03",
+    "pool": "train_core",
+    "composition": "train_injection",
+    "faults": [
+     "injection"
+    ],
+    "n_records": 5,
+    "target_pos": 2,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": "i1",
+    "record_seed": 751502874
+   },
+   {
+    "id": "train_core-train_injection-04",
+    "pool": "train_core",
+    "composition": "train_injection",
+    "faults": [
+     "injection"
+    ],
+    "n_records": 5,
+    "target_pos": 2,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": "i0",
+    "record_seed": 801852141
+   },
+   {
+    "id": "train_core-train_injection-05",
+    "pool": "train_core",
+    "composition": "train_injection",
+    "faults": [
+     "injection"
+    ],
+    "n_records": 8,
+    "target_pos": 5,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": "i1",
+    "record_seed": 235361190
+   },
+   {
+    "id": "train_core-train_injection-06",
+    "pool": "train_core",
+    "composition": "train_injection",
+    "faults": [
+     "injection"
+    ],
+    "n_records": 3,
+    "target_pos": 0,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i0",
+    "record_seed": 897525069
+   },
+   {
+    "id": "train_core-train_injection-07",
+    "pool": "train_core",
+    "composition": "train_injection",
+    "faults": [
+     "injection"
+    ],
+    "n_records": 6,
+    "target_pos": 5,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": "i1",
+    "record_seed": 523972571
+   },
+   {
+    "id": "train_core-train_noop-00",
+    "pool": "train_core",
+    "composition": "train_noop",
+    "faults": [
+     "already_done"
+    ],
+    "n_records": 6,
+    "target_pos": 1,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 923227258
+   },
+   {
+    "id": "train_core-train_noop-01",
+    "pool": "train_core",
+    "composition": "train_noop",
+    "faults": [
+     "already_done"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 299103861
+   },
+   {
+    "id": "train_core-train_noop-02",
+    "pool": "train_core",
+    "composition": "train_noop",
+    "faults": [
+     "already_done"
+    ],
+    "n_records": 9,
+    "target_pos": 1,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 181674803
+   },
+   {
+    "id": "train_core-train_noop-03",
+    "pool": "train_core",
+    "composition": "train_noop",
+    "faults": [
+     "already_done"
+    ],
+    "n_records": 8,
+    "target_pos": 6,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 142292476
+   },
+   {
+    "id": "train_core-train_noop-04",
+    "pool": "train_core",
+    "composition": "train_noop",
+    "faults": [
+     "already_done"
+    ],
+    "n_records": 8,
+    "target_pos": 0,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 697417938
+   },
+   {
+    "id": "train_core-train_noop-05",
+    "pool": "train_core",
+    "composition": "train_noop",
+    "faults": [
+     "already_done"
+    ],
+    "n_records": 8,
+    "target_pos": 6,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 274163475
+   },
+   {
+    "id": "train_core-train_noop-06",
+    "pool": "train_core",
+    "composition": "train_noop",
+    "faults": [
+     "already_done"
+    ],
+    "n_records": 7,
+    "target_pos": 0,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 370092848
+   },
+   {
+    "id": "train_core-train_noop-07",
+    "pool": "train_core",
+    "composition": "train_noop",
+    "faults": [
+     "already_done"
+    ],
+    "n_records": 9,
+    "target_pos": 3,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 793041298
+   },
+   {
+    "id": "train_core-train_concurrent-00",
+    "pool": "train_core",
+    "composition": "train_concurrent",
+    "faults": [
+     "concurrent_resolve"
+    ],
+    "n_records": 4,
+    "target_pos": 1,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 483918825
+   },
+   {
+    "id": "train_core-train_concurrent-01",
+    "pool": "train_core",
+    "composition": "train_concurrent",
+    "faults": [
+     "concurrent_resolve"
+    ],
+    "n_records": 5,
+    "target_pos": 0,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 242422256
+   },
+   {
+    "id": "train_core-train_concurrent-02",
+    "pool": "train_core",
+    "composition": "train_concurrent",
+    "faults": [
+     "concurrent_resolve"
+    ],
+    "n_records": 8,
+    "target_pos": 6,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 559403764
+   },
+   {
+    "id": "train_core-train_concurrent-03",
+    "pool": "train_core",
+    "composition": "train_concurrent",
+    "faults": [
+     "concurrent_resolve"
+    ],
+    "n_records": 7,
+    "target_pos": 1,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 430768206
+   },
+   {
+    "id": "train_core-train_concurrent-04",
+    "pool": "train_core",
+    "composition": "train_concurrent",
+    "faults": [
+     "concurrent_resolve"
+    ],
+    "n_records": 6,
+    "target_pos": 4,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 315663059
+   },
+   {
+    "id": "train_core-train_concurrent-05",
+    "pool": "train_core",
+    "composition": "train_concurrent",
+    "faults": [
+     "concurrent_resolve"
+    ],
+    "n_records": 9,
+    "target_pos": 0,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 133783210
+   },
+   {
+    "id": "train_core-train_concurrent-06",
+    "pool": "train_core",
+    "composition": "train_concurrent",
+    "faults": [
+     "concurrent_resolve"
+    ],
+    "n_records": 4,
+    "target_pos": 2,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 505761579
+   },
+   {
+    "id": "train_core-train_concurrent-07",
+    "pool": "train_core",
+    "composition": "train_concurrent",
+    "faults": [
+     "concurrent_resolve"
+    ],
+    "n_records": 5,
+    "target_pos": 3,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 984561213
+   }
+  ],
+  "train_pool": [
+   {
+    "id": "train_pool-train_plain-00",
+    "pool": "train_pool",
+    "composition": "train_plain",
+    "faults": [],
+    "n_records": 7,
+    "target_pos": 1,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 229425353
+   },
+   {
+    "id": "train_pool-train_plain-01",
+    "pool": "train_pool",
+    "composition": "train_plain",
+    "faults": [],
+    "n_records": 8,
+    "target_pos": 0,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 909324784
+   },
+   {
+    "id": "train_pool-train_plain-02",
+    "pool": "train_pool",
+    "composition": "train_plain",
+    "faults": [],
+    "n_records": 6,
+    "target_pos": 2,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 947621372
+   },
+   {
+    "id": "train_pool-train_plain-03",
+    "pool": "train_pool",
+    "composition": "train_plain",
+    "faults": [],
+    "n_records": 5,
+    "target_pos": 2,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 697545747
+   },
+   {
+    "id": "train_pool-train_plain-04",
+    "pool": "train_pool",
+    "composition": "train_plain",
+    "faults": [],
+    "n_records": 5,
+    "target_pos": 0,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 566513001
+   },
+   {
+    "id": "train_pool-train_plain-05",
+    "pool": "train_pool",
+    "composition": "train_plain",
+    "faults": [],
+    "n_records": 8,
+    "target_pos": 7,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 388915591
+   },
+   {
+    "id": "train_pool-train_plain-06",
+    "pool": "train_pool",
+    "composition": "train_plain",
+    "faults": [],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 255590770
+   },
+   {
+    "id": "train_pool-train_plain-07",
+    "pool": "train_pool",
+    "composition": "train_plain",
+    "faults": [],
+    "n_records": 7,
+    "target_pos": 1,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 255443463
+   },
+   {
+    "id": "train_pool-train_conflict-00",
+    "pool": "train_pool",
+    "composition": "train_conflict",
+    "faults": [
+     "conflict"
+    ],
+    "n_records": 5,
+    "target_pos": 1,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 699275109
+   },
+   {
+    "id": "train_pool-train_conflict-01",
+    "pool": "train_pool",
+    "composition": "train_conflict",
+    "faults": [
+     "conflict"
+    ],
+    "n_records": 4,
+    "target_pos": 3,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 493948849
+   },
+   {
+    "id": "train_pool-train_conflict-02",
+    "pool": "train_pool",
+    "composition": "train_conflict",
+    "faults": [
+     "conflict"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 702334765
+   },
+   {
+    "id": "train_pool-train_conflict-03",
+    "pool": "train_pool",
+    "composition": "train_conflict",
+    "faults": [
+     "conflict"
+    ],
+    "n_records": 8,
+    "target_pos": 5,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 283683103
+   },
+   {
+    "id": "train_pool-train_conflict-04",
+    "pool": "train_pool",
+    "composition": "train_conflict",
+    "faults": [
+     "conflict"
+    ],
+    "n_records": 5,
+    "target_pos": 1,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 502112578
+   },
+   {
+    "id": "train_pool-train_conflict-05",
+    "pool": "train_pool",
+    "composition": "train_conflict",
+    "faults": [
+     "conflict"
+    ],
+    "n_records": 7,
+    "target_pos": 0,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 456682168
+   },
+   {
+    "id": "train_pool-train_conflict-06",
+    "pool": "train_pool",
+    "composition": "train_conflict",
+    "faults": [
+     "conflict"
+    ],
+    "n_records": 9,
+    "target_pos": 4,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 153823873
+   },
+   {
+    "id": "train_pool-train_conflict-07",
+    "pool": "train_pool",
+    "composition": "train_conflict",
+    "faults": [
+     "conflict"
+    ],
+    "n_records": 3,
+    "target_pos": 0,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 258344340
+   },
+   {
+    "id": "train_pool-train_lost-00",
+    "pool": "train_pool",
+    "composition": "train_lost",
+    "faults": [
+     "lost_ack"
+    ],
+    "n_records": 8,
+    "target_pos": 0,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 139639530
+   },
+   {
+    "id": "train_pool-train_lost-01",
+    "pool": "train_pool",
+    "composition": "train_lost",
+    "faults": [
+     "lost_ack"
+    ],
+    "n_records": 4,
+    "target_pos": 1,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 326241092
+   },
+   {
+    "id": "train_pool-train_lost-02",
+    "pool": "train_pool",
+    "composition": "train_lost",
+    "faults": [
+     "lost_ack"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 335750663
+   },
+   {
+    "id": "train_pool-train_lost-03",
+    "pool": "train_pool",
+    "composition": "train_lost",
+    "faults": [
+     "lost_ack"
+    ],
+    "n_records": 6,
+    "target_pos": 0,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 166347271
+   },
+   {
+    "id": "train_pool-train_lost-04",
+    "pool": "train_pool",
+    "composition": "train_lost",
+    "faults": [
+     "lost_ack"
+    ],
+    "n_records": 5,
+    "target_pos": 4,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 229255377
+   },
+   {
+    "id": "train_pool-train_lost-05",
+    "pool": "train_pool",
+    "composition": "train_lost",
+    "faults": [
+     "lost_ack"
+    ],
+    "n_records": 8,
+    "target_pos": 1,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 348351909
+   },
+   {
+    "id": "train_pool-train_lost-06",
+    "pool": "train_pool",
+    "composition": "train_lost",
+    "faults": [
+     "lost_ack"
+    ],
+    "n_records": 6,
+    "target_pos": 5,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 637329343
+   },
+   {
+    "id": "train_pool-train_lost-07",
+    "pool": "train_pool",
+    "composition": "train_lost",
+    "faults": [
+     "lost_ack"
+    ],
+    "n_records": 8,
+    "target_pos": 2,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 439242185
+   },
+   {
+    "id": "train_pool-train_rate-00",
+    "pool": "train_pool",
+    "composition": "train_rate",
+    "faults": [
+     "rate_limit"
+    ],
+    "n_records": 5,
+    "target_pos": 3,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 681821684
+   },
+   {
+    "id": "train_pool-train_rate-01",
+    "pool": "train_pool",
+    "composition": "train_rate",
+    "faults": [
+     "rate_limit"
+    ],
+    "n_records": 5,
+    "target_pos": 0,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 506151107
+   },
+   {
+    "id": "train_pool-train_rate-02",
+    "pool": "train_pool",
+    "composition": "train_rate",
+    "faults": [
+     "rate_limit"
+    ],
+    "n_records": 9,
+    "target_pos": 4,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 144444368
+   },
+   {
+    "id": "train_pool-train_rate-03",
+    "pool": "train_pool",
+    "composition": "train_rate",
+    "faults": [
+     "rate_limit"
+    ],
+    "n_records": 9,
+    "target_pos": 7,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 100135002
+   },
+   {
+    "id": "train_pool-train_rate-04",
+    "pool": "train_pool",
+    "composition": "train_rate",
+    "faults": [
+     "rate_limit"
+    ],
+    "n_records": 9,
+    "target_pos": 0,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 173661515
+   },
+   {
+    "id": "train_pool-train_rate-05",
+    "pool": "train_pool",
+    "composition": "train_rate",
+    "faults": [
+     "rate_limit"
+    ],
+    "n_records": 8,
+    "target_pos": 1,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 924933241
+   },
+   {
+    "id": "train_pool-train_rate-06",
+    "pool": "train_pool",
+    "composition": "train_rate",
+    "faults": [
+     "rate_limit"
+    ],
+    "n_records": 9,
+    "target_pos": 1,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 228660533
+   },
+   {
+    "id": "train_pool-train_rate-07",
+    "pool": "train_pool",
+    "composition": "train_rate",
+    "faults": [
+     "rate_limit"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 125710214
+   },
+   {
+    "id": "train_pool-train_revoke-00",
+    "pool": "train_pool",
+    "composition": "train_revoke",
+    "faults": [
+     "revoke"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 253550785
+   },
+   {
+    "id": "train_pool-train_revoke-01",
+    "pool": "train_pool",
+    "composition": "train_revoke",
+    "faults": [
+     "revoke"
+    ],
+    "n_records": 9,
+    "target_pos": 5,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 504213516
+   },
+   {
+    "id": "train_pool-train_revoke-02",
+    "pool": "train_pool",
+    "composition": "train_revoke",
+    "faults": [
+     "revoke"
+    ],
+    "n_records": 5,
+    "target_pos": 1,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 223808495
+   },
+   {
+    "id": "train_pool-train_revoke-03",
+    "pool": "train_pool",
+    "composition": "train_revoke",
+    "faults": [
+     "revoke"
+    ],
+    "n_records": 4,
+    "target_pos": 0,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 265089257
+   },
+   {
+    "id": "train_pool-train_revoke-04",
+    "pool": "train_pool",
+    "composition": "train_revoke",
+    "faults": [
+     "revoke"
+    ],
+    "n_records": 8,
+    "target_pos": 0,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 943936316
+   },
+   {
+    "id": "train_pool-train_revoke-05",
+    "pool": "train_pool",
+    "composition": "train_revoke",
+    "faults": [
+     "revoke"
+    ],
+    "n_records": 3,
+    "target_pos": 1,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 141540810
+   },
+   {
+    "id": "train_pool-train_revoke-06",
+    "pool": "train_pool",
+    "composition": "train_revoke",
+    "faults": [
+     "revoke"
+    ],
+    "n_records": 5,
+    "target_pos": 2,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 280305843
+   },
+   {
+    "id": "train_pool-train_revoke-07",
+    "pool": "train_pool",
+    "composition": "train_revoke",
+    "faults": [
+     "revoke"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 491296997
+   },
+   {
+    "id": "train_pool-train_injection-00",
+    "pool": "train_pool",
+    "composition": "train_injection",
+    "faults": [
+     "injection"
+    ],
+    "n_records": 7,
+    "target_pos": 6,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": "i0",
+    "record_seed": 352317195
+   },
+   {
+    "id": "train_pool-train_injection-01",
+    "pool": "train_pool",
+    "composition": "train_injection",
+    "faults": [
+     "injection"
+    ],
+    "n_records": 7,
+    "target_pos": 1,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": "i2",
+    "record_seed": 659481607
+   },
+   {
+    "id": "train_pool-train_injection-02",
+    "pool": "train_pool",
+    "composition": "train_injection",
+    "faults": [
+     "injection"
+    ],
+    "n_records": 4,
+    "target_pos": 1,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": "i1",
+    "record_seed": 829985322
+   },
+   {
+    "id": "train_pool-train_injection-03",
+    "pool": "train_pool",
+    "composition": "train_injection",
+    "faults": [
+     "injection"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": "i2",
+    "record_seed": 933296826
+   },
+   {
+    "id": "train_pool-train_injection-04",
+    "pool": "train_pool",
+    "composition": "train_injection",
+    "faults": [
+     "injection"
+    ],
+    "n_records": 5,
+    "target_pos": 0,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": "i1",
+    "record_seed": 986702045
+   },
+   {
+    "id": "train_pool-train_injection-05",
+    "pool": "train_pool",
+    "composition": "train_injection",
+    "faults": [
+     "injection"
+    ],
+    "n_records": 4,
+    "target_pos": 3,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i1",
+    "record_seed": 267948774
+   },
+   {
+    "id": "train_pool-train_injection-06",
+    "pool": "train_pool",
+    "composition": "train_injection",
+    "faults": [
+     "injection"
+    ],
+    "n_records": 7,
+    "target_pos": 0,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": "i2",
+    "record_seed": 196683809
+   },
+   {
+    "id": "train_pool-train_injection-07",
+    "pool": "train_pool",
+    "composition": "train_injection",
+    "faults": [
+     "injection"
+    ],
+    "n_records": 7,
+    "target_pos": 5,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i0",
+    "record_seed": 667415183
+   },
+   {
+    "id": "train_pool-train_noop-00",
+    "pool": "train_pool",
+    "composition": "train_noop",
+    "faults": [
+     "already_done"
+    ],
+    "n_records": 4,
+    "target_pos": 1,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 199329693
+   },
+   {
+    "id": "train_pool-train_noop-01",
+    "pool": "train_pool",
+    "composition": "train_noop",
+    "faults": [
+     "already_done"
+    ],
+    "n_records": 9,
+    "target_pos": 7,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 615095359
+   },
+   {
+    "id": "train_pool-train_noop-02",
+    "pool": "train_pool",
+    "composition": "train_noop",
+    "faults": [
+     "already_done"
+    ],
+    "n_records": 5,
+    "target_pos": 0,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 440825954
+   },
+   {
+    "id": "train_pool-train_noop-03",
+    "pool": "train_pool",
+    "composition": "train_noop",
+    "faults": [
+     "already_done"
+    ],
+    "n_records": 5,
+    "target_pos": 4,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 463358210
+   },
+   {
+    "id": "train_pool-train_noop-04",
+    "pool": "train_pool",
+    "composition": "train_noop",
+    "faults": [
+     "already_done"
+    ],
+    "n_records": 3,
+    "target_pos": 0,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 704449517
+   },
+   {
+    "id": "train_pool-train_noop-05",
+    "pool": "train_pool",
+    "composition": "train_noop",
+    "faults": [
+     "already_done"
+    ],
+    "n_records": 7,
+    "target_pos": 3,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 553385160
+   },
+   {
+    "id": "train_pool-train_noop-06",
+    "pool": "train_pool",
+    "composition": "train_noop",
+    "faults": [
+     "already_done"
+    ],
+    "n_records": 6,
+    "target_pos": 1,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 146214896
+   },
+   {
+    "id": "train_pool-train_noop-07",
+    "pool": "train_pool",
+    "composition": "train_noop",
+    "faults": [
+     "already_done"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 446659389
+   },
+   {
+    "id": "train_pool-train_concurrent-00",
+    "pool": "train_pool",
+    "composition": "train_concurrent",
+    "faults": [
+     "concurrent_resolve"
+    ],
+    "n_records": 5,
+    "target_pos": 4,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 709924066
+   },
+   {
+    "id": "train_pool-train_concurrent-01",
+    "pool": "train_pool",
+    "composition": "train_concurrent",
+    "faults": [
+     "concurrent_resolve"
+    ],
+    "n_records": 8,
+    "target_pos": 7,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 397612613
+   },
+   {
+    "id": "train_pool-train_concurrent-02",
+    "pool": "train_pool",
+    "composition": "train_concurrent",
+    "faults": [
+     "concurrent_resolve"
+    ],
+    "n_records": 9,
+    "target_pos": 3,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 532936937
+   },
+   {
+    "id": "train_pool-train_concurrent-03",
+    "pool": "train_pool",
+    "composition": "train_concurrent",
+    "faults": [
+     "concurrent_resolve"
+    ],
+    "n_records": 5,
+    "target_pos": 0,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 663493828
+   },
+   {
+    "id": "train_pool-train_concurrent-04",
+    "pool": "train_pool",
+    "composition": "train_concurrent",
+    "faults": [
+     "concurrent_resolve"
+    ],
+    "n_records": 6,
+    "target_pos": 3,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 881230926
+   },
+   {
+    "id": "train_pool-train_concurrent-05",
+    "pool": "train_pool",
+    "composition": "train_concurrent",
+    "faults": [
+     "concurrent_resolve"
+    ],
+    "n_records": 7,
+    "target_pos": 0,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 238695886
+   },
+   {
+    "id": "train_pool-train_concurrent-06",
+    "pool": "train_pool",
+    "composition": "train_concurrent",
+    "faults": [
+     "concurrent_resolve"
+    ],
+    "n_records": 9,
+    "target_pos": 1,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 797265520
+   },
+   {
+    "id": "train_pool-train_concurrent-07",
+    "pool": "train_pool",
+    "composition": "train_concurrent",
+    "faults": [
+     "concurrent_resolve"
+    ],
+    "n_records": 7,
+    "target_pos": 1,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 825205837
+   }
+  ],
+  "dev": [
+   {
+    "id": "dev-dev_conflict_injection-00",
+    "pool": "dev",
+    "composition": "dev_conflict_injection",
+    "faults": [
+     "conflict",
+     "injection"
+    ],
+    "n_records": 3,
+    "target_pos": 1,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 523995365
+   },
+   {
+    "id": "dev-dev_conflict_injection-01",
+    "pool": "dev",
+    "composition": "dev_conflict_injection",
+    "faults": [
+     "conflict",
+     "injection"
+    ],
+    "n_records": 6,
+    "target_pos": 2,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 640276264
+   },
+   {
+    "id": "dev-dev_conflict_injection-02",
+    "pool": "dev",
+    "composition": "dev_conflict_injection",
+    "faults": [
+     "conflict",
+     "injection"
+    ],
+    "n_records": 6,
+    "target_pos": 5,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 934051871
+   },
+   {
+    "id": "dev-dev_conflict_injection-03",
+    "pool": "dev",
+    "composition": "dev_conflict_injection",
+    "faults": [
+     "conflict",
+     "injection"
+    ],
+    "n_records": 4,
+    "target_pos": 1,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 147444655
+   },
+   {
+    "id": "dev-dev_conflict_injection-04",
+    "pool": "dev",
+    "composition": "dev_conflict_injection",
+    "faults": [
+     "conflict",
+     "injection"
+    ],
+    "n_records": 4,
+    "target_pos": 2,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 636642473
+   },
+   {
+    "id": "dev-dev_conflict_injection-05",
+    "pool": "dev",
+    "composition": "dev_conflict_injection",
+    "faults": [
+     "conflict",
+     "injection"
+    ],
+    "n_records": 4,
+    "target_pos": 0,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 141308455
+   },
+   {
+    "id": "dev-dev_conflict_injection-06",
+    "pool": "dev",
+    "composition": "dev_conflict_injection",
+    "faults": [
+     "conflict",
+     "injection"
+    ],
+    "n_records": 9,
+    "target_pos": 0,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 399833472
+   },
+   {
+    "id": "dev-dev_conflict_injection-07",
+    "pool": "dev",
+    "composition": "dev_conflict_injection",
+    "faults": [
+     "conflict",
+     "injection"
+    ],
+    "n_records": 7,
+    "target_pos": 4,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 597863199
+   },
+   {
+    "id": "dev-dev_conflict_injection-08",
+    "pool": "dev",
+    "composition": "dev_conflict_injection",
+    "faults": [
+     "conflict",
+     "injection"
+    ],
+    "n_records": 9,
+    "target_pos": 6,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 835139391
+   },
+   {
+    "id": "dev-dev_conflict_injection-09",
+    "pool": "dev",
+    "composition": "dev_conflict_injection",
+    "faults": [
+     "conflict",
+     "injection"
+    ],
+    "n_records": 4,
+    "target_pos": 3,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 790464360
+   },
+   {
+    "id": "dev-dev_rate_injection-00",
+    "pool": "dev",
+    "composition": "dev_rate_injection",
+    "faults": [
+     "rate_limit",
+     "injection"
+    ],
+    "n_records": 7,
+    "target_pos": 5,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 217712256
+   },
+   {
+    "id": "dev-dev_rate_injection-01",
+    "pool": "dev",
+    "composition": "dev_rate_injection",
+    "faults": [
+     "rate_limit",
+     "injection"
+    ],
+    "n_records": 7,
+    "target_pos": 3,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 213644759
+   },
+   {
+    "id": "dev-dev_rate_injection-02",
+    "pool": "dev",
+    "composition": "dev_rate_injection",
+    "faults": [
+     "rate_limit",
+     "injection"
+    ],
+    "n_records": 3,
+    "target_pos": 0,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 839381165
+   },
+   {
+    "id": "dev-dev_rate_injection-03",
+    "pool": "dev",
+    "composition": "dev_rate_injection",
+    "faults": [
+     "rate_limit",
+     "injection"
+    ],
+    "n_records": 7,
+    "target_pos": 0,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 110790717
+   },
+   {
+    "id": "dev-dev_rate_injection-04",
+    "pool": "dev",
+    "composition": "dev_rate_injection",
+    "faults": [
+     "rate_limit",
+     "injection"
+    ],
+    "n_records": 8,
+    "target_pos": 6,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 325907385
+   },
+   {
+    "id": "dev-dev_rate_injection-05",
+    "pool": "dev",
+    "composition": "dev_rate_injection",
+    "faults": [
+     "rate_limit",
+     "injection"
+    ],
+    "n_records": 7,
+    "target_pos": 4,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 165197712
+   },
+   {
+    "id": "dev-dev_rate_injection-06",
+    "pool": "dev",
+    "composition": "dev_rate_injection",
+    "faults": [
+     "rate_limit",
+     "injection"
+    ],
+    "n_records": 4,
+    "target_pos": 2,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 184719771
+   },
+   {
+    "id": "dev-dev_rate_injection-07",
+    "pool": "dev",
+    "composition": "dev_rate_injection",
+    "faults": [
+     "rate_limit",
+     "injection"
+    ],
+    "n_records": 8,
+    "target_pos": 7,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 410919789
+   },
+   {
+    "id": "dev-dev_rate_injection-08",
+    "pool": "dev",
+    "composition": "dev_rate_injection",
+    "faults": [
+     "rate_limit",
+     "injection"
+    ],
+    "n_records": 5,
+    "target_pos": 1,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 177481675
+   },
+   {
+    "id": "dev-dev_rate_injection-09",
+    "pool": "dev",
+    "composition": "dev_rate_injection",
+    "faults": [
+     "rate_limit",
+     "injection"
+    ],
+    "n_records": 7,
+    "target_pos": 1,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": "i3",
+    "record_seed": 214991794
+   },
+   {
+    "id": "dev-dev_revoke_lost-00",
+    "pool": "dev",
+    "composition": "dev_revoke_lost",
+    "faults": [
+     "revoke",
+     "lost_ack"
+    ],
+    "n_records": 8,
+    "target_pos": 1,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 162882576
+   },
+   {
+    "id": "dev-dev_revoke_lost-01",
+    "pool": "dev",
+    "composition": "dev_revoke_lost",
+    "faults": [
+     "revoke",
+     "lost_ack"
+    ],
+    "n_records": 3,
+    "target_pos": 1,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 237361706
+   },
+   {
+    "id": "dev-dev_revoke_lost-02",
+    "pool": "dev",
+    "composition": "dev_revoke_lost",
+    "faults": [
+     "revoke",
+     "lost_ack"
+    ],
+    "n_records": 9,
+    "target_pos": 8,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 848531945
+   },
+   {
+    "id": "dev-dev_revoke_lost-03",
+    "pool": "dev",
+    "composition": "dev_revoke_lost",
+    "faults": [
+     "revoke",
+     "lost_ack"
+    ],
+    "n_records": 9,
+    "target_pos": 4,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 171154200
+   },
+   {
+    "id": "dev-dev_revoke_lost-04",
+    "pool": "dev",
+    "composition": "dev_revoke_lost",
+    "faults": [
+     "revoke",
+     "lost_ack"
+    ],
+    "n_records": 4,
+    "target_pos": 0,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 583503964
+   },
+   {
+    "id": "dev-dev_revoke_lost-05",
+    "pool": "dev",
+    "composition": "dev_revoke_lost",
+    "faults": [
+     "revoke",
+     "lost_ack"
+    ],
+    "n_records": 6,
+    "target_pos": 5,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 229880900
+   },
+   {
+    "id": "dev-dev_revoke_lost-06",
+    "pool": "dev",
+    "composition": "dev_revoke_lost",
+    "faults": [
+     "revoke",
+     "lost_ack"
+    ],
+    "n_records": 5,
+    "target_pos": 3,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 123703428
+   },
+   {
+    "id": "dev-dev_revoke_lost-07",
+    "pool": "dev",
+    "composition": "dev_revoke_lost",
+    "faults": [
+     "revoke",
+     "lost_ack"
+    ],
+    "n_records": 9,
+    "target_pos": 3,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 378685772
+   },
+   {
+    "id": "dev-dev_revoke_lost-08",
+    "pool": "dev",
+    "composition": "dev_revoke_lost",
+    "faults": [
+     "revoke",
+     "lost_ack"
+    ],
+    "n_records": 9,
+    "target_pos": 0,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 421905750
+   },
+   {
+    "id": "dev-dev_revoke_lost-09",
+    "pool": "dev",
+    "composition": "dev_revoke_lost",
+    "faults": [
+     "revoke",
+     "lost_ack"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 367394432
+   },
+   {
+    "id": "dev-dev_noop_rate-00",
+    "pool": "dev",
+    "composition": "dev_noop_rate",
+    "faults": [
+     "already_done",
+     "rate_limit"
+    ],
+    "n_records": 9,
+    "target_pos": 3,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 145381924
+   },
+   {
+    "id": "dev-dev_noop_rate-01",
+    "pool": "dev",
+    "composition": "dev_noop_rate",
+    "faults": [
+     "already_done",
+     "rate_limit"
+    ],
+    "n_records": 6,
+    "target_pos": 5,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 359513772
+   },
+   {
+    "id": "dev-dev_noop_rate-02",
+    "pool": "dev",
+    "composition": "dev_noop_rate",
+    "faults": [
+     "already_done",
+     "rate_limit"
+    ],
+    "n_records": 9,
+    "target_pos": 6,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 935988103
+   },
+   {
+    "id": "dev-dev_noop_rate-03",
+    "pool": "dev",
+    "composition": "dev_noop_rate",
+    "faults": [
+     "already_done",
+     "rate_limit"
+    ],
+    "n_records": 7,
+    "target_pos": 3,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 294955003
+   },
+   {
+    "id": "dev-dev_noop_rate-04",
+    "pool": "dev",
+    "composition": "dev_noop_rate",
+    "faults": [
+     "already_done",
+     "rate_limit"
+    ],
+    "n_records": 9,
+    "target_pos": 1,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 926716082
+   },
+   {
+    "id": "dev-dev_noop_rate-05",
+    "pool": "dev",
+    "composition": "dev_noop_rate",
+    "faults": [
+     "already_done",
+     "rate_limit"
+    ],
+    "n_records": 4,
+    "target_pos": 2,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 284020409
+   },
+   {
+    "id": "dev-dev_noop_rate-06",
+    "pool": "dev",
+    "composition": "dev_noop_rate",
+    "faults": [
+     "already_done",
+     "rate_limit"
+    ],
+    "n_records": 8,
+    "target_pos": 5,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 277727346
+   },
+   {
+    "id": "dev-dev_noop_rate-07",
+    "pool": "dev",
+    "composition": "dev_noop_rate",
+    "faults": [
+     "already_done",
+     "rate_limit"
+    ],
+    "n_records": 3,
+    "target_pos": 0,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 245922824
+   },
+   {
+    "id": "dev-dev_noop_rate-08",
+    "pool": "dev",
+    "composition": "dev_noop_rate",
+    "faults": [
+     "already_done",
+     "rate_limit"
+    ],
+    "n_records": 3,
+    "target_pos": 0,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 102071349
+   },
+   {
+    "id": "dev-dev_noop_rate-09",
+    "pool": "dev",
+    "composition": "dev_noop_rate",
+    "faults": [
+     "already_done",
+     "rate_limit"
+    ],
+    "n_records": 5,
+    "target_pos": 1,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 310995879
+   }
+  ],
+  "test": [
+   {
+    "id": "test-test_conflict_lost-00",
+    "pool": "test",
+    "composition": "test_conflict_lost",
+    "faults": [
+     "conflict",
+     "lost_ack"
+    ],
+    "n_records": 9,
+    "target_pos": 8,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 731156371
+   },
+   {
+    "id": "test-test_conflict_lost-01",
+    "pool": "test",
+    "composition": "test_conflict_lost",
+    "faults": [
+     "conflict",
+     "lost_ack"
+    ],
+    "n_records": 7,
+    "target_pos": 6,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 967115607
+   },
+   {
+    "id": "test-test_conflict_lost-02",
+    "pool": "test",
+    "composition": "test_conflict_lost",
+    "faults": [
+     "conflict",
+     "lost_ack"
+    ],
+    "n_records": 3,
+    "target_pos": 0,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 295148838
+   },
+   {
+    "id": "test-test_conflict_lost-03",
+    "pool": "test",
+    "composition": "test_conflict_lost",
+    "faults": [
+     "conflict",
+     "lost_ack"
+    ],
+    "n_records": 9,
+    "target_pos": 1,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 102490212
+   },
+   {
+    "id": "test-test_conflict_lost-04",
+    "pool": "test",
+    "composition": "test_conflict_lost",
+    "faults": [
+     "conflict",
+     "lost_ack"
+    ],
+    "n_records": 9,
+    "target_pos": 1,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 988315701
+   },
+   {
+    "id": "test-test_conflict_lost-05",
+    "pool": "test",
+    "composition": "test_conflict_lost",
+    "faults": [
+     "conflict",
+     "lost_ack"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 268475866
+   },
+   {
+    "id": "test-test_conflict_lost-06",
+    "pool": "test",
+    "composition": "test_conflict_lost",
+    "faults": [
+     "conflict",
+     "lost_ack"
+    ],
+    "n_records": 6,
+    "target_pos": 0,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 136292349
+   },
+   {
+    "id": "test-test_conflict_lost-07",
+    "pool": "test",
+    "composition": "test_conflict_lost",
+    "faults": [
+     "conflict",
+     "lost_ack"
+    ],
+    "n_records": 6,
+    "target_pos": 4,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 258751121
+   },
+   {
+    "id": "test-test_conflict_lost-08",
+    "pool": "test",
+    "composition": "test_conflict_lost",
+    "faults": [
+     "conflict",
+     "lost_ack"
+    ],
+    "n_records": 7,
+    "target_pos": 6,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 861520244
+   },
+   {
+    "id": "test-test_conflict_lost-09",
+    "pool": "test",
+    "composition": "test_conflict_lost",
+    "faults": [
+     "conflict",
+     "lost_ack"
+    ],
+    "n_records": 4,
+    "target_pos": 0,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 399978315
+   },
+   {
+    "id": "test-test_conflict_lost-10",
+    "pool": "test",
+    "composition": "test_conflict_lost",
+    "faults": [
+     "conflict",
+     "lost_ack"
+    ],
+    "n_records": 4,
+    "target_pos": 1,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 432474684
+   },
+   {
+    "id": "test-test_conflict_lost-11",
+    "pool": "test",
+    "composition": "test_conflict_lost",
+    "faults": [
+     "conflict",
+     "lost_ack"
+    ],
+    "n_records": 6,
+    "target_pos": 3,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 284987414
+   },
+   {
+    "id": "test-test_conflict_rate-00",
+    "pool": "test",
+    "composition": "test_conflict_rate",
+    "faults": [
+     "conflict",
+     "rate_limit"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 300991923
+   },
+   {
+    "id": "test-test_conflict_rate-01",
+    "pool": "test",
+    "composition": "test_conflict_rate",
+    "faults": [
+     "conflict",
+     "rate_limit"
+    ],
+    "n_records": 4,
+    "target_pos": 3,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 410835163
+   },
+   {
+    "id": "test-test_conflict_rate-02",
+    "pool": "test",
+    "composition": "test_conflict_rate",
+    "faults": [
+     "conflict",
+     "rate_limit"
+    ],
+    "n_records": 8,
+    "target_pos": 2,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 225946783
+   },
+   {
+    "id": "test-test_conflict_rate-03",
+    "pool": "test",
+    "composition": "test_conflict_rate",
+    "faults": [
+     "conflict",
+     "rate_limit"
+    ],
+    "n_records": 4,
+    "target_pos": 2,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 378527614
+   },
+   {
+    "id": "test-test_conflict_rate-04",
+    "pool": "test",
+    "composition": "test_conflict_rate",
+    "faults": [
+     "conflict",
+     "rate_limit"
+    ],
+    "n_records": 8,
+    "target_pos": 2,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 825662052
+   },
+   {
+    "id": "test-test_conflict_rate-05",
+    "pool": "test",
+    "composition": "test_conflict_rate",
+    "faults": [
+     "conflict",
+     "rate_limit"
+    ],
+    "n_records": 8,
+    "target_pos": 3,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 382955157
+   },
+   {
+    "id": "test-test_conflict_rate-06",
+    "pool": "test",
+    "composition": "test_conflict_rate",
+    "faults": [
+     "conflict",
+     "rate_limit"
+    ],
+    "n_records": 8,
+    "target_pos": 1,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 181136223
+   },
+   {
+    "id": "test-test_conflict_rate-07",
+    "pool": "test",
+    "composition": "test_conflict_rate",
+    "faults": [
+     "conflict",
+     "rate_limit"
+    ],
+    "n_records": 6,
+    "target_pos": 0,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 798952187
+   },
+   {
+    "id": "test-test_conflict_rate-08",
+    "pool": "test",
+    "composition": "test_conflict_rate",
+    "faults": [
+     "conflict",
+     "rate_limit"
+    ],
+    "n_records": 3,
+    "target_pos": 0,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 806939601
+   },
+   {
+    "id": "test-test_conflict_rate-09",
+    "pool": "test",
+    "composition": "test_conflict_rate",
+    "faults": [
+     "conflict",
+     "rate_limit"
+    ],
+    "n_records": 4,
+    "target_pos": 0,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 849038231
+   },
+   {
+    "id": "test-test_conflict_rate-10",
+    "pool": "test",
+    "composition": "test_conflict_rate",
+    "faults": [
+     "conflict",
+     "rate_limit"
+    ],
+    "n_records": 4,
+    "target_pos": 1,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 643272413
+   },
+   {
+    "id": "test-test_conflict_rate-11",
+    "pool": "test",
+    "composition": "test_conflict_rate",
+    "faults": [
+     "conflict",
+     "rate_limit"
+    ],
+    "n_records": 6,
+    "target_pos": 1,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 849867847
+   },
+   {
+    "id": "test-test_rate_lost-00",
+    "pool": "test",
+    "composition": "test_rate_lost",
+    "faults": [
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 8,
+    "target_pos": 1,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 168926035
+   },
+   {
+    "id": "test-test_rate_lost-01",
+    "pool": "test",
+    "composition": "test_rate_lost",
+    "faults": [
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 9,
+    "target_pos": 0,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 992038166
+   },
+   {
+    "id": "test-test_rate_lost-02",
+    "pool": "test",
+    "composition": "test_rate_lost",
+    "faults": [
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 9,
+    "target_pos": 8,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 210963342
+   },
+   {
+    "id": "test-test_rate_lost-03",
+    "pool": "test",
+    "composition": "test_rate_lost",
+    "faults": [
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 6,
+    "target_pos": 1,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 108202749
+   },
+   {
+    "id": "test-test_rate_lost-04",
+    "pool": "test",
+    "composition": "test_rate_lost",
+    "faults": [
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 7,
+    "target_pos": 5,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 203017908
+   },
+   {
+    "id": "test-test_rate_lost-05",
+    "pool": "test",
+    "composition": "test_rate_lost",
+    "faults": [
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 8,
+    "target_pos": 6,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 140488787
+   },
+   {
+    "id": "test-test_rate_lost-06",
+    "pool": "test",
+    "composition": "test_rate_lost",
+    "faults": [
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 8,
+    "target_pos": 7,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 795419355
+   },
+   {
+    "id": "test-test_rate_lost-07",
+    "pool": "test",
+    "composition": "test_rate_lost",
+    "faults": [
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 9,
+    "target_pos": 0,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 661332610
+   },
+   {
+    "id": "test-test_rate_lost-08",
+    "pool": "test",
+    "composition": "test_rate_lost",
+    "faults": [
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 9,
+    "target_pos": 6,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 373300059
+   },
+   {
+    "id": "test-test_rate_lost-09",
+    "pool": "test",
+    "composition": "test_rate_lost",
+    "faults": [
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 8,
+    "target_pos": 6,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 386307431
+   },
+   {
+    "id": "test-test_rate_lost-10",
+    "pool": "test",
+    "composition": "test_rate_lost",
+    "faults": [
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 7,
+    "target_pos": 0,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 249746540
+   },
+   {
+    "id": "test-test_rate_lost-11",
+    "pool": "test",
+    "composition": "test_rate_lost",
+    "faults": [
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 8,
+    "target_pos": 1,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 916633517
+   },
+   {
+    "id": "test-test_conflict_rate_lost-00",
+    "pool": "test",
+    "composition": "test_conflict_rate_lost",
+    "faults": [
+     "conflict",
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 586073734
+   },
+   {
+    "id": "test-test_conflict_rate_lost-01",
+    "pool": "test",
+    "composition": "test_conflict_rate_lost",
+    "faults": [
+     "conflict",
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 3,
+    "target_pos": 0,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 621150860
+   },
+   {
+    "id": "test-test_conflict_rate_lost-02",
+    "pool": "test",
+    "composition": "test_conflict_rate_lost",
+    "faults": [
+     "conflict",
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 740481012
+   },
+   {
+    "id": "test-test_conflict_rate_lost-03",
+    "pool": "test",
+    "composition": "test_conflict_rate_lost",
+    "faults": [
+     "conflict",
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 7,
+    "target_pos": 1,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 584108901
+   },
+   {
+    "id": "test-test_conflict_rate_lost-04",
+    "pool": "test",
+    "composition": "test_conflict_rate_lost",
+    "faults": [
+     "conflict",
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 4,
+    "target_pos": 0,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 112170329
+   },
+   {
+    "id": "test-test_conflict_rate_lost-05",
+    "pool": "test",
+    "composition": "test_conflict_rate_lost",
+    "faults": [
+     "conflict",
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 4,
+    "target_pos": 2,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 619920608
+   },
+   {
+    "id": "test-test_conflict_rate_lost-06",
+    "pool": "test",
+    "composition": "test_conflict_rate_lost",
+    "faults": [
+     "conflict",
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 4,
+    "target_pos": 1,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 454328361
+   },
+   {
+    "id": "test-test_conflict_rate_lost-07",
+    "pool": "test",
+    "composition": "test_conflict_rate_lost",
+    "faults": [
+     "conflict",
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 4,
+    "target_pos": 3,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 339779606
+   },
+   {
+    "id": "test-test_conflict_rate_lost-08",
+    "pool": "test",
+    "composition": "test_conflict_rate_lost",
+    "faults": [
+     "conflict",
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 5,
+    "target_pos": 0,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 972902128
+   },
+   {
+    "id": "test-test_conflict_rate_lost-09",
+    "pool": "test",
+    "composition": "test_conflict_rate_lost",
+    "faults": [
+     "conflict",
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 7,
+    "target_pos": 3,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 101493882
+   },
+   {
+    "id": "test-test_conflict_rate_lost-10",
+    "pool": "test",
+    "composition": "test_conflict_rate_lost",
+    "faults": [
+     "conflict",
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 9,
+    "target_pos": 1,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 758605082
+   },
+   {
+    "id": "test-test_conflict_rate_lost-11",
+    "pool": "test",
+    "composition": "test_conflict_rate_lost",
+    "faults": [
+     "conflict",
+     "rate_limit",
+     "lost_ack"
+    ],
+    "n_records": 8,
+    "target_pos": 7,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 129514927
+   },
+   {
+    "id": "test-test_revoke_injection-00",
+    "pool": "test",
+    "composition": "test_revoke_injection",
+    "faults": [
+     "revoke",
+     "injection"
+    ],
+    "n_records": 6,
+    "target_pos": 3,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": "i4",
+    "record_seed": 836656961
+   },
+   {
+    "id": "test-test_revoke_injection-01",
+    "pool": "test",
+    "composition": "test_revoke_injection",
+    "faults": [
+     "revoke",
+     "injection"
+    ],
+    "n_records": 3,
+    "target_pos": 0,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i5",
+    "record_seed": 327445942
+   },
+   {
+    "id": "test-test_revoke_injection-02",
+    "pool": "test",
+    "composition": "test_revoke_injection",
+    "faults": [
+     "revoke",
+     "injection"
+    ],
+    "n_records": 5,
+    "target_pos": 4,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": "i4",
+    "record_seed": 707487485
+   },
+   {
+    "id": "test-test_revoke_injection-03",
+    "pool": "test",
+    "composition": "test_revoke_injection",
+    "faults": [
+     "revoke",
+     "injection"
+    ],
+    "n_records": 8,
+    "target_pos": 1,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i4",
+    "record_seed": 807853769
+   },
+   {
+    "id": "test-test_revoke_injection-04",
+    "pool": "test",
+    "composition": "test_revoke_injection",
+    "faults": [
+     "revoke",
+     "injection"
+    ],
+    "n_records": 9,
+    "target_pos": 1,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": "i5",
+    "record_seed": 631156254
+   },
+   {
+    "id": "test-test_revoke_injection-05",
+    "pool": "test",
+    "composition": "test_revoke_injection",
+    "faults": [
+     "revoke",
+     "injection"
+    ],
+    "n_records": 9,
+    "target_pos": 8,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i4",
+    "record_seed": 563511054
+   },
+   {
+    "id": "test-test_revoke_injection-06",
+    "pool": "test",
+    "composition": "test_revoke_injection",
+    "faults": [
+     "revoke",
+     "injection"
+    ],
+    "n_records": 4,
+    "target_pos": 0,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": "i5",
+    "record_seed": 367151438
+   },
+   {
+    "id": "test-test_revoke_injection-07",
+    "pool": "test",
+    "composition": "test_revoke_injection",
+    "faults": [
+     "revoke",
+     "injection"
+    ],
+    "n_records": 4,
+    "target_pos": 2,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": "i5",
+    "record_seed": 873731638
+   },
+   {
+    "id": "test-test_revoke_injection-08",
+    "pool": "test",
+    "composition": "test_revoke_injection",
+    "faults": [
+     "revoke",
+     "injection"
+    ],
+    "n_records": 4,
+    "target_pos": 1,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": "i5",
+    "record_seed": 698863254
+   },
+   {
+    "id": "test-test_revoke_injection-09",
+    "pool": "test",
+    "composition": "test_revoke_injection",
+    "faults": [
+     "revoke",
+     "injection"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": "i5",
+    "record_seed": 809338180
+   },
+   {
+    "id": "test-test_revoke_injection-10",
+    "pool": "test",
+    "composition": "test_revoke_injection",
+    "faults": [
+     "revoke",
+     "injection"
+    ],
+    "n_records": 6,
+    "target_pos": 2,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i4",
+    "record_seed": 876589109
+   },
+   {
+    "id": "test-test_revoke_injection-11",
+    "pool": "test",
+    "composition": "test_revoke_injection",
+    "faults": [
+     "revoke",
+     "injection"
+    ],
+    "n_records": 7,
+    "target_pos": 0,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": "i4",
+    "record_seed": 874757749
+   },
+   {
+    "id": "test-test_rate_revoke-00",
+    "pool": "test",
+    "composition": "test_rate_revoke",
+    "faults": [
+     "rate_limit",
+     "revoke"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 253440172
+   },
+   {
+    "id": "test-test_rate_revoke-01",
+    "pool": "test",
+    "composition": "test_rate_revoke",
+    "faults": [
+     "rate_limit",
+     "revoke"
+    ],
+    "n_records": 4,
+    "target_pos": 3,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 783382514
+   },
+   {
+    "id": "test-test_rate_revoke-02",
+    "pool": "test",
+    "composition": "test_rate_revoke",
+    "faults": [
+     "rate_limit",
+     "revoke"
+    ],
+    "n_records": 4,
+    "target_pos": 2,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 144897198
+   },
+   {
+    "id": "test-test_rate_revoke-03",
+    "pool": "test",
+    "composition": "test_rate_revoke",
+    "faults": [
+     "rate_limit",
+     "revoke"
+    ],
+    "n_records": 6,
+    "target_pos": 1,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 919023758
+   },
+   {
+    "id": "test-test_rate_revoke-04",
+    "pool": "test",
+    "composition": "test_rate_revoke",
+    "faults": [
+     "rate_limit",
+     "revoke"
+    ],
+    "n_records": 8,
+    "target_pos": 1,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 281543296
+   },
+   {
+    "id": "test-test_rate_revoke-05",
+    "pool": "test",
+    "composition": "test_rate_revoke",
+    "faults": [
+     "rate_limit",
+     "revoke"
+    ],
+    "n_records": 9,
+    "target_pos": 1,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 606033761
+   },
+   {
+    "id": "test-test_rate_revoke-06",
+    "pool": "test",
+    "composition": "test_rate_revoke",
+    "faults": [
+     "rate_limit",
+     "revoke"
+    ],
+    "n_records": 9,
+    "target_pos": 3,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 414619370
+   },
+   {
+    "id": "test-test_rate_revoke-07",
+    "pool": "test",
+    "composition": "test_rate_revoke",
+    "faults": [
+     "rate_limit",
+     "revoke"
+    ],
+    "n_records": 4,
+    "target_pos": 2,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 290526929
+   },
+   {
+    "id": "test-test_rate_revoke-08",
+    "pool": "test",
+    "composition": "test_rate_revoke",
+    "faults": [
+     "rate_limit",
+     "revoke"
+    ],
+    "n_records": 4,
+    "target_pos": 3,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 849952299
+   },
+   {
+    "id": "test-test_rate_revoke-09",
+    "pool": "test",
+    "composition": "test_rate_revoke",
+    "faults": [
+     "rate_limit",
+     "revoke"
+    ],
+    "n_records": 6,
+    "target_pos": 0,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 158109707
+   },
+   {
+    "id": "test-test_rate_revoke-10",
+    "pool": "test",
+    "composition": "test_rate_revoke",
+    "faults": [
+     "rate_limit",
+     "revoke"
+    ],
+    "n_records": 7,
+    "target_pos": 0,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 315728409
+   },
+   {
+    "id": "test-test_rate_revoke-11",
+    "pool": "test",
+    "composition": "test_rate_revoke",
+    "faults": [
+     "rate_limit",
+     "revoke"
+    ],
+    "n_records": 5,
+    "target_pos": 0,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 456216282
+   },
+   {
+    "id": "test-test_noop_injection-00",
+    "pool": "test",
+    "composition": "test_noop_injection",
+    "faults": [
+     "already_done",
+     "injection"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i4",
+    "record_seed": 944485646
+   },
+   {
+    "id": "test-test_noop_injection-01",
+    "pool": "test",
+    "composition": "test_noop_injection",
+    "faults": [
+     "already_done",
+     "injection"
+    ],
+    "n_records": 9,
+    "target_pos": 1,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": "i5",
+    "record_seed": 311420961
+   },
+   {
+    "id": "test-test_noop_injection-02",
+    "pool": "test",
+    "composition": "test_noop_injection",
+    "faults": [
+     "already_done",
+     "injection"
+    ],
+    "n_records": 7,
+    "target_pos": 4,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": "i4",
+    "record_seed": 455722835
+   },
+   {
+    "id": "test-test_noop_injection-03",
+    "pool": "test",
+    "composition": "test_noop_injection",
+    "faults": [
+     "already_done",
+     "injection"
+    ],
+    "n_records": 3,
+    "target_pos": 1,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i5",
+    "record_seed": 927052584
+   },
+   {
+    "id": "test-test_noop_injection-04",
+    "pool": "test",
+    "composition": "test_noop_injection",
+    "faults": [
+     "already_done",
+     "injection"
+    ],
+    "n_records": 7,
+    "target_pos": 5,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": "i4",
+    "record_seed": 676823523
+   },
+   {
+    "id": "test-test_noop_injection-05",
+    "pool": "test",
+    "composition": "test_noop_injection",
+    "faults": [
+     "already_done",
+     "injection"
+    ],
+    "n_records": 5,
+    "target_pos": 0,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": "i5",
+    "record_seed": 727160160
+   },
+   {
+    "id": "test-test_noop_injection-06",
+    "pool": "test",
+    "composition": "test_noop_injection",
+    "faults": [
+     "already_done",
+     "injection"
+    ],
+    "n_records": 5,
+    "target_pos": 4,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": "i5",
+    "record_seed": 321739037
+   },
+   {
+    "id": "test-test_noop_injection-07",
+    "pool": "test",
+    "composition": "test_noop_injection",
+    "faults": [
+     "already_done",
+     "injection"
+    ],
+    "n_records": 9,
+    "target_pos": 0,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": "i5",
+    "record_seed": 280485153
+   },
+   {
+    "id": "test-test_noop_injection-08",
+    "pool": "test",
+    "composition": "test_noop_injection",
+    "faults": [
+     "already_done",
+     "injection"
+    ],
+    "n_records": 9,
+    "target_pos": 0,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": "i5",
+    "record_seed": 580229188
+   },
+   {
+    "id": "test-test_noop_injection-09",
+    "pool": "test",
+    "composition": "test_noop_injection",
+    "faults": [
+     "already_done",
+     "injection"
+    ],
+    "n_records": 5,
+    "target_pos": 3,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": "i5",
+    "record_seed": 482887856
+   },
+   {
+    "id": "test-test_noop_injection-10",
+    "pool": "test",
+    "composition": "test_noop_injection",
+    "faults": [
+     "already_done",
+     "injection"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": "i5",
+    "record_seed": 612642002
+   },
+   {
+    "id": "test-test_noop_injection-11",
+    "pool": "test",
+    "composition": "test_noop_injection",
+    "faults": [
+     "already_done",
+     "injection"
+    ],
+    "n_records": 9,
+    "target_pos": 1,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": "i4",
+    "record_seed": 914004488
+   },
+   {
+    "id": "test-test_concurrent_rate-00",
+    "pool": "test",
+    "composition": "test_concurrent_rate",
+    "faults": [
+     "concurrent_resolve",
+     "rate_limit"
+    ],
+    "n_records": 9,
+    "target_pos": 8,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 751893526
+   },
+   {
+    "id": "test-test_concurrent_rate-01",
+    "pool": "test",
+    "composition": "test_concurrent_rate",
+    "faults": [
+     "concurrent_resolve",
+     "rate_limit"
+    ],
+    "n_records": 5,
+    "target_pos": 1,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 595282376
+   },
+   {
+    "id": "test-test_concurrent_rate-02",
+    "pool": "test",
+    "composition": "test_concurrent_rate",
+    "faults": [
+     "concurrent_resolve",
+     "rate_limit"
+    ],
+    "n_records": 6,
+    "target_pos": 0,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 334841745
+   },
+   {
+    "id": "test-test_concurrent_rate-03",
+    "pool": "test",
+    "composition": "test_concurrent_rate",
+    "faults": [
+     "concurrent_resolve",
+     "rate_limit"
+    ],
+    "n_records": 7,
+    "target_pos": 5,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 504039799
+   },
+   {
+    "id": "test-test_concurrent_rate-04",
+    "pool": "test",
+    "composition": "test_concurrent_rate",
+    "faults": [
+     "concurrent_resolve",
+     "rate_limit"
+    ],
+    "n_records": 4,
+    "target_pos": 3,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 456337207
+   },
+   {
+    "id": "test-test_concurrent_rate-05",
+    "pool": "test",
+    "composition": "test_concurrent_rate",
+    "faults": [
+     "concurrent_resolve",
+     "rate_limit"
+    ],
+    "n_records": 6,
+    "target_pos": 3,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 935107358
+   },
+   {
+    "id": "test-test_concurrent_rate-06",
+    "pool": "test",
+    "composition": "test_concurrent_rate",
+    "faults": [
+     "concurrent_resolve",
+     "rate_limit"
+    ],
+    "n_records": 7,
+    "target_pos": 2,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 533431846
+   },
+   {
+    "id": "test-test_concurrent_rate-07",
+    "pool": "test",
+    "composition": "test_concurrent_rate",
+    "faults": [
+     "concurrent_resolve",
+     "rate_limit"
+    ],
+    "n_records": 9,
+    "target_pos": 0,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 103368552
+   },
+   {
+    "id": "test-test_concurrent_rate-08",
+    "pool": "test",
+    "composition": "test_concurrent_rate",
+    "faults": [
+     "concurrent_resolve",
+     "rate_limit"
+    ],
+    "n_records": 4,
+    "target_pos": 1,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 783799885
+   },
+   {
+    "id": "test-test_concurrent_rate-09",
+    "pool": "test",
+    "composition": "test_concurrent_rate",
+    "faults": [
+     "concurrent_resolve",
+     "rate_limit"
+    ],
+    "n_records": 5,
+    "target_pos": 1,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 769489473
+   },
+   {
+    "id": "test-test_concurrent_rate-10",
+    "pool": "test",
+    "composition": "test_concurrent_rate",
+    "faults": [
+     "concurrent_resolve",
+     "rate_limit"
+    ],
+    "n_records": 5,
+    "target_pos": 0,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": null,
+    "record_seed": 240861487
+   },
+   {
+    "id": "test-test_concurrent_rate-11",
+    "pool": "test",
+    "composition": "test_concurrent_rate",
+    "faults": [
+     "concurrent_resolve",
+     "rate_limit"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": null,
+    "record_seed": 125330500
+   },
+   {
+    "id": "test-test_concurrent_injection-00",
+    "pool": "test",
+    "composition": "test_concurrent_injection",
+    "faults": [
+     "concurrent_resolve",
+     "injection"
+    ],
+    "n_records": 8,
+    "target_pos": 6,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": "i4",
+    "record_seed": 343785957
+   },
+   {
+    "id": "test-test_concurrent_injection-01",
+    "pool": "test",
+    "composition": "test_concurrent_injection",
+    "faults": [
+     "concurrent_resolve",
+     "injection"
+    ],
+    "n_records": 3,
+    "target_pos": 2,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": "i4",
+    "record_seed": 522884368
+   },
+   {
+    "id": "test-test_concurrent_injection-02",
+    "pool": "test",
+    "composition": "test_concurrent_injection",
+    "faults": [
+     "concurrent_resolve",
+     "injection"
+    ],
+    "n_records": 5,
+    "target_pos": 1,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": "i4",
+    "record_seed": 296560461
+   },
+   {
+    "id": "test-test_concurrent_injection-03",
+    "pool": "test",
+    "composition": "test_concurrent_injection",
+    "faults": [
+     "concurrent_resolve",
+     "injection"
+    ],
+    "n_records": 8,
+    "target_pos": 1,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": "i4",
+    "record_seed": 660024132
+   },
+   {
+    "id": "test-test_concurrent_injection-04",
+    "pool": "test",
+    "composition": "test_concurrent_injection",
+    "faults": [
+     "concurrent_resolve",
+     "injection"
+    ],
+    "n_records": 7,
+    "target_pos": 5,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": "i4",
+    "record_seed": 906882042
+   },
+   {
+    "id": "test-test_concurrent_injection-05",
+    "pool": "test",
+    "composition": "test_concurrent_injection",
+    "faults": [
+     "concurrent_resolve",
+     "injection"
+    ],
+    "n_records": 5,
+    "target_pos": 3,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": "i5",
+    "record_seed": 334449961
+   },
+   {
+    "id": "test-test_concurrent_injection-06",
+    "pool": "test",
+    "composition": "test_concurrent_injection",
+    "faults": [
+     "concurrent_resolve",
+     "injection"
+    ],
+    "n_records": 9,
+    "target_pos": 0,
+    "phrasing": "f0",
+    "phrasing_group": "seen",
+    "injection": "i5",
+    "record_seed": 239158117
+   },
+   {
+    "id": "test-test_concurrent_injection-07",
+    "pool": "test",
+    "composition": "test_concurrent_injection",
+    "faults": [
+     "concurrent_resolve",
+     "injection"
+    ],
+    "n_records": 8,
+    "target_pos": 0,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": "i5",
+    "record_seed": 197554398
+   },
+   {
+    "id": "test-test_concurrent_injection-08",
+    "pool": "test",
+    "composition": "test_concurrent_injection",
+    "faults": [
+     "concurrent_resolve",
+     "injection"
+    ],
+    "n_records": 5,
+    "target_pos": 1,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i4",
+    "record_seed": 362807383
+   },
+   {
+    "id": "test-test_concurrent_injection-09",
+    "pool": "test",
+    "composition": "test_concurrent_injection",
+    "faults": [
+     "concurrent_resolve",
+     "injection"
+    ],
+    "n_records": 6,
+    "target_pos": 0,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": "i5",
+    "record_seed": 204506975
+   },
+   {
+    "id": "test-test_concurrent_injection-10",
+    "pool": "test",
+    "composition": "test_concurrent_injection",
+    "faults": [
+     "concurrent_resolve",
+     "injection"
+    ],
+    "n_records": 9,
+    "target_pos": 2,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": "i4",
+    "record_seed": 357524556
+   },
+   {
+    "id": "test-test_concurrent_injection-11",
+    "pool": "test",
+    "composition": "test_concurrent_injection",
+    "faults": [
+     "concurrent_resolve",
+     "injection"
+    ],
+    "n_records": 8,
+    "target_pos": 5,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": "i5",
+    "record_seed": 846360552
+   },
+   {
+    "id": "test-test_lost_injection-00",
+    "pool": "test",
+    "composition": "test_lost_injection",
+    "faults": [
+     "lost_ack",
+     "injection"
+    ],
+    "n_records": 9,
+    "target_pos": 0,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": "i5",
+    "record_seed": 141916720
+   },
+   {
+    "id": "test-test_lost_injection-01",
+    "pool": "test",
+    "composition": "test_lost_injection",
+    "faults": [
+     "lost_ack",
+     "injection"
+    ],
+    "n_records": 7,
+    "target_pos": 4,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": "i5",
+    "record_seed": 624509766
+   },
+   {
+    "id": "test-test_lost_injection-02",
+    "pool": "test",
+    "composition": "test_lost_injection",
+    "faults": [
+     "lost_ack",
+     "injection"
+    ],
+    "n_records": 5,
+    "target_pos": 0,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": "i4",
+    "record_seed": 635148245
+   },
+   {
+    "id": "test-test_lost_injection-03",
+    "pool": "test",
+    "composition": "test_lost_injection",
+    "faults": [
+     "lost_ack",
+     "injection"
+    ],
+    "n_records": 4,
+    "target_pos": 1,
+    "phrasing": "f3",
+    "phrasing_group": "seen",
+    "injection": "i4",
+    "record_seed": 344566412
+   },
+   {
+    "id": "test-test_lost_injection-04",
+    "pool": "test",
+    "composition": "test_lost_injection",
+    "faults": [
+     "lost_ack",
+     "injection"
+    ],
+    "n_records": 7,
+    "target_pos": 2,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i5",
+    "record_seed": 427364643
+   },
+   {
+    "id": "test-test_lost_injection-05",
+    "pool": "test",
+    "composition": "test_lost_injection",
+    "faults": [
+     "lost_ack",
+     "injection"
+    ],
+    "n_records": 4,
+    "target_pos": 2,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": "i4",
+    "record_seed": 379362751
+   },
+   {
+    "id": "test-test_lost_injection-06",
+    "pool": "test",
+    "composition": "test_lost_injection",
+    "faults": [
+     "lost_ack",
+     "injection"
+    ],
+    "n_records": 7,
+    "target_pos": 6,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": "i4",
+    "record_seed": 763200437
+   },
+   {
+    "id": "test-test_lost_injection-07",
+    "pool": "test",
+    "composition": "test_lost_injection",
+    "faults": [
+     "lost_ack",
+     "injection"
+    ],
+    "n_records": 7,
+    "target_pos": 0,
+    "phrasing": "f4",
+    "phrasing_group": "unseen",
+    "injection": "i5",
+    "record_seed": 193252205
+   },
+   {
+    "id": "test-test_lost_injection-08",
+    "pool": "test",
+    "composition": "test_lost_injection",
+    "faults": [
+     "lost_ack",
+     "injection"
+    ],
+    "n_records": 3,
+    "target_pos": 1,
+    "phrasing": "f1",
+    "phrasing_group": "seen",
+    "injection": "i5",
+    "record_seed": 333283394
+   },
+   {
+    "id": "test-test_lost_injection-09",
+    "pool": "test",
+    "composition": "test_lost_injection",
+    "faults": [
+     "lost_ack",
+     "injection"
+    ],
+    "n_records": 8,
+    "target_pos": 2,
+    "phrasing": "f5",
+    "phrasing_group": "unseen",
+    "injection": "i5",
+    "record_seed": 333148675
+   },
+   {
+    "id": "test-test_lost_injection-10",
+    "pool": "test",
+    "composition": "test_lost_injection",
+    "faults": [
+     "lost_ack",
+     "injection"
+    ],
+    "n_records": 9,
+    "target_pos": 1,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i4",
+    "record_seed": 346594138
+   },
+   {
+    "id": "test-test_lost_injection-11",
+    "pool": "test",
+    "composition": "test_lost_injection",
+    "faults": [
+     "lost_ack",
+     "injection"
+    ],
+    "n_records": 5,
+    "target_pos": 4,
+    "phrasing": "f2",
+    "phrasing_group": "seen",
+    "injection": "i4",
+    "record_seed": 240040806
+   }
+  ]
+ }
+}

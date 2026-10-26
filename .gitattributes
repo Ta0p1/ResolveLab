@@ -2,3 +2,4 @@
 *.png binary
 *.webm binary
 *.patch -whitespace
+*.zip binary

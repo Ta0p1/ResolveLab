@@ -1,0 +1,1233 @@
+{
+  "pool": "test",
+  "episodes": 120,
+  "arms": {
+    "base-0.6b-3demo": {
+      "seeds": {
+        "None": {
+          "passed": 0,
+          "episodes": 120,
+          "wilson_95": [
+            0.0,
+            0.03101916689287469
+          ],
+          "safety_violations": 9,
+          "unsafe_mutations": 2,
+          "false_successes": 7,
+          "spurious_escalations": 1,
+          "redundant_commits": 2,
+          "located_target": 17,
+          "v03_grader_passed": 0,
+          "failure_categories": {
+            "false_success": 4,
+            "redundant_write": 2,
+            "spurious_escalation": 1,
+            "unfinished": 11,
+            "unjustified_escalation": 100,
+            "unsafe_mutation": 2
+          },
+          "mean_tools": 5.15,
+          "output_tokens": 12000,
+          "input_tokens": 2093983,
+          "median_seconds": 3.1330021230023704
+        }
+      },
+      "success": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "per_seed": [
+          0.0
+        ]
+      },
+      "slices": {
+        "target_slot_0": {
+          "episodes": 30,
+          "mean_rate": 0.0
+        },
+        "target_slot_1": {
+          "episodes": 30,
+          "mean_rate": 0.0
+        },
+        "target_later_page": {
+          "episodes": 60,
+          "mean_rate": 0.0
+        },
+        "phrasing_seen": {
+          "episodes": 60,
+          "mean_rate": 0.0
+        },
+        "phrasing_held_out": {
+          "episodes": 60,
+          "mean_rate": 0.0
+        },
+        "test_conflict_lost": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_conflict_rate": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_rate_lost": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_conflict_rate_lost": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_revoke_injection": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_rate_revoke": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_noop_injection": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_concurrent_rate": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_concurrent_injection": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_lost_injection": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        }
+      }
+    },
+    "base-0.6b": {
+      "seeds": {
+        "None": {
+          "passed": 0,
+          "episodes": 120,
+          "wilson_95": [
+            0.0,
+            0.03101916689287469
+          ],
+          "safety_violations": 8,
+          "unsafe_mutations": 0,
+          "false_successes": 8,
+          "spurious_escalations": 0,
+          "redundant_commits": 1,
+          "located_target": 2,
+          "v03_grader_passed": 0,
+          "failure_categories": {
+            "false_success": 8,
+            "redundant_write": 1,
+            "unfinished": 11,
+            "unjustified_escalation": 100
+          },
+          "mean_tools": 4.741666666666666,
+          "output_tokens": 9994,
+          "input_tokens": 1303450,
+          "median_seconds": 2.734067443499953
+        }
+      },
+      "success": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "per_seed": [
+          0.0
+        ]
+      },
+      "slices": {
+        "target_slot_0": {
+          "episodes": 30,
+          "mean_rate": 0.0
+        },
+        "target_slot_1": {
+          "episodes": 30,
+          "mean_rate": 0.0
+        },
+        "target_later_page": {
+          "episodes": 60,
+          "mean_rate": 0.0
+        },
+        "phrasing_seen": {
+          "episodes": 60,
+          "mean_rate": 0.0
+        },
+        "phrasing_held_out": {
+          "episodes": 60,
+          "mean_rate": 0.0
+        },
+        "test_conflict_lost": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_conflict_rate": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_rate_lost": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_conflict_rate_lost": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_revoke_injection": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_rate_revoke": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_noop_injection": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_concurrent_rate": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_concurrent_injection": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_lost_injection": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        }
+      }
+    },
+    "base-1.7b-3demo": {
+      "seeds": {
+        "None": {
+          "passed": 18,
+          "episodes": 120,
+          "wilson_95": [
+            0.09703812258991285,
+            0.2246752942350994
+          ],
+          "safety_violations": 102,
+          "unsafe_mutations": 28,
+          "false_successes": 94,
+          "spurious_escalations": 8,
+          "redundant_commits": 12,
+          "located_target": 60,
+          "v03_grader_passed": 18,
+          "failure_categories": {
+            "false_success": 59,
+            "redundant_write": 8,
+            "spurious_escalation": 8,
+            "unsafe_mutation": 27
+          },
+          "mean_tools": 6.341666666666667,
+          "output_tokens": 22950,
+          "input_tokens": 2352009,
+          "median_seconds": 10.181981520003319
+        }
+      },
+      "success": {
+        "mean": 0.15,
+        "min": 0.15,
+        "max": 0.15,
+        "per_seed": [
+          0.15
+        ]
+      },
+      "slices": {
+        "target_slot_0": {
+          "episodes": 30,
+          "mean_rate": 0.26666666666666666
+        },
+        "target_slot_1": {
+          "episodes": 30,
+          "mean_rate": 0.3333333333333333
+        },
+        "target_later_page": {
+          "episodes": 60,
+          "mean_rate": 0.0
+        },
+        "phrasing_seen": {
+          "episodes": 60,
+          "mean_rate": 0.18333333333333332
+        },
+        "phrasing_held_out": {
+          "episodes": 60,
+          "mean_rate": 0.11666666666666667
+        },
+        "test_conflict_lost": {
+          "episodes": 12,
+          "mean_rate": 0.08333333333333333
+        },
+        "test_conflict_rate": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_rate_lost": {
+          "episodes": 12,
+          "mean_rate": 0.08333333333333333
+        },
+        "test_conflict_rate_lost": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_revoke_injection": {
+          "episodes": 12,
+          "mean_rate": 0.5
+        },
+        "test_rate_revoke": {
+          "episodes": 12,
+          "mean_rate": 0.08333333333333333
+        },
+        "test_noop_injection": {
+          "episodes": 12,
+          "mean_rate": 0.08333333333333333
+        },
+        "test_concurrent_rate": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_concurrent_injection": {
+          "episodes": 12,
+          "mean_rate": 0.25
+        },
+        "test_lost_injection": {
+          "episodes": 12,
+          "mean_rate": 0.4166666666666667
+        }
+      }
+    },
+    "base-1.7b": {
+      "seeds": {
+        "None": {
+          "passed": 28,
+          "episodes": 120,
+          "wilson_95": [
+            0.16665575087844448,
+            0.316554471464422
+          ],
+          "safety_violations": 84,
+          "unsafe_mutations": 24,
+          "false_successes": 75,
+          "spurious_escalations": 9,
+          "redundant_commits": 17,
+          "located_target": 74,
+          "v03_grader_passed": 28,
+          "failure_categories": {
+            "false_success": 38,
+            "redundant_write": 14,
+            "spurious_escalation": 9,
+            "unjustified_escalation": 8,
+            "unsafe_mutation": 23
+          },
+          "mean_tools": 8.391666666666667,
+          "output_tokens": 27122,
+          "input_tokens": 2066171,
+          "median_seconds": 9.786887893002131
+        }
+      },
+      "success": {
+        "mean": 0.23333333333333334,
+        "min": 0.23333333333333334,
+        "max": 0.23333333333333334,
+        "per_seed": [
+          0.23333333333333334
+        ]
+      },
+      "slices": {
+        "target_slot_0": {
+          "episodes": 30,
+          "mean_rate": 0.06666666666666667
+        },
+        "target_slot_1": {
+          "episodes": 30,
+          "mean_rate": 0.26666666666666666
+        },
+        "target_later_page": {
+          "episodes": 60,
+          "mean_rate": 0.3
+        },
+        "phrasing_seen": {
+          "episodes": 60,
+          "mean_rate": 0.23333333333333334
+        },
+        "phrasing_held_out": {
+          "episodes": 60,
+          "mean_rate": 0.23333333333333334
+        },
+        "test_conflict_lost": {
+          "episodes": 12,
+          "mean_rate": 0.25
+        },
+        "test_conflict_rate": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "test_rate_lost": {
+          "episodes": 12,
+          "mean_rate": 0.08333333333333333
+        },
+        "test_conflict_rate_lost": {
+          "episodes": 12,
+          "mean_rate": 0.08333333333333333
+        },
+        "test_revoke_injection": {
+          "episodes": 12,
+          "mean_rate": 0.5833333333333334
+        },
+        "test_rate_revoke": {
+          "episodes": 12,
+          "mean_rate": 0.16666666666666666
+        },
+        "test_noop_injection": {
+          "episodes": 12,
+          "mean_rate": 0.08333333333333333
+        },
+        "test_concurrent_rate": {
+          "episodes": 12,
+          "mean_rate": 0.25
+        },
+        "test_concurrent_injection": {
+          "episodes": 12,
+          "mean_rate": 0.16666666666666666
+        },
+        "test_lost_injection": {
+          "episodes": 12,
+          "mean_rate": 0.6666666666666666
+        }
+      }
+    },
+    "bc": {
+      "seeds": {
+        "2026": {
+          "passed": 102,
+          "episodes": 120,
+          "wilson_95": [
+            0.7753247057649005,
+            0.902961877410087
+          ],
+          "safety_violations": 8,
+          "unsafe_mutations": 5,
+          "false_successes": 8,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 114,
+          "v03_grader_passed": 102,
+          "failure_categories": {
+            "false_success": 3,
+            "unfinished": 10,
+            "unsafe_mutation": 5
+          },
+          "mean_tools": 7.825,
+          "output_tokens": 28992,
+          "input_tokens": 1973460,
+          "median_seconds": 18.27818370249952
+        },
+        "3407": {
+          "passed": 113,
+          "episodes": 120,
+          "wilson_95": [
+            0.8844740790888672,
+            0.97145899015576
+          ],
+          "safety_violations": 4,
+          "unsafe_mutations": 1,
+          "false_successes": 4,
+          "spurious_escalations": 0,
+          "redundant_commits": 1,
+          "located_target": 118,
+          "v03_grader_passed": 113,
+          "failure_categories": {
+            "false_success": 2,
+            "redundant_write": 1,
+            "unfinished": 3,
+            "unsafe_mutation": 1
+          },
+          "mean_tools": 8.083333333333334,
+          "output_tokens": 28090,
+          "input_tokens": 2022690,
+          "median_seconds": 17.902475781997055
+        },
+        "42": {
+          "passed": 112,
+          "episodes": 120,
+          "wilson_95": [
+            0.873948695378013,
+            0.9658346933148289
+          ],
+          "safety_violations": 8,
+          "unsafe_mutations": 4,
+          "false_successes": 8,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 116,
+          "v03_grader_passed": 112,
+          "failure_categories": {
+            "false_success": 4,
+            "unsafe_mutation": 4
+          },
+          "mean_tools": 7.616666666666666,
+          "output_tokens": 25946,
+          "input_tokens": 1843640,
+          "median_seconds": 18.062795460504276
+        }
+      },
+      "success": {
+        "mean": 0.9083333333333333,
+        "min": 0.85,
+        "max": 0.9416666666666667,
+        "per_seed": [
+          0.85,
+          0.9416666666666667,
+          0.9333333333333333
+        ]
+      },
+      "slices": {
+        "target_slot_0": {
+          "episodes": 30,
+          "mean_rate": 0.9333333333333332
+        },
+        "target_slot_1": {
+          "episodes": 30,
+          "mean_rate": 0.9666666666666667
+        },
+        "target_later_page": {
+          "episodes": 60,
+          "mean_rate": 0.8666666666666667
+        },
+        "phrasing_seen": {
+          "episodes": 60,
+          "mean_rate": 0.9111111111111111
+        },
+        "phrasing_held_out": {
+          "episodes": 60,
+          "mean_rate": 0.9055555555555556
+        },
+        "test_conflict_lost": {
+          "episodes": 12,
+          "mean_rate": 0.8888888888888888
+        },
+        "test_conflict_rate": {
+          "episodes": 12,
+          "mean_rate": 0.9444444444444443
+        },
+        "test_rate_lost": {
+          "episodes": 12,
+          "mean_rate": 0.8611111111111112
+        },
+        "test_conflict_rate_lost": {
+          "episodes": 12,
+          "mean_rate": 0.8333333333333334
+        },
+        "test_revoke_injection": {
+          "episodes": 12,
+          "mean_rate": 0.9444444444444443
+        },
+        "test_rate_revoke": {
+          "episodes": 12,
+          "mean_rate": 1.0
+        },
+        "test_noop_injection": {
+          "episodes": 12,
+          "mean_rate": 1.0
+        },
+        "test_concurrent_rate": {
+          "episodes": 12,
+          "mean_rate": 0.9444444444444443
+        },
+        "test_concurrent_injection": {
+          "episodes": 12,
+          "mean_rate": 0.8055555555555555
+        },
+        "test_lost_injection": {
+          "episodes": 12,
+          "mean_rate": 0.861111111111111
+        }
+      }
+    },
+    "bc-volume": {
+      "seeds": {
+        "2026": {
+          "passed": 104,
+          "episodes": 120,
+          "wilson_95": [
+            0.7943520335972863,
+            0.9162339106812721
+          ],
+          "safety_violations": 1,
+          "unsafe_mutations": 1,
+          "false_successes": 1,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 118,
+          "v03_grader_passed": 104,
+          "failure_categories": {
+            "unfinished": 15,
+            "unsafe_mutation": 1
+          },
+          "mean_tools": 9.3,
+          "output_tokens": 35239,
+          "input_tokens": 2523212,
+          "median_seconds": 17.956596852502116
+        },
+        "3407": {
+          "passed": 115,
+          "episodes": 120,
+          "wilson_95": [
+            0.9061591471148217,
+            0.9820732832333764
+          ],
+          "safety_violations": 1,
+          "unsafe_mutations": 1,
+          "false_successes": 1,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 119,
+          "v03_grader_passed": 115,
+          "failure_categories": {
+            "unfinished": 4,
+            "unsafe_mutation": 1
+          },
+          "mean_tools": 7.816666666666666,
+          "output_tokens": 27619,
+          "input_tokens": 1922221,
+          "median_seconds": 17.886823589498817
+        },
+        "42": {
+          "passed": 108,
+          "episodes": 120,
+          "wilson_95": [
+            0.8333182582648719,
+            0.9418664082208283
+          ],
+          "safety_violations": 4,
+          "unsafe_mutations": 2,
+          "false_successes": 4,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 118,
+          "v03_grader_passed": 108,
+          "failure_categories": {
+            "false_success": 2,
+            "unfinished": 8,
+            "unsafe_mutation": 2
+          },
+          "mean_tools": 7.683333333333334,
+          "output_tokens": 27739,
+          "input_tokens": 1909227,
+          "median_seconds": 18.038046791498346
+        }
+      },
+      "success": {
+        "mean": 0.9083333333333333,
+        "min": 0.8666666666666667,
+        "max": 0.9583333333333334,
+        "per_seed": [
+          0.8666666666666667,
+          0.9583333333333334,
+          0.9
+        ]
+      },
+      "slices": {
+        "target_slot_0": {
+          "episodes": 30,
+          "mean_rate": 0.888888888888889
+        },
+        "target_slot_1": {
+          "episodes": 30,
+          "mean_rate": 0.9111111111111111
+        },
+        "target_later_page": {
+          "episodes": 60,
+          "mean_rate": 0.9166666666666666
+        },
+        "phrasing_seen": {
+          "episodes": 60,
+          "mean_rate": 0.9
+        },
+        "phrasing_held_out": {
+          "episodes": 60,
+          "mean_rate": 0.9166666666666666
+        },
+        "test_conflict_lost": {
+          "episodes": 12,
+          "mean_rate": 0.8055555555555557
+        },
+        "test_conflict_rate": {
+          "episodes": 12,
+          "mean_rate": 0.75
+        },
+        "test_rate_lost": {
+          "episodes": 12,
+          "mean_rate": 0.9444444444444443
+        },
+        "test_conflict_rate_lost": {
+          "episodes": 12,
+          "mean_rate": 0.75
+        },
+        "test_revoke_injection": {
+          "episodes": 12,
+          "mean_rate": 1.0
+        },
+        "test_rate_revoke": {
+          "episodes": 12,
+          "mean_rate": 0.9722222222222222
+        },
+        "test_noop_injection": {
+          "episodes": 12,
+          "mean_rate": 1.0
+        },
+        "test_concurrent_rate": {
+          "episodes": 12,
+          "mean_rate": 0.9444444444444443
+        },
+        "test_concurrent_injection": {
+          "episodes": 12,
+          "mean_rate": 0.9444444444444445
+        },
+        "test_lost_injection": {
+          "episodes": 12,
+          "mean_rate": 0.9722222222222222
+        }
+      }
+    },
+    "dagger": {
+      "seeds": {
+        "2026": {
+          "passed": 119,
+          "episodes": 120,
+          "wilson_95": [
+            0.9543037082724115,
+            0.9985274442829282
+          ],
+          "safety_violations": 1,
+          "unsafe_mutations": 0,
+          "false_successes": 1,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 120,
+          "v03_grader_passed": 119,
+          "failure_categories": {
+            "false_success": 1
+          },
+          "mean_tools": 7.708333333333333,
+          "output_tokens": 26331,
+          "input_tokens": 1869491,
+          "median_seconds": 15.183998988002713
+        },
+        "3407": {
+          "passed": 118,
+          "episodes": 120,
+          "wilson_95": [
+            0.9412640365282555,
+            0.9954174354752988
+          ],
+          "safety_violations": 2,
+          "unsafe_mutations": 0,
+          "false_successes": 2,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 120,
+          "v03_grader_passed": 118,
+          "failure_categories": {
+            "false_success": 2
+          },
+          "mean_tools": 7.775,
+          "output_tokens": 26471,
+          "input_tokens": 1896893,
+          "median_seconds": 17.880451334996906
+        },
+        "42": {
+          "passed": 117,
+          "episodes": 120,
+          "wilson_95": [
+            0.9290699661552766,
+            0.9914618252964924
+          ],
+          "safety_violations": 3,
+          "unsafe_mutations": 1,
+          "false_successes": 3,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 119,
+          "v03_grader_passed": 117,
+          "failure_categories": {
+            "false_success": 2,
+            "unsafe_mutation": 1
+          },
+          "mean_tools": 7.708333333333333,
+          "output_tokens": 26287,
+          "input_tokens": 1869956,
+          "median_seconds": 17.90121793599974
+        }
+      },
+      "success": {
+        "mean": 0.9833333333333334,
+        "min": 0.975,
+        "max": 0.9916666666666667,
+        "per_seed": [
+          0.9916666666666667,
+          0.9833333333333333,
+          0.975
+        ]
+      },
+      "slices": {
+        "target_slot_0": {
+          "episodes": 30,
+          "mean_rate": 0.9888888888888889
+        },
+        "target_slot_1": {
+          "episodes": 30,
+          "mean_rate": 0.9888888888888889
+        },
+        "target_later_page": {
+          "episodes": 60,
+          "mean_rate": 0.9777777777777777
+        },
+        "phrasing_seen": {
+          "episodes": 60,
+          "mean_rate": 0.9888888888888889
+        },
+        "phrasing_held_out": {
+          "episodes": 60,
+          "mean_rate": 0.9777777777777777
+        },
+        "test_conflict_lost": {
+          "episodes": 12,
+          "mean_rate": 0.9166666666666666
+        },
+        "test_conflict_rate": {
+          "episodes": 12,
+          "mean_rate": 1.0
+        },
+        "test_rate_lost": {
+          "episodes": 12,
+          "mean_rate": 1.0
+        },
+        "test_conflict_rate_lost": {
+          "episodes": 12,
+          "mean_rate": 1.0
+        },
+        "test_revoke_injection": {
+          "episodes": 12,
+          "mean_rate": 1.0
+        },
+        "test_rate_revoke": {
+          "episodes": 12,
+          "mean_rate": 1.0
+        },
+        "test_noop_injection": {
+          "episodes": 12,
+          "mean_rate": 1.0
+        },
+        "test_concurrent_rate": {
+          "episodes": 12,
+          "mean_rate": 1.0
+        },
+        "test_concurrent_injection": {
+          "episodes": 12,
+          "mean_rate": 0.9444444444444443
+        },
+        "test_lost_injection": {
+          "episodes": 12,
+          "mean_rate": 0.9722222222222222
+        }
+      }
+    },
+    "v03-lora": {
+      "seeds": {
+        "2026": {
+          "passed": 34,
+          "episodes": 120,
+          "wilson_95": [
+            0.2104062804072026,
+            0.36970202524637635
+          ],
+          "safety_violations": 86,
+          "unsafe_mutations": 12,
+          "false_successes": 84,
+          "spurious_escalations": 2,
+          "redundant_commits": 0,
+          "located_target": 72,
+          "v03_grader_passed": 34,
+          "failure_categories": {
+            "false_success": 72,
+            "spurious_escalation": 2,
+            "unsafe_mutation": 12
+          },
+          "mean_tools": 5.375,
+          "output_tokens": 15364,
+          "input_tokens": 1232838,
+          "median_seconds": 7.264248992996727
+        },
+        "3407": {
+          "passed": 42,
+          "episodes": 120,
+          "wilson_95": [
+            0.2705189953289611,
+            0.4387867547389012
+          ],
+          "safety_violations": 69,
+          "unsafe_mutations": 19,
+          "false_successes": 63,
+          "spurious_escalations": 6,
+          "redundant_commits": 0,
+          "located_target": 65,
+          "v03_grader_passed": 42,
+          "failure_categories": {
+            "false_success": 44,
+            "spurious_escalation": 6,
+            "unfinished": 9,
+            "unsafe_mutation": 19
+          },
+          "mean_tools": 7.508333333333334,
+          "output_tokens": 21507,
+          "input_tokens": 1958296,
+          "median_seconds": 10.890312441999413
+        },
+        "42": {
+          "passed": 30,
+          "episodes": 120,
+          "wilson_95": [
+            0.18109821609474103,
+            0.33441136735169624
+          ],
+          "safety_violations": 81,
+          "unsafe_mutations": 19,
+          "false_successes": 75,
+          "spurious_escalations": 6,
+          "redundant_commits": 0,
+          "located_target": 63,
+          "v03_grader_passed": 30,
+          "failure_categories": {
+            "false_success": 56,
+            "spurious_escalation": 6,
+            "unfinished": 9,
+            "unsafe_mutation": 19
+          },
+          "mean_tools": 7.075,
+          "output_tokens": 19796,
+          "input_tokens": 1828370,
+          "median_seconds": 10.233180774499488
+        }
+      },
+      "success": {
+        "mean": 0.29444444444444445,
+        "min": 0.25,
+        "max": 0.35,
+        "per_seed": [
+          0.2833333333333333,
+          0.35,
+          0.25
+        ]
+      },
+      "slices": {
+        "target_slot_0": {
+          "episodes": 30,
+          "mean_rate": 0.09999999999999999
+        },
+        "target_slot_1": {
+          "episodes": 30,
+          "mean_rate": 0.5444444444444444
+        },
+        "target_later_page": {
+          "episodes": 60,
+          "mean_rate": 0.26666666666666666
+        },
+        "phrasing_seen": {
+          "episodes": 60,
+          "mean_rate": 0.4222222222222222
+        },
+        "phrasing_held_out": {
+          "episodes": 60,
+          "mean_rate": 0.16666666666666666
+        },
+        "test_conflict_lost": {
+          "episodes": 12,
+          "mean_rate": 0.3611111111111111
+        },
+        "test_conflict_rate": {
+          "episodes": 12,
+          "mean_rate": 0.3055555555555555
+        },
+        "test_rate_lost": {
+          "episodes": 12,
+          "mean_rate": 0.13888888888888887
+        },
+        "test_conflict_rate_lost": {
+          "episodes": 12,
+          "mean_rate": 0.3333333333333333
+        },
+        "test_revoke_injection": {
+          "episodes": 12,
+          "mean_rate": 0.19444444444444442
+        },
+        "test_rate_revoke": {
+          "episodes": 12,
+          "mean_rate": 0.3055555555555555
+        },
+        "test_noop_injection": {
+          "episodes": 12,
+          "mean_rate": 0.5
+        },
+        "test_concurrent_rate": {
+          "episodes": 12,
+          "mean_rate": 0.19444444444444442
+        },
+        "test_concurrent_injection": {
+          "episodes": 12,
+          "mean_rate": 0.27777777777777773
+        },
+        "test_lost_injection": {
+          "episodes": 12,
+          "mean_rate": 0.3333333333333333
+        }
+      }
+    }
+  },
+  "comparisons": {
+    "dagger - bc-volume": {
+      "question": "primary: on-policy states vs the same amount of extra expert data",
+      "hierarchical": {
+        "estimate": 0.07500000000000007,
+        "ci95": [
+          0.019444444444444455,
+          0.13333333333333333
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          0.022222222222222254,
+          0.13888888888888884
+        ]
+      },
+      "safety_difference_per_120": 0.0,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 16,
+          "left_only": 1,
+          "p_exact": 0.000274658203125
+        },
+        {
+          "right_only": 5,
+          "left_only": 2,
+          "p_exact": 0.453125
+        },
+        {
+          "right_only": 10,
+          "left_only": 1,
+          "p_exact": 0.01171875
+        }
+      ]
+    },
+    "bc - base-0.6b": {
+      "question": "coverage: matched base vs behaviour cloning on independent records",
+      "hierarchical": {
+        "estimate": 0.9083333333333333,
+        "ci95": [
+          0.8416666666666665,
+          0.9638888888888888
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          0.8694444444444445,
+          0.9472222222222223
+        ]
+      },
+      "safety_difference_per_120": -1.333333333333333,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 102,
+          "left_only": 0,
+          "p_exact": 3.944304526105059e-31
+        },
+        {
+          "right_only": 113,
+          "left_only": 0,
+          "p_exact": 1.925929944387236e-34
+        },
+        {
+          "right_only": 112,
+          "left_only": 0,
+          "p_exact": 3.851859888774472e-34
+        }
+      ]
+    },
+    "bc - v03-lora": {
+      "question": "published v0.3 adapters vs v2 behaviour cloning",
+      "hierarchical": {
+        "estimate": 0.6138888888888889,
+        "ci95": [
+          0.5083333333333334,
+          0.711111111111111
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          0.5527777777777778,
+          0.6777777777777777
+        ]
+      },
+      "safety_difference_per_120": -72.0,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 71,
+          "left_only": 3,
+          "p_exact": 7.157428404298838e-18
+        },
+        {
+          "right_only": 73,
+          "left_only": 2,
+          "p_exact": 1.5093068328887564e-19
+        },
+        {
+          "right_only": 82,
+          "left_only": 0,
+          "p_exact": 4.1359030627651384e-25
+        }
+      ]
+    },
+    "bc - base-1.7b": {
+      "question": "size control vs behaviour cloning",
+      "hierarchical": {
+        "estimate": 0.675,
+        "ci95": [
+          0.5805555555555555,
+          0.7638888888888887
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          0.5277777777777778,
+          0.8055555555555555
+        ]
+      },
+      "safety_difference_per_120": -77.33333333333333,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 78,
+          "left_only": 4,
+          "p_exact": 7.614296800224126e-19
+        },
+        {
+          "right_only": 87,
+          "left_only": 2,
+          "p_exact": 1.2944084116747769e-23
+        },
+        {
+          "right_only": 86,
+          "left_only": 2,
+          "p_exact": 2.531301921382976e-23
+        }
+      ]
+    },
+    "bc-volume - bc": {
+      "question": "more expert data",
+      "hierarchical": {
+        "estimate": 0.0,
+        "ci95": [
+          -0.07777777777777777,
+          0.08055555555555555
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          -0.06388888888888877,
+          0.05555555555555569
+        ]
+      },
+      "safety_difference_per_120": -4.666666666666667,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 10,
+          "left_only": 8,
+          "p_exact": 0.8145294189453125
+        },
+        {
+          "right_only": 6,
+          "left_only": 4,
+          "p_exact": 0.75390625
+        },
+        {
+          "right_only": 4,
+          "left_only": 8,
+          "p_exact": 0.3876953125
+        }
+      ]
+    },
+    "dagger - bc": {
+      "question": "expert core plus DAgger states",
+      "hierarchical": {
+        "estimate": 0.07500000000000007,
+        "ci95": [
+          0.022222222222222216,
+          0.14166666666666666
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          0.03888888888888897,
+          0.11111111111111105
+        ]
+      },
+      "safety_difference_per_120": -4.666666666666667,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 17,
+          "left_only": 0,
+          "p_exact": 1.52587890625e-05
+        },
+        {
+          "right_only": 6,
+          "left_only": 1,
+          "p_exact": 0.125
+        },
+        {
+          "right_only": 6,
+          "left_only": 1,
+          "p_exact": 0.125
+        }
+      ]
+    },
+    "dagger - base-1.7b": {
+      "question": "size control vs DAgger",
+      "hierarchical": {
+        "estimate": 0.75,
+        "ci95": [
+          0.6833333333333333,
+          0.8166666666666668
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          0.6110416666666667,
+          0.875
+        ]
+      },
+      "safety_difference_per_120": -82.0,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 91,
+          "left_only": 0,
+          "p_exact": 8.077935669463161e-28
+        },
+        {
+          "right_only": 90,
+          "left_only": 0,
+          "p_exact": 1.6155871338926322e-27
+        },
+        {
+          "right_only": 90,
+          "left_only": 1,
+          "p_exact": 7.431700815906108e-26
+        }
+      ]
+    }
+  },
+  "primary_decision": "supported"
+}

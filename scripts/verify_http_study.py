@@ -1,12 +1,13 @@
 """GPU-free audit: validate provenance and replay every published action over real HTTP."""
 
+import hashlib
 import json
 import tempfile
 from itertools import combinations
 from pathlib import Path
 
 from resolvelab.benchmark import digest
-from resolvelab.httpdesk.benchmark import cases, load_manifest, source_hash, validate_rows
+from resolvelab.httpdesk.benchmark import cases, load_manifest, validate_rows
 from resolvelab.httpdesk.experiment import collect, compare, episode, summarize
 from resolvelab.httpdesk.schema import action_schema, initial_messages, validate_action
 from resolvelab.httpdesk.service import DeskState
@@ -14,10 +15,29 @@ from resolvelab.training import file_hash
 
 ROOT = Path(__file__).resolve().parents[1]
 BUNDLE = ROOT / "artifacts/v0.3"
+PACKAGE = ROOT / "src/resolvelab"
+# Exactly the files `httpdesk.benchmark.source_hash()` covered at the v0.3.0 tag. Later
+# versions add modules, so the whole-package hash moves on, but none of these may change.
+V03_SOURCE = (
+    "__init__.py api.py benchmark.py cli.py curation.py evaluation.py experiments.py "
+    "hf_policy.py httpdesk/__init__.py httpdesk/adapter.py httpdesk/benchmark.py "
+    "httpdesk/demo.json httpdesk/experiment.py httpdesk/grading.py httpdesk/policy.py "
+    "httpdesk/reference.py httpdesk/schema.py httpdesk/service.py policies.py runner.py "
+    "scenarios.py store.py tools.py training.py verification.py"
+).split()
 
 
 def read(path):
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def frozen_source_hash():
+    """The v0.3 source_hash algorithm, restricted to the files that existed at v0.3.0."""
+    h = hashlib.sha256()
+    for name in sorted(V03_SOURCE, key=lambda n: tuple(n.split("/"))):
+        h.update(name.encode())
+        h.update((PACKAGE / name).read_bytes().replace(b"\r\n", b"\n"))
+    return h.hexdigest()
 
 
 def verify():
@@ -30,7 +50,7 @@ def verify():
         assert not ({s.reference for s in left} & {s.reference for s in right})
         assert not ({key for s in left for key in s.tickets} & {key for s in right for key in s.tickets})
     lock = read(BUNDLE / "test-lock.json")
-    assert source_hash() == lock["source_sha256"]
+    assert frozen_source_hash() == lock["source_sha256"]
     assert digest(initial_messages("TASK_PLACEHOLDER")) == lock["prompt_sha256"]
     assert digest(action_schema()) == lock["schema_sha256"]
     assert digest(manifest) == lock["manifest_sha256"]
