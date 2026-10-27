@@ -52,19 +52,3 @@ Close with what you would improve:
 > still tests known mechanisms within a synthetic API. Next I would add off-policy
 > failure states and evaluate a stronger reasoning model on a newly frozen holdout.
 > Durable remote recovery and real SaaS integration remain separate engineering work.
-
-## Interview questions to prepare
-
-1. Why do idempotency and upsert solve different problems?
-2. How can a failed HTTP response still correspond to a successful write?
-3. What does the independent checker know that the model does not?
-4. Why are the runbook reference and naive retry unsuitable claims of model improvement?
-5. What happens if the process crashes between a commit and a conversation checkpoint?
-6. Why is a new data seed weaker than a new held-out task family?
-7. Which guarantees change when the SQLite service becomes an external API?
-8. Why supervise only action tokens, and how was the loss implementation verified?
-9. Why can lower development loss coexist with failures during model rollouts?
-10. Why does the bootstrap resample templates rather than individual record seeds?
-
-See the [v0.3 self-review](v0.3-review.md) and the [v0.4 results](../artifacts/v0.4/RESULTS.md)
-for evidence-backed answers and limitations.
