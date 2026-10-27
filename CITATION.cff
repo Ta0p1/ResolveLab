@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use ResolveLab or its published evidence, please cite it as below."
+title: "ResolveLab: fault-injected tool environments with side-effect grading for agent evaluation and post-training"
+type: software
+authors:
+  - family-names: Huang
+    given-names: Allen
+repository-code: "https://github.com/Ta0p1/ResolveLab"
+license: MIT
+keywords:
+  - agent evaluation
+  - tool use
+  - fault injection
+  - imitation learning
+  - DAgger
+  - LLM post-training
+abstract: >-
+  ResolveLab runs tool-using LLM agents against real HTTP services that inject failures
+  (conflicts, rate limits, lost acknowledgements, revoked permissions, prompt injection) and
+  grades episodes from server state and the commit log. Its v0.4 study registers and
+  tests DAgger against a size-matched behaviour-cloning control with replayable evidence.

@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased — repository presentation (2026-10-27)
+
+- Rewrite the README (and the Chinese README) around what the project is: fault-injected
+  tool environments with side-effect grading. Lead with the v0.4 result, a light/dark result
+  figure generated from the published bundle (`scripts/make_readme_figure.py`) and a no-GPU
+  quick start; move the per-version narrative to `docs/history.md`.
+- Add `examples/casedesk_quickstart.py` (one fault-injected episode plus two replayed model
+  runs, about two seconds; also run in CI), a docs index, `CITATION.cff` and package metadata.
+- Remove personal job-search notes from the public docs. No result, lock, manifest, trace or
+  locked source file changes.
+
 ## Unreleased — v0.4 study (2026-10-22/23)
 
 - Review the v0.3 result against its own traces: three effective test records, a base model

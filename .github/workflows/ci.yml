@@ -19,6 +19,7 @@ jobs:
       - run: ruff format --check .
       - run: pytest -q
       - run: resolvelab eval --seeds 42 73 101 --require-policy reference --output artifacts/ci-evaluation.json
+      - run: python examples/casedesk_quickstart.py
       - run: python -m build
       - run: python scripts/verify_experiment.py
       - run: python scripts/verify_http_study.py

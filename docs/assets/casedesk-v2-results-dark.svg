@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="380" viewBox="0 0 1020 380" font-family="system-ui, -apple-system, Segoe UI, sans-serif">
+<rect width="1020" height="380" rx="10" fill="#1a1a19"/>
+<text x="24.0" y="32.0" fill="#f0efec" font-size="15" text-anchor="start" font-weight="600">Test success, 120 independent episodes</text>
+<text x="24.0" y="52.0" fill="#c3c2b7" font-size="12" text-anchor="start" font-weight="400">Dots: training seeds. Tick: mean.</text>
+<line x1="174.0" y1="70" x2="174.0" y2="336" stroke="#2c2c2a" stroke-width="1"/>
+<text x="174.0" y="352.0" fill="#898781" font-size="11" text-anchor="middle" font-weight="400">0%</text>
+<line x1="246.5" y1="70" x2="246.5" y2="336" stroke="#2c2c2a" stroke-width="1"/>
+<text x="246.5" y="352.0" fill="#898781" font-size="11" text-anchor="middle" font-weight="400">25%</text>
+<line x1="319.0" y1="70" x2="319.0" y2="336" stroke="#2c2c2a" stroke-width="1"/>
+<text x="319.0" y="352.0" fill="#898781" font-size="11" text-anchor="middle" font-weight="400">50%</text>
+<line x1="391.5" y1="70" x2="391.5" y2="336" stroke="#2c2c2a" stroke-width="1"/>
+<text x="391.5" y="352.0" fill="#898781" font-size="11" text-anchor="middle" font-weight="400">75%</text>
+<line x1="464.0" y1="70" x2="464.0" y2="336" stroke="#2c2c2a" stroke-width="1"/>
+<text x="464.0" y="352.0" fill="#898781" font-size="11" text-anchor="middle" font-weight="400">100%</text>
+<text x="24.0" y="86.0" fill="#c3c2b7" font-size="13" text-anchor="start" font-weight="400">Qwen3-0.6B base</text>
+<line x1="174.0" y1="73" x2="174.0" y2="91" stroke="#898781" stroke-width="2" stroke-linecap="round"/>
+<circle cx="174.0" cy="82" r="5" fill="#898781" stroke="#1a1a19" stroke-width="2"/>
+<text x="484.0" y="86.0" fill="#c3c2b7" font-size="13" text-anchor="start" font-weight="400">0.0%</text>
+<text x="24.0" y="120.0" fill="#c3c2b7" font-size="13" text-anchor="start" font-weight="400">0.6B base, 3 demos</text>
+<line x1="174.0" y1="107" x2="174.0" y2="125" stroke="#898781" stroke-width="2" stroke-linecap="round"/>
+<circle cx="174.0" cy="116" r="5" fill="#898781" stroke="#1a1a19" stroke-width="2"/>
+<text x="484.0" y="120.0" fill="#c3c2b7" font-size="13" text-anchor="start" font-weight="400">0.0%</text>
+<text x="24.0" y="154.0" fill="#c3c2b7" font-size="13" text-anchor="start" font-weight="400">Qwen3-1.7B base</text>
+<line x1="241.7" y1="141" x2="241.7" y2="159" stroke="#898781" stroke-width="2" stroke-linecap="round"/>
+<circle cx="241.7" cy="150" r="5" fill="#898781" stroke="#1a1a19" stroke-width="2"/>
+<text x="484.0" y="154.0" fill="#c3c2b7" font-size="13" text-anchor="start" font-weight="400">23.3%</text>
+<text x="24.0" y="188.0" fill="#c3c2b7" font-size="13" text-anchor="start" font-weight="400">1.7B base, 3 demos</text>
+<line x1="217.5" y1="175" x2="217.5" y2="193" stroke="#898781" stroke-width="2" stroke-linecap="round"/>
+<circle cx="217.5" cy="184" r="5" fill="#898781" stroke="#1a1a19" stroke-width="2"/>
+<text x="484.0" y="188.0" fill="#c3c2b7" font-size="13" text-anchor="start" font-weight="400">15.0%</text>
+<text x="24.0" y="222.0" fill="#c3c2b7" font-size="13" text-anchor="start" font-weight="400">v0.3 adapters</text>
+<line x1="259.4" y1="209" x2="259.4" y2="227" stroke="#898781" stroke-width="2" stroke-linecap="round"/>
+<circle cx="256.2" cy="218" r="5" fill="#898781" stroke="#1a1a19" stroke-width="2"/>
+<circle cx="275.5" cy="218" r="5" fill="#898781" stroke="#1a1a19" stroke-width="2"/>
+<circle cx="246.5" cy="218" r="5" fill="#898781" stroke="#1a1a19" stroke-width="2"/>
+<text x="484.0" y="222.0" fill="#c3c2b7" font-size="13" text-anchor="start" font-weight="400">29.4%</text>
+<text x="24.0" y="256.0" fill="#c3c2b7" font-size="13" text-anchor="start" font-weight="400">BC</text>
+<line x1="437.4" y1="243" x2="437.4" y2="261" stroke="#898781" stroke-width="2" stroke-linecap="round"/>
+<circle cx="420.5" cy="252" r="5" fill="#898781" stroke="#1a1a19" stroke-width="2"/>
+<circle cx="447.1" cy="252" r="5" fill="#898781" stroke="#1a1a19" stroke-width="2"/>
+<circle cx="444.7" cy="252" r="5" fill="#898781" stroke="#1a1a19" stroke-width="2"/>
+<text x="484.0" y="256.0" fill="#c3c2b7" font-size="13" text-anchor="start" font-weight="400">90.8%</text>
+<text x="24.0" y="290.0" fill="#c3c2b7" font-size="13" text-anchor="start" font-weight="400">BC + expert rows</text>
+<line x1="437.4" y1="277" x2="437.4" y2="295" stroke="#898781" stroke-width="2" stroke-linecap="round"/>
+<circle cx="425.3" cy="286" r="5" fill="#898781" stroke="#1a1a19" stroke-width="2"/>
+<circle cx="451.9" cy="286" r="5" fill="#898781" stroke="#1a1a19" stroke-width="2"/>
+<circle cx="435.0" cy="286" r="5" fill="#898781" stroke="#1a1a19" stroke-width="2"/>
+<text x="484.0" y="290.0" fill="#c3c2b7" font-size="13" text-anchor="start" font-weight="400">90.8%</text>
+<text x="24.0" y="324.0" fill="#f0efec" font-size="13" text-anchor="start" font-weight="600">BC + DAgger rows</text>
+<line x1="459.2" y1="311" x2="459.2" y2="329" stroke="#3987e5" stroke-width="2" stroke-linecap="round"/>
+<circle cx="461.6" cy="320" r="5" fill="#3987e5" stroke="#1a1a19" stroke-width="2"/>
+<circle cx="459.2" cy="320" r="5" fill="#3987e5" stroke="#1a1a19" stroke-width="2"/>
+<circle cx="456.8" cy="320" r="5" fill="#3987e5" stroke="#1a1a19" stroke-width="2"/>
+<text x="484.0" y="324.0" fill="#f0efec" font-size="13" text-anchor="start" font-weight="600">98.3%</text>
+<text x="570.0" y="32.0" fill="#f0efec" font-size="15" text-anchor="start" font-weight="600">Failed test episodes by cause</text>
+<text x="570.0" y="52.0" fill="#c3c2b7" font-size="12" text-anchor="start" font-weight="400">Three training seeds pooled (360 episodes per arm).</text>
+<rect x="570" y="70" width="10" height="10" rx="2" fill="#3987e5"/>
+<text x="585.0" y="79.5" fill="#c3c2b7" font-size="12" text-anchor="start" font-weight="400">ETag copy error</text>
+<rect x="700.0" y="70" width="10" height="10" rx="2" fill="#d95926"/>
+<text x="715.0" y="79.5" fill="#c3c2b7" font-size="12" text-anchor="start" font-weight="400">Unsafe write</text>
+<rect x="810.2" y="70" width="10" height="10" rx="2" fill="#199e70"/>
+<text x="825.2" y="79.5" fill="#c3c2b7" font-size="12" text-anchor="start" font-weight="400">False success</text>
+<rect x="927.0" y="70" width="10" height="10" rx="2" fill="#c98500"/>
+<text x="942.0" y="79.5" fill="#c3c2b7" font-size="12" text-anchor="start" font-weight="400">Other</text>
+<text x="570.0" y="138.0" fill="#c3c2b7" font-size="13" text-anchor="start" font-weight="400">BC</text>
+<path d="M716.0,122.0 h81.6 q0,0 0,0 v24.0 q0,0 0,0 h-81.6 z" fill="#3987e5"/>
+<text x="756.8" y="138.5" fill="#ffffff" font-size="12" text-anchor="middle" font-weight="600">12</text>
+<path d="M799.6,122.0 h67.7 q0,0 0,0 v24.0 q0,0 0,0 h-67.7 z" fill="#d95926"/>
+<text x="833.5" y="138.5" fill="#ffffff" font-size="12" text-anchor="middle" font-weight="600">10</text>
+<path d="M869.3,122.0 h60.7 q0,0 0,0 v24.0 q0,0 0,0 h-60.7 z" fill="#199e70"/>
+<text x="899.7" y="138.5" fill="#0b0b0b" font-size="12" text-anchor="middle" font-weight="600">9</text>
+<path d="M932.1,122.0 h9.9 q4,0 4,4 v16.0 q0,4 -4,4 h-9.9 z" fill="#c98500"/>
+<text x="954.0" y="138.5" fill="#c3c2b7" font-size="13" text-anchor="start" font-weight="400">33 failed</text>
+<text x="716.0" y="164.0" fill="#898781" font-size="11" text-anchor="start" font-weight="400">incl. other 2</text>
+<text x="570.0" y="216.0" fill="#c3c2b7" font-size="13" text-anchor="start" font-weight="400">BC + expert rows</text>
+<path d="M716.0,200.0 h179.2 q0,0 0,0 v24.0 q0,0 0,0 h-179.2 z" fill="#3987e5"/>
+<text x="805.6" y="216.5" fill="#ffffff" font-size="12" text-anchor="middle" font-weight="600">26</text>
+<path d="M897.2,200.0 h25.9 q0,0 0,0 v24.0 q0,0 0,0 h-25.9 z" fill="#d95926"/>
+<text x="910.2" y="216.5" fill="#ffffff" font-size="12" text-anchor="middle" font-weight="600">4</text>
+<path d="M925.1,200.0 h11.9 q0,0 0,0 v24.0 q0,0 0,0 h-11.9 z" fill="#199e70"/>
+<path d="M939.0,200.0 h3.5 q3.484848484848485,0 3.484848484848485,3.484848484848485 v17.0 q0,3.484848484848485 -3.484848484848485,3.484848484848485 h-3.5 z" fill="#c98500"/>
+<text x="954.0" y="216.5" fill="#c3c2b7" font-size="13" text-anchor="start" font-weight="400">33 failed</text>
+<text x="716.0" y="242.0" fill="#898781" font-size="11" text-anchor="start" font-weight="400">incl. false success 2, other 1</text>
+<text x="570.0" y="294.0" fill="#f0efec" font-size="13" text-anchor="start" font-weight="600">BC + DAgger rows</text>
+<path d="M716.0,278.0 h5.0 q0,0 0,0 v24.0 q0,0 0,0 h-5.0 z" fill="#d95926"/>
+<path d="M723.0,278.0 h30.8 q4,0 4,4 v16.0 q0,4 -4,4 h-30.8 z" fill="#199e70"/>
+<text x="740.4" y="294.5" fill="#0b0b0b" font-size="12" text-anchor="middle" font-weight="600">5</text>
+<text x="765.8" y="294.5" fill="#f0efec" font-size="13" text-anchor="start" font-weight="600">6 failed</text>
+<text x="716.0" y="320.0" fill="#898781" font-size="11" text-anchor="start" font-weight="400">incl. unsafe write 1</text>
+<line x1="716" y1="110" x2="716" y2="308" stroke="#383835" stroke-width="1"/>
+</svg>

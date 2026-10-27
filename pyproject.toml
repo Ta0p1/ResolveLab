@@ -5,10 +5,21 @@ build-backend = "hatchling.build"
 [project]
 name = "resolvelab"
 version = "0.3.0"
-description = "An executable support-agent lab with durable tool actions and independent outcome evaluation."
+description = "Fault-injected tool environments with side-effect grading for evaluating and post-training LLM agents."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
+authors = [{ name = "Allen Huang" }]
+keywords = ["llm-agents", "tool-use", "agent-evaluation", "fault-injection", "dagger", "post-training"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 dependencies = [
   "fastapi>=0.115,<1",
   "uvicorn>=0.34,<1",
@@ -23,13 +34,18 @@ browser = ["playwright>=1.50,<2"]
 [project.scripts]
 resolvelab = "resolvelab.cli:main"
 
+[project.urls]
+Repository = "https://github.com/Ta0p1/ResolveLab"
+Results = "https://github.com/Ta0p1/ResolveLab/blob/main/artifacts/v0.4/RESULTS.md"
+Changelog = "https://github.com/Ta0p1/ResolveLab/blob/main/CHANGELOG.md"
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/resolvelab"]
 
 [tool.hatch.build.targets.sdist]
 include = [
-  "/src", "/tests", "/scripts", "/docs", "/artifacts", "/.github", "/benchmarks",
-  "/pyproject.toml", "/README.md", "/README.zh-CN.md", "/CONTRIBUTING.md",
+  "/src", "/tests", "/scripts", "/examples", "/docs", "/artifacts", "/.github", "/benchmarks",
+  "/pyproject.toml", "/README.md", "/README.zh-CN.md", "/CONTRIBUTING.md", "/CITATION.cff",
   "/LICENSE", "/constraints.txt", "/requirements-training.txt", "/.gitignore", "/.gitattributes", "/CHANGELOG.md",
 ]
 exclude = ["/artifacts/browser"]

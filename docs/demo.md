@@ -66,4 +66,5 @@ Close with what you would improve:
 9. Why can lower development loss coexist with failures during model rollouts?
 10. Why does the bootstrap resample templates rather than individual record seeds?
 
-See [interview notes](interview-notes.md) for evidence-backed answers and limitations.
+See the [v0.3 self-review](v0.3-review.md) and the [v0.4 results](../artifacts/v0.4/RESULTS.md)
+for evidence-backed answers and limitations.
