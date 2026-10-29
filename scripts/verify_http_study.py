@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import re
 import tempfile
 from itertools import combinations
 from pathlib import Path
@@ -27,8 +28,22 @@ V03_SOURCE = (
 ).split()
 
 
+# The lock was computed while __init__.py said 0.3.0. The release version is metadata, not
+# behaviour, so that one line is the only text normalised before hashing, and only there.
+LOCKED_VERSION_LINE = b'__version__ = "0.3.0"'
+VERSION_LINE = re.compile(rb'^__version__ = "[^"\n]+"$', re.MULTILINE)
+
+
 def read(path):
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def locked_bytes(name):
+    data = (PACKAGE / name).read_bytes().replace(b"\r\n", b"\n")
+    if name == "__init__.py":
+        data, count = VERSION_LINE.subn(LOCKED_VERSION_LINE, data)
+        assert count == 1, "__init__.py must contain exactly one __version__ line"
+    return data
 
 
 def frozen_source_hash():
@@ -36,7 +51,7 @@ def frozen_source_hash():
     h = hashlib.sha256()
     for name in sorted(V03_SOURCE, key=lambda n: tuple(n.split("/"))):
         h.update(name.encode())
-        h.update((PACKAGE / name).read_bytes().replace(b"\r\n", b"\n"))
+        h.update(locked_bytes(name))
     return h.hexdigest()
 
 

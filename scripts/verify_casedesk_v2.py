@@ -12,6 +12,7 @@ import hashlib
 import io
 import json
 import math
+import re
 import zipfile
 from pathlib import Path
 
@@ -27,6 +28,10 @@ from resolvelab.store import dumps
 ROOT = Path(__file__).resolve().parents[1]
 BUNDLE = ROOT / "artifacts/v0.4"
 PACKAGE = ROOT / "src/resolvelab"
+# The lock was computed while __init__.py said 0.3.0. The release version is metadata, not
+# behaviour, so that one line is the only text normalised before hashing, and only there.
+LOCKED_VERSION_LINE = b'__version__ = "0.3.0"'
+VERSION_LINE = re.compile(rb'^__version__ = "[^"\n]+"$', re.MULTILINE)
 
 
 def read(path):
@@ -57,11 +62,19 @@ def assert_same(recomputed, published, path="analysis"):
         assert recomputed == published, path
 
 
+def locked_bytes(name):
+    data = (PACKAGE / name).read_bytes().replace(b"\r\n", b"\n")
+    if name == "__init__.py":
+        data, count = VERSION_LINE.subn(LOCKED_VERSION_LINE, data)
+        assert count == 1, "__init__.py must contain exactly one __version__ line"
+    return data
+
+
 def locked_source_hash(files):
     h = hashlib.sha256()
     for name in sorted(files, key=lambda n: tuple(n.split("/"))):
         h.update(name.encode())
-        h.update((PACKAGE / name).read_bytes().replace(b"\r\n", b"\n"))
+        h.update(locked_bytes(name))
     return h.hexdigest()
 
 
