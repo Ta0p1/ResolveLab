@@ -2,6 +2,8 @@ cff-version: 1.2.0
 message: "If you use ResolveLab or its published evidence, please cite it as below."
 title: "ResolveLab: fault-injected tool environments with side-effect grading for agent evaluation and post-training"
 type: software
+version: 0.4.0
+date-released: 2026-10-28
 authors:
   - family-names: Huang
     given-names: Allen

@@ -1,6 +1,14 @@
 # Changelog
 
-## Unreleased — repository presentation (2026-10-27)
+## 0.4.0 — 2026-10-28
+
+### Release
+
+- Version 0.4.0. Both locks (v0.3 and v0.4) were computed while `__init__.py` said 0.3.0, so
+  `verify_http_study.py` and `verify_casedesk_v2.py` normalise exactly that one
+  `__version__` line before hashing; every other byte of every locked file is still compared.
+
+### Repository presentation (2026-10-27)
 
 - Rewrite the README (and the Chinese README) around what the project is: fault-injected
   tool environments with side-effect grading. Lead with the v0.4 result, a light/dark result
@@ -11,7 +19,7 @@
 - Remove personal job-search notes from the public docs. No result, lock, manifest, trace or
   locked source file changes.
 
-## Unreleased — v0.4 study (2026-10-22/23)
+### v0.4 study (2026-10-22/23)
 
 - Review the v0.3 result against its own traces: three effective test records, a base model
   that never reached a fault, target slot confounded with the one-shot demo, position-encoding
