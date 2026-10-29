@@ -8,8 +8,10 @@ pytest -q
 ruff check .
 ruff format --check .
 resolvelab eval --seeds 42 73 101 --require-policy reference
+python examples/casedesk_quickstart.py
 python scripts/verify_experiment.py
 python scripts/verify_http_study.py
+python scripts/verify_casedesk_v2.py --dagger-every 20 --replay-every 10
 ```
 
 Local model evaluation additionally requires Ollama and an installed model.
@@ -35,16 +37,18 @@ unreviewed training datasets. The public `artifacts/v0.2/data` and `artifacts/v0
 synthetic export. Regenerate it through the collector, preserve its provenance
 and run both executable audit scripts before changing an evidence bundle.
 
-Do not tune on `composition-v1` or `httpdesk-v1` test outcomes and still call them held out.
+Do not tune on `composition-v1`, `httpdesk-v1` or `casedesk-v2` test outcomes and still call
+them held out.
 Introduce a new manifest for future selection. The optional training dependency
 environment additionally runs `pytest tests/test_training_loss.py tests/test_http_grammar.py`
 to check action-loss equivalence and the actual optional grammar without downloading weights.
 
-The v0.3 audit deliberately checks the frozen Python source, prompt, schema and
-data hashes before replay. Do not update a published lock to make changed runtime
-code pass. Future runtime work needs a new named experiment; preserve the v0.3
-tag and move its historical audit to that checkout when introducing a new version.
-Static UI and documentation edits do not change the frozen runtime hash.
+Each audit checks its own locked source files, prompt, schema and data hashes before
+replay: `verify_http_study.py` hashes exactly the v0.3 file set, and `verify_casedesk_v2.py`
+the file list recorded in `artifacts/v0.4/test-lock.json`. Do not edit those files or update
+a published lock to make changed code pass. New runtime work goes into new modules under a
+new named experiment, which keeps every earlier audit green. Static UI, scripts and
+documentation edits do not change the locked hashes.
 
 Small pull requests with a concrete problem, reproducible behavior and relevant
 tests are welcome. Please disclose if a benchmark result follows prompt tuning

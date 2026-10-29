@@ -36,34 +36,38 @@ or the local model if time permits. Show the escalation ticket and unchanged
 destination. Explain why correct escalation counts as passing the assigned task
 but is not counted as a resolved sync.
 
-## 4. Show controlled evaluation and engineering evidence (55 seconds)
+## 4. Show the controlled study and its evidence (60 seconds)
 
-Open **HTTP study**. Show the call-validity and task-success columns separately.
-All five arms use the same grammar and one-shot example. Select a baseline failure
-and the same task under LoRA; expand HTTP requests and show whether the correct
-ticket was written and verified. Do not substitute a scripted trace for a model run.
-Explain development-loss checkpoint selection and the three reported seeds.
-Download the evidence and point to `python scripts/verify_http_study.py`, which
-replays all published test actions through actual HTTP sockets without a GPU.
+In a terminal in the repository, run `python examples/casedesk_quickstart.py` (about two
+seconds). The scripted teacher solves a registered test episode while the service injects a
+429 and a 412. Then two recorded model runs on the same episode are replayed over real HTTP:
+the behaviour-cloned adapter writes the ETag as `"\"v3\","`, receives 412 and loops until its
+budget runs out; the DAgger adapter writes `"\"v3\""` and passes. Both are real model
+decisions, not scripted traces.
+
+Open [`artifacts/v0.4/RESULTS.md`](../artifacts/v0.4/RESULTS.md) and show the size-matched
+comparison: 98.3% vs 90.8% over 120 independent episodes and three seeds, +7.5 pp with a
+95% interval of [1.9, 13.3], and `bc-volume − bc` = 0.0. Explain that the study, its arms and
+its decision rule were committed before any model run, that test inputs and adapters were
+hash-locked before testing, and that `python scripts/verify_casedesk_v2.py` re-derives every
+DAgger label and replays all 1,920 test episodes without a GPU.
+
+Suggested narration:
+
+> More expert data did nothing; labels at the states the model itself reaches fixed the
+> failure. The gap is one compounding error expert demonstrations never contain: a
+> mis-copied ETag that triggers a self-inflicted 412 loop.
+
+If asked about the workbench's **HTTP study** page: it shows the earlier v0.3 study, which
+the project later took apart. Its 30 test episodes were three records, and a counterfactual
+that moves only the target showed the v0.3 adapters copying the demonstration's layout
+(54/54 later-page targets with the published demo, 0/54 with the demo's target moved to page
+one). See [the self-review](v0.3-review.md).
 
 Close with what you would improve:
 
-> This comparison controls the output-format confound and repeats training, but it
-> still tests known mechanisms within a synthetic API. Next I would add off-policy
-> failure states and evaluate a stronger reasoning model on a newly frozen holdout.
-> Durable remote recovery and real SaaS integration remain separate engineering work.
-
-## Interview questions to prepare
-
-1. Why do idempotency and upsert solve different problems?
-2. How can a failed HTTP response still correspond to a successful write?
-3. What does the independent checker know that the model does not?
-4. Why are the runbook reference and naive retry unsuitable claims of model improvement?
-5. What happens if the process crashes between a commit and a conversation checkpoint?
-6. Why is a new data seed weaker than a new held-out task family?
-7. Which guarantees change when the SQLite service becomes an external API?
-8. Why supervise only action tokens, and how was the loss implementation verified?
-9. Why can lower development loss coexist with failures during model rollouts?
-10. Why does the bootstrap resample templates rather than individual record seeds?
-
-See [interview notes](interview-notes.md) for evidence-backed answers and limitations.
+> This shows why learner-state labels help on one synthetic contract with a 0.6B model, not
+> that they help everywhere. Next I would test transfer to a second, differently shaped API
+> contract, compare against frontier models and an RL baseline that uses the audited grader
+> as its reward, and make recovery durable across process restarts. Real SaaS integration
+> remains separate engineering work.
