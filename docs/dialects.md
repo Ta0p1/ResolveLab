@@ -84,6 +84,8 @@ For the [draft transfer protocol](dialect-transfer-protocol.md):
   dialects by hash, so a later change to a word pool is detected on load.
 - `dialects.policy.DialectPolicy` is the v0.4 constrained decoder (LM Format Enforcer, field order
   forced, same budgets) with the episode's dialect schema, validating its output against the dialect.
+  In the canonical dialect it reproduces published v0.4 dev traces output for output
+  (`scripts/check_dialect_decoder.py`, GPU).
 - `dialects.data` builds expert and DAgger rows in dialects. Labels come from the v0.4 teacher on the
   canonical form of the learner's prefix and are kept only if the teacher's continuation passes grader
   v2; targets are rendered back into the dialect. The trainer is v0.4's, unchanged.

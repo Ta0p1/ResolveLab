@@ -21,6 +21,9 @@
 - Add the registered analysis for the draft protocol (`scripts/analyze_dialect_transfer.py`): Q1 transfer
   per adapter with a paired-seed bootstrap, Q2/Q3 with the v0.4 statistics. It refuses the test pool
   without a lock, and the audit recomputes it.
+- Add `scripts/check_dialect_decoder.py` (GPU): in the canonical dialect, `DialectPolicy` reproduced
+  published v0.4 dev traces exactly (raw outputs, observations, verdicts; 6/6 `dagger-42`, 4/4
+  `bc-volume-42` including two budget-exhausting failures).
 - No model has been evaluated on held-out dialects; no result, lock, manifest, trace or locked source
   file changes.
 

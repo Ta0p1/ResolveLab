@@ -116,6 +116,12 @@ Done (see [API dialects](dialects.md#study-plumbing)):
   Tests drive every branch of every rule on synthetic reports, and the published v0.4 reports, used as
   both conditions, give exactly zero shift.
 
+**Decoder parity (2026-10-30).** Q1 compares v0.4 runs made with the v0.3 decoder against runs through
+`DialectPolicy`, so the two must be the same function. `scripts/check_dialect_decoder.py` replays
+published v0.4 dev episodes with `DialectPolicy` in the canonical dialect. The raw model outputs,
+observations and verdicts were identical for 6/6 `dagger-42` and 4/4 `bc-volume-42` episodes,
+including two `bc-volume` failures that run to the 24-action budget. Dev only.
+
 Remaining before the first test episode: review of this draft, registration (a dated commit that
 removes "draft" from the title), the dev-phase runs and training, then the lock.
 
