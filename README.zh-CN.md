@@ -67,6 +67,19 @@ python scripts/verify_casedesk_v2.py --dagger-every 20 --replay-every 10   # CI 
 
 `resolvelab serve` 会打开本地工作台，里面是早期实验（v0.1–v0.3）的轨迹查看页面，见 [docs/demo.md](docs/demo.md)。
 
+## 评测你自己的模型
+
+```bash
+resolvelab casedesk run --episode test-test_conflict_rate-07 --model ollama:qwen3:4b
+resolvelab casedesk eval --pool dev --model ollama:qwen3:4b --output runs/qwen3-4b-dev.json
+resolvelab casedesk eval --pool dev --model openai:<model> --option base_url=http://localhost:8000/v1 --output runs/vllm-dev.json
+resolvelab casedesk eval --pool dev --model anthropic:claude-opus-5-5 --output runs/opus-dev.json   # 需 pip install "resolvelab[anthropic]"
+```
+
+所有模型看到的都是实验同一套提示、示范和工具接口；报告和轨迹格式与公开证据一致，中断后可续跑。
+支持本地 Transformers（`hf:`）、Ollama、任何 OpenAI 兼容服务和 Claude。各选项以及哪些结果能和登记实验
+直接比较，见 [docs/models.md](docs/models.md)。
+
 ## 工作原理
 
 模型只能看到任务和工具返回；故障开关和期望状态都留在服务端。解码器只约束类型和枚举值，从不约束 ID、ETag

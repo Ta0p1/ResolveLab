@@ -20,6 +20,7 @@ jobs:
       - run: pytest -q
       - run: resolvelab eval --seeds 42 73 101 --require-policy reference --output artifacts/ci-evaluation.json
       - run: python examples/casedesk_quickstart.py
+      - run: resolvelab casedesk run --episode test-test_conflict_rate-07 --model teacher
       - run: python examples/casedesk_env_loop.py
       - run: python -m build
       - run: python scripts/verify_experiment.py
