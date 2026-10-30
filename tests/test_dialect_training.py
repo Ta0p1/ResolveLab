@@ -193,6 +193,11 @@ def test_lock_pins_v04_and_new_adapters_and_refuses_late_or_incomplete_runs(
     with pytest.raises(ValueError, match="precede"):
         build_lock(**options)
     (tmp_path / "eval/test/early.json").unlink()
+    (tmp_path / "eval/study-contract").mkdir(parents=True)
+    (tmp_path / "eval/study-contract/early.json").write_text("{}", encoding="utf-8")
+    with pytest.raises(ValueError, match="precede"):
+        build_lock(**options)
+    (tmp_path / "eval/study-contract/early.json").unlink()
     fake_run(tmp_path / "runs" / "unfinished", status="running")
     (tmp_path / "runs" / "bc-multi-42").rename(tmp_path / "runs" / "old")
     (tmp_path / "runs" / "unfinished").rename(tmp_path / "runs" / "bc-multi-42")
@@ -240,6 +245,66 @@ def test_audit_replays_reports_in_their_dialects(manifest, assignment, tmp_path)
     path.write_bytes(path.read_bytes().replace(b'"passed": true', b'"passed": false', 1))
     with pytest.raises(AssertionError):
         verify_reports([report], read_trace, manifest, assignment, lock)
+
+
+def test_study_contract_evaluation_runs_and_replays_in_the_canonical_dialect(
+    manifest, assignment, tmp_path
+):
+    from resolvelab.dialects.audit import verify_reports
+
+    arm = {"name": "teacher", "max_tools": 24}
+    output = tmp_path / "teacher.json"
+    report = evaluate(manifest, assignment, "dev", arm, output, limit=2, contract="study")
+    assert report["contract"] == "study" and report["summary"]["passed"] == 2
+    assert {(r["dialect"], r["token_style"], r["conflict_code"]) for r in report["rows"]} == {
+        ("canonical", "etag", 412)
+    }
+    lock = {k: report[k] for k in ("manifest_sha256", "assignment_sha256", "source_sha256")}
+    lock |= {"locked_at": "2026-01-01T00:00:00+00:00", "adapters": {}}
+
+    def read_trace(report, row):
+        return (tmp_path / "teacher" / row["trace"]).read_bytes()
+
+    assert verify_reports([report], read_trace, manifest, assignment, lock) == 2
+    with pytest.raises(AssertionError):
+        verify_reports([report | {"contract": "assigned"}], read_trace, manifest, assignment, lock)
+    with pytest.raises(ValueError, match="Unknown contract"):
+        evaluate(manifest, assignment, "dev", arm, tmp_path / "x.json", limit=1, contract="other")
+    assert not (tmp_path / "x.json").exists()
+
+
+@pytest.mark.parametrize(
+    "command",
+    [
+        ["collect-expert", "--pool", "test"],
+        ["eval", "--pool", "test", "--arm", "bc", "--seed", "42", "--adapter", "{adapter}"],
+        ["eval", "--pool", "test", "--arm", "base-0.6b"],
+    ],
+)
+def test_pipeline_opens_the_test_pool_only_for_locked_evaluations(tmp_path, command):
+    import os
+    import subprocess
+    import sys
+
+    adapter = tmp_path / "adapter"
+    adapter.mkdir()
+    (adapter / "adapter_model.safetensors").write_bytes(b"not a locked adapter")
+    output = tmp_path / "report.json"
+    command = [part.format(adapter=adapter) for part in command] + ["--output", str(output)]
+    env = dict(os.environ, PYTHONPATH=str(ROOT / "src"))
+    done = subprocess.run(
+        [sys.executable, "scripts/dialect_transfer.py", *command],
+        capture_output=True,
+        text=True,
+        env=env,
+        cwd=ROOT,
+        timeout=120,
+    )
+    assert done.returncode != 0 and not output.exists()
+    assert any(
+        reason in done.stderr
+        for reason in ("evaluation only", "test lock", "base-1.7b", "does not match")
+    ), done.stderr
 
 
 def test_audit_comparison_tolerates_only_float_rounding():

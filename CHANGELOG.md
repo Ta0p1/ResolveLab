@@ -46,6 +46,18 @@
 - No model has been evaluated on held-out dialects; no result, lock, manifest, trace or locked source
   file changes.
 
+### Dialect transfer study (v0.5)
+
+- Register the transfer protocol (2026-10-30), unchanged in design, before any model episode in a
+  held-out dialect. Registration adds the run order and counts the dev evaluation in the compute
+  estimate.
+- Add `scripts/run_dialect_transfer.py`, the protocol's dev and test phases as a resumable job
+  graph (the v0.4 runner with the dialect jobs).
+- `scripts/dialect_transfer.py` opens the test pool for evaluation only, after the lock, with the
+  locked source hash and adapters. `--contract study` evaluates on the study contract (the
+  canonical dialect), the protocol's cost-of-diversity measurement; reports record the contract,
+  the audit replays each episode in it, and the lock also refuses once such a report exists.
+
 ### Documentation
 
 - Bring the roadmap, study history and README layout table up to date with the merged work,

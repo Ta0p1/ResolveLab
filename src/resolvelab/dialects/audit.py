@@ -19,7 +19,7 @@ from ..casedesk.runner import label_state
 from ..store import dumps
 from .assignment import build_assignment, dialect_named
 from .data import expert_rows
-from .evaluate import dialect_columns
+from .evaluate import dialect_columns, episode_dialect
 from .lock import contract_digests, source_hash
 from .prompt import initial_messages
 from .runner import run_dialect_episode
@@ -105,7 +105,7 @@ def verify_reports(reports, read_trace, manifest, assignment, lock, replay_every
         for index, row in enumerate(report["rows"]):
             raw = read_trace(report, row)
             assert sha(raw) == row["trace_sha256"], row["spec_id"]
-            dialect = dialect_named(assignment["episodes"][row["spec_id"]])
+            dialect = episode_dialect(assignment, row["spec_id"], report.get("contract", "assigned"))
             assert {k: row[k] for k in dialect_columns(dialect)} == dialect_columns(dialect)
             if index % replay_every:
                 continue
