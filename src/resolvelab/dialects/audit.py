@@ -6,10 +6,12 @@
   row (the dialect conversation, translated back) and re-verified by teacher continuation.
 - ``verify_reports``: every evaluation trace hashes as reported and replays in its dialect over
   real HTTP to the same observations, verdict and diagnostics; summaries recompute.
+- ``same``: the published analysis recomputes (the verify script runs ``analysis.analyze``).
 """
 
 import hashlib
 import json
+import math
 
 from ..benchmark import digest
 from ..casedesk.evaluate import summarize
@@ -26,6 +28,22 @@ from .translate import Translator
 
 def sha(data):
     return hashlib.sha256(data).hexdigest()
+
+
+def same(recomputed, published, path="analysis"):
+    """Exact for structure, counts and decisions; floats to 1e-12 (3.12+ sums are compensated)."""
+    if isinstance(published, dict):
+        assert isinstance(recomputed, dict) and recomputed.keys() == published.keys(), path
+        for key in published:
+            same(recomputed[key], published[key], f"{path}/{key}")
+    elif isinstance(published, list):
+        assert isinstance(recomputed, list) and len(recomputed) == len(published), path
+        for i, (a, b) in enumerate(zip(recomputed, published)):
+            same(a, b, f"{path}[{i}]")
+    elif isinstance(published, float) or isinstance(recomputed, float):
+        assert math.isclose(recomputed, published, rel_tol=0, abs_tol=1e-12), path
+    else:
+        assert recomputed == published, path
 
 
 def verify_inputs(lock, manifest, assignment, study):

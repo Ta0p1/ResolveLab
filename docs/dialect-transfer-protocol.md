@@ -109,8 +109,15 @@ Done (see [API dialects](dialects.md#study-plumbing)):
   regenerates expert data, re-derives every DAgger label from the dialect conversation stored in its
   row, checks training reports against locked adapters, and replays every test episode in its dialect.
 
-Still to do: the analysis script (Q1 pairs each dialect episode with the same adapter's published
-canonical episode; Q2 and Q3 reuse the v0.4 hierarchical bootstrap and McNemar), written before the lock.
+- the analysis (`dialects.analysis`, `scripts/analyze_dialect_transfer.py`), which implements the rules
+  above. Q1 pairs each held-out-dialect episode with the same adapter's published v0.4 episode and
+  resamples seeds jointly for both conditions, since they are the same adapters. Q2 and Q3 use the v0.4
+  bootstraps and McNemar unchanged. It refuses the test pool without a lock, and the audit recomputes it.
+  Tests drive every branch of every rule on synthetic reports, and the published v0.4 reports, used as
+  both conditions, give exactly zero shift.
+
+Remaining before the first test episode: review of this draft, registration (a dated commit that
+removes "draft" from the title), the dev-phase runs and training, then the lock.
 
 **Smoke test (2026-10-30, after the decision rules above were committed in `73377d9`).** The published
 v0.4 `dagger` and `bc-volume` adapters (seed 42) ran the first 8 dev episodes, one composition, each in

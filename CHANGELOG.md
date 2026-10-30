@@ -18,6 +18,9 @@
 - Add the dialect test lock and GPU-free audit (`scripts/lock_dialect_transfer.py`, which refuses an
   unregistered protocol, and `scripts/verify_dialect_transfer.py`). The new lock's source hash ignores
   the `__version__` line from the start.
+- Add the registered analysis for the draft protocol (`scripts/analyze_dialect_transfer.py`): Q1 transfer
+  per adapter with a paired-seed bootstrap, Q2/Q3 with the v0.4 statistics. It refuses the test pool
+  without a lock, and the audit recomputes it.
 - No model has been evaluated on held-out dialects; no result, lock, manifest, trace or locked source
   file changes.
 

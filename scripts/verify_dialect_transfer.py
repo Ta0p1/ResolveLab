@@ -1,8 +1,9 @@
 """GPU-free audit of the dialect transfer bundle (``artifacts/v0.5``), once it exists.
 
 Checks the lock's inputs, regenerates expert data, re-derives every DAgger label from its
-learner state, checks training reports against the locked adapters, and replays every test
-episode in its dialect over real HTTP. Exits cleanly, saying so, while there is no bundle.
+learner state, checks training reports against the locked adapters, replays every test
+episode in its dialect over real HTTP, and recomputes the registered analysis. Exits cleanly,
+saying so, while there is no bundle.
 """
 
 import argparse
@@ -12,8 +13,10 @@ import zipfile
 from pathlib import Path
 
 from resolvelab.casedesk.manifest import load_manifest
+from resolvelab.dialects.analysis import analyze
 from resolvelab.dialects.assignment import load_assignment
 from resolvelab.dialects.audit import (
+    same,
     sha,
     verify_dagger_rows,
     verify_expert_rows,
@@ -64,6 +67,16 @@ def verify(every=1, replay_every=1):
         return zipfile.ZipFile(BUNDLE / "traces" / "test" / f"{report['_file']}.zip").read(row["trace"])
 
     replayed = verify_reports(reports, trace, manifest, assignment, lock, replay_every)
+
+    multi = BUNDLE / "study-contract"
+    recomputed = analyze(
+        BUNDLE / "test",
+        ROOT / "artifacts/v0.4/test",
+        manifest,
+        assignment,
+        multi if multi.exists() else None,
+    )
+    same(json.loads(json.dumps(recomputed)), read(BUNDLE / "analysis-test.json"))
     return labels, replayed
 
 

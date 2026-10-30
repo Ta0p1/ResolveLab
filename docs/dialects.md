@@ -94,6 +94,8 @@ For the [draft transfer protocol](dialect-transfer-protocol.md):
 - `dialects.lock` and `dialects.audit`, with `scripts/lock_dialect_transfer.py` and
   `scripts/verify_dialect_transfer.py`: the test lock (it refuses an unregistered protocol) and a
   GPU-free audit that re-derives every DAgger label and replays every test episode in its dialect.
+- `dialects.analysis` and `scripts/analyze_dialect_transfer.py`: the registered analysis (Q1 transfer
+  per adapter with a paired-seed bootstrap; Q2/Q3 with the v0.4 statistics), recomputed by the audit.
 
 ## Limits
 

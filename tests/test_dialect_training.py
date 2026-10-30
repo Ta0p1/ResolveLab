@@ -240,3 +240,12 @@ def test_audit_replays_reports_in_their_dialects(manifest, assignment, tmp_path)
     path.write_bytes(path.read_bytes().replace(b'"passed": true', b'"passed": false', 1))
     with pytest.raises(AssertionError):
         verify_reports([report], read_trace, manifest, assignment, lock)
+
+
+def test_audit_comparison_tolerates_only_float_rounding():
+    from resolvelab.dialects.audit import same
+
+    same({"a": [1, 0.1 + 0.2], "b": "x"}, {"a": [1, 0.3], "b": "x"})
+    for changed in ({"a": [2, 0.3], "b": "x"}, {"a": [1, 0.31], "b": "x"}, {"a": [1, 0.3]}):
+        with pytest.raises(AssertionError):
+            same(changed, {"a": [1, 0.3], "b": "x"})
