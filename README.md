@@ -114,6 +114,12 @@ passes the grader.
 | Compositions | single faults in train; disjoint pairs/triples in dev and test |
 | Grader | v0.3 checks + escalation discipline; diagnostics for lookup and fault exposure |
 
+**As an RL environment:** `CaseDeskEnv` exposes the same service step by step
+(`reset` / `step` / `state`, sparse verifiable reward from grader v2, test pool opt-in) and is
+tested to reproduce published model traces exactly. `python examples/casedesk_env_loop.py`
+shows the reward a trainer would see (teacher 1.0, random policy 0.0 on dev).
+[Environment API](docs/environment.md).
+
 ## Reproduce the study (one 8 GB GPU)
 
 ```bash

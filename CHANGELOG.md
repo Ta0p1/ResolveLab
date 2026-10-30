@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Add `resolvelab.casedesk.env.CaseDeskEnv`, a step-wise environment (`reset` / `step` /
+  `state`) over the same service, budget and grader, with a sparse verifiable reward and an
+  opt-in guard for the public test pool. Tests replay published model traces through it and
+  require identical observations, verdicts and diagnostics. `examples/casedesk_env_loop.py`
+  and `docs/environment.md`.
+
 ## 0.4.0 — 2026-10-28
 
 ### Release

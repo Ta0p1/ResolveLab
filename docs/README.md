@@ -8,6 +8,7 @@
 
 ## The environments
 
+- [CaseDesk as an environment](environment.md): `reset` / `step` / `state`, reward, pools, fidelity tests.
 - [Architecture](architecture.md): the SQLite sync service, the CaseDesk HTTP service and their guarantees.
 - [CaseDesk v0.3 protocol](httpdesk-protocol.md) and [model card](httpdesk-model-card.md).
 - [Evaluation protocol for the sync service](evaluation.md) and its [model card](model-card.md).
