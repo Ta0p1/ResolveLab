@@ -156,8 +156,9 @@ protocol lists every arm, budget and decision rule.
 
 | Path | What it holds |
 |---|---|
-| `src/resolvelab/casedesk/` | v0.4 benchmark: record generator, teacher, grader v2, DAgger data, evaluation, statistics |
-| `src/resolvelab/dialects/` | generated API dialects of the CaseDesk contract for transfer experiments |
+| `src/resolvelab/casedesk/` | v0.4 benchmark: record generator, teacher, grader v2, DAgger data, evaluation, statistics; `CaseDeskEnv` and the `resolvelab casedesk` CLI |
+| `src/resolvelab/providers/` | model providers for the CLI: local Transformers, Ollama, OpenAI-compatible servers, Claude |
+| `src/resolvelab/dialects/` | generated API dialects of the CaseDesk contract, and the tooling for the draft transfer study |
 | `src/resolvelab/httpdesk/` | the CaseDesk HTTP contract: service, adapter, schema, v0.3 grader (frozen) |
 | `src/resolvelab/*.py` | the original SQLite sync service and workbench (v0.1–v0.2) |
 | `benchmarks/` | registered manifests and study configurations |

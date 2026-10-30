@@ -46,6 +46,12 @@
 - No model has been evaluated on held-out dialects; no result, lock, manifest, trace or locked source
   file changes.
 
+### Documentation
+
+- Bring the roadmap, study history and README layout table up to date with the merged work,
+  mark v0.4 as released, list the draft v0.5 study as not run, and remove a leftover
+  job-search line from the roadmap.
+
 ## 0.4.0 — 2026-10-28
 
 ### Release
