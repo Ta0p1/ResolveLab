@@ -4,7 +4,7 @@
 infrastructure for the transfer question on the [roadmap](roadmap.md): does what an agent learned on
 one contract (fault recovery, verification, escalation) carry over to an API it has never seen? **No model
 has been evaluated on it yet**; this page describes the environment and the checks behind it. The
-planned study is a [draft protocol](dialect-transfer-protocol.md), not yet registered.
+study is a [registered protocol](dialect-transfer-protocol.md) (2026-10-30) and has not finished.
 
 ## What a dialect changes
 
@@ -77,7 +77,7 @@ study's API. A policy receives the dialect conversation and returns a dialect ac
 
 ## Study plumbing
 
-For the [draft transfer protocol](dialect-transfer-protocol.md):
+For the [transfer protocol](dialect-transfer-protocol.md):
 
 - `benchmarks/casedesk-dialects-v1.json` assigns every registered episode its own dialect: train pools and
   dev get `train` dialects (dev seeds unused by training), test gets `heldout` ones. It pins the generated
@@ -92,7 +92,10 @@ For the [draft transfer protocol](dialect-transfer-protocol.md):
 - `dialects.evaluate` writes the v0.4 report format plus each episode's dialect, token style,
   pagination, time unit and conflict code.
 - `scripts/dialect_transfer.py` runs collect-expert, rollout, assemble, train and eval with the v0.4
-  configuration; it refuses the test pool until a protocol is registered and locked.
+  configuration. The test pool is evaluation only, after the lock, with the locked sources and
+  adapters. `--contract study` runs the episodes on the study contract instead (the cost-of-diversity
+  measurement); the report records which.
+- `scripts/run_dialect_transfer.py dev|test` runs the protocol's phases as a resumable job graph.
 - `dialects.lock` and `dialects.audit`, with `scripts/lock_dialect_transfer.py` and
   `scripts/verify_dialect_transfer.py`: the test lock (it refuses an unregistered protocol) and a
   GPU-free audit that re-derives every DAgger label and replays every test episode in its dialect.

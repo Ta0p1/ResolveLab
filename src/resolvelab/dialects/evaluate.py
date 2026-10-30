@@ -2,7 +2,10 @@
 
 Rows add the dialect name and its conventions (token style, pagination, time unit, the code
 that means conflict), which are the protocol's pre-declared slices. The report's identity
-adds the assignment digest, so a resumed run cannot mix assignments.
+adds the assignment digest and the contract, so a resumed run cannot mix assignments.
+
+``contract="study"`` runs every episode in the canonical dialect instead of its assigned one:
+the protocol's cost-of-diversity measurement for the multi-dialect arms.
 """
 
 import json
@@ -16,6 +19,9 @@ from ..training import file_hash
 from .assignment import dialect_named
 from .lock import current_source_hash
 from .runner import run_dialect_episode
+from .spec import CANONICAL
+
+CONTRACTS = ("assigned", "study")
 
 
 def dialect_columns(dialect):
@@ -28,8 +34,26 @@ def dialect_columns(dialect):
     }
 
 
-def evaluate(manifest, assignment, pool, arm, output, provider=None, resume=False, limit=None):
+def episode_dialect(assignment, spec_id, contract="assigned"):
+    if contract not in CONTRACTS:
+        raise ValueError(f"Unknown contract {contract}")
+    return CANONICAL if contract == "study" else dialect_named(assignment["episodes"][spec_id])
+
+
+def evaluate(
+    manifest,
+    assignment,
+    pool,
+    arm,
+    output,
+    provider=None,
+    resume=False,
+    limit=None,
+    contract="assigned",
+):
     """Evaluate ``arm`` on a pool, each episode in its assigned dialect (teacher if no provider)."""
+    if contract not in CONTRACTS:
+        raise ValueError(f"Unknown contract {contract}")
     output = Path(output)
     traces = output.with_suffix("")
     adapter = arm.get("adapter")
@@ -38,6 +62,7 @@ def evaluate(manifest, assignment, pool, arm, output, provider=None, resume=Fals
         "assignment_sha256": digest(assignment),
         "source_sha256": current_source_hash(),
         "pool": pool,
+        "contract": contract,
         "arm": arm,
         "arm_sha256": digest(arm),
         "adapter_sha256": file_hash(Path(adapter) / "adapter_model.safetensors") if adapter else None,
@@ -69,7 +94,7 @@ def evaluate(manifest, assignment, pool, arm, output, provider=None, resume=Fals
     for spec in specs:
         if spec["id"] in done:
             continue
-        dialect = dialect_named(assignment["episodes"][spec["id"]])
+        dialect = episode_dialect(assignment, spec["id"], contract)
         trace = run_dialect_episode(spec, dialect, provider, max_tools=arm.get("max_tools", 24))
         trace.pop("steps")
         trace["training_eligible"] = False

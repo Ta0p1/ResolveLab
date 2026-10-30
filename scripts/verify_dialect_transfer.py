@@ -2,8 +2,8 @@
 
 Checks the lock's inputs, regenerates expert data, re-derives every DAgger label from its
 learner state, checks training reports against the locked adapters, replays every test
-episode in its dialect over real HTTP, and recomputes the registered analysis. Exits cleanly,
-saying so, while there is no bundle.
+episode in its dialect (the study-contract runs in the canonical one) over real HTTP, and
+recomputes the registered analysis. Exits cleanly, saying so, while there is no bundle.
 """
 
 import argparse
@@ -61,10 +61,19 @@ def verify(every=1, replay_every=1):
         assert best["adapter_sha256"] == entry["sha256"], key
         assert sha(path.read_bytes()) == entry["training_report_sha256"], key
 
-    reports = [read(p) | {"_file": p.stem} for p in sorted((BUNDLE / "test").glob("*.json"))]
+    # Held-out dialects, then the multi arms on the study contract (each report names its contract).
+    reports = [
+        read(p) | {"_dir": d, "_file": p.stem}
+        for d in ("test", "study-contract")
+        for p in sorted((BUNDLE / d).glob("*.json"))
+    ]
+    assert all(
+        r["contract"] == ("study" if r["_dir"] == "study-contract" else "assigned") for r in reports
+    )
 
     def trace(report, row):
-        return zipfile.ZipFile(BUNDLE / "traces" / "test" / f"{report['_file']}.zip").read(row["trace"])
+        archive = BUNDLE / "traces" / report["_dir"] / f"{report['_file']}.zip"
+        return zipfile.ZipFile(archive).read(row["trace"])
 
     replayed = verify_reports(reports, trace, manifest, assignment, lock, replay_every)
 

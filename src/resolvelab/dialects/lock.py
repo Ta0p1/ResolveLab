@@ -20,6 +20,8 @@ PACKAGE = Path(__file__).resolve().parents[1]
 VERSION_LINE = re.compile(rb'^__version__ = "[^"\n]*"$', re.MULTILINE)
 V04_ARMS = ("bc", "bc-volume", "dagger")
 MULTI_ARMS = ("bc-multi", "bc-volume-multi", "dagger-multi")
+# Test-pool reports: held-out dialects, and the multi arms on the study contract.
+TEST_OUTPUTS = ("test", "study-contract")
 
 
 def source_files(package=PACKAGE):
@@ -74,7 +76,7 @@ def selected_adapter(run):
 def build_lock(*, local, manifest, assignment, study, v04_lock, commit, locked_at, seeds):
     """The lock for the test phase. ``local`` holds data/, runs/ and eval/dev of this study."""
     local = Path(local)
-    if any((local / "eval/test").glob("*.json")):
+    if any(p for d in TEST_OUTPUTS for p in (local / "eval" / d).glob("*.json")):
         raise ValueError("Test outputs exist; a lock must precede them")
     adapters, training = {}, {}
     for seed in seeds:

@@ -1,8 +1,9 @@
-# Dialect transfer study (v0.5) — draft protocol, not registered
+# Dialect transfer study (v0.5) — protocol, registered 2026-10-30
 
-**Status: draft for review. Nothing below has been run; no number here is a result.** It becomes
-binding only when committed as registered with a date, before the first model episode in any
-held-out dialect. Environment: [API dialects](dialects.md). Prior study: [v0.4 results](../artifacts/v0.4/RESULTS.md).
+**Status: registered 2026-10-30, before any model episode in a held-out dialect.** From this
+commit the questions, arms, outcomes, analysis and decision rules below are binding. A later change
+is listed under [Deviations](#deviations) with its date, next to unchanged results. Nothing below
+is a result. Environment: [API dialects](dialects.md). Prior study: [v0.4 results](../artifacts/v0.4/RESULTS.md).
 
 ## Why
 
@@ -32,8 +33,8 @@ the service, faults, records and grader and change only the contract.
 | `dev` | one `train` dialect per episode, seeds disjoint from training (40) | checkpoint selection, smoke tests |
 | `test` | one `heldout` dialect per episode (120 distinct seeds) | registered evaluation |
 
-The file pins the generated dialects by hash; if this draft changes before registration, it is
-regenerated under a new name. No model sees a held-out dialect before the test lock. Dev deliberately uses unseen *combinations* of
+The file pins the generated dialects by hash; it was generated before registration and
+registration does not change it. No model sees a held-out dialect before the test lock. Dev deliberately uses unseen *combinations* of
 train words, not held-out words, so selection never touches the held-out vocabulary. Per-episode dialects
 mean no single dialect's quirks dominate a pass rate.
 
@@ -70,7 +71,7 @@ state passes grader v2. The size match and subsample rule are v0.4's.
   within composition strata, 10,000 draws), the composition-cluster bootstrap, and exact McNemar per seed
   pair. For Q1, the pair is (dialect episode, canonical episode) for the same adapter.
 
-## Decision rules (draft)
+## Decision rules
 
 - **Q1** is descriptive. An arm *transfers* if its dialect pass rate is within 5 pp of its canonical rate
   and the interval's upper bound on the drop is ≤ 10 pp; *does not transfer* if its dialect pass rate is
@@ -93,7 +94,7 @@ smaller effects will be reported as inconclusive, not absent.
 
 ## Before registration
 
-Done (see [API dialects](dialects.md#study-plumbing)):
+Done before this protocol was registered (see [API dialects](dialects.md#study-plumbing)):
 
 - the dialect-aware constrained policy (`dialects.policy.DialectPolicy`);
 - expert and DAgger row builders whose messages and targets are dialect text, with the v0.4 provenance
@@ -122,8 +123,9 @@ published v0.4 dev episodes with `DialectPolicy` in the canonical dialect. The r
 observations and verdicts were identical for 6/6 `dagger-42` and 4/4 `bc-volume-42` episodes,
 including two `bc-volume` failures that run to the 24-action budget. Dev only.
 
-Remaining before the first test episode: review of this draft, registration (a dated commit that
-removes "draft" from the title), the dev-phase runs and training, then the lock.
+The draft was reviewed and registered unchanged in design on 2026-10-30. Registration added the
+run order and the test-phase plumbing below, and counted the dev evaluation in the compute
+estimate.
 
 **Smoke test (2026-10-30, after the decision rules above were committed in `73377d9`).** The published
 v0.4 `dagger` and `bc-volume` adapters (seed 42) ran the first 8 dev episodes, one composition, each in
@@ -135,14 +137,46 @@ write, and the v0.4 token loop (`"v7","v6","v8"` growing until the JSON is cut o
 **Compute (estimate from that latency).** Zero-shot evaluation ≈ 5 GPU-hours (nine adapters and
 `base-1.7b`, 120 episodes each), training ≈ 11 (nine adapters, v0.4 wall times), DAgger rollouts and
 labels ≈ 2, multi-arm evaluation in held-out dialects and the study contract ≈ 8: about 26 GPU-hours on
-the RTX 4060 Ti. Proposed cap: 30. If exceeded, the study-contract evaluation of `bc-volume-multi` is
-dropped first; registered held-out evaluations are not.
+the RTX 4060 Ti, plus ≈ 3 for the dev evaluation below. These are job-hours; the run graph runs up to
+two jobs at once, as in v0.4. Cap: 30 hours of wall-clock time with study jobs on the card. If
+exceeded, the study-contract evaluation of `bc-volume-multi` is dropped first; registered held-out
+evaluations are not.
+
+## Run order
+
+`scripts/run_dialect_transfer.py` runs each phase as a resumable job graph (the v0.4 runner with
+these jobs); every step refuses to overwrite its outputs.
+
+1. **Dev phase** (`run_dialect_transfer.py dev`): expert rows for `train_core`, `train_pool` and
+   `dev`, each episode in its assigned train dialect; `bc-multi` for each seed; that seed's DAgger
+   rollouts and verified labels; the size-matched `bc-volume-multi` and `dagger-multi` sets and
+   adapters. Checkpoints are selected by minimum dev action-token cross-entropy over epochs, the
+   v0.4 rule. Then every arm (`base-1.7b`, the nine v0.4 adapters, the nine new ones) runs the 40
+   dev episodes in their train dialects, and `scripts/analyze_dialect_transfer.py dev` runs the
+   analysis on them. The dev evaluation rehearses the pipeline and the analysis. No arm, checkpoint
+   or setting is chosen or dropped on it. A plumbing defect it exposes is fixed before the lock and
+   listed under deviations.
+2. **Lock** (`scripts/lock_dialect_transfer.py`): it requires a clean tree and refuses if any test
+   output exists.
+3. **Test phase** (`run_dialect_transfer.py test`). It refuses without the lock and checks the
+   source hash and every adapter against it, as does every test-pool command of
+   `scripts/dialect_transfer.py`. Every arm runs the 120 test episodes in held-out dialects. After
+   all of those, the nine multi adapters run the same 120 episodes on the study contract
+   (`--contract study`, the canonical dialect through `DialectPolicy`, which reproduces the v0.4
+   decoder output for output), with `bc-volume-multi` last.
+4. **Analysis and bundle**: `scripts/analyze_dialect_transfer.py test`, the bundle in
+   `artifacts/v0.5`, and `scripts/verify_dialect_transfer.py`, which replays every test episode
+   in the contract it ran in.
 
 ## Change control
 
 As in v0.4: the lock records manifest, assignment, study config, source hashes, data hashes and every
 selected adapter; nothing is tuned, re-trained, re-selected or dropped after it; a defect found later is
 documented next to unchanged results. Existing v0.3 and v0.4 audits stay green: no locked file changes.
+
+## Deviations
+
+None so far.
 
 ## Known limits of the design
 
