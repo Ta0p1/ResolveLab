@@ -10,8 +10,13 @@
   dialects use disjoint identifiers. The canonical dialect reproduces the study's prompt, schema
   and episodes exactly (tested), and every published v0.4 result translates through it unchanged.
 - Add `examples/dialect_episode.py` (also run in CI), `docs/dialects.md` and a draft, unregistered
-  transfer protocol (`docs/dialect-transfer-protocol.md`). No model has been
-  evaluated on dialects; no result, lock, manifest, trace or locked source file changes.
+  transfer protocol (`docs/dialect-transfer-protocol.md`).
+- Add the transfer-study plumbing: the episode-to-dialect assignment
+  (`benchmarks/casedesk-dialects-v1.json`), a dialect-aware constrained policy, expert and DAgger row
+  builders in dialects (the multi-dialect `train_core` rows are tested to be exactly v0.4's 396 `bc`
+  states and actions), dialect evaluation, and `scripts/dialect_transfer.py`, which refuses the test pool.
+- No model has been evaluated on held-out dialects; no result, lock, manifest, trace or locked source
+  file changes.
 
 ## 0.4.0 — 2026-10-28
 

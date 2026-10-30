@@ -40,4 +40,4 @@ jobs:
           python-version: "3.12"
       - run: pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
       - run: pip install -c constraints.txt -r requirements-training.txt -e ".[dev]"
-      - run: pytest tests/test_training_loss.py tests/test_http_grammar.py -q
+      - run: pytest tests/test_training_loss.py tests/test_http_grammar.py tests/test_dialect_grammar.py -q
