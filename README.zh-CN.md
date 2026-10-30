@@ -87,6 +87,10 @@ resolvelab casedesk eval --pool dev --model anthropic:claude-opus-5-5 --output r
 继续完成并通过评分器时，这条标注才会保留。架构图和基准规格见 [英文 README](README.md#how-it-works) 与
 [实验方案](docs/casedesk-v2-protocol.md)。
 
+**作为强化学习环境**：`CaseDeskEnv` 以 `reset` / `step` / `state` 逐步暴露同一个服务，奖励来自评分器 v2
+（稀疏、可验证），测试集需显式开启；测试保证它能逐一复现公开的模型轨迹。`python examples/casedesk_env_loop.py`
+展示训练器会看到的奖励（开发集上老师为 1.0，随机策略为 0.0）。[环境接口说明](docs/environment.md)。
+
 ## 复现实验（单张 8 GB GPU）
 
 ```bash
