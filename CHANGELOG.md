@@ -8,7 +8,8 @@
   (`anthropic:`, optional extra). Providers never repair or retry a decision; API keys stay in
   the environment. Hosted APIs get a portable root-object form of the action schema.
 - A new `resolvelab.main` entry point dispatches `casedesk`; every other command still runs
-  the original, locked `cli.py`. See `docs/models.md`.
+  the original, locked `cli.py`; `python -m resolvelab` runs the same entry point. See
+  `docs/models.md`.
 
 ## 0.4.0 — 2026-10-28
 

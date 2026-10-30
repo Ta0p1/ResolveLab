@@ -302,3 +302,15 @@ def test_console_entry_point_dispatches_casedesk(monkeypatch, capsys):
     with pytest.raises(SystemExit) as stop:
         main.main()
     assert stop.value.code == 0 and "dev-" in capsys.readouterr().out
+
+
+def test_python_dash_m_runs_the_same_entry_point():
+    import os
+    import subprocess
+    import sys
+
+    env = dict(os.environ, PYTHONPATH=str(ROOT / "src"))
+    command = [sys.executable, "-m", "resolvelab", "casedesk", "run", "--episode", SPEC["id"]]
+    done = subprocess.run(command, capture_output=True, text=True, env=env, cwd=ROOT, timeout=120)
+    assert done.returncode == 0, done.stderr
+    assert "grader: PASS" in done.stdout
