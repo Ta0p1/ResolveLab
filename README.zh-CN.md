@@ -65,6 +65,10 @@ python scripts/verify_casedesk_v2.py                                       # 完
 python scripts/verify_casedesk_v2.py --dagger-every 20 --replay-every 10   # CI 抽样版，约 4 分钟
 ```
 
+`python examples/dialect_episode.py` 会在一个实验从未用过的生成式 API 方言里跑同一个回合：工具、字段和取值全部改名，
+用整数版本号代替 ETag、用页码分页、以毫秒等待、状态码也不同，但服务和评分器不变（见 [docs/dialects.md](docs/dialects.md)；
+目前只有环境，还没有模型结果）。
+
 `resolvelab serve` 会打开本地工作台，里面是早期实验（v0.1–v0.3）的轨迹查看页面，见 [docs/demo.md](docs/demo.md)。
 
 ## 评测你自己的模型

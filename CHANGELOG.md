@@ -21,6 +21,17 @@
   require identical observations, verdicts and diagnostics. `examples/casedesk_env_loop.py`
   and `docs/environment.md`.
 
+### API dialects
+
+- Add `resolvelab.dialects`: procedurally generated tool contracts over the unchanged CaseDesk
+  service, faults and grader. A dialect renames tools, arguments, fields, values and errors and
+  changes the concurrency token, pagination, status codes and time unit; `train` and `heldout`
+  dialects use disjoint identifiers. The canonical dialect reproduces the study's prompt, schema
+  and episodes exactly (tested), and every published v0.4 result translates through it unchanged.
+- Add `examples/dialect_episode.py` (also run in CI), `docs/dialects.md` and a draft, unregistered
+  transfer protocol (`docs/dialect-transfer-protocol.md`). No model has been
+  evaluated on dialects; no result, lock, manifest, trace or locked source file changes.
+
 ## 0.4.0 — 2026-10-28
 
 ### Release

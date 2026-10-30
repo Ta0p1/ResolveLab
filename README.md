@@ -87,6 +87,11 @@ python scripts/verify_casedesk_v2.py                                  # full, ~2
 python scripts/verify_casedesk_v2.py --dagger-every 20 --replay-every 10   # CI sample, ~4 min
 ```
 
+`python examples/dialect_episode.py` plays the same episode in a generated API dialect the
+study never used: every tool, field and value renamed, integer revisions instead of ETags,
+page numbers, millisecond waits and different status codes, over the same service and
+grader ([docs/dialects.md](docs/dialects.md); environment only, no model results yet).
+
 `resolvelab serve` opens a local workbench with the earlier studies' trajectory inspectors
 (v0.1–v0.3); see [docs/demo.md](docs/demo.md).
 
@@ -152,6 +157,7 @@ protocol lists every arm, budget and decision rule.
 | Path | What it holds |
 |---|---|
 | `src/resolvelab/casedesk/` | v0.4 benchmark: record generator, teacher, grader v2, DAgger data, evaluation, statistics |
+| `src/resolvelab/dialects/` | generated API dialects of the CaseDesk contract for transfer experiments |
 | `src/resolvelab/httpdesk/` | the CaseDesk HTTP contract: service, adapter, schema, v0.3 grader (frozen) |
 | `src/resolvelab/*.py` | the original SQLite sync service and workbench (v0.1–v0.2) |
 | `benchmarks/` | registered manifests and study configurations |
