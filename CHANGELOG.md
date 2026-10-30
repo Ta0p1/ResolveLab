@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+### Model adapters and CLI
+
+- Add `resolvelab casedesk` (`episodes`, `run`, `eval`) and model providers: local
+  Transformers (`hf:`, the study's exact decoding), Ollama (`ollama:`, the study's schema),
+  any OpenAI-compatible server (`openai:`) and Claude through the Anthropic SDK
+  (`anthropic:`, optional extra). Providers never repair or retry a decision; API keys stay in
+  the environment. Hosted APIs get a portable root-object form of the action schema.
+- A new `resolvelab.main` entry point dispatches `casedesk`; every other command still runs
+  the original, locked `cli.py`; `python -m resolvelab` runs the same entry point. See
+  `docs/models.md`.
+
+### Environment interface
+
+- Add `resolvelab.casedesk.env.CaseDeskEnv`, a step-wise environment (`reset` / `step` /
+  `state`) over the same service, budget and grader, with a sparse verifiable reward and an
+  opt-in guard for the public test pool. Tests replay published model traces through it and
+  require identical observations, verdicts and diagnostics. `examples/casedesk_env_loop.py`
+  and `docs/environment.md`.
+
 ### API dialects
 
 - Add `resolvelab.dialects`: procedurally generated tool contracts over the unchanged CaseDesk

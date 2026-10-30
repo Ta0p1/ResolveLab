@@ -8,6 +8,7 @@
 
 ## The environments
 
+- [CaseDesk as an environment](environment.md): `reset` / `step` / `state`, reward, pools, fidelity tests.
 - [API dialects](dialects.md): generated tool contracts over the same service, faults and grader, for
   transfer experiments (environment only, no model results yet), and the
   [draft transfer protocol](dialect-transfer-protocol.md) (not registered).
@@ -20,3 +21,7 @@
 - [Study history](history.md): every study, its question, headline, status and evidence.
 - [v0.2 post-training protocol](post-training.md) and [development log](experiments.md).
 - [Workbench demo script](demo.md) · [Roadmap](roadmap.md).
+
+## Using the benchmark
+
+- [Evaluate your own model](models.md): `resolvelab casedesk`, providers, options and comparability.
