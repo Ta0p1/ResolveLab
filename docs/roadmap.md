@@ -34,7 +34,7 @@ This is a synthetic backend, not a commercial SaaS integration. The CaseDesk mod
 is trained for its own contract; this is not zero-shot transfer from the sync model.
 The HTTP backend's receipts are process-local, without restart durability.
 
-## v0.4 — Self-review and a controlled DAgger study (delivered, unreleased)
+## v0.4 — Self-review and a controlled DAgger study (released as 0.4.0, 2026-10-29)
 
 Delivered: a review of v0.3 against its own traces and a counterfactual showing the v0.3
 adapters copied the demo's layout; an independent-record benchmark with stratified target
@@ -43,11 +43,23 @@ labels; grader v2; a registered DAgger vs size-matched behaviour-cloning compari
 90.8%, +7.5 pp, CI [1.9, 13.3]); stronger in-context and thinking-mode baselines (neither
 helped); test lock and a GPU-free verifier that re-derives every DAgger label.
 
+## Since 0.4.0 (on main, unreleased)
+
+- `resolvelab casedesk` and model providers (local Transformers, Ollama, OpenAI-compatible
+  servers, Claude), so a model served by any of these can be evaluated on the registered
+  benchmark.
+- `CaseDeskEnv`: the same service, budget and grader as a step-wise environment with a
+  verifiable reward.
+- Contribution workflow: PR and issue templates, pre-commit, Dependabot, security policy.
+- Generated API dialects and the tooling for a transfer study: assignment, dialect-aware
+  constrained policy, training rows, evaluation, lock, GPU-free audit and analysis. The study
+  itself is a [draft protocol](dialect-transfer-protocol.md); no model has been evaluated on
+  held-out dialects.
+
 ## v0.5 — candidates, one at a time
 
 1. Durable recovery as an engineering loop: persisted HTTP idempotency receipts, crash
    injection between commit and response, process restart and multi-worker races.
-   Strongest fit for application-engineering roles.
 2. Transfer: a second contract with different tools/schemas, evaluated zero-shot and after
    a small amount of DAgger, to test whether learner-state labels help beyond one contract.
    The environment exists: [generated API dialects](dialects.md) with lexically disjoint
@@ -60,6 +72,6 @@ helped); test lock and a GPU-free verifier that re-derives every DAgger label.
 ## Later
 
 - Preference/RL experiments only when rewards resist obvious shortcuts.
-- vLLM/OpenAI-compatible adapters with tested tool-protocol semantics.
+- vLLM-specific serving checks beyond the OpenAI-compatible provider.
 - Real SaaS sandbox integrations, authentication and durable job leases.
-- Contribution templates and public reproducibility reports.
+- Public reproducibility reports from outside contributors.
