@@ -95,6 +95,20 @@ grader ([docs/dialects.md](docs/dialects.md); environment only, no model results
 `resolvelab serve` opens a local workbench with the earlier studies' trajectory inspectors
 (v0.1–v0.3); see [docs/demo.md](docs/demo.md).
 
+## Evaluate your own model
+
+```bash
+resolvelab casedesk run --episode test-test_conflict_rate-07 --model ollama:qwen3:4b
+resolvelab casedesk eval --pool dev --model ollama:qwen3:4b --output runs/qwen3-4b-dev.json
+resolvelab casedesk eval --pool dev --model openai:<model> --option base_url=http://localhost:8000/v1 --output runs/vllm-dev.json
+resolvelab casedesk eval --pool dev --model anthropic:claude-opus-5-5 --output runs/opus-dev.json   # pip install "resolvelab[anthropic]"
+```
+
+Every model sees the study's prompt, demonstration and tool contract; reports and traces use
+the published format and are resumable. Local Transformers (`hf:`), Ollama, any
+OpenAI-compatible server and Claude are supported. [Options and what is comparable to the
+registered study](docs/models.md).
+
 ## How it works
 
 ```mermaid
@@ -118,6 +132,12 @@ passes the grader.
 | Declared factors | 3–9 records, target slot (≥ 1/5 in slot 0), six near-miss shapes, partial matches, six wordings (two test-only), split-disjoint injection texts |
 | Compositions | single faults in train; disjoint pairs/triples in dev and test |
 | Grader | v0.3 checks + escalation discipline; diagnostics for lookup and fault exposure |
+
+**As an RL environment:** `CaseDeskEnv` exposes the same service step by step
+(`reset` / `step` / `state`, sparse verifiable reward from grader v2, test pool opt-in) and is
+tested to reproduce published model traces exactly. `python examples/casedesk_env_loop.py`
+shows the reward a trainer would see (teacher 1.0, random policy 0.0 on dev).
+[Environment API](docs/environment.md).
 
 ## Reproduce the study (one 8 GB GPU)
 
