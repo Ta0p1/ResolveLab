@@ -3,7 +3,8 @@
 `resolvelab.dialects` generates new tool contracts that keep CaseDesk's service, faults and grader. It is
 infrastructure for the transfer question on the [roadmap](roadmap.md): does what an agent learned on
 one contract (fault recovery, verification, escalation) carry over to an API it has never seen? **No model
-has been evaluated on it yet**; this page describes the environment and the checks behind it.
+has been evaluated on it yet**; this page describes the environment and the checks behind it. The
+planned study is a [draft protocol](dialect-transfer-protocol.md), not yet registered.
 
 ## What a dialect changes
 

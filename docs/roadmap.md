@@ -51,7 +51,8 @@ helped); test lock and a GPU-free verifier that re-derives every DAgger label.
 2. Transfer: a second contract with different tools/schemas, evaluated zero-shot and after
    a small amount of DAgger, to test whether learner-state labels help beyond one contract.
    The environment exists: [generated API dialects](dialects.md) with lexically disjoint
-   train and held-out splits over the same service and grader. The study is not registered.
+   train and held-out splits over the same service and grader. The study is a
+   [draft protocol](dialect-transfer-protocol.md), not registered.
 3. Token-matched control and more DAgger iterations, if the v0.4 effect is to be sized
    rather than only detected.
 4. A real SaaS sandbox with authentication, least-privilege scopes and cleanup.
