@@ -1,0 +1,8 @@
+version: 2
+updates:
+  # Keep the workflow actions current. Python dependencies are pinned in constraints.txt and
+  # updated deliberately, because the audits replay published evidence against them.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

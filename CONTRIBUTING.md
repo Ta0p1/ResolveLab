@@ -14,6 +14,11 @@ python scripts/verify_http_study.py
 python scripts/verify_casedesk_v2.py --dagger-every 20 --replay-every 10
 ```
 
+Optionally `pip install pre-commit && pre-commit install` to run ruff (pinned to CI's version)
+and YAML/TOML checks on every commit. Pull requests use a checklist of the evidence rules
+below; reports that a grader accepts a bad episode are especially welcome (see the "Grader or
+result concern" issue form). Security issues go through [SECURITY.md](SECURITY.md).
+
 Local model evaluation additionally requires Ollama and an installed model.
 Unit tests mock the provider only to test error handling and protocol boundaries;
 reported local-model benchmarks must come from real inference.

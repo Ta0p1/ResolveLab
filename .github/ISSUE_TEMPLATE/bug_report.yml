@@ -1,0 +1,42 @@
+name: Bug report
+description: Something in the environment, grader, CLI, providers or audits behaves wrongly.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you ran, what you expected and what you got instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How to reproduce
+      description: >-
+        The exact command, for example `resolvelab casedesk run --episode ... --model ...`,
+        and the episode id. Attach the trace JSON if one was written.
+      render: shell
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - CaseDesk service or fault injection
+        - Grader or teacher
+        - Environment (CaseDeskEnv)
+        - CLI or model provider
+        - Audit or published evidence
+        - SQLite sync service or workbench
+        - Documentation
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: ResolveLab version or commit, Python version, OS, and the model backend if any.
+    validations:
+      required: true

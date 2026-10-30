@@ -1,0 +1,27 @@
+name: Grader or result concern
+description: A verdict looks wrong, a check can be gamed, or a published claim seems unsupported.
+labels: [evidence]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Reports that a grader accepts a bad episode, or rejects a good one, are the most
+        useful issues this project gets. Published results are never edited in place; a
+        confirmed problem is documented next to them.
+  - type: input
+    id: where
+    attributes:
+      label: Episode, trace or claim
+      description: Episode id and trace file, or the sentence and file of the claim.
+    validations:
+      required: true
+  - type: textarea
+    id: concern
+    attributes:
+      label: What is wrong
+      description: >-
+        Which action sequence passes (or fails) when it should not, and why. A list of
+        actions that can be replayed with `CaseDeskEnv` or `run_episode(spec, forced=...)`
+        is ideal.
+    validations:
+      required: true
