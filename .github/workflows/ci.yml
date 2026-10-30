@@ -26,6 +26,7 @@ jobs:
       - run: python scripts/verify_http_study.py
       # Every hash is checked; replays are thinned for CI. Run without flags for the full audit.
       - run: python scripts/verify_casedesk_v2.py --dagger-every 20 --replay-every 10
+      - run: python scripts/verify_dialect_transfer.py
       - uses: actions/upload-artifact@v7
         with:
           name: evaluation-python-${{ matrix.python }}

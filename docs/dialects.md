@@ -91,6 +91,9 @@ For the [draft transfer protocol](dialect-transfer-protocol.md):
   pagination, time unit and conflict code.
 - `scripts/dialect_transfer.py` runs collect-expert, rollout, assemble, train and eval with the v0.4
   configuration; it refuses the test pool until a protocol is registered and locked.
+- `dialects.lock` and `dialects.audit`, with `scripts/lock_dialect_transfer.py` and
+  `scripts/verify_dialect_transfer.py`: the test lock (it refuses an unregistered protocol) and a
+  GPU-free audit that re-derives every DAgger label and replays every test episode in its dialect.
 
 ## Limits
 

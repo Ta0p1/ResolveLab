@@ -11,10 +11,10 @@ from pathlib import Path
 from ..benchmark import digest
 from ..casedesk.evaluate import episode_row, summarize
 from ..evaluation import write_report
-from ..httpdesk.benchmark import source_hash
 from ..store import dumps, utcnow
 from ..training import file_hash
 from .assignment import dialect_named
+from .lock import current_source_hash
 from .runner import run_dialect_episode
 
 
@@ -36,7 +36,7 @@ def evaluate(manifest, assignment, pool, arm, output, provider=None, resume=Fals
     identity = {
         "manifest_sha256": digest(manifest),
         "assignment_sha256": digest(assignment),
-        "source_sha256": source_hash(),
+        "source_sha256": current_source_hash(),
         "pool": pool,
         "arm": arm,
         "arm_sha256": digest(arm),

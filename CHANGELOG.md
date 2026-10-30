@@ -15,6 +15,9 @@
   (`benchmarks/casedesk-dialects-v1.json`), a dialect-aware constrained policy, expert and DAgger row
   builders in dialects (the multi-dialect `train_core` rows are tested to be exactly v0.4's 396 `bc`
   states and actions), dialect evaluation, and `scripts/dialect_transfer.py`, which refuses the test pool.
+- Add the dialect test lock and GPU-free audit (`scripts/lock_dialect_transfer.py`, which refuses an
+  unregistered protocol, and `scripts/verify_dialect_transfer.py`). The new lock's source hash ignores
+  the `__version__` line from the start.
 - No model has been evaluated on held-out dialects; no result, lock, manifest, trace or locked source
   file changes.
 

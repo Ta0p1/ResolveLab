@@ -20,8 +20,8 @@ from resolvelab.curation import read_rows
 from resolvelab.dialects.assignment import load_assignment
 from resolvelab.dialects.data import dagger_rows, expert_rows, validate_rows
 from resolvelab.dialects.evaluate import evaluate
+from resolvelab.dialects.lock import current_source_hash
 from resolvelab.evaluation import write_report
-from resolvelab.httpdesk.benchmark import source_hash
 from resolvelab.store import dumps, utcnow
 from resolvelab.training import file_hash, train
 
@@ -52,7 +52,7 @@ def provenance(manifest, assignment, **extra):
     return {
         "manifest_sha256": digest(manifest),
         "assignment_sha256": digest(assignment),
-        "source_sha256": source_hash(),
+        "source_sha256": current_source_hash(),
         "teacher": TEACHER,
         **extra,
         "created_at": utcnow(),
@@ -140,7 +140,7 @@ def train_arm(manifest, assignment, study, data, seed, output):
         output,
         row_validator=partial(validate_rows, assignment=assignment),
         teacher=TEACHER,
-        fingerprint=source_hash,
+        fingerprint=current_source_hash,
     )
     print(json.dumps({k: report[k] for k in ("selected_checkpoint", "examples", "wall_seconds")}))
 

@@ -129,3 +129,114 @@ def test_dialect_evaluation_reports_slices(manifest, assignment, tmp_path):
     for row in report["rows"]:
         assert row["dialect"] == assignment["episodes"][row["spec_id"]]
         assert {"token_style", "cursor_style", "time_unit", "conflict_code"} <= set(row)
+
+
+# -- lock and audit -------------------------------------------------------------------------
+
+
+def test_source_hash_ignores_only_the_version_line(tmp_path):
+    from resolvelab.dialects.lock import source_hash
+
+    (tmp_path / "__init__.py").write_bytes(b'"""Pkg."""\n__version__ = "0.4.0"\n')
+    (tmp_path / "mod.py").write_bytes(b"X = 1\r\n")
+    before = source_hash(["__init__.py", "mod.py"], tmp_path)
+    (tmp_path / "__init__.py").write_bytes(b'"""Pkg."""\n__version__ = "0.5.0"\n')
+    (tmp_path / "mod.py").write_bytes(b"X = 1\n")
+    assert source_hash(["__init__.py", "mod.py"], tmp_path) == before
+    (tmp_path / "mod.py").write_bytes(b"X = 2\n")
+    assert source_hash(["__init__.py", "mod.py"], tmp_path) != before
+    (tmp_path / "__init__.py").write_bytes(b'"""Pkg."""\n')
+    with pytest.raises(ValueError, match="__version__"):
+        source_hash(["__init__.py"], tmp_path)
+
+
+def fake_run(directory, checkpoint="epoch-2", status="completed"):
+    (directory / checkpoint).mkdir(parents=True)
+    (directory / checkpoint / "adapter_model.safetensors").write_bytes(directory.name.encode())
+    report = {
+        "status": status,
+        "selected_checkpoint": checkpoint,
+        "data_sha256": {},
+        "examples": {},
+        "epochs": [],
+    }
+    (directory / "training.json").write_text(json.dumps(report), encoding="utf-8")
+
+
+def test_lock_pins_v04_and_new_adapters_and_refuses_late_or_incomplete_runs(
+    manifest, assignment, tmp_path
+):
+    from resolvelab.dialects.audit import verify_inputs
+    from resolvelab.dialects.lock import build_lock
+
+    v04 = json.loads((ROOT / "artifacts/v0.4/test-lock.json").read_text(encoding="utf-8"))
+    for arm in ("bc-multi", "bc-volume-multi", "dagger-multi"):
+        fake_run(tmp_path / "runs" / f"{arm}-42")
+    options = dict(
+        local=tmp_path,
+        manifest=manifest,
+        assignment=assignment,
+        study={"name": "draft"},
+        v04_lock=v04,
+        commit="abc",
+        locked_at="2026-10-30T00:00:00+00:00",
+        seeds=[42],
+    )
+    lock = build_lock(**options)
+    assert lock["adapters"]["dagger-42"]["sha256"] == v04["adapters"]["dagger-42"]["sha256"]
+    assert lock["adapters"]["dagger-multi-42"]["checkpoint"] == "epoch-2"
+    verify_inputs(lock, manifest, assignment, {"name": "draft"})
+    with pytest.raises(AssertionError):
+        verify_inputs(lock | {"schemas_sha256": "0" * 64}, manifest, assignment, {"name": "draft"})
+    (tmp_path / "eval/test").mkdir(parents=True)
+    (tmp_path / "eval/test/early.json").write_text("{}", encoding="utf-8")
+    with pytest.raises(ValueError, match="precede"):
+        build_lock(**options)
+    (tmp_path / "eval/test/early.json").unlink()
+    fake_run(tmp_path / "runs" / "unfinished", status="running")
+    (tmp_path / "runs" / "bc-multi-42").rename(tmp_path / "runs" / "old")
+    (tmp_path / "runs" / "unfinished").rename(tmp_path / "runs" / "bc-multi-42")
+    with pytest.raises(ValueError, match="incomplete"):
+        build_lock(**options)
+
+
+def test_audit_regenerates_expert_rows_and_rederives_dagger_labels(manifest, assignment):
+    from resolvelab.dialects.audit import verify_dagger_rows, verify_expert_rows
+    from resolvelab.store import dumps
+
+    rows, _ = expert_rows(manifest, assignment, "dev", limit=2)
+    published = "".join(dumps(r) + "\n" for r in rows).encode()
+    assert verify_expert_rows(manifest, assignment, "dev", published, limit=2) == len(rows)
+    with pytest.raises(AssertionError):
+        verify_expert_rows(
+            manifest, assignment, "dev", published.replace(b'"step": 1', b'"step": 9'), limit=2
+        )
+    spec = manifest["episodes"]["train_pool"][0]
+    labelled, _ = dagger_rows(
+        manifest, assignment, "train_pool", MangleFirstWrite(spec), "scripted", limit=1
+    )
+    assert verify_dagger_rows(manifest, labelled) == len(labelled)
+    wrong = json.loads(json.dumps(labelled))
+    wrong[-1]["target"] = wrong[-1]["learner_action"]
+    with pytest.raises(AssertionError):
+        verify_dagger_rows(manifest, wrong)
+
+
+def test_audit_replays_reports_in_their_dialects(manifest, assignment, tmp_path):
+    from resolvelab.dialects.audit import verify_reports
+
+    output = tmp_path / "teacher.json"
+    report = evaluate(manifest, assignment, "dev", {"name": "teacher", "max_tools": 24}, output, limit=2)
+    lock = {k: report[k] for k in ("manifest_sha256", "assignment_sha256", "source_sha256")}
+    lock |= {"locked_at": "2026-01-01T00:00:00+00:00", "adapters": {}}
+
+    def read_trace(report, row):
+        return (tmp_path / "teacher" / row["trace"]).read_bytes()
+
+    assert verify_reports([report], read_trace, manifest, assignment, lock) == 2
+    with pytest.raises(AssertionError):
+        verify_reports([report], read_trace, manifest, assignment, lock | {"locked_at": "2999"})
+    path = tmp_path / "teacher" / report["rows"][0]["trace"]
+    path.write_bytes(path.read_bytes().replace(b'"passed": true', b'"passed": false', 1))
+    with pytest.raises(AssertionError):
+        verify_reports([report], read_trace, manifest, assignment, lock)

@@ -100,10 +100,17 @@ Done (see [API dialects](dialects.md#study-plumbing)):
   checks plus the assignment (`dialects.data`); the multi-dialect `train_core` rows are tested to be
   exactly v0.4's 396 `bc` states and actions;
 - the assignment file and builder, dialect evaluation with per-episode convention columns, and the
-  pipeline script `scripts/dialect_transfer.py`, which refuses the test pool.
+  pipeline script `scripts/dialect_transfer.py`, which refuses the test pool;
+- the lock (`scripts/lock_dialect_transfer.py`): assignment, study, v0.4 lock, every source file, the
+  prompt and grammar of every test dialect, data, dev reports and all eighteen adapters (nine published
+  v0.4, nine new). It refuses while this title says draft, with uncommitted changes, or once a test output
+  exists. Its source hash ignores the `__version__` line from the start;
+- the GPU-free audit (`scripts/verify_dialect_transfer.py`): it checks inputs against the lock,
+  regenerates expert data, re-derives every DAgger label from the dialect conversation stored in its
+  row, checks training reports against locked adapters, and replays every test episode in its dialect.
 
-Still to do: a lock script (adding the assignment and the `dialects` source files to the hashed set)
-and an audit that replays every test episode without a GPU.
+Still to do: the analysis script (Q1 pairs each dialect episode with the same adapter's published
+canonical episode; Q2 and Q3 reuse the v0.4 hierarchical bootstrap and McNemar), written before the lock.
 
 **Smoke test (2026-10-30, after the decision rules above were committed in `73377d9`).** The published
 v0.4 `dagger` and `bc-volume` adapters (seed 42) ran the first 8 dev episodes, one composition, each in
