@@ -29,8 +29,22 @@
   dialects use disjoint identifiers. The canonical dialect reproduces the study's prompt, schema
   and episodes exactly (tested), and every published v0.4 result translates through it unchanged.
 - Add `examples/dialect_episode.py` (also run in CI), `docs/dialects.md` and a draft, unregistered
-  transfer protocol (`docs/dialect-transfer-protocol.md`). No model has been
-  evaluated on dialects; no result, lock, manifest, trace or locked source file changes.
+  transfer protocol (`docs/dialect-transfer-protocol.md`).
+- Add the transfer-study plumbing: the episode-to-dialect assignment
+  (`benchmarks/casedesk-dialects-v1.json`), a dialect-aware constrained policy, expert and DAgger row
+  builders in dialects (the multi-dialect `train_core` rows are tested to be exactly v0.4's 396 `bc`
+  states and actions), dialect evaluation, and `scripts/dialect_transfer.py`, which refuses the test pool.
+- Add the dialect test lock and GPU-free audit (`scripts/lock_dialect_transfer.py`, which refuses an
+  unregistered protocol, and `scripts/verify_dialect_transfer.py`). The new lock's source hash ignores
+  the `__version__` line from the start.
+- Add the registered analysis for the draft protocol (`scripts/analyze_dialect_transfer.py`): Q1 transfer
+  per adapter with a paired-seed bootstrap, Q2/Q3 with the v0.4 statistics. It refuses the test pool
+  without a lock, and the audit recomputes it.
+- Add `scripts/check_dialect_decoder.py` (GPU): in the canonical dialect, `DialectPolicy` reproduced
+  published v0.4 dev traces exactly (raw outputs, observations, verdicts; 6/6 `dagger-42`, 4/4
+  `bc-volume-42` including two budget-exhausting failures).
+- No model has been evaluated on held-out dialects; no result, lock, manifest, trace or locked source
+  file changes.
 
 ## 0.4.0 — 2026-10-28
 

@@ -24,7 +24,7 @@ the service, faults, records and grader and change only the contract.
 3. **DAgger under diversity.** Repeat v0.4's size-matched comparison inside the multi-dialect regime:
    verified DAgger rows vs the same number of extra expert rows, both in train dialects.
 
-## Dialect assignment (to be generated once and committed: `benchmarks/casedesk-dialects-v1.json`)
+## Dialect assignment (`benchmarks/casedesk-dialects-v1.json`, from `scripts/build_dialect_assignment.py`)
 
 | Pool | Dialects | Use |
 |---|---|---|
@@ -32,7 +32,8 @@ the service, faults, records and grader and change only the contract.
 | `dev` | one `train` dialect per episode, seeds disjoint from training (40) | checkpoint selection, smoke tests |
 | `test` | one `heldout` dialect per episode (120 distinct seeds) | registered evaluation |
 
-No model sees a held-out dialect before the test lock. Dev deliberately uses unseen *combinations* of
+The file pins the generated dialects by hash; if this draft changes before registration, it is
+regenerated under a new name. No model sees a held-out dialect before the test lock. Dev deliberately uses unseen *combinations* of
 train words, not held-out words, so selection never touches the held-out vocabulary. Per-episode dialects
 mean no single dialect's quirks dominate a pass rate.
 
@@ -92,13 +93,50 @@ smaller effects will be reported as inconclusive, not absent.
 
 ## Before registration
 
-- Dialect-aware model policy: the v0.4 constrained decoder with a per-episode schema, returning the
-  dialect action for the runner to validate and translate.
-- Dialect row builders: expert and DAgger rows whose messages and targets are dialect text, with the
-  v0.4 provenance checks (no dev or test episode, verified labels, manifest and assignment hashes).
-- Assignment builder, run script, lock script (adds the dialect assignment and the `dialects` source files
-  to the hashed set), and an audit that replays every test episode without a GPU.
-- Smoke tests on dev only, in train dialects; measured per-episode latency sets the compute cap.
+Done (see [API dialects](dialects.md#study-plumbing)):
+
+- the dialect-aware constrained policy (`dialects.policy.DialectPolicy`);
+- expert and DAgger row builders whose messages and targets are dialect text, with the v0.4 provenance
+  checks plus the assignment (`dialects.data`); the multi-dialect `train_core` rows are tested to be
+  exactly v0.4's 396 `bc` states and actions;
+- the assignment file and builder, dialect evaluation with per-episode convention columns, and the
+  pipeline script `scripts/dialect_transfer.py`, which refuses the test pool;
+- the lock (`scripts/lock_dialect_transfer.py`): assignment, study, v0.4 lock, every source file, the
+  prompt and grammar of every test dialect, data, dev reports and all eighteen adapters (nine published
+  v0.4, nine new). It refuses while this title says draft, with uncommitted changes, or once a test output
+  exists. Its source hash ignores the `__version__` line from the start;
+- the GPU-free audit (`scripts/verify_dialect_transfer.py`): it checks inputs against the lock,
+  regenerates expert data, re-derives every DAgger label from the dialect conversation stored in its
+  row, checks training reports against locked adapters, and replays every test episode in its dialect.
+
+- the analysis (`dialects.analysis`, `scripts/analyze_dialect_transfer.py`), which implements the rules
+  above. Q1 pairs each held-out-dialect episode with the same adapter's published v0.4 episode and
+  resamples seeds jointly for both conditions, since they are the same adapters. Q2 and Q3 use the v0.4
+  bootstraps and McNemar unchanged. It refuses the test pool without a lock, and the audit recomputes it.
+  Tests drive every branch of every rule on synthetic reports, and the published v0.4 reports, used as
+  both conditions, give exactly zero shift.
+
+**Decoder parity (2026-10-30).** Q1 compares v0.4 runs made with the v0.3 decoder against runs through
+`DialectPolicy`, so the two must be the same function. `scripts/check_dialect_decoder.py` replays
+published v0.4 dev episodes with `DialectPolicy` in the canonical dialect. The raw model outputs,
+observations and verdicts were identical for 6/6 `dagger-42` and 4/4 `bc-volume-42` episodes,
+including two `bc-volume` failures that run to the 24-action budget. Dev only.
+
+Remaining before the first test episode: review of this draft, registration (a dated commit that
+removes "draft" from the title), the dev-phase runs and training, then the lock.
+
+**Smoke test (2026-10-30, after the decision rules above were committed in `73377d9`).** The published
+v0.4 `dagger` and `bc-volume` adapters (seed 42) ran the first 8 dev episodes, one composition, each in
+its train-split dialect: 7/8 and 6/8 passed. This checks the plumbing and is not a result. The three
+failures are model behaviour, not translation: a write to a near-miss record, a success claim without a
+write, and the v0.4 token loop (`"v7","v6","v8"` growing until the JSON is cut off). Median latency was
+13–15 s per episode.
+
+**Compute (estimate from that latency).** Zero-shot evaluation ≈ 5 GPU-hours (nine adapters and
+`base-1.7b`, 120 episodes each), training ≈ 11 (nine adapters, v0.4 wall times), DAgger rollouts and
+labels ≈ 2, multi-arm evaluation in held-out dialects and the study contract ≈ 8: about 26 GPU-hours on
+the RTX 4060 Ti. Proposed cap: 30. If exceeded, the study-contract evaluation of `bc-volume-multi` is
+dropped first; registered held-out evaluations are not.
 
 ## Change control
 

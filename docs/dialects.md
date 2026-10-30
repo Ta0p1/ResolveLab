@@ -75,6 +75,30 @@ trace = run_dialect_episode(spec, dialect, policy=my_policy)
 study's API. A policy receives the dialect conversation and returns a dialect action;
 `Translator(dialect).schema()` is the JSON schema for constrained decoding.
 
+## Study plumbing
+
+For the [draft transfer protocol](dialect-transfer-protocol.md):
+
+- `benchmarks/casedesk-dialects-v1.json` assigns every registered episode its own dialect: train pools and
+  dev get `train` dialects (dev seeds unused by training), test gets `heldout` ones. It pins the generated
+  dialects by hash, so a later change to a word pool is detected on load.
+- `dialects.policy.DialectPolicy` is the v0.4 constrained decoder (LM Format Enforcer, field order
+  forced, same budgets) with the episode's dialect schema, validating its output against the dialect.
+  In the canonical dialect it reproduces published v0.4 dev traces output for output
+  (`scripts/check_dialect_decoder.py`, GPU).
+- `dialects.data` builds expert and DAgger rows in dialects. Labels come from the v0.4 teacher on the
+  canonical form of the learner's prefix and are kept only if the teacher's continuation passes grader
+  v2; targets are rendered back into the dialect. The trainer is v0.4's, unchanged.
+- `dialects.evaluate` writes the v0.4 report format plus each episode's dialect, token style,
+  pagination, time unit and conflict code.
+- `scripts/dialect_transfer.py` runs collect-expert, rollout, assemble, train and eval with the v0.4
+  configuration; it refuses the test pool until a protocol is registered and locked.
+- `dialects.lock` and `dialects.audit`, with `scripts/lock_dialect_transfer.py` and
+  `scripts/verify_dialect_transfer.py`: the test lock (it refuses an unregistered protocol) and a
+  GPU-free audit that re-derives every DAgger label and replays every test episode in its dialect.
+- `dialects.analysis` and `scripts/analyze_dialect_transfer.py`: the registered analysis (Q1 transfer
+  per adapter with a paired-seed bootstrap; Q2/Q3 with the v0.4 statistics), recomputed by the audit.
+
 ## Limits
 
 - The underlying service is CaseDesk's: same record shapes, same fault mechanics. A dialect tests

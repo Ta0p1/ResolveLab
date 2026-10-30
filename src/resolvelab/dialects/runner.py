@@ -32,13 +32,16 @@ def run_dialect_episode(
     """Run one episode. Actions come from ``forced`` first, then ``policy`` (or the teacher).
 
     ``forced`` and the policy produce dialect actions (``{"name", "arguments"}`` dicts); the
-    policy is any object whose ``next(messages)`` returns ``(action, usage, seconds)``. The
-    teacher plans on canonical observations and its action is rendered into the dialect.
+    policy is any object whose ``next(messages)`` returns ``(action, usage, seconds)``; one with
+    ``set_dialect(dialect)`` is told the episode's dialect first. The teacher plans on
+    canonical observations and its action is rendered into the dialect.
     """
     state = state or WorldState(spec)
     translator = Translator(dialect, seed=spec["id"])
     task = dialect_task(dialect, spec, state)
     messages = initial_messages(dialect, task)
+    if hasattr(policy, "set_dialect"):
+        policy.set_dialect(dialect)
     observations, decisions, steps = [], [], []
     claim, error = None, None
     started = time.perf_counter()
