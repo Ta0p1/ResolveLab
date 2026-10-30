@@ -1,0 +1,17 @@
+# pre-commit install   (then hooks run on every commit)
+#
+# Ruff is pinned to the version in constraints.txt, so hooks format exactly as CI checks and
+# never touch already-formatted locked files. No whitespace or end-of-file fixers: they would
+# rewrite published evidence under artifacts/ and break its hashes.
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.1
+    hooks:
+      - id: ruff-check
+      - id: ruff-format
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
