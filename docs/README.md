@@ -17,3 +17,7 @@
 - [Study history](history.md): every study, its question, headline, status and evidence.
 - [v0.2 post-training protocol](post-training.md) and [development log](experiments.md).
 - [Workbench demo script](demo.md) · [Roadmap](roadmap.md).
+
+## Using the benchmark
+
+- [Evaluate your own model](models.md): `resolvelab casedesk`, providers, options and comparability.
