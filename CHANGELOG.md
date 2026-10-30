@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+- Add `resolvelab casedesk` (`episodes`, `run`, `eval`) and model providers: local
+  Transformers (`hf:`, the study's exact decoding), Ollama (`ollama:`, the study's schema),
+  any OpenAI-compatible server (`openai:`) and Claude through the Anthropic SDK
+  (`anthropic:`, optional extra). Providers never repair or retry a decision; API keys stay in
+  the environment. Hosted APIs get a portable root-object form of the action schema.
+- A new `resolvelab.main` entry point dispatches `casedesk`; every other command still runs
+  the original, locked `cli.py`. See `docs/models.md`.
+
 ## 0.4.0 — 2026-10-28
 
 ### Release

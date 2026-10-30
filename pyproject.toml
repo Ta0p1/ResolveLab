@@ -30,9 +30,10 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "ruff>=0.11,<1", "build>=1.2,<2"]
 browser = ["playwright>=1.50,<2"]
+anthropic = ["anthropic>=1,<2"]
 
 [project.scripts]
-resolvelab = "resolvelab.cli:main"
+resolvelab = "resolvelab.main:main"
 
 [project.urls]
 Repository = "https://github.com/Ta0p1/ResolveLab"
