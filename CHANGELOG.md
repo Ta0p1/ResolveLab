@@ -57,6 +57,13 @@
   locked source hash and adapters. `--contract study` evaluates on the study contract (the
   canonical dialect), the protocol's cost-of-diversity measurement; reports record the contract,
   the audit replays each episode in it, and the lock also refuses once such a report exists.
+- Run the dev phase (38 of 38 jobs; no plumbing defect, no deviation) and lock the test phase
+  (`artifacts/v0.5/test-lock.json`, 2026-10-31) before any test episode.
+- `scripts/verify_dialect_transfer.py` checks the lock's inputs while the test phase runs. Once
+  any result is published it runs the full audit, which now also checks the dev reports against
+  the hashes frozen in the lock and recomputes the dev analysis.
+- Add `scripts/package_dialect_transfer.py`, which copies the evidence into `artifacts/v0.5`
+  and refuses an incomplete report or a test report that ran on unlocked sources.
 
 ### Documentation
 

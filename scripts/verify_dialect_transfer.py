@@ -3,7 +3,9 @@
 Checks the lock's inputs, regenerates expert data, re-derives every DAgger label from its
 learner state, checks training reports against the locked adapters, replays every test
 episode in its dialect (the study-contract runs in the canonical one) over real HTTP, and
-recomputes the registered analysis. Exits cleanly, saying so, while there is no bundle.
+recomputes the registered analysis. Exits cleanly, saying so, while there is no bundle; between
+the lock and the results it checks the lock's inputs only, and any published result switches on
+the full audit.
 """
 
 import argparse
@@ -26,6 +28,17 @@ from resolvelab.dialects.audit import (
 
 ROOT = Path(__file__).resolve().parents[1]
 BUNDLE = ROOT / "artifacts/v0.5"
+# Everything the bundle publishes besides the lock; while none exists the test phase is running.
+RESULTS = (
+    "dev",
+    "test",
+    "study-contract",
+    "traces",
+    "training",
+    "data.zip",
+    "analysis-dev.json",
+    "analysis-test.json",
+)
 
 
 def read(path):
@@ -38,6 +51,8 @@ def verify(every=1, replay_every=1):
     manifest = load_manifest(ROOT / study["manifest"])
     assignment = load_assignment(ROOT / "benchmarks/casedesk-dialects-v1.json", manifest)
     verify_inputs(lock, manifest, assignment, study)
+    if not any((BUNDLE / name).exists() for name in RESULTS):
+        return None
 
     data = zipfile.ZipFile(BUNDLE / "data.zip")
     for name, expected in lock["data_sha256"].items():
@@ -60,6 +75,12 @@ def verify(every=1, replay_every=1):
         assert best["checkpoint"] == training["selected_checkpoint"] == entry["checkpoint"], key
         assert best["adapter_sha256"] == entry["sha256"], key
         assert sha(path.read_bytes()) == entry["training_report_sha256"], key
+
+    # The dev rehearsal as it stood at the lock, and its analysis.
+    dev = {p.name: sha(p.read_bytes()) for p in sorted((BUNDLE / "dev").glob("*.json"))}
+    assert dev == lock["dev_report_sha256"], "dev reports differ from the lock"
+    rehearsal = analyze(BUNDLE / "dev", ROOT / "artifacts/v0.4/dev", manifest, assignment, pool="dev")
+    same(json.loads(json.dumps(rehearsal)), read(BUNDLE / "analysis-dev.json"))
 
     # Held-out dialects, then the multi arms on the study contract (each report names its contract).
     reports = [
@@ -96,8 +117,13 @@ if __name__ == "__main__":
     args = parser.parse_args()
     if not (BUNDLE / "test-lock.json").exists():
         print("No dialect study bundle yet (artifacts/v0.5): nothing to verify.")
+    elif (counts := verify(args.dagger_every, args.replay_every)) is None:
+        print(
+            "Test phase locked, no results published yet: verified the lock's manifest, "
+            "assignment, study, source files and dialect prompts and grammars."
+        )
     else:
-        labels, replayed = verify(args.dagger_every, args.replay_every)
+        labels, replayed = counts
         print(
             f"Verified provenance, {labels} DAgger labels and {replayed} dialect test episode replays."
         )
