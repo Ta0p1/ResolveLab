@@ -6,7 +6,7 @@ the problem is documented next to it. The current study is v0.4.
 
 | Study | Question | Headline | Status | Evidence |
 |---|---|---|---|---|
-| **v0.5** (registered 2026-10-30) | Does what a model learned on one tool contract transfer to unseen API dialects, and does training on many dialects help? | None yet | Protocol registered; dev phase running, test not started | [protocol](dialect-transfer-protocol.md) · [dialects](dialects.md) |
+| **v0.5** (registered 2026-10-30) | Does what a model learned on one tool contract transfer to unseen API dialects, and does training on many dialects help? | None yet | Protocol registered; dev phase done 2026-10-31; test not started | [protocol](dialect-transfer-protocol.md) · [dialects](dialects.md) |
 | **v0.4** (2026-10) | Do learner-state (DAgger) labels beat the same amount of extra expert data? | DAgger 98.3% vs 90.8% on 120 independent episodes, +7.5 pp, CI [1.9, 13.3] | Current | [results](../artifacts/v0.4/RESULTS.md) · [protocol](casedesk-v2-protocol.md) · `scripts/verify_casedesk_v2.py` |
 | **v0.3** (2026-10) | Does LoRA help a 0.6B model on a second (HTTP) contract with format controlled? | 0/30 → 20–30/30 across three seeds | **Superseded**: three effective test records; the adapters copied the demo's layout ([review](v0.3-review.md)) | [results](../artifacts/v0.3/RESULTS.md) · [protocol](httpdesk-protocol.md) · `scripts/verify_http_study.py` |
 | **v0.2** (2026-10) | First local SFT on the SQLite sync service | 24/24 adapted vs base failures dominated by output-format errors | Historical; format confound disclosed | [results](../artifacts/v0.2/RESULTS.md) · [protocol](post-training.md) · `scripts/verify_experiment.py` |

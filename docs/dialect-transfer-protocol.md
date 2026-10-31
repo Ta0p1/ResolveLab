@@ -178,6 +178,27 @@ documented next to unchanged results. Existing v0.3 and v0.4 audits stay green: 
 
 None so far.
 
+## Run log
+
+**Dev phase**, from commit 3831439, 2026-10-30 18:16 to 2026-10-31 14:04 (local time, UTC−4).
+All 38 jobs completed, none retried.
+
+- Expert rows: 396 `train_core`, 395 `train_pool` and 273 `dev`, the v0.4 counts.
+- DAgger: 128 rollouts per seed (64 greedy, 64 sampled). Verified labels: 1036 for seed 3407, 913
+  for 42 and 907 for 2026. 5, 22 and 6 states were dropped as unrecoverable.
+- Training: all nine adapters completed. Each run selected epoch 3 by the registered rule.
+- Dev evaluation: all 19 arms ran their 40 episodes, and the analysis ran end to end.
+  - Every failed episode is a model failure (tool budget, invalid JSON or schema). No failure is
+    an environment error.
+  - The episodes ran in train dialects, which the multi arms trained on, so the numbers are not
+    evidence about transfer. Nothing was chosen or dropped on them.
+  - The rehearsal exposed no plumbing defect.
+- Compute: 19.8 hours of clock time. The host was asleep for 8.9 of them, in two sleeps
+  (20:57–01:15 and 02:27–07:02, from the Windows power log), and no job advanced while it slept.
+  That leaves 10.9 hours awake. The test phase is estimated at about 8 hours, which keeps the total
+  under the 30-hour cap by either count. If the host sleeps during the test phase, both counts are
+  reported.
+
 ## Known limits of the design
 
 - Dialects share CaseDesk's records, faults and conventions; this measures transfer across contracts, not
