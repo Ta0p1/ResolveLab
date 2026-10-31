@@ -1,0 +1,515 @@
+{
+  "phase": "test",
+  "locked_at": "2026-10-31T18:06:52.039292+00:00",
+  "commit": "d0921774e332f3ed16e282166b200515a6229e66",
+  "manifest_sha256": "e6f51f28e4d8d0bccabb11a63f6b3c6a738977062b45714b155dedd10a2291cc",
+  "assignment_sha256": "6b84ab711df6d11c24d599c3247cf91e62f9cd1ca627f88bd97c75f319d758e8",
+  "study_sha256": "7dafb8f665807e5ccdbfbbba644c82752faa1c2c7c2ac1ab2f04365463f77256",
+  "v04_lock_sha256": "e88ab50bdb595808b1f0dff1e9e0dd5f8903c152934c9005f529f6fe7287b72b",
+  "source_files": [
+    "__init__.py",
+    "__main__.py",
+    "api.py",
+    "benchmark.py",
+    "casedesk/__init__.py",
+    "casedesk/analysis.py",
+    "casedesk/cli.py",
+    "casedesk/data.py",
+    "casedesk/env.py",
+    "casedesk/evaluate.py",
+    "casedesk/grading.py",
+    "casedesk/manifest.py",
+    "casedesk/policy.py",
+    "casedesk/prompts.py",
+    "casedesk/runner.py",
+    "casedesk/stats.py",
+    "casedesk/teacher.py",
+    "casedesk/world.py",
+    "cli.py",
+    "curation.py",
+    "dialects/__init__.py",
+    "dialects/analysis.py",
+    "dialects/assignment.py",
+    "dialects/audit.py",
+    "dialects/data.py",
+    "dialects/evaluate.py",
+    "dialects/lock.py",
+    "dialects/policy.py",
+    "dialects/prompt.py",
+    "dialects/runner.py",
+    "dialects/spec.py",
+    "dialects/translate.py",
+    "evaluation.py",
+    "experiments.py",
+    "hf_policy.py",
+    "httpdesk/__init__.py",
+    "httpdesk/adapter.py",
+    "httpdesk/benchmark.py",
+    "httpdesk/demo.json",
+    "httpdesk/experiment.py",
+    "httpdesk/grading.py",
+    "httpdesk/policy.py",
+    "httpdesk/reference.py",
+    "httpdesk/schema.py",
+    "httpdesk/service.py",
+    "main.py",
+    "policies.py",
+    "providers/__init__.py",
+    "providers/anthropic.py",
+    "providers/base.py",
+    "providers/ollama.py",
+    "providers/openai_compat.py",
+    "runner.py",
+    "scenarios.py",
+    "store.py",
+    "tools.py",
+    "training.py",
+    "verification.py"
+  ],
+  "source_sha256": "fe7e1d78bba6b155fa9d364ee96a4ab898426b54669debd14f0150791930a089",
+  "prompts_sha256": "9bfd20cc775b13580532b18f68c9b60956ca8da7ac626b195771d58aea6c08fb",
+  "schemas_sha256": "88ac27101e3a86d95dead8cbd6888c12ca4ef57699aa73fb88f652ad106f0fb0",
+  "data_sha256": {
+    "data/bc-multi/dev.jsonl": "b5a43d07edbc110b7124e65a83192d0e7ce4f92a744138e0e576be10f5e7cb9d",
+    "data/bc-multi/train.jsonl": "5c050e720955fdd16ad5e8ae71b636d68b79f4333c0df84daa1ba5a6e5e6b70f",
+    "data/bc-volume-multi-2026/dev.jsonl": "b5a43d07edbc110b7124e65a83192d0e7ce4f92a744138e0e576be10f5e7cb9d",
+    "data/bc-volume-multi-2026/train.jsonl": "d5205a44a0ef9ee0deb1cde4bf195fce2ec2652ee877ca65e75941961bad2a3d",
+    "data/bc-volume-multi-3407/dev.jsonl": "b5a43d07edbc110b7124e65a83192d0e7ce4f92a744138e0e576be10f5e7cb9d",
+    "data/bc-volume-multi-3407/train.jsonl": "d5205a44a0ef9ee0deb1cde4bf195fce2ec2652ee877ca65e75941961bad2a3d",
+    "data/bc-volume-multi-42/dev.jsonl": "b5a43d07edbc110b7124e65a83192d0e7ce4f92a744138e0e576be10f5e7cb9d",
+    "data/bc-volume-multi-42/train.jsonl": "d5205a44a0ef9ee0deb1cde4bf195fce2ec2652ee877ca65e75941961bad2a3d",
+    "data/dagger-2026.jsonl": "05f1d6e799ed0fc1d0825599632def3edefa873f0e5861fec40667132e60a4bb",
+    "data/dagger-3407.jsonl": "619003fd5a1294aa5504a7c22048215786708f44e9826db8420806fd1233d581",
+    "data/dagger-42.jsonl": "0fd0f86090959f2713eaaeda30553414873f1da17979b2fa4dad5ef0f0720afd",
+    "data/dagger-multi-2026/dev.jsonl": "b5a43d07edbc110b7124e65a83192d0e7ce4f92a744138e0e576be10f5e7cb9d",
+    "data/dagger-multi-2026/train.jsonl": "e1bcc147730f0e471e474a4864cb6c0c74b41e1b72e723835f27ae650907716a",
+    "data/dagger-multi-3407/dev.jsonl": "b5a43d07edbc110b7124e65a83192d0e7ce4f92a744138e0e576be10f5e7cb9d",
+    "data/dagger-multi-3407/train.jsonl": "c5e32ff0a8f3fdd969d4c5bf38b9393610827d871f4a2ce30862c6f4d77475f7",
+    "data/dagger-multi-42/dev.jsonl": "b5a43d07edbc110b7124e65a83192d0e7ce4f92a744138e0e576be10f5e7cb9d",
+    "data/dagger-multi-42/train.jsonl": "96b69827cd9c0872b35033d42d21d0586a7993b52453edc4a04cb1ea50fcee8e",
+    "data/expert-dev.jsonl": "b5a43d07edbc110b7124e65a83192d0e7ce4f92a744138e0e576be10f5e7cb9d",
+    "data/expert-train_core.jsonl": "5c050e720955fdd16ad5e8ae71b636d68b79f4333c0df84daa1ba5a6e5e6b70f",
+    "data/expert-train_pool.jsonl": "3eb5f1f05e170e1b86a4e74a8db13a9682abe3f618e20f5108f0b9bfe4549e94"
+  },
+  "dev_report_sha256": {
+    "base-1.7b.json": "e10f0aa85ef89e215b5e2186a7dabdf509812582d8b1e28d72bf2b57a64855d5",
+    "bc-2026.json": "41d8310201ac3da6ffb944eb0354ecb9bdd3767e9ff05a383b461115e5b35ebc",
+    "bc-3407.json": "bb39654c26378b6d8f4b945b56281944d62678ff81a5e928cad388e29790e8f9",
+    "bc-42.json": "11b9f4c43cce2a079ad218475ffdb7ec20e17631ece84e6733bc3485c860e9ca",
+    "bc-multi-2026.json": "427431a69a3e36cc944ea907b6e006a4b21d6699ef946c8a74b2698f9e2d936c",
+    "bc-multi-3407.json": "de9fd7cd36e7f9c119255b6ace7901586f0fafacc09e1d668a9177e9768500fe",
+    "bc-multi-42.json": "154668f9a63c5efb112733785500a3ff7847a87a22351795794ba5c909d0a796",
+    "bc-volume-2026.json": "0e810a485beed863143dd1b2ff7bbdd1d8d98f95b9e921359030a8e50ac3b7ab",
+    "bc-volume-3407.json": "a69460c4d07d1e9c24aabf5397916751b7cf2d6f8aee2d915e8265e5b7bbe452",
+    "bc-volume-42.json": "e0bdd3d069029839b2a0fb9d83d7d3a58469a246e2acac1f5ab52df2f97068bb",
+    "bc-volume-multi-2026.json": "143a44d4192ae1cddb4eebd6905dec5616d243c2d48dcd5b4b771aab93823cb7",
+    "bc-volume-multi-3407.json": "3c66a484b7e6870300be2cac4ad89872778586c25e0b3967d93f767fe5f38ee3",
+    "bc-volume-multi-42.json": "49c1764446799e834d9df041f6637949721a48404a97456a7c37fc99cb279e1c",
+    "dagger-2026.json": "15f473385c7f6cdc286051a862bb364f2f24d175c8ebbb47db7f23a45c3729a0",
+    "dagger-3407.json": "16dbffe7b8f624fd04ebc1c08a36a7a9a2b03d8e0c73785dc89d66b9b61a9cec",
+    "dagger-42.json": "ed34bb72c30523c0725d30de59e431f9c66cf6d537cbf0e5c1d4073a2227d142",
+    "dagger-multi-2026.json": "53ce314fc460ea7bdb42fe7a9475affd3201b10d8c1b01291261ef4d0049f241",
+    "dagger-multi-3407.json": "246044365cf62ad52dfae16ddb3639fb2356070b59b325fd9a95e412017b9736",
+    "dagger-multi-42.json": "333490db0aa6f0fd46edeb75b3faf3dcbed163fe9a005dd5029e2231090a994b"
+  },
+  "adapters": {
+    "bc-3407": {
+      "checkpoint": "epoch-3",
+      "sha256": "2a8035902c8f9f6c6a32ac28e4767446515bf2f16c679563c36b72a853d280f0",
+      "training_report_sha256": "54926596df1bd1832190d7485ba4b16e6791975ce085dcd97085264d13ce635e",
+      "source": "v0.4 lock"
+    },
+    "bc-volume-3407": {
+      "checkpoint": "epoch-3",
+      "sha256": "45d4208254497a0f3dc781a6b64e8c516d9b3a9b9c977b3812a9f5b39bae89cf",
+      "training_report_sha256": "4c6439a4ff39e766633d8d3e874899cf9416039232277a0efe02293cdb91598a",
+      "source": "v0.4 lock"
+    },
+    "dagger-3407": {
+      "checkpoint": "epoch-2",
+      "sha256": "b9901e92879376c3bd0e0844d6b05f3dd35fdf1c8ff65068728397a8763fedfc",
+      "training_report_sha256": "4bedc5044b35c56327877d295d084d36c01ed934043e6a53d059a87b812ad5cf",
+      "source": "v0.4 lock"
+    },
+    "bc-multi-3407": {
+      "checkpoint": "epoch-3",
+      "sha256": "99bc3316fb1e9724f876b8dd92414e20400023c18a0079b108e3093f113d2585",
+      "training_report_sha256": "bb6c0d36da6cd105729d87bbd7b09db1d05bac1a64a10149d1aa2b1420d343b1"
+    },
+    "bc-volume-multi-3407": {
+      "checkpoint": "epoch-3",
+      "sha256": "668aa316b45c6d3b2ae88497dbaf2ce7ee9948f5dfe6c66bdb44495e7d91a1be",
+      "training_report_sha256": "7ff32be50ea7e1e5fe18720002b5856c7bf2a0a9d31f48b66973897b47fbcbc7"
+    },
+    "dagger-multi-3407": {
+      "checkpoint": "epoch-3",
+      "sha256": "09675dc9a3d2ff2ba88376bed91a3403b8e2fd9dbb2b3d7b23dffd99f314c88d",
+      "training_report_sha256": "0c349296bfdb9fb65cabdb448d2d439834dade57a4b2620b86a3a1bd0aa793d3"
+    },
+    "bc-42": {
+      "checkpoint": "epoch-3",
+      "sha256": "f9f6e4842c03acddd66b7dff23047a1b8f3b81f3f1b09a98c15f8c15b601ad82",
+      "training_report_sha256": "1f52837929a62220f682dac435dde2d9c39fda8fac75a89c620c7b21ee942f34",
+      "source": "v0.4 lock"
+    },
+    "bc-volume-42": {
+      "checkpoint": "epoch-3",
+      "sha256": "b16a9971364d929f00239ee96460f65a3ffc56272e225836a33d0dfdb9ae2cc6",
+      "training_report_sha256": "515b45aadbce3a2bec9867154c4ac61a66afbead073e6cf720857e1ed957c09b",
+      "source": "v0.4 lock"
+    },
+    "dagger-42": {
+      "checkpoint": "epoch-3",
+      "sha256": "f60a45ac15ac1a3e2800aa00d8223e5a379646714228b2bf265ff6c11a787f4c",
+      "training_report_sha256": "4e14c52e1dc3148cd2a1dcdc87ec2961d04fb602bfa6a67f9464ec19ae30c0a1",
+      "source": "v0.4 lock"
+    },
+    "bc-multi-42": {
+      "checkpoint": "epoch-3",
+      "sha256": "72c56aa873160d0798c9f6290fe72a1667d1b2881cb2271c72cfd4a0f43202de",
+      "training_report_sha256": "34ae36560b13d69d5b5d9b7601dff75b11136803b1937e7f0eb0fd608b0f0e1c"
+    },
+    "bc-volume-multi-42": {
+      "checkpoint": "epoch-3",
+      "sha256": "d2a882eb079804c217d7f71ecc7ab8f705b1dbc4b8a259f28fe6c81ce004c9b3",
+      "training_report_sha256": "d8592cddd396fb8c0f13cec9cdcdb2fe2c96e3567b3eccf44ac0ed4115c9ce3e"
+    },
+    "dagger-multi-42": {
+      "checkpoint": "epoch-3",
+      "sha256": "b8ab3f2a14a9d4abc84c11e5f41557caa0bbed73ef3c45e1e04f85848c72af5b",
+      "training_report_sha256": "1bf0dbb5becb189fd1d9ffd8feefc90977a0be1429ce846dc25fb2d937dcd23a"
+    },
+    "bc-2026": {
+      "checkpoint": "epoch-3",
+      "sha256": "6bdeb55cd8f81ca5def956366f7815ccb548ee4fde6ec51032c3bda73a00b6c3",
+      "training_report_sha256": "4d5ac5cede0df8f2c734469e033e534e43e8042963387eef4c0c2d2ffde68639",
+      "source": "v0.4 lock"
+    },
+    "bc-volume-2026": {
+      "checkpoint": "epoch-2",
+      "sha256": "f42002a4f413d9c3fb6d8a8deee58a102e506bb713d6094599e4db0c0e42de93",
+      "training_report_sha256": "768341961308194f34b244600f482f36b3eff74a3b92fe104df41414784c0939",
+      "source": "v0.4 lock"
+    },
+    "dagger-2026": {
+      "checkpoint": "epoch-3",
+      "sha256": "162540cc6ccf3404f424061cf4768b44ab989129a0ddc28c0f19f9d56c38f1ed",
+      "training_report_sha256": "5225d0f71c31bb41d0cfc1b6178e95c3f79beb5223911cee1b0269430429f99e",
+      "source": "v0.4 lock"
+    },
+    "bc-multi-2026": {
+      "checkpoint": "epoch-3",
+      "sha256": "dbc951f00f35a66e22f865ef6da3d4a5ff05d77e8e6aecbf7af0b34226f6557f",
+      "training_report_sha256": "04be45512451054644f2203ac558311dc6daa216e5ecc8452a6666c335fdb995"
+    },
+    "bc-volume-multi-2026": {
+      "checkpoint": "epoch-3",
+      "sha256": "7c2938ca5cb62f6b15c8934ab14534ca06f172854735aa69c8deddfa9fdc3227",
+      "training_report_sha256": "2d034abe63f9754eb808bc7e0b96f877b76b4fa6007ffd47373a303ead2eed4e"
+    },
+    "dagger-multi-2026": {
+      "checkpoint": "epoch-3",
+      "sha256": "2383f2ef902fcef4d02fd1983ddcafc6cf3634846c3e25c643a829e827bc7e55",
+      "training_report_sha256": "3be8afb3e13b82ed1acf61ecba131fdb310ac5129e5d07230488c95d4976f740"
+    }
+  },
+  "training": {
+    "bc-multi-3407": {
+      "data_sha256": {
+        "train": "5c050e720955fdd16ad5e8ae71b636d68b79f4333c0df84daa1ba5a6e5e6b70f",
+        "dev": "b5a43d07edbc110b7124e65a83192d0e7ce4f92a744138e0e576be10f5e7cb9d"
+      },
+      "examples": {
+        "train": 396,
+        "dev": 273
+      },
+      "epochs": [
+        {
+          "epoch": 1,
+          "train_loss": 0.04895497185522588,
+          "dev_loss": 0.012973647872754209,
+          "checkpoint": "epoch-1",
+          "adapter_sha256": "258d82e135fe091195b2e503c55f70856109d08bd6218046792f988c29d64b9a"
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.003260605858662934,
+          "dev_loss": 0.0060310438066233036,
+          "checkpoint": "epoch-2",
+          "adapter_sha256": "2719adad8f0392848cb9f7ee322b11ca5feed5e856e99b9a6095fc9073eaef98"
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.0003789402599059513,
+          "dev_loss": 0.005373939853515003,
+          "checkpoint": "epoch-3",
+          "adapter_sha256": "99bc3316fb1e9724f876b8dd92414e20400023c18a0079b108e3093f113d2585"
+        }
+      ]
+    },
+    "bc-volume-multi-3407": {
+      "data_sha256": {
+        "train": "d5205a44a0ef9ee0deb1cde4bf195fce2ec2652ee877ca65e75941961bad2a3d",
+        "dev": "b5a43d07edbc110b7124e65a83192d0e7ce4f92a744138e0e576be10f5e7cb9d"
+      },
+      "examples": {
+        "train": 791,
+        "dev": 273
+      },
+      "epochs": [
+        {
+          "epoch": 1,
+          "train_loss": 0.031192866540010623,
+          "dev_loss": 0.0028312525980490576,
+          "checkpoint": "epoch-1",
+          "adapter_sha256": "11f8f3ddc4371586d13a93ea2411346673b541ce8915f64cbd31ac7bb7031bb9"
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.0004113138541246758,
+          "dev_loss": 0.00024757469489939055,
+          "checkpoint": "epoch-2",
+          "adapter_sha256": "73e138ad16f7c53a2c261b067064a748364f0f13a90ee4245cfd9c526735117a"
+        },
+        {
+          "epoch": 3,
+          "train_loss": 4.273493392732116e-05,
+          "dev_loss": 0.00014127573321685304,
+          "checkpoint": "epoch-3",
+          "adapter_sha256": "668aa316b45c6d3b2ae88497dbaf2ce7ee9948f5dfe6c66bdb44495e7d91a1be"
+        }
+      ]
+    },
+    "dagger-multi-3407": {
+      "data_sha256": {
+        "train": "c5e32ff0a8f3fdd969d4c5bf38b9393610827d871f4a2ce30862c6f4d77475f7",
+        "dev": "b5a43d07edbc110b7124e65a83192d0e7ce4f92a744138e0e576be10f5e7cb9d"
+      },
+      "examples": {
+        "train": 791,
+        "dev": 273
+      },
+      "epochs": [
+        {
+          "epoch": 1,
+          "train_loss": 0.02564326593198697,
+          "dev_loss": 0.0012643308890467604,
+          "checkpoint": "epoch-1",
+          "adapter_sha256": "63215ce07ee684fa7618a554b114131806588d4776a29d037c2b909bff5d5bb3"
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.0018750223326098137,
+          "dev_loss": 0.0007226177006239976,
+          "checkpoint": "epoch-2",
+          "adapter_sha256": "018c8996293e7f65457e3c344c0bb5728e5b2dbb966d628d40a101466c4e5f85"
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.0005244218368605578,
+          "dev_loss": 0.0005862327460541982,
+          "checkpoint": "epoch-3",
+          "adapter_sha256": "09675dc9a3d2ff2ba88376bed91a3403b8e2fd9dbb2b3d7b23dffd99f314c88d"
+        }
+      ]
+    },
+    "bc-multi-42": {
+      "data_sha256": {
+        "train": "5c050e720955fdd16ad5e8ae71b636d68b79f4333c0df84daa1ba5a6e5e6b70f",
+        "dev": "b5a43d07edbc110b7124e65a83192d0e7ce4f92a744138e0e576be10f5e7cb9d"
+      },
+      "examples": {
+        "train": 396,
+        "dev": 273
+      },
+      "epochs": [
+        {
+          "epoch": 1,
+          "train_loss": 0.048945218323402664,
+          "dev_loss": 0.013507810097222545,
+          "checkpoint": "epoch-1",
+          "adapter_sha256": "d7af4dc5b5f40441417209b2824f53bba68b59da751fe0af936a83061c91f26f"
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.004926467787606668,
+          "dev_loss": 0.0027792045986443194,
+          "checkpoint": "epoch-2",
+          "adapter_sha256": "7d600a226a61540d0b0e1b15122d1b6298c303c043ca929445530fdecd489fd8"
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.000598581733194491,
+          "dev_loss": 0.0017357849748729395,
+          "checkpoint": "epoch-3",
+          "adapter_sha256": "72c56aa873160d0798c9f6290fe72a1667d1b2881cb2271c72cfd4a0f43202de"
+        }
+      ]
+    },
+    "bc-volume-multi-42": {
+      "data_sha256": {
+        "train": "d5205a44a0ef9ee0deb1cde4bf195fce2ec2652ee877ca65e75941961bad2a3d",
+        "dev": "b5a43d07edbc110b7124e65a83192d0e7ce4f92a744138e0e576be10f5e7cb9d"
+      },
+      "examples": {
+        "train": 791,
+        "dev": 273
+      },
+      "epochs": [
+        {
+          "epoch": 1,
+          "train_loss": 0.02559699264163791,
+          "dev_loss": 0.002199681178430431,
+          "checkpoint": "epoch-1",
+          "adapter_sha256": "0da4844f306a9feee5a3da5920f3d7ebc9cc8218d69d26967725acbfc345f1a5"
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.0010738041236770994,
+          "dev_loss": 0.0011451602268666356,
+          "checkpoint": "epoch-2",
+          "adapter_sha256": "03c041c9103c195b704e744704e73f2f1b3403764e01ff526d875e6dabebb6fb"
+        },
+        {
+          "epoch": 3,
+          "train_loss": 6.06250191913952e-05,
+          "dev_loss": 0.0008553410585036953,
+          "checkpoint": "epoch-3",
+          "adapter_sha256": "d2a882eb079804c217d7f71ecc7ab8f705b1dbc4b8a259f28fe6c81ce004c9b3"
+        }
+      ]
+    },
+    "dagger-multi-42": {
+      "data_sha256": {
+        "train": "96b69827cd9c0872b35033d42d21d0586a7993b52453edc4a04cb1ea50fcee8e",
+        "dev": "b5a43d07edbc110b7124e65a83192d0e7ce4f92a744138e0e576be10f5e7cb9d"
+      },
+      "examples": {
+        "train": 791,
+        "dev": 273
+      },
+      "epochs": [
+        {
+          "epoch": 1,
+          "train_loss": 0.03251112398645152,
+          "dev_loss": 0.0014304594377345717,
+          "checkpoint": "epoch-1",
+          "adapter_sha256": "c30b27332147a6ce6efbee5e66e067b9b288ce378b60482e6c70be12ec73c396"
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.0007607421469441411,
+          "dev_loss": 0.0006184444881800837,
+          "checkpoint": "epoch-2",
+          "adapter_sha256": "f6a71a35c6bcf0e7c5b44101326920ca89db1984f69830d5d778f171dc620649"
+        },
+        {
+          "epoch": 3,
+          "train_loss": 8.935204151498654e-05,
+          "dev_loss": 0.000505612472317279,
+          "checkpoint": "epoch-3",
+          "adapter_sha256": "b8ab3f2a14a9d4abc84c11e5f41557caa0bbed73ef3c45e1e04f85848c72af5b"
+        }
+      ]
+    },
+    "bc-multi-2026": {
+      "data_sha256": {
+        "train": "5c050e720955fdd16ad5e8ae71b636d68b79f4333c0df84daa1ba5a6e5e6b70f",
+        "dev": "b5a43d07edbc110b7124e65a83192d0e7ce4f92a744138e0e576be10f5e7cb9d"
+      },
+      "examples": {
+        "train": 396,
+        "dev": 273
+      },
+      "epochs": [
+        {
+          "epoch": 1,
+          "train_loss": 0.04486371035741596,
+          "dev_loss": 0.014404384127316866,
+          "checkpoint": "epoch-1",
+          "adapter_sha256": "c9670639dc6c88195d1cc3fa5fa64b7f371a5572930422be2ee50ca46f8c2961"
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.0027489844740048305,
+          "dev_loss": 0.0033191957616108395,
+          "checkpoint": "epoch-2",
+          "adapter_sha256": "a749a8dc23c3129175c4607fddf4302c0d2a42f4b0e20eb38dcf2a74c7d27b2d"
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.0003563172600304898,
+          "dev_loss": 0.0030924330112833557,
+          "checkpoint": "epoch-3",
+          "adapter_sha256": "dbc951f00f35a66e22f865ef6da3d4a5ff05d77e8e6aecbf7af0b34226f6557f"
+        }
+      ]
+    },
+    "bc-volume-multi-2026": {
+      "data_sha256": {
+        "train": "d5205a44a0ef9ee0deb1cde4bf195fce2ec2652ee877ca65e75941961bad2a3d",
+        "dev": "b5a43d07edbc110b7124e65a83192d0e7ce4f92a744138e0e576be10f5e7cb9d"
+      },
+      "examples": {
+        "train": 791,
+        "dev": 273
+      },
+      "epochs": [
+        {
+          "epoch": 1,
+          "train_loss": 0.032156616290919024,
+          "dev_loss": 0.002275368809908812,
+          "checkpoint": "epoch-1",
+          "adapter_sha256": "7b676102ed76c4abd54b4d3a6893af48e078ec0ffa8de2a151fc710d37ac2ffe"
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.00043950161158271716,
+          "dev_loss": 0.0007660066638767792,
+          "checkpoint": "epoch-2",
+          "adapter_sha256": "c2b25e80b4c0a01cdc04a71ac7bafec79a53b51c5a40f5151295fee1923a9acf"
+        },
+        {
+          "epoch": 3,
+          "train_loss": 5.923231284654213e-05,
+          "dev_loss": 0.00014086463403876053,
+          "checkpoint": "epoch-3",
+          "adapter_sha256": "7c2938ca5cb62f6b15c8934ab14534ca06f172854735aa69c8deddfa9fdc3227"
+        }
+      ]
+    },
+    "dagger-multi-2026": {
+      "data_sha256": {
+        "train": "e1bcc147730f0e471e474a4864cb6c0c74b41e1b72e723835f27ae650907716a",
+        "dev": "b5a43d07edbc110b7124e65a83192d0e7ce4f92a744138e0e576be10f5e7cb9d"
+      },
+      "examples": {
+        "train": 791,
+        "dev": 273
+      },
+      "epochs": [
+        {
+          "epoch": 1,
+          "train_loss": 0.0352435043874386,
+          "dev_loss": 0.003434590344028382,
+          "checkpoint": "epoch-1",
+          "adapter_sha256": "89af800ac19b141b0af63120403da0b4fb87c3af53f1351dae3b1823566e1c97"
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.0007591759558446395,
+          "dev_loss": 0.001398382910788218,
+          "checkpoint": "epoch-2",
+          "adapter_sha256": "7bee4f3e78eec4b46005670475be123281d2983661679a71693b6dc748ed6403"
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.00017506437075824616,
+          "dev_loss": 0.00017376125974789014,
+          "checkpoint": "epoch-3",
+          "adapter_sha256": "2383f2ef902fcef4d02fd1983ddcafc6cf3634846c3e25c643a829e827bc7e55"
+        }
+      ]
+    }
+  }
+}
