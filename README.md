@@ -65,6 +65,11 @@ codes and time units, over the same service and grader. Protocol registered and 
 before any held-out episode. The `-multi` arms train on the same kinds of data as their v0.4
 counterparts, with each episode in its own train dialect.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dialect-transfer-results-dark.svg">
+  <img alt="Left: pass rate per arm in held-out dialects against the original contract: Qwen3-1.7B base 16.7% vs 23.3%, bc 40.6% vs 90.8%, bc-volume 53.6% vs 90.8%, dagger 61.7% vs 98.3%, bc-multi 53.9% vs 55.6%, bc-volume-multi 67.2% vs 50.0%, dagger-multi 81.4% vs 95.0%. Right: failed episodes by cause: bc-volume-multi 118 in held-out dialects (73 token copy errors) and 180 on the original contract (166); dagger-multi 67 and 18, with no token copy errors." src="docs/assets/dialect-transfer-results-light.svg">
+</picture>
+
 | Arm | Seeds 3407 / 42 / 2026 | Held-out dialects | Original contract |
 |---|---|---:|---:|
 | Qwen3-1.7B base | 20 | 16.7% | 23.3% |

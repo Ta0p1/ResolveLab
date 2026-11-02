@@ -52,6 +52,11 @@
 并发令牌、分页、状态码和时间单位也不同，服务和评分器不变。实验方案在任何留出方言回合之前登记，
 输入也已锁定。`-multi` 组使用与 v0.4 对应组同类的数据，只是每个回合都渲染成各自的训练方言。
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dialect-transfer-results-dark.svg">
+  <img alt="左：各方案在留出方言与原始接口上的通过率，每个点是一个训练种子；右：失败回合按原因分类。" src="docs/assets/dialect-transfer-results-light.svg">
+</picture>
+
 | 方案 | 种子 3407 / 42 / 2026 | 留出方言 | 原始接口 |
 |---|---|---:|---:|
 | Qwen3-1.7B 基线 | 20 | 16.7% | 23.3% |

@@ -70,6 +70,8 @@
   `dagger-multi − bc-volume-multi` = +14.2 pp, CI [4.2, 23.9]. The README shows both studies.
 - Add `scripts/summarize_dialect_failures.py`, an exploratory failure taxonomy written after the
   results, which the audit recomputes. CI thins the dialect audit's replays as it does for v0.4.
+- Add `scripts/make_dialect_figure.py`, the README figure rendered from the published bundle; a
+  test fails if the committed figure differs from what the bundle produces.
 
 ### Documentation
 

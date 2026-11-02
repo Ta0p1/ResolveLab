@@ -1,5 +1,6 @@
-"""The exploratory failure taxonomy of the dialect study, on hand-written rows and traces."""
+"""The dialect study's exploratory failure taxonomy, on hand-written rows, and its README figure."""
 
+import importlib
 import importlib.util
 from pathlib import Path
 
@@ -89,3 +90,11 @@ def test_escalations_share_a_cause(episode, category):
 
 def test_every_other_failure_is_other(episode):
     assert module.cause(row(category="redundant_write"), trace(episode)) == "other"
+
+
+@pytest.mark.parametrize("theme", ["light", "dark"])
+def test_committed_figure_is_the_one_the_bundle_produces(monkeypatch, theme):
+    monkeypatch.syspath_prepend(str(ROOT / "scripts"))
+    figure = importlib.import_module("make_dialect_figure")
+    path = ROOT / f"docs/assets/dialect-transfer-results-{theme}.svg"
+    assert path.read_text(encoding="utf-8") == figure.render(theme, *figure.data())
