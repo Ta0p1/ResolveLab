@@ -1,0 +1,173 @@
+{
+  "test/bc": {
+    "episodes": 360,
+    "failures": 214,
+    "causes": {
+      "token runs to output cap": 0,
+      "malformed-token loop": 14,
+      "other invalid output": 5,
+      "repeated-write loop": 3,
+      "other budget loop": 45,
+      "wrong-record write": 34,
+      "wrong-value write": 1,
+      "claims success, no write attempted": 65,
+      "claims success after a refused write": 21,
+      "escalation error": 24,
+      "other": 2
+    },
+    "episodes_with_a_commit": 110,
+    "episodes_with_an_unsafe_write": 37
+  },
+  "test/bc-volume": {
+    "episodes": 360,
+    "failures": 167,
+    "causes": {
+      "token runs to output cap": 3,
+      "malformed-token loop": 14,
+      "other invalid output": 1,
+      "repeated-write loop": 0,
+      "other budget loop": 26,
+      "wrong-record write": 15,
+      "wrong-value write": 0,
+      "claims success, no write attempted": 35,
+      "claims success after a refused write": 55,
+      "escalation error": 18,
+      "other": 0
+    },
+    "episodes_with_a_commit": 112,
+    "episodes_with_an_unsafe_write": 15
+  },
+  "test/dagger": {
+    "episodes": 360,
+    "failures": 138,
+    "causes": {
+      "token runs to output cap": 0,
+      "malformed-token loop": 0,
+      "other invalid output": 2,
+      "repeated-write loop": 5,
+      "other budget loop": 27,
+      "wrong-record write": 14,
+      "wrong-value write": 1,
+      "claims success, no write attempted": 31,
+      "claims success after a refused write": 31,
+      "escalation error": 26,
+      "other": 1
+    },
+    "episodes_with_a_commit": 144,
+    "episodes_with_an_unsafe_write": 15
+  },
+  "test/bc-multi": {
+    "episodes": 360,
+    "failures": 166,
+    "causes": {
+      "token runs to output cap": 7,
+      "malformed-token loop": 39,
+      "other invalid output": 0,
+      "repeated-write loop": 0,
+      "other budget loop": 10,
+      "wrong-record write": 15,
+      "wrong-value write": 2,
+      "claims success, no write attempted": 58,
+      "claims success after a refused write": 26,
+      "escalation error": 9,
+      "other": 0
+    },
+    "episodes_with_a_commit": 99,
+    "episodes_with_an_unsafe_write": 17
+  },
+  "test/bc-volume-multi": {
+    "episodes": 360,
+    "failures": 118,
+    "causes": {
+      "token runs to output cap": 12,
+      "malformed-token loop": 61,
+      "other invalid output": 0,
+      "repeated-write loop": 0,
+      "other budget loop": 0,
+      "wrong-record write": 4,
+      "wrong-value write": 0,
+      "claims success, no write attempted": 13,
+      "claims success after a refused write": 17,
+      "escalation error": 11,
+      "other": 0
+    },
+    "episodes_with_a_commit": 91,
+    "episodes_with_an_unsafe_write": 4
+  },
+  "test/dagger-multi": {
+    "episodes": 360,
+    "failures": 67,
+    "causes": {
+      "token runs to output cap": 0,
+      "malformed-token loop": 0,
+      "other invalid output": 3,
+      "repeated-write loop": 8,
+      "other budget loop": 8,
+      "wrong-record write": 5,
+      "wrong-value write": 5,
+      "claims success, no write attempted": 25,
+      "claims success after a refused write": 7,
+      "escalation error": 5,
+      "other": 1
+    },
+    "episodes_with_a_commit": 156,
+    "episodes_with_an_unsafe_write": 13
+  },
+  "study-contract/bc-multi": {
+    "episodes": 360,
+    "failures": 160,
+    "causes": {
+      "token runs to output cap": 102,
+      "malformed-token loop": 15,
+      "other invalid output": 0,
+      "repeated-write loop": 0,
+      "other budget loop": 2,
+      "wrong-record write": 9,
+      "wrong-value write": 3,
+      "claims success, no write attempted": 11,
+      "claims success after a refused write": 14,
+      "escalation error": 0,
+      "other": 4
+    },
+    "episodes_with_a_commit": 93,
+    "episodes_with_an_unsafe_write": 12
+  },
+  "study-contract/bc-volume-multi": {
+    "episodes": 360,
+    "failures": 180,
+    "causes": {
+      "token runs to output cap": 132,
+      "malformed-token loop": 34,
+      "other invalid output": 0,
+      "repeated-write loop": 0,
+      "other budget loop": 0,
+      "wrong-record write": 1,
+      "wrong-value write": 1,
+      "claims success, no write attempted": 5,
+      "claims success after a refused write": 7,
+      "escalation error": 0,
+      "other": 0
+    },
+    "episodes_with_a_commit": 38,
+    "episodes_with_an_unsafe_write": 2
+  },
+  "study-contract/dagger-multi": {
+    "episodes": 360,
+    "failures": 18,
+    "causes": {
+      "token runs to output cap": 0,
+      "malformed-token loop": 0,
+      "other invalid output": 0,
+      "repeated-write loop": 1,
+      "other budget loop": 0,
+      "wrong-record write": 4,
+      "wrong-value write": 2,
+      "claims success, no write attempted": 9,
+      "claims success after a refused write": 2,
+      "escalation error": 0,
+      "other": 0
+    },
+    "episodes_with_a_commit": 174,
+    "episodes_with_an_unsafe_write": 6
+  }
+}

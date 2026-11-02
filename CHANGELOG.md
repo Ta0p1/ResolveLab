@@ -64,6 +64,12 @@
   the hashes frozen in the lock and recomputes the dev analysis.
 - Add `scripts/package_dialect_transfer.py`, which copies the evidence into `artifacts/v0.5`
   and refuses an incomplete report or a test report that ran on unlocked sources.
+- Publish the results (`artifacts/v0.5/RESULTS.md`, reports, traces, data and analyses). Q1:
+  no adapter transfers fully. Q2: supported, `bc-multi − bc` = +13.3 pp, CI [1.1, 26.1], with a
+  stated cost on the original contract. Q3: supported but fails safety non-inferiority,
+  `dagger-multi − bc-volume-multi` = +14.2 pp, CI [4.2, 23.9]. The README shows both studies.
+- Add `scripts/summarize_dialect_failures.py`, an exploratory failure taxonomy written after the
+  results, which the audit recomputes. CI thins the dialect audit's replays as it does for v0.4.
 
 ### Documentation
 

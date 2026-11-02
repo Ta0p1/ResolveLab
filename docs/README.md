@@ -10,8 +10,8 @@
 
 - [CaseDesk as an environment](environment.md): `reset` / `step` / `state`, reward, pools, fidelity tests.
 - [API dialects](dialects.md): generated tool contracts over the same service, faults and grader, for
-  transfer experiments (environment only, no model results yet), and the
-  [transfer protocol](dialect-transfer-protocol.md) (registered 2026-10-30, not finished).
+  transfer experiments, the [transfer protocol](dialect-transfer-protocol.md) (registered
+  2026-10-30) and its [results](../artifacts/v0.5/RESULTS.md).
 - [Architecture](architecture.md): the SQLite sync service, the CaseDesk HTTP service and their guarantees.
 - [CaseDesk v0.3 protocol](httpdesk-protocol.md) and [model card](httpdesk-model-card.md).
 - [Evaluation protocol for the sync service](evaluation.md) and its [model card](model-card.md).

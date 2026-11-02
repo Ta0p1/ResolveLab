@@ -2,8 +2,8 @@
 
 **Status: registered 2026-10-30, before any model episode in a held-out dialect.** From this
 commit the questions, arms, outcomes, analysis and decision rules below are binding. A later change
-is listed under [Deviations](#deviations) with its date, next to unchanged results. Nothing below
-is a result. Environment: [API dialects](dialects.md). Prior study: [v0.4 results](../artifacts/v0.4/RESULTS.md).
+is listed under [Deviations](#deviations) with its date, next to unchanged results. The study is
+complete: [results](../artifacts/v0.5/RESULTS.md). Nothing below is a result. Environment: [API dialects](dialects.md). Prior study: [v0.4 results](../artifacts/v0.4/RESULTS.md).
 
 ## Why
 
@@ -176,7 +176,15 @@ documented next to unchanged results. Existing v0.3 and v0.4 audits stay green: 
 
 ## Deviations
 
-None so far.
+No question, arm, outcome, analysis or decision rule changed. One reading of the protocol is
+disclosed here (2026-11-02):
+
+- **The compute cap.** "Hours of wall-clock time with study jobs on the card" was read as time jobs
+  were running: 21.2 hours with the host awake. Counting the 8.9 hours the host slept with every
+  job paused, the clock total is 30.03 hours, about two minutes over the cap, reached during the
+  last job (`bc-volume-multi` seed 2026 on the study contract). That evaluation was kept. Q1, Q2
+  and Q3 do not use it, so dropping it changes no verdict; the results state this next to the cost
+  of diversity.
 
 ## Run log
 
@@ -198,6 +206,20 @@ All 38 jobs completed, none retried.
   That leaves 10.9 hours awake. The test phase is estimated at about 8 hours, which keeps the total
   under the 30-hour cap by either count. If the host sleeps during the test phase, both counts are
   reported.
+
+**Lock**: `artifacts/v0.5/test-lock.json`, 2026-10-31 14:06, recording commit d092177, committed
+and pushed in 7252ddf before the first test episode.
+
+**Test phase**, 2026-10-31 14:07 to 2026-11-02 10:54 (local time). All 28 evaluations completed.
+
+- The host did not sleep while jobs ran. The session running the graph ended at about 00:14 on
+  2026-11-01, with the last evaluation at 102 of 120 episodes. It resumed from its report on
+  2026-11-02 and ran the remaining 18. Decoding is greedy and the environment deterministic.
+- Compute: 10.2 hours with jobs running, more than the 8 estimated. Totals are in
+  [Deviations](#deviations).
+- After the lock, only the audit, packaging and diagnostic scripts and the documents changed. The
+  source hash, benchmarks and adapters did not, and every test report records the locked source
+  hash.
 
 ## Known limits of the design
 

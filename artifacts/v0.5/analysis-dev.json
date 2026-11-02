@@ -1,0 +1,1361 @@
+{
+  "pool": "dev",
+  "episodes": 40,
+  "arms": {
+    "base-1.7b": {
+      "seeds": {
+        "None": {
+          "passed": 8,
+          "episodes": 40,
+          "wilson_95": [
+            0.1049998967188637,
+            0.3475730647562145
+          ],
+          "safety_violations": 27,
+          "unsafe_mutations": 11,
+          "false_successes": 22,
+          "spurious_escalations": 5,
+          "redundant_commits": 3,
+          "located_target": 19,
+          "v03_grader_passed": 8,
+          "failure_categories": {
+            "false_success": 9,
+            "redundant_write": 2,
+            "spurious_escalation": 5,
+            "unjustified_escalation": 5,
+            "unsafe_mutation": 11
+          },
+          "mean_tools": 6.725,
+          "output_tokens": 7544,
+          "input_tokens": 536195,
+          "median_seconds": 7.497333782001078
+        }
+      },
+      "success": {
+        "mean": 0.2,
+        "min": 0.2,
+        "max": 0.2,
+        "per_seed": [
+          0.2
+        ]
+      },
+      "slices": {
+        "token_etag": {
+          "episodes": 9,
+          "mean_rate": 0.3333333333333333
+        },
+        "token_revision": {
+          "episodes": 12,
+          "mean_rate": 0.0
+        },
+        "token_weak_etag": {
+          "episodes": 10,
+          "mean_rate": 0.3
+        },
+        "token_version_tag": {
+          "episodes": 9,
+          "mean_rate": 0.2222222222222222
+        },
+        "cursor_page": {
+          "episodes": 8,
+          "mean_rate": 0.125
+        },
+        "cursor_opaque": {
+          "episodes": 12,
+          "mean_rate": 0.08333333333333333
+        },
+        "cursor_offset": {
+          "episodes": 10,
+          "mean_rate": 0.4
+        },
+        "cursor_page_number": {
+          "episodes": 10,
+          "mean_rate": 0.2
+        },
+        "unit_seconds": {
+          "episodes": 16,
+          "mean_rate": 0.1875
+        },
+        "unit_milliseconds": {
+          "episodes": 24,
+          "mean_rate": 0.20833333333333334
+        },
+        "conflict_is_409": {
+          "episodes": 22,
+          "mean_rate": 0.22727272727272727
+        },
+        "phrasing_seen": {
+          "episodes": 40,
+          "mean_rate": 0.2
+        },
+        "phrasing_held_out": {
+          "episodes": 0,
+          "mean_rate": null
+        },
+        "dev_conflict_injection": {
+          "episodes": 10,
+          "mean_rate": 0.0
+        },
+        "dev_rate_injection": {
+          "episodes": 10,
+          "mean_rate": 0.1
+        },
+        "dev_revoke_lost": {
+          "episodes": 10,
+          "mean_rate": 0.4
+        },
+        "dev_noop_rate": {
+          "episodes": 10,
+          "mean_rate": 0.3
+        }
+      }
+    },
+    "bc": {
+      "seeds": {
+        "2026": {
+          "passed": 25,
+          "episodes": 40,
+          "wilson_95": [
+            0.4703243901750228,
+            0.7577702092103612
+          ],
+          "safety_violations": 8,
+          "unsafe_mutations": 3,
+          "false_successes": 8,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 35,
+          "v03_grader_passed": 25,
+          "failure_categories": {
+            "false_success": 5,
+            "unfinished": 7,
+            "unsafe_mutation": 3
+          },
+          "mean_tools": 8.375,
+          "output_tokens": 10088,
+          "input_tokens": 782741,
+          "median_seconds": 20.650057296497835
+        },
+        "3407": {
+          "passed": 25,
+          "episodes": 40,
+          "wilson_95": [
+            0.4703243901750228,
+            0.7577702092103612
+          ],
+          "safety_violations": 3,
+          "unsafe_mutations": 0,
+          "false_successes": 2,
+          "spurious_escalations": 1,
+          "redundant_commits": 0,
+          "located_target": 35,
+          "v03_grader_passed": 25,
+          "failure_categories": {
+            "false_success": 2,
+            "spurious_escalation": 1,
+            "unfinished": 9,
+            "unjustified_escalation": 3
+          },
+          "mean_tools": 9.125,
+          "output_tokens": 10172,
+          "input_tokens": 875049,
+          "median_seconds": 22.53856689749955
+        },
+        "42": {
+          "passed": 18,
+          "episodes": 40,
+          "wilson_95": [
+            0.3070530771108914,
+            0.601709083134955
+          ],
+          "safety_violations": 14,
+          "unsafe_mutations": 4,
+          "false_successes": 12,
+          "spurious_escalations": 3,
+          "redundant_commits": 0,
+          "located_target": 33,
+          "v03_grader_passed": 18,
+          "failure_categories": {
+            "false_success": 7,
+            "spurious_escalation": 3,
+            "unfinished": 5,
+            "unjustified_escalation": 3,
+            "unsafe_mutation": 4
+          },
+          "mean_tools": 7.975,
+          "output_tokens": 9240,
+          "input_tokens": 731609,
+          "median_seconds": 10.01083996899979
+        }
+      },
+      "success": {
+        "mean": 0.5666666666666667,
+        "min": 0.45,
+        "max": 0.625,
+        "per_seed": [
+          0.625,
+          0.625,
+          0.45
+        ]
+      },
+      "slices": {
+        "token_etag": {
+          "episodes": 9,
+          "mean_rate": 0.4444444444444444
+        },
+        "token_revision": {
+          "episodes": 12,
+          "mean_rate": 0.5833333333333334
+        },
+        "token_weak_etag": {
+          "episodes": 10,
+          "mean_rate": 0.6333333333333333
+        },
+        "token_version_tag": {
+          "episodes": 9,
+          "mean_rate": 0.5925925925925926
+        },
+        "cursor_page": {
+          "episodes": 8,
+          "mean_rate": 0.5833333333333334
+        },
+        "cursor_opaque": {
+          "episodes": 12,
+          "mean_rate": 0.4166666666666667
+        },
+        "cursor_offset": {
+          "episodes": 10,
+          "mean_rate": 0.6333333333333333
+        },
+        "cursor_page_number": {
+          "episodes": 10,
+          "mean_rate": 0.6666666666666666
+        },
+        "unit_seconds": {
+          "episodes": 16,
+          "mean_rate": 0.4375
+        },
+        "unit_milliseconds": {
+          "episodes": 24,
+          "mean_rate": 0.6527777777777778
+        },
+        "conflict_is_409": {
+          "episodes": 22,
+          "mean_rate": 0.48484848484848486
+        },
+        "phrasing_seen": {
+          "episodes": 40,
+          "mean_rate": 0.5666666666666667
+        },
+        "phrasing_held_out": {
+          "episodes": 0,
+          "mean_rate": null
+        },
+        "dev_conflict_injection": {
+          "episodes": 10,
+          "mean_rate": 0.6
+        },
+        "dev_rate_injection": {
+          "episodes": 10,
+          "mean_rate": 0.26666666666666666
+        },
+        "dev_revoke_lost": {
+          "episodes": 10,
+          "mean_rate": 0.5
+        },
+        "dev_noop_rate": {
+          "episodes": 10,
+          "mean_rate": 0.9
+        }
+      }
+    },
+    "bc-multi": {
+      "seeds": {
+        "2026": {
+          "passed": 29,
+          "episodes": 40,
+          "wilson_95": [
+            0.5716504406714658,
+            0.8389198382222256
+          ],
+          "safety_violations": 2,
+          "unsafe_mutations": 2,
+          "false_successes": 2,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 37,
+          "v03_grader_passed": 29,
+          "failure_categories": {
+            "unfinished": 7,
+            "unjustified_escalation": 2,
+            "unsafe_mutation": 2
+          },
+          "mean_tools": 7.35,
+          "output_tokens": 9799,
+          "input_tokens": 662098,
+          "median_seconds": 15.324186823498167
+        },
+        "3407": {
+          "passed": 28,
+          "episodes": 40,
+          "wilson_95": [
+            0.5456998105658182,
+            0.8192515484507963
+          ],
+          "safety_violations": 6,
+          "unsafe_mutations": 2,
+          "false_successes": 3,
+          "spurious_escalations": 3,
+          "redundant_commits": 0,
+          "located_target": 37,
+          "v03_grader_passed": 28,
+          "failure_categories": {
+            "false_success": 1,
+            "spurious_escalation": 3,
+            "unfinished": 4,
+            "unjustified_escalation": 2,
+            "unsafe_mutation": 2
+          },
+          "mean_tools": 7.575,
+          "output_tokens": 8938,
+          "input_tokens": 673272,
+          "median_seconds": 11.88048938999782
+        },
+        "42": {
+          "passed": 34,
+          "episodes": 40,
+          "wilson_95": [
+            0.7092767550401498,
+            0.9293881232389256
+          ],
+          "safety_violations": 3,
+          "unsafe_mutations": 3,
+          "false_successes": 3,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 37,
+          "v03_grader_passed": 34,
+          "failure_categories": {
+            "unfinished": 2,
+            "unjustified_escalation": 1,
+            "unsafe_mutation": 3
+          },
+          "mean_tools": 6.425,
+          "output_tokens": 7444,
+          "input_tokens": 516141,
+          "median_seconds": 14.88765865899768
+        }
+      },
+      "success": {
+        "mean": 0.7583333333333333,
+        "min": 0.7,
+        "max": 0.85,
+        "per_seed": [
+          0.725,
+          0.7,
+          0.85
+        ]
+      },
+      "slices": {
+        "token_etag": {
+          "episodes": 9,
+          "mean_rate": 0.4444444444444444
+        },
+        "token_revision": {
+          "episodes": 12,
+          "mean_rate": 0.8055555555555555
+        },
+        "token_weak_etag": {
+          "episodes": 10,
+          "mean_rate": 0.8333333333333334
+        },
+        "token_version_tag": {
+          "episodes": 9,
+          "mean_rate": 0.9259259259259259
+        },
+        "cursor_page": {
+          "episodes": 8,
+          "mean_rate": 0.7916666666666666
+        },
+        "cursor_opaque": {
+          "episodes": 12,
+          "mean_rate": 0.638888888888889
+        },
+        "cursor_offset": {
+          "episodes": 10,
+          "mean_rate": 0.7333333333333334
+        },
+        "cursor_page_number": {
+          "episodes": 10,
+          "mean_rate": 0.9
+        },
+        "unit_seconds": {
+          "episodes": 16,
+          "mean_rate": 0.6458333333333334
+        },
+        "unit_milliseconds": {
+          "episodes": 24,
+          "mean_rate": 0.8333333333333334
+        },
+        "conflict_is_409": {
+          "episodes": 22,
+          "mean_rate": 0.7575757575757575
+        },
+        "phrasing_seen": {
+          "episodes": 40,
+          "mean_rate": 0.7583333333333333
+        },
+        "phrasing_held_out": {
+          "episodes": 0,
+          "mean_rate": null
+        },
+        "dev_conflict_injection": {
+          "episodes": 10,
+          "mean_rate": 0.6333333333333333
+        },
+        "dev_rate_injection": {
+          "episodes": 10,
+          "mean_rate": 0.5
+        },
+        "dev_revoke_lost": {
+          "episodes": 10,
+          "mean_rate": 0.9666666666666667
+        },
+        "dev_noop_rate": {
+          "episodes": 10,
+          "mean_rate": 0.9333333333333332
+        }
+      }
+    },
+    "bc-volume": {
+      "seeds": {
+        "2026": {
+          "passed": 30,
+          "episodes": 40,
+          "wilson_95": [
+            0.5980603845146479,
+            0.8581288142561201
+          ],
+          "safety_violations": 6,
+          "unsafe_mutations": 2,
+          "false_successes": 5,
+          "spurious_escalations": 1,
+          "redundant_commits": 0,
+          "located_target": 37,
+          "v03_grader_passed": 30,
+          "failure_categories": {
+            "false_success": 3,
+            "spurious_escalation": 1,
+            "unfinished": 3,
+            "unjustified_escalation": 1,
+            "unsafe_mutation": 2
+          },
+          "mean_tools": 8.075,
+          "output_tokens": 9365,
+          "input_tokens": 717411,
+          "median_seconds": 15.795529050999903
+        },
+        "3407": {
+          "passed": 29,
+          "episodes": 40,
+          "wilson_95": [
+            0.5716504406714658,
+            0.8389198382222256
+          ],
+          "safety_violations": 4,
+          "unsafe_mutations": 2,
+          "false_successes": 4,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 35,
+          "v03_grader_passed": 29,
+          "failure_categories": {
+            "false_success": 2,
+            "unfinished": 7,
+            "unsafe_mutation": 2
+          },
+          "mean_tools": 8.925,
+          "output_tokens": 10754,
+          "input_tokens": 817502,
+          "median_seconds": 17.936773985499713
+        },
+        "42": {
+          "passed": 26,
+          "episodes": 40,
+          "wilson_95": [
+            0.4950588071541522,
+            0.7786547121083087
+          ],
+          "safety_violations": 8,
+          "unsafe_mutations": 2,
+          "false_successes": 7,
+          "spurious_escalations": 1,
+          "redundant_commits": 0,
+          "located_target": 38,
+          "v03_grader_passed": 26,
+          "failure_categories": {
+            "false_success": 5,
+            "spurious_escalation": 1,
+            "unfinished": 6,
+            "unsafe_mutation": 2
+          },
+          "mean_tools": 7.975,
+          "output_tokens": 9388,
+          "input_tokens": 716969,
+          "median_seconds": 13.060653393000393
+        }
+      },
+      "success": {
+        "mean": 0.7083333333333334,
+        "min": 0.65,
+        "max": 0.75,
+        "per_seed": [
+          0.75,
+          0.725,
+          0.65
+        ]
+      },
+      "slices": {
+        "token_etag": {
+          "episodes": 9,
+          "mean_rate": 0.7037037037037037
+        },
+        "token_revision": {
+          "episodes": 12,
+          "mean_rate": 0.6666666666666666
+        },
+        "token_weak_etag": {
+          "episodes": 10,
+          "mean_rate": 0.8000000000000002
+        },
+        "token_version_tag": {
+          "episodes": 9,
+          "mean_rate": 0.6666666666666666
+        },
+        "cursor_page": {
+          "episodes": 8,
+          "mean_rate": 0.7083333333333334
+        },
+        "cursor_opaque": {
+          "episodes": 12,
+          "mean_rate": 0.5833333333333334
+        },
+        "cursor_offset": {
+          "episodes": 10,
+          "mean_rate": 0.8333333333333334
+        },
+        "cursor_page_number": {
+          "episodes": 10,
+          "mean_rate": 0.7333333333333334
+        },
+        "unit_seconds": {
+          "episodes": 16,
+          "mean_rate": 0.6875
+        },
+        "unit_milliseconds": {
+          "episodes": 24,
+          "mean_rate": 0.7222222222222223
+        },
+        "conflict_is_409": {
+          "episodes": 22,
+          "mean_rate": 0.6515151515151515
+        },
+        "phrasing_seen": {
+          "episodes": 40,
+          "mean_rate": 0.7083333333333334
+        },
+        "phrasing_held_out": {
+          "episodes": 0,
+          "mean_rate": null
+        },
+        "dev_conflict_injection": {
+          "episodes": 10,
+          "mean_rate": 0.6999999999999998
+        },
+        "dev_rate_injection": {
+          "episodes": 10,
+          "mean_rate": 0.6333333333333333
+        },
+        "dev_revoke_lost": {
+          "episodes": 10,
+          "mean_rate": 0.5
+        },
+        "dev_noop_rate": {
+          "episodes": 10,
+          "mean_rate": 1.0
+        }
+      }
+    },
+    "bc-volume-multi": {
+      "seeds": {
+        "2026": {
+          "passed": 32,
+          "episodes": 40,
+          "wilson_95": [
+            0.6524269352437855,
+            0.8950001032811363
+          ],
+          "safety_violations": 0,
+          "unsafe_mutations": 0,
+          "false_successes": 0,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 40,
+          "v03_grader_passed": 32,
+          "failure_categories": {
+            "unfinished": 8
+          },
+          "mean_tools": 9.525,
+          "output_tokens": 12410,
+          "input_tokens": 924708,
+          "median_seconds": 16.849463883499993
+        },
+        "3407": {
+          "passed": 35,
+          "episodes": 40,
+          "wilson_95": [
+            0.7388788003201471,
+            0.9454049978360052
+          ],
+          "safety_violations": 0,
+          "unsafe_mutations": 0,
+          "false_successes": 0,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 40,
+          "v03_grader_passed": 35,
+          "failure_categories": {
+            "unfinished": 5
+          },
+          "mean_tools": 6.9,
+          "output_tokens": 8654,
+          "input_tokens": 584739,
+          "median_seconds": 15.943136527501338
+        },
+        "42": {
+          "passed": 34,
+          "episodes": 40,
+          "wilson_95": [
+            0.7092767550401498,
+            0.9293881232389256
+          ],
+          "safety_violations": 2,
+          "unsafe_mutations": 0,
+          "false_successes": 1,
+          "spurious_escalations": 1,
+          "redundant_commits": 0,
+          "located_target": 39,
+          "v03_grader_passed": 34,
+          "failure_categories": {
+            "false_success": 1,
+            "spurious_escalation": 1,
+            "unfinished": 4
+          },
+          "mean_tools": 7.275,
+          "output_tokens": 8975,
+          "input_tokens": 632896,
+          "median_seconds": 14.347577323500445
+        }
+      },
+      "success": {
+        "mean": 0.8416666666666667,
+        "min": 0.8,
+        "max": 0.875,
+        "per_seed": [
+          0.8,
+          0.875,
+          0.85
+        ]
+      },
+      "slices": {
+        "token_etag": {
+          "episodes": 9,
+          "mean_rate": 0.4444444444444444
+        },
+        "token_revision": {
+          "episodes": 12,
+          "mean_rate": 1.0
+        },
+        "token_weak_etag": {
+          "episodes": 10,
+          "mean_rate": 0.8666666666666667
+        },
+        "token_version_tag": {
+          "episodes": 9,
+          "mean_rate": 1.0
+        },
+        "cursor_page": {
+          "episodes": 8,
+          "mean_rate": 0.8333333333333334
+        },
+        "cursor_opaque": {
+          "episodes": 12,
+          "mean_rate": 0.75
+        },
+        "cursor_offset": {
+          "episodes": 10,
+          "mean_rate": 0.8333333333333334
+        },
+        "cursor_page_number": {
+          "episodes": 10,
+          "mean_rate": 0.9666666666666667
+        },
+        "unit_seconds": {
+          "episodes": 16,
+          "mean_rate": 0.7291666666666666
+        },
+        "unit_milliseconds": {
+          "episodes": 24,
+          "mean_rate": 0.9166666666666666
+        },
+        "conflict_is_409": {
+          "episodes": 22,
+          "mean_rate": 0.8636363636363636
+        },
+        "phrasing_seen": {
+          "episodes": 40,
+          "mean_rate": 0.8416666666666667
+        },
+        "phrasing_held_out": {
+          "episodes": 0,
+          "mean_rate": null
+        },
+        "dev_conflict_injection": {
+          "episodes": 10,
+          "mean_rate": 0.7666666666666666
+        },
+        "dev_rate_injection": {
+          "episodes": 10,
+          "mean_rate": 0.6333333333333333
+        },
+        "dev_revoke_lost": {
+          "episodes": 10,
+          "mean_rate": 0.9666666666666667
+        },
+        "dev_noop_rate": {
+          "episodes": 10,
+          "mean_rate": 1.0
+        }
+      }
+    },
+    "dagger": {
+      "seeds": {
+        "2026": {
+          "passed": 28,
+          "episodes": 40,
+          "wilson_95": [
+            0.5456998105658182,
+            0.8192515484507963
+          ],
+          "safety_violations": 1,
+          "unsafe_mutations": 0,
+          "false_successes": 1,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 36,
+          "v03_grader_passed": 28,
+          "failure_categories": {
+            "false_success": 1,
+            "unfinished": 11
+          },
+          "mean_tools": 10.5,
+          "output_tokens": 12305,
+          "input_tokens": 1038732,
+          "median_seconds": 17.944810279001103
+        },
+        "3407": {
+          "passed": 31,
+          "episodes": 40,
+          "wilson_95": [
+            0.6249690312905765,
+            0.8768390873572685
+          ],
+          "safety_violations": 2,
+          "unsafe_mutations": 0,
+          "false_successes": 2,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 37,
+          "v03_grader_passed": 31,
+          "failure_categories": {
+            "false_success": 2,
+            "unfinished": 7
+          },
+          "mean_tools": 8.7,
+          "output_tokens": 9746,
+          "input_tokens": 790140,
+          "median_seconds": 14.698196359999201
+        },
+        "42": {
+          "passed": 32,
+          "episodes": 40,
+          "wilson_95": [
+            0.6524269352437855,
+            0.8950001032811363
+          ],
+          "safety_violations": 7,
+          "unsafe_mutations": 3,
+          "false_successes": 7,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 36,
+          "v03_grader_passed": 32,
+          "failure_categories": {
+            "false_success": 4,
+            "unfinished": 1,
+            "unsafe_mutation": 3
+          },
+          "mean_tools": 7.225,
+          "output_tokens": 7849,
+          "input_tokens": 608485,
+          "median_seconds": 19.034530283001004
+        }
+      },
+      "success": {
+        "mean": 0.7583333333333333,
+        "min": 0.7,
+        "max": 0.8,
+        "per_seed": [
+          0.7,
+          0.775,
+          0.8
+        ]
+      },
+      "slices": {
+        "token_etag": {
+          "episodes": 9,
+          "mean_rate": 0.7407407407407408
+        },
+        "token_revision": {
+          "episodes": 12,
+          "mean_rate": 0.611111111111111
+        },
+        "token_weak_etag": {
+          "episodes": 10,
+          "mean_rate": 0.9
+        },
+        "token_version_tag": {
+          "episodes": 9,
+          "mean_rate": 0.8148148148148149
+        },
+        "cursor_page": {
+          "episodes": 8,
+          "mean_rate": 0.7083333333333334
+        },
+        "cursor_opaque": {
+          "episodes": 12,
+          "mean_rate": 0.6666666666666666
+        },
+        "cursor_offset": {
+          "episodes": 10,
+          "mean_rate": 0.8333333333333334
+        },
+        "cursor_page_number": {
+          "episodes": 10,
+          "mean_rate": 0.8333333333333334
+        },
+        "unit_seconds": {
+          "episodes": 16,
+          "mean_rate": 0.6875
+        },
+        "unit_milliseconds": {
+          "episodes": 24,
+          "mean_rate": 0.8055555555555555
+        },
+        "conflict_is_409": {
+          "episodes": 22,
+          "mean_rate": 0.7424242424242425
+        },
+        "phrasing_seen": {
+          "episodes": 40,
+          "mean_rate": 0.7583333333333333
+        },
+        "phrasing_held_out": {
+          "episodes": 0,
+          "mean_rate": null
+        },
+        "dev_conflict_injection": {
+          "episodes": 10,
+          "mean_rate": 0.8000000000000002
+        },
+        "dev_rate_injection": {
+          "episodes": 10,
+          "mean_rate": 0.7666666666666666
+        },
+        "dev_revoke_lost": {
+          "episodes": 10,
+          "mean_rate": 0.6333333333333333
+        },
+        "dev_noop_rate": {
+          "episodes": 10,
+          "mean_rate": 0.8333333333333334
+        }
+      }
+    },
+    "dagger-multi": {
+      "seeds": {
+        "2026": {
+          "passed": 40,
+          "episodes": 40,
+          "wilson_95": [
+            0.9123783975415363,
+            1.0
+          ],
+          "safety_violations": 0,
+          "unsafe_mutations": 0,
+          "false_successes": 0,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 40,
+          "v03_grader_passed": 40,
+          "failure_categories": {},
+          "mean_tools": 6.825,
+          "output_tokens": 7568,
+          "input_tokens": 550724,
+          "median_seconds": 17.661502326995105
+        },
+        "3407": {
+          "passed": 40,
+          "episodes": 40,
+          "wilson_95": [
+            0.9123783975415363,
+            1.0
+          ],
+          "safety_violations": 0,
+          "unsafe_mutations": 0,
+          "false_successes": 0,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 40,
+          "v03_grader_passed": 40,
+          "failure_categories": {},
+          "mean_tools": 6.825,
+          "output_tokens": 7568,
+          "input_tokens": 550724,
+          "median_seconds": 17.581129478498042
+        },
+        "42": {
+          "passed": 39,
+          "episodes": 40,
+          "wilson_95": [
+            0.8711863091181636,
+            0.9955731685462955
+          ],
+          "safety_violations": 0,
+          "unsafe_mutations": 0,
+          "false_successes": 0,
+          "spurious_escalations": 0,
+          "redundant_commits": 0,
+          "located_target": 40,
+          "v03_grader_passed": 39,
+          "failure_categories": {
+            "unfinished": 1
+          },
+          "mean_tools": 7.2,
+          "output_tokens": 7824,
+          "input_tokens": 592809,
+          "median_seconds": 13.36080989599941
+        }
+      },
+      "success": {
+        "mean": 0.9916666666666667,
+        "min": 0.975,
+        "max": 1.0,
+        "per_seed": [
+          1.0,
+          1.0,
+          0.975
+        ]
+      },
+      "slices": {
+        "token_etag": {
+          "episodes": 9,
+          "mean_rate": 1.0
+        },
+        "token_revision": {
+          "episodes": 12,
+          "mean_rate": 0.9722222222222222
+        },
+        "token_weak_etag": {
+          "episodes": 10,
+          "mean_rate": 1.0
+        },
+        "token_version_tag": {
+          "episodes": 9,
+          "mean_rate": 1.0
+        },
+        "cursor_page": {
+          "episodes": 8,
+          "mean_rate": 1.0
+        },
+        "cursor_opaque": {
+          "episodes": 12,
+          "mean_rate": 1.0
+        },
+        "cursor_offset": {
+          "episodes": 10,
+          "mean_rate": 0.9666666666666667
+        },
+        "cursor_page_number": {
+          "episodes": 10,
+          "mean_rate": 1.0
+        },
+        "unit_seconds": {
+          "episodes": 16,
+          "mean_rate": 1.0
+        },
+        "unit_milliseconds": {
+          "episodes": 24,
+          "mean_rate": 0.9861111111111112
+        },
+        "conflict_is_409": {
+          "episodes": 22,
+          "mean_rate": 0.9848484848484849
+        },
+        "phrasing_seen": {
+          "episodes": 40,
+          "mean_rate": 0.9916666666666667
+        },
+        "phrasing_held_out": {
+          "episodes": 0,
+          "mean_rate": null
+        },
+        "dev_conflict_injection": {
+          "episodes": 10,
+          "mean_rate": 1.0
+        },
+        "dev_rate_injection": {
+          "episodes": 10,
+          "mean_rate": 0.9666666666666667
+        },
+        "dev_revoke_lost": {
+          "episodes": 10,
+          "mean_rate": 1.0
+        },
+        "dev_noop_rate": {
+          "episodes": 10,
+          "mean_rate": 1.0
+        }
+      }
+    }
+  },
+  "transfer": {
+    "bc": {
+      "study_contract_rate": 0.9333333333333332,
+      "dialect_rate": 0.5666666666666667,
+      "dialect_minus_study": {
+        "estimate": -0.36666666666666664,
+        "ci95": [
+          -0.55,
+          -0.175
+        ]
+      },
+      "mcnemar_by_seed": [
+        {
+          "right_only": 3,
+          "left_only": 11,
+          "p_exact": 0.057373046875
+        },
+        {
+          "right_only": 0,
+          "left_only": 15,
+          "p_exact": 6.103515625e-05
+        },
+        {
+          "right_only": 0,
+          "left_only": 21,
+          "p_exact": 9.5367431640625e-07
+        }
+      ],
+      "classification": "partial"
+    },
+    "bc-volume": {
+      "study_contract_rate": 0.9249999999999999,
+      "dialect_rate": 0.7083333333333334,
+      "dialect_minus_study": {
+        "estimate": -0.21666666666666667,
+        "ci95": [
+          -0.35833333333333334,
+          -0.09166666666666666
+        ]
+      },
+      "mcnemar_by_seed": [
+        {
+          "right_only": 2,
+          "left_only": 8,
+          "p_exact": 0.109375
+        },
+        {
+          "right_only": 0,
+          "left_only": 11,
+          "p_exact": 0.0009765625
+        },
+        {
+          "right_only": 4,
+          "left_only": 13,
+          "p_exact": 0.049041748046875
+        }
+      ],
+      "classification": "partial"
+    },
+    "dagger": {
+      "study_contract_rate": 0.9916666666666667,
+      "dialect_rate": 0.7583333333333333,
+      "dialect_minus_study": {
+        "estimate": -0.23333333333333334,
+        "ci95": [
+          -0.35833333333333334,
+          -0.125
+        ]
+      },
+      "mcnemar_by_seed": [
+        {
+          "right_only": 0,
+          "left_only": 12,
+          "p_exact": 0.00048828125
+        },
+        {
+          "right_only": 0,
+          "left_only": 8,
+          "p_exact": 0.0078125
+        },
+        {
+          "right_only": 0,
+          "left_only": 8,
+          "p_exact": 0.0078125
+        }
+      ],
+      "classification": "partial"
+    },
+    "base-1.7b": {
+      "study_contract_rate": 0.375,
+      "dialect_rate": 0.2,
+      "dialect_minus_study": {
+        "estimate": -0.175,
+        "ci95": [
+          -0.35,
+          0.0
+        ]
+      },
+      "mcnemar_by_seed": [
+        {
+          "right_only": 4,
+          "left_only": 11,
+          "p_exact": 0.11846923828125
+        }
+      ],
+      "classification": "does not transfer"
+    }
+  },
+  "comparisons": {
+    "bc-multi - bc": {
+      "question": "Q2: contract diversity on the same states and actions",
+      "hierarchical": {
+        "estimate": 0.19166666666666665,
+        "ci95": [
+          0.025000000000000022,
+          0.37499999999999994
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          0.033333333333333326,
+          0.3583333333333334
+        ]
+      },
+      "safety_difference_per_120": -14.000000000000004,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 9,
+          "left_only": 5,
+          "p_exact": 0.4239501953125
+        },
+        {
+          "right_only": 6,
+          "left_only": 3,
+          "p_exact": 0.5078125
+        },
+        {
+          "right_only": 17,
+          "left_only": 1,
+          "p_exact": 0.00014495849609375
+        }
+      ]
+    },
+    "dagger-multi - bc-volume-multi": {
+      "question": "Q3: DAgger vs size-matched BC in train dialects",
+      "hierarchical": {
+        "estimate": 0.15000000000000002,
+        "ci95": [
+          0.04166666666666667,
+          0.25833333333333336
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          0.016666666666666607,
+          0.2833333333333333
+        ]
+      },
+      "safety_difference_per_120": -2.0,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 8,
+          "left_only": 0,
+          "p_exact": 0.0078125
+        },
+        {
+          "right_only": 5,
+          "left_only": 0,
+          "p_exact": 0.0625
+        },
+        {
+          "right_only": 6,
+          "left_only": 1,
+          "p_exact": 0.125
+        }
+      ]
+    },
+    "dagger - bc-volume": {
+      "question": "Q1: the v0.4 DAgger advantage, in held-out dialects",
+      "hierarchical": {
+        "estimate": 0.04999999999999993,
+        "ci95": [
+          -0.10833333333333331,
+          0.2
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          -0.09166666666666667,
+          0.13333333333333341
+        ]
+      },
+      "safety_difference_per_120": -8.0,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 6,
+          "left_only": 8,
+          "p_exact": 0.79052734375
+        },
+        {
+          "right_only": 5,
+          "left_only": 3,
+          "p_exact": 0.7265625
+        },
+        {
+          "right_only": 9,
+          "left_only": 3,
+          "p_exact": 0.14599609375
+        }
+      ]
+    },
+    "bc-volume-multi - bc-volume": {
+      "question": "diversity with the extra expert rows",
+      "hierarchical": {
+        "estimate": 0.1333333333333333,
+        "ci95": [
+          -0.016666666666666653,
+          0.28333333333333327
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          0.0,
+          0.35
+        ]
+      },
+      "safety_difference_per_120": -16.0,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 8,
+          "left_only": 6,
+          "p_exact": 0.79052734375
+        },
+        {
+          "right_only": 9,
+          "left_only": 3,
+          "p_exact": 0.14599609375
+        },
+        {
+          "right_only": 9,
+          "left_only": 1,
+          "p_exact": 0.021484375
+        }
+      ]
+    },
+    "dagger-multi - dagger": {
+      "question": "diversity with DAgger rows",
+      "hierarchical": {
+        "estimate": 0.2333333333333334,
+        "ci95": [
+          0.125,
+          0.3583333333333333
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          0.17499999999999993,
+          0.32500000000000007
+        ]
+      },
+      "safety_difference_per_120": -10.0,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 12,
+          "left_only": 0,
+          "p_exact": 0.00048828125
+        },
+        {
+          "right_only": 9,
+          "left_only": 0,
+          "p_exact": 0.00390625
+        },
+        {
+          "right_only": 7,
+          "left_only": 0,
+          "p_exact": 0.015625
+        }
+      ]
+    },
+    "bc-multi - base-1.7b": {
+      "question": "size control vs multi-dialect BC",
+      "hierarchical": {
+        "estimate": 0.5583333333333333,
+        "ci95": [
+          0.39999999999999997,
+          0.7166666666666667
+        ]
+      },
+      "composition_cluster": {
+        "ci95": [
+          0.45833333333333326,
+          0.6333333333333334
+        ]
+      },
+      "safety_difference_per_120": -70.0,
+      "mcnemar_by_seed": [
+        {
+          "right_only": 22,
+          "left_only": 1,
+          "p_exact": 5.7220458984375e-06
+        },
+        {
+          "right_only": 20,
+          "left_only": 0,
+          "p_exact": 1.9073486328125e-06
+        },
+        {
+          "right_only": 26,
+          "left_only": 0,
+          "p_exact": 2.9802322387695312e-08
+        }
+      ]
+    }
+  },
+  "decisions": {
+    "Q2": "supported",
+    "Q3": "supported"
+  },
+  "baseline_is_headline": false
+}

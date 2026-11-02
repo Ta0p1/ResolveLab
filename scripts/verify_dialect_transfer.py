@@ -14,6 +14,8 @@ import json
 import zipfile
 from pathlib import Path
 
+from summarize_dialect_failures import summarize
+
 from resolvelab.casedesk.manifest import load_manifest
 from resolvelab.dialects.analysis import analyze
 from resolvelab.dialects.assignment import load_assignment
@@ -38,6 +40,7 @@ RESULTS = (
     "data.zip",
     "analysis-dev.json",
     "analysis-test.json",
+    "diagnostics",
 )
 
 
@@ -107,6 +110,7 @@ def verify(every=1, replay_every=1):
         multi if multi.exists() else None,
     )
     same(json.loads(json.dumps(recomputed)), read(BUNDLE / "analysis-test.json"))
+    assert summarize(BUNDLE) == read(BUNDLE / "diagnostics/failure-causes.json"), "failure causes"
     return labels, replayed
 
 
