@@ -145,7 +145,9 @@ warned that the mechanism was specific to its contract. Here the same error appe
 the model mangles the concurrency token, is refused, re-reads and repeats, or keeps extending the token
 until the 192-token output cap. It causes 73 of 118 `bc-volume-multi` failures in held-out dialects
 and 166 of 180 on the study contract. No `dagger` or `dagger-multi` episode failed this way, in any
-contract. DAgger rollouts reach that state: among kept labels where the teacher disagreed with the
+contract. `dagger-multi` never sent a mangled token in any of its 720 episodes. One `dagger` episode did
+(seed 42, `test_rate_revoke-10`); the write was then refused for permissions and the model claimed
+success, so the table counts it as a false success. DAgger rollouts reach that state: among kept labels where the teacher disagreed with the
 learner, the write with a different token was 183 of 204 (seed 3407), 107 of 184 (seed 42) and 116 of
 199 (seed 2026).
 

@@ -1,6 +1,13 @@
 # Documentation
 
-## Current study (v0.4, CaseDesk v2)
+## Current study (v0.5, API dialects)
+
+- [Protocol](dialect-transfer-protocol.md): registered questions, arms, decision rules, run log and
+  deviations.
+- [Results](../artifacts/v0.5/RESULTS.md): test tables, cost of diversity, safety, exploratory failure
+  causes, slices, limits.
+
+## Previous study (v0.4, CaseDesk v2)
 
 - [Protocol](casedesk-v2-protocol.md): registered questions, arms, decision rules and the one amendment.
 - [Results](../artifacts/v0.4/RESULTS.md): test and dev tables, failure taxonomy, data and training, limits.
@@ -10,8 +17,7 @@
 
 - [CaseDesk as an environment](environment.md): `reset` / `step` / `state`, reward, pools, fidelity tests.
 - [API dialects](dialects.md): generated tool contracts over the same service, faults and grader, for
-  transfer experiments, the [transfer protocol](dialect-transfer-protocol.md) (registered
-  2026-10-30) and its [results](../artifacts/v0.5/RESULTS.md).
+  transfer experiments.
 - [Architecture](architecture.md): the SQLite sync service, the CaseDesk HTTP service and their guarantees.
 - [CaseDesk v0.3 protocol](httpdesk-protocol.md) and [model card](httpdesk-model-card.md).
 - [Evaluation protocol for the sync service](evaluation.md) and its [model card](model-card.md).

@@ -72,6 +72,8 @@
   results, which the audit recomputes. CI thins the dialect audit's replays as it does for v0.4.
 - Add `scripts/make_dialect_figure.py`, the README figure rendered from the published bundle; a
   test fails if the committed figure differs from what the bundle produces.
+- `CONTRIBUTING.md` now says the v0.5 lock covers every Python file in the package at that lock,
+  including `providers/`, `casedesk/cli.py`, `casedesk/env.py` and `main.py`.
 
 ### Documentation
 

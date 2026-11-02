@@ -6,8 +6,8 @@
 ![Python 3.11 | 3.13](https://img.shields.io/badge/python-3.11%20%7C%203.13-3776ab)
 [![MIT](https://img.shields.io/badge/license-MIT-2a78d6)](LICENSE)
 
-[v0.5 结果](artifacts/v0.5/RESULTS.md) · [v0.4 结果](artifacts/v0.4/RESULTS.md) ·
-[实验方案](docs/casedesk-v2-protocol.md) ·
+[v0.5 结果](artifacts/v0.5/RESULTS.md) · [v0.5 实验方案](docs/dialect-transfer-protocol.md) ·
+[v0.4 结果](artifacts/v0.4/RESULTS.md) · [v0.4 实验方案](docs/casedesk-v2-protocol.md) ·
 [v0.3 自我审查](docs/v0.3-review.md) · [实验历史](docs/history.md) · [English](README.md)
 
 <picture>
