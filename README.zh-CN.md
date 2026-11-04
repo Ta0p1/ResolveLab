@@ -99,6 +99,9 @@ python scripts/verify_casedesk_v2.py --dagger-every 20 --replay-every 10   # CI 
 python scripts/verify_dialect_transfer.py                                  # v0.5 实验，完整版，约 25 分钟
 ```
 
+每个审计都在该实验锁定的源码快照上运行，并先用 lock 里的哈希校验快照。因此修改 `src/` 里的模型接入和命令行代码不影响审计，
+而改动研究核心代码会让 CI 失败（见 [CONTRIBUTING.md](CONTRIBUTING.md)）。
+
 `python examples/dialect_episode.py` 会在一个实验从未用过的生成式 API 方言里跑同一个回合：工具、字段和取值全部改名，
 用整数版本号代替 ETag、用页码分页、以毫秒等待、状态码也不同，但服务和评分器不变（见 [docs/dialects.md](docs/dialects.md)）。
 

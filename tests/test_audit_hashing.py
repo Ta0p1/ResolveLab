@@ -2,12 +2,14 @@
 
 import importlib.util
 import json
-import shutil
+import sys
+import zipfile
 from pathlib import Path
 
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 
 
 def load(name):
@@ -30,7 +32,9 @@ def hashes():
 @pytest.fixture
 def package(tmp_path, monkeypatch):
     copy = tmp_path / "resolvelab"
-    shutil.copytree(ROOT / "src/resolvelab", copy, ignore=shutil.ignore_patterns("__pycache__"))
+    # The v0.5 snapshot holds both file sets, and later version bumps in src/ cannot reach it.
+    with zipfile.ZipFile(ROOT / "artifacts/locked-source/v0.5.zip") as archive:
+        archive.extractall(copy)
     monkeypatch.setattr(V03, "PACKAGE", copy)
     monkeypatch.setattr(V04, "PACKAGE", copy)
     return copy
@@ -42,7 +46,7 @@ def edit(path, old, new):
     path.write_text(text.replace(old, new, 1), encoding="utf-8")
 
 
-def test_current_tree_reproduces_both_locks():
+def test_locked_source_reproduces_both_locks(package):
     assert hashes() == (V03_LOCK["source_sha256"], V04_LOCK["source_sha256"])
 
 

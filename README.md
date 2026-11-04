@@ -126,6 +126,10 @@ python scripts/verify_casedesk_v2.py --dagger-every 20 --replay-every 10   # CI 
 python scripts/verify_dialect_transfer.py                             # v0.5 study, full, ~25 min
 ```
 
+Each audit runs on a snapshot of the source its study locked, and checks the snapshot against the
+lock's hash first. Provider and CLI fixes in `src/` leave the audits valid; an edit to the study
+core fails CI ([CONTRIBUTING.md](CONTRIBUTING.md)).
+
 `python examples/dialect_episode.py` plays the same episode in a generated API dialect the
 study never used: every tool, field and value renamed, integer revisions instead of ETags,
 page numbers, millisecond waits and different status codes, over the same service and

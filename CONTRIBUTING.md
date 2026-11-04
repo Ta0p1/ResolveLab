@@ -12,6 +12,7 @@ python examples/casedesk_quickstart.py
 python scripts/verify_experiment.py
 python scripts/verify_http_study.py
 python scripts/verify_casedesk_v2.py --dagger-every 20 --replay-every 10
+python scripts/verify_dialect_transfer.py --dagger-every 20 --replay-every 10
 ```
 
 Optionally `pip install pre-commit && pre-commit install` to run ruff (pinned to CI's version)
@@ -48,15 +49,23 @@ Introduce a new manifest for future selection. The optional training dependency
 environment additionally runs `pytest tests/test_training_loss.py tests/test_http_grammar.py`
 to check action-loss equivalence and the actual optional grammar without downloading weights.
 
-Each audit checks its own locked source files, prompt, schema and data hashes before
-replay: `verify_http_study.py` hashes exactly the v0.3 file set, and `verify_casedesk_v2.py`
-and `verify_dialect_transfer.py` the file lists recorded in `artifacts/v0.4/test-lock.json` and
-`artifacts/v0.5/test-lock.json`. The v0.5 list is every Python file in the package at that lock,
-including `providers/`, `casedesk/cli.py`, `casedesk/env.py` and `main.py`, so an edit to any of
-them fails CI. Do not edit those files or update a published lock to make changed code pass; the
-`__version__` line is the one exception, since the audits ignore it. New runtime work goes into
-new modules under a new named experiment, which keeps every earlier audit green. Static UI,
-scripts and documentation edits do not change the locked hashes.
+Each audit checks its own locked source files, prompt, schema and data hashes before replay, and
+replays on the locked source rather than on `src/`. `scripts/locked_source.py` reads
+`artifacts/locked-source/<study>.zip`, refuses it unless it reproduces the source hash in that
+study's lock, and re-runs the audit in a process that can import nothing else from the package.
+
+`src/` is held to a narrower rule. It must match the snapshots, apart from the `__version__` line
+and the files in `OUTSIDE_CORE`: `providers/`, `main.py`, `__main__.py`, `cli.py`, `api.py`,
+`casedesk/cli.py` and `casedesk/env.py`. No script imports those files, directly or through the
+study code, and `tests/test_locked_source.py` walks the imports to keep it so. They can be
+maintained, and the audit names any that differ. An edit to any other locked file fails CI. Do not
+edit those files or update a published lock or snapshot to make changed code pass. New runtime work
+goes into new modules under a new named experiment, which keeps every earlier audit green. A new
+study's lock also needs a snapshot (`scripts/snapshot_locked_source.py`). Static UI, scripts and
+documentation edits do not change the locked hashes.
+
+Re-running a test phase still needs the exact source: `scripts/dialect_transfer.py` refuses any
+tree whose whole-package hash differs from the lock, so check out the lock's commit first.
 
 Small pull requests with a concrete problem, reproducible behavior and relevant
 tests are welcome. Please disclose if a benchmark result follows prompt tuning
