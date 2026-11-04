@@ -52,19 +52,18 @@ helped); test lock and a GPU-free verifier that re-derives every DAgger label.
   verifiable reward.
 - Contribution workflow: PR and issue templates, pre-commit, Dependabot, security policy.
 - Generated API dialects and the tooling for a transfer study: assignment, dialect-aware
-  constrained policy, training rows, evaluation, lock, GPU-free audit and analysis. The study
-  itself is a [registered protocol](dialect-transfer-protocol.md) (2026-10-30); no model has
-  been evaluated on held-out dialects yet.
+  constrained policy, training rows, evaluation, lock, GPU-free audit and analysis.
+- The v0.5 transfer study: [registered protocol](dialect-transfer-protocol.md) and
+  [results](../artifacts/v0.5/RESULTS.md). Training across dialects helps on unseen contracts,
+  DAgger helps most, and `dagger-multi` fails the registered safety limit against its control.
 
 ## v0.5 — candidates, one at a time
 
 1. Durable recovery as an engineering loop: persisted HTTP idempotency receipts, crash
    injection between commit and response, process restart and multi-worker races.
-2. Transfer: a second contract with different tools/schemas, evaluated zero-shot and after
-   a small amount of DAgger, to test whether learner-state labels help beyond one contract.
-   The environment exists: [generated API dialects](dialects.md) with lexically disjoint
-   train and held-out splits over the same service and grader. The study is a
-   [registered protocol](dialect-transfer-protocol.md) (2026-10-30), in progress.
+2. Safety after transfer: `dagger-multi` still commits wrong values and claims success on a
+   partial match in unseen dialects ([results](../artifacts/v0.5/RESULTS.md)). A new registered
+   study could target those states directly; the v0.5 result is not reinterpreted.
 3. Token-matched control and more DAgger iterations, if the v0.4 effect is to be sized
    rather than only detected.
 4. A real SaaS sandbox with authentication, least-privilege scopes and cleanup.

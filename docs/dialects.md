@@ -2,9 +2,10 @@
 
 `resolvelab.dialects` generates new tool contracts that keep CaseDesk's service, faults and grader. It is
 infrastructure for the transfer question on the [roadmap](roadmap.md): does what an agent learned on
-one contract (fault recovery, verification, escalation) carry over to an API it has never seen? **No model
-has been evaluated on it yet**; this page describes the environment and the checks behind it. The
-study is a [registered protocol](dialect-transfer-protocol.md) (2026-10-30) and has not finished.
+one contract (fault recovery, verification, escalation) carry over to an API it has never seen? This page
+describes the environment and the checks behind it. The answer is in the
+[registered protocol](dialect-transfer-protocol.md) (2026-10-30) and its
+[results](../artifacts/v0.5/RESULTS.md).
 
 ## What a dialect changes
 
@@ -101,6 +102,8 @@ For the [transfer protocol](dialect-transfer-protocol.md):
   GPU-free audit that re-derives every DAgger label and replays every test episode in its dialect.
 - `dialects.analysis` and `scripts/analyze_dialect_transfer.py`: the registered analysis (Q1 transfer
   per adapter with a paired-seed bootstrap; Q2/Q3 with the v0.4 statistics), recomputed by the audit.
+- `scripts/package_dialect_transfer.py` copies the evidence into `artifacts/v0.5`, and
+  `scripts/summarize_dialect_failures.py` writes the exploratory failure table the audit also checks.
 
 ## Limits
 

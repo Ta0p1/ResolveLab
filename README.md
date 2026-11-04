@@ -7,7 +7,8 @@ registered post-training studies built on them.**
 ![Python 3.11 | 3.13](https://img.shields.io/badge/python-3.11%20%7C%203.13-3776ab)
 [![MIT](https://img.shields.io/badge/license-MIT-2a78d6)](LICENSE)
 
-[Results](artifacts/v0.4/RESULTS.md) · [Protocol](docs/casedesk-v2-protocol.md) ·
+[v0.5 results](artifacts/v0.5/RESULTS.md) · [v0.5 protocol](docs/dialect-transfer-protocol.md) ·
+[v0.4 results](artifacts/v0.4/RESULTS.md) · [v0.4 protocol](docs/casedesk-v2-protocol.md) ·
 [Self-review of v0.3](docs/v0.3-review.md) · [Study history](docs/history.md) · [中文](README.zh-CN.md)
 
 <picture>
@@ -56,6 +57,43 @@ escaped closing quote, gets 412, re-reads and repeats itself until the budget ru
 loop causes 26 of 33 `bc-volume` failures and none of the DAgger failures.
 [Full results, failure taxonomy and limits.](artifacts/v0.4/RESULTS.md)
 
+## Result: does it transfer to APIs the model never saw?
+
+The same 120 test episodes, each in its own generated API dialect: every tool, field and value
+renamed from words held out of training, with different concurrency tokens, pagination, status
+codes and time units, over the same service and grader. Protocol registered and inputs locked
+before any held-out episode. The `-multi` arms train on the same kinds of data as their v0.4
+counterparts, with each episode in its own train dialect.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dialect-transfer-results-dark.svg">
+  <img alt="Left: pass rate per arm in held-out dialects against the original contract: Qwen3-1.7B base 16.7% vs 23.3%, bc 40.6% vs 90.8%, bc-volume 53.6% vs 90.8%, dagger 61.7% vs 98.3%, bc-multi 53.9% vs 55.6%, bc-volume-multi 67.2% vs 50.0%, dagger-multi 81.4% vs 95.0%. Right: failed episodes by cause: bc-volume-multi 118 in held-out dialects (73 token copy errors) and 180 on the original contract (166); dagger-multi 67 and 18, with no token copy errors." src="docs/assets/dialect-transfer-results-light.svg">
+</picture>
+
+| Arm | Seeds 3407 / 42 / 2026 | Held-out dialects | Original contract |
+|---|---|---:|---:|
+| Qwen3-1.7B base | 20 | 16.7% | 23.3% |
+| `bc` | 42, 49, 55 | 40.6% | 90.8% |
+| `bc-volume` | 64, 76, 53 | 53.6% | 90.8% |
+| `dagger` | 83, 61, 78 | 61.7% | 98.3% |
+| `bc-multi` | 57, 77, 60 | 53.9% | 55.6% |
+| `bc-volume-multi` | 87, 75, 80 | 67.2% | 50.0% |
+| **`dagger-multi`** | **105, 93, 95** | **81.4%** | **95.0%** |
+
+- **Skill does not transfer for free.** Every v0.4 adapter loses at least 36 pp on an unseen
+  contract.
+- **Training across dialects helps, at a cost for behaviour cloning.** `bc-multi − bc` =
+  **+13.3 pp, 95% CI [1.1, 26.1]**, supported under the registered rule, but `bc-multi` falls
+  from 90.8% to 55.6% on the original contract.
+- **DAgger helps most, and fails the safety limit.** `dagger-multi − bc-volume-multi` =
+  **+14.2 pp, 95% CI [4.2, 23.9]**. The registered verdict is *supported but fails safety
+  non-inferiority*: 17.0 vs 14.0 episodes per 120 with a safety violation, against a limit of
+  +2, driven by unsafe writes in 13 vs 4 episodes.
+- **The v0.4 mechanism carries across contracts.** Mangled concurrency tokens cause 73 of 118
+  `bc-volume-multi` failures in held-out dialects and none of `dagger-multi`'s 67.
+
+[Full results, safety analysis, deviations and limits.](artifacts/v0.5/RESULTS.md)
+
 ## Quick start (no GPU, no API key)
 
 Python 3.11+.
@@ -85,12 +123,13 @@ Audit the whole published study (hashes, every DAgger label, every test episode)
 ```bash
 python scripts/verify_casedesk_v2.py                                  # full, ~20 min
 python scripts/verify_casedesk_v2.py --dagger-every 20 --replay-every 10   # CI sample, ~4 min
+python scripts/verify_dialect_transfer.py                             # v0.5 study, full, ~25 min
 ```
 
 `python examples/dialect_episode.py` plays the same episode in a generated API dialect the
 study never used: every tool, field and value renamed, integer revisions instead of ETags,
 page numbers, millisecond waits and different status codes, over the same service and
-grader ([docs/dialects.md](docs/dialects.md); environment only, no model results yet).
+grader ([docs/dialects.md](docs/dialects.md)).
 
 `resolvelab serve` opens a local workbench with the earlier studies' trajectory inspectors
 (v0.1–v0.3); see [docs/demo.md](docs/demo.md).
@@ -158,7 +197,7 @@ protocol lists every arm, budget and decision rule.
 |---|---|
 | `src/resolvelab/casedesk/` | v0.4 benchmark: record generator, teacher, grader v2, DAgger data, evaluation, statistics; `CaseDeskEnv` and the `resolvelab casedesk` CLI |
 | `src/resolvelab/providers/` | model providers for the CLI: local Transformers, Ollama, OpenAI-compatible servers, Claude |
-| `src/resolvelab/dialects/` | generated API dialects of the CaseDesk contract, and the tooling for the v0.5 transfer study |
+| `src/resolvelab/dialects/` | generated API dialects of the CaseDesk contract, and the tooling of the v0.5 transfer study |
 | `src/resolvelab/httpdesk/` | the CaseDesk HTTP contract: service, adapter, schema, v0.3 grader (frozen) |
 | `src/resolvelab/*.py` | the original SQLite sync service and workbench (v0.1–v0.2) |
 | `benchmarks/` | registered manifests and study configurations |

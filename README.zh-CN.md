@@ -6,7 +6,8 @@
 ![Python 3.11 | 3.13](https://img.shields.io/badge/python-3.11%20%7C%203.13-3776ab)
 [![MIT](https://img.shields.io/badge/license-MIT-2a78d6)](LICENSE)
 
-[结果](artifacts/v0.4/RESULTS.md) · [实验方案](docs/casedesk-v2-protocol.md) ·
+[v0.5 结果](artifacts/v0.5/RESULTS.md) · [v0.5 实验方案](docs/dialect-transfer-protocol.md) ·
+[v0.4 结果](artifacts/v0.4/RESULTS.md) · [v0.4 实验方案](docs/casedesk-v2-protocol.md) ·
 [v0.3 自我审查](docs/v0.3-review.md) · [实验历史](docs/history.md) · [English](README.md)
 
 <picture>
@@ -45,6 +46,38 @@
 继续往下写，收到 412，重新读取后再犯同样的错，直到预算用完。这个循环造成了 `bc-volume` 33 个失败中的
 26 个，DAgger 为 0。[完整结果、失败分类与局限](artifacts/v0.4/RESULTS.md)。
 
+## 结果：换成模型没见过的 API，还管用吗？
+
+同样的 120 个测试回合，每个回合用一种单独生成的 API 方言：工具、字段和取值全部改用训练中没有的词，
+并发令牌、分页、状态码和时间单位也不同，服务和评分器不变。实验方案在任何留出方言回合之前登记，
+输入也已锁定。`-multi` 组使用与 v0.4 对应组同类的数据，只是每个回合都渲染成各自的训练方言。
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dialect-transfer-results-dark.svg">
+  <img alt="左：各方案在留出方言与原始接口上的通过率，每个点是一个训练种子；右：失败回合按原因分类。" src="docs/assets/dialect-transfer-results-light.svg">
+</picture>
+
+| 方案 | 种子 3407 / 42 / 2026 | 留出方言 | 原始接口 |
+|---|---|---:|---:|
+| Qwen3-1.7B 基线 | 20 | 16.7% | 23.3% |
+| `bc` | 42、49、55 | 40.6% | 90.8% |
+| `bc-volume` | 64、76、53 | 53.6% | 90.8% |
+| `dagger` | 83、61、78 | 61.7% | 98.3% |
+| `bc-multi` | 57、77、60 | 53.9% | 55.6% |
+| `bc-volume-multi` | 87、75、80 | 67.2% | 50.0% |
+| **`dagger-multi`** | **105、93、95** | **81.4%** | **95.0%** |
+
+- **能力不会自动迁移**：每个 v0.4 adapter 在没见过的接口上都至少下降 36 个百分点。
+- **跨方言训练有帮助，但行为克隆要付代价**：`bc-multi − bc` = **+13.3 个百分点，95% 区间 [1.1, 26.1]**，
+  按登记规则判定为成立；但 `bc-multi` 在原始接口上从 90.8% 跌到 55.6%。
+- **DAgger 提升最大，但没过安全线**：`dagger-multi − bc-volume-multi` = **+14.2 个百分点，95% 区间 [4.2, 23.9]**。
+  登记的判定是"成立，但未通过安全非劣性"：每 120 个回合有 17.0 与 14.0 个回合出现安全违规，超过 +2 的上限，
+  主要来自不安全写入（13 与 4 个回合）。
+- **v0.4 的机制在不同接口上依然存在**：写坏并发令牌造成留出方言中 `bc-volume-multi` 118 个失败里的 73 个，
+  而 `dagger-multi` 的 67 个失败里没有一个。
+
+[完整结果、安全分析、偏差说明与局限](artifacts/v0.5/RESULTS.md)。
+
 ## 快速上手（无需 GPU 和 API key）
 
 需要 Python 3.11+。
@@ -63,11 +96,11 @@ python examples/casedesk_quickstart.py
 ```bash
 python scripts/verify_casedesk_v2.py                                       # 完整版，约 20 分钟
 python scripts/verify_casedesk_v2.py --dagger-every 20 --replay-every 10   # CI 抽样版，约 4 分钟
+python scripts/verify_dialect_transfer.py                                  # v0.5 实验，完整版，约 25 分钟
 ```
 
 `python examples/dialect_episode.py` 会在一个实验从未用过的生成式 API 方言里跑同一个回合：工具、字段和取值全部改名，
-用整数版本号代替 ETag、用页码分页、以毫秒等待、状态码也不同，但服务和评分器不变（见 [docs/dialects.md](docs/dialects.md)；
-目前只有环境，还没有模型结果）。
+用整数版本号代替 ETag、用页码分页、以毫秒等待、状态码也不同，但服务和评分器不变（见 [docs/dialects.md](docs/dialects.md)）。
 
 `resolvelab serve` 会打开本地工作台，里面是早期实验（v0.1–v0.3）的轨迹查看页面，见 [docs/demo.md](docs/demo.md)。
 

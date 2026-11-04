@@ -57,6 +57,23 @@
   locked source hash and adapters. `--contract study` evaluates on the study contract (the
   canonical dialect), the protocol's cost-of-diversity measurement; reports record the contract,
   the audit replays each episode in it, and the lock also refuses once such a report exists.
+- Run the dev phase (38 of 38 jobs; no plumbing defect, no deviation) and lock the test phase
+  (`artifacts/v0.5/test-lock.json`, 2026-10-31) before any test episode.
+- `scripts/verify_dialect_transfer.py` checks the lock's inputs while the test phase runs. Once
+  any result is published it runs the full audit, which now also checks the dev reports against
+  the hashes frozen in the lock and recomputes the dev analysis.
+- Add `scripts/package_dialect_transfer.py`, which copies the evidence into `artifacts/v0.5`
+  and refuses an incomplete report or a test report that ran on unlocked sources.
+- Publish the results (`artifacts/v0.5/RESULTS.md`, reports, traces, data and analyses). Q1:
+  no adapter transfers fully. Q2: supported, `bc-multi − bc` = +13.3 pp, CI [1.1, 26.1], with a
+  stated cost on the original contract. Q3: supported but fails safety non-inferiority,
+  `dagger-multi − bc-volume-multi` = +14.2 pp, CI [4.2, 23.9]. The README shows both studies.
+- Add `scripts/summarize_dialect_failures.py`, an exploratory failure taxonomy written after the
+  results, which the audit recomputes. CI thins the dialect audit's replays as it does for v0.4.
+- Add `scripts/make_dialect_figure.py`, the README figure rendered from the published bundle; a
+  test fails if the committed figure differs from what the bundle produces.
+- `CONTRIBUTING.md` now says the v0.5 lock covers every Python file in the package at that lock,
+  including `providers/`, `casedesk/cli.py`, `casedesk/env.py` and `main.py`.
 
 ### Documentation
 

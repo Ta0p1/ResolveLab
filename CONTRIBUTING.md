@@ -50,10 +50,13 @@ to check action-loss equivalence and the actual optional grammar without downloa
 
 Each audit checks its own locked source files, prompt, schema and data hashes before
 replay: `verify_http_study.py` hashes exactly the v0.3 file set, and `verify_casedesk_v2.py`
-the file list recorded in `artifacts/v0.4/test-lock.json`. Do not edit those files or update
-a published lock to make changed code pass. New runtime work goes into new modules under a
-new named experiment, which keeps every earlier audit green. Static UI, scripts and
-documentation edits do not change the locked hashes.
+and `verify_dialect_transfer.py` the file lists recorded in `artifacts/v0.4/test-lock.json` and
+`artifacts/v0.5/test-lock.json`. The v0.5 list is every Python file in the package at that lock,
+including `providers/`, `casedesk/cli.py`, `casedesk/env.py` and `main.py`, so an edit to any of
+them fails CI. Do not edit those files or update a published lock to make changed code pass; the
+`__version__` line is the one exception, since the audits ignore it. New runtime work goes into
+new modules under a new named experiment, which keeps every earlier audit green. Static UI,
+scripts and documentation edits do not change the locked hashes.
 
 Small pull requests with a concrete problem, reproducible behavior and relevant
 tests are welcome. Please disclose if a benchmark result follows prompt tuning

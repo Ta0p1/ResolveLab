@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="376" viewBox="0 0 1020 376" font-family="system-ui, -apple-system, Segoe UI, sans-serif">
+<rect width="1020" height="376" rx="10" fill="#fcfcfb"/>
+<text x="24.0" y="32.0" fill="#0b0b0b" font-size="15" text-anchor="start" font-weight="600">Pass rate, 120 test episodes</text>
+<text x="24.0" y="52.0" fill="#52514e" font-size="12" text-anchor="start" font-weight="400">Each episode in a generated API dialect, or on the original contract.</text>
+<circle cx="29" cy="75" r="5" fill="#898781"/>
+<text x="39.0" y="79.5" fill="#52514e" font-size="12" text-anchor="start" font-weight="400">Held-out, per seed</text>
+<line x1="163" y1="68" x2="163" y2="82" stroke="#898781" stroke-width="2" stroke-linecap="round"/>
+<text x="172.0" y="79.5" fill="#52514e" font-size="12" text-anchor="start" font-weight="400">Held-out mean</text>
+<circle cx="275" cy="75" r="5" fill="#fcfcfb" stroke="#52514e" stroke-width="2"/>
+<text x="285.0" y="79.5" fill="#52514e" font-size="12" text-anchor="start" font-weight="400">Original contract</text>
+<text x="484.0" y="95.0" fill="#898781" font-size="11" text-anchor="end" font-weight="400">Held-out</text>
+<text x="540.0" y="95.0" fill="#898781" font-size="11" text-anchor="end" font-weight="400">Original</text>
+<line x1="142.0" y1="100" x2="142.0" y2="336" stroke="#e1e0d9" stroke-width="1"/>
+<text x="142.0" y="352.0" fill="#898781" font-size="11" text-anchor="middle" font-weight="400">0%</text>
+<line x1="212.0" y1="100" x2="212.0" y2="336" stroke="#e1e0d9" stroke-width="1"/>
+<text x="212.0" y="352.0" fill="#898781" font-size="11" text-anchor="middle" font-weight="400">25%</text>
+<line x1="282.0" y1="100" x2="282.0" y2="336" stroke="#e1e0d9" stroke-width="1"/>
+<text x="282.0" y="352.0" fill="#898781" font-size="11" text-anchor="middle" font-weight="400">50%</text>
+<line x1="352.0" y1="100" x2="352.0" y2="336" stroke="#e1e0d9" stroke-width="1"/>
+<text x="352.0" y="352.0" fill="#898781" font-size="11" text-anchor="middle" font-weight="400">75%</text>
+<line x1="422.0" y1="100" x2="422.0" y2="336" stroke="#e1e0d9" stroke-width="1"/>
+<text x="422.0" y="352.0" fill="#898781" font-size="11" text-anchor="middle" font-weight="400">100%</text>
+<text x="24.0" y="116.0" fill="#52514e" font-size="13" text-anchor="start" font-weight="400">Qwen3-1.7B base</text>
+<line x1="188.7" y1="112" x2="207.3" y2="112" stroke="#c3c2b7" stroke-width="2"/>
+<circle cx="207.3" cy="112" r="5" fill="#fcfcfb" stroke="#52514e" stroke-width="2"/>
+<line x1="188.7" y1="103" x2="188.7" y2="121" stroke="#898781" stroke-width="2" stroke-linecap="round"/>
+<circle cx="188.7" cy="112" r="5" fill="#898781" stroke="#fcfcfb" stroke-width="2"/>
+<text x="484.0" y="116.0" fill="#52514e" font-size="13" text-anchor="end" font-weight="400">16.7%</text>
+<text x="540.0" y="116.0" fill="#52514e" font-size="13" text-anchor="end" font-weight="400">23.3%</text>
+<text x="24.0" y="157.0" fill="#52514e" font-size="13" text-anchor="start" font-weight="400">bc</text>
+<line x1="255.6" y1="153" x2="396.3" y2="153" stroke="#c3c2b7" stroke-width="2"/>
+<circle cx="396.3" cy="153" r="5" fill="#fcfcfb" stroke="#52514e" stroke-width="2"/>
+<line x1="255.6" y1="144" x2="255.6" y2="162" stroke="#898781" stroke-width="2" stroke-linecap="round"/>
+<circle cx="270.3" cy="153" r="5" fill="#898781" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="240.0" cy="153" r="5" fill="#898781" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="256.3" cy="153" r="5" fill="#898781" stroke="#fcfcfb" stroke-width="2"/>
+<text x="484.0" y="157.0" fill="#52514e" font-size="13" text-anchor="end" font-weight="400">40.6%</text>
+<text x="540.0" y="157.0" fill="#52514e" font-size="13" text-anchor="end" font-weight="400">90.8%</text>
+<text x="24.0" y="189.0" fill="#52514e" font-size="13" text-anchor="start" font-weight="400">bc-volume</text>
+<line x1="292.1" y1="185" x2="396.3" y2="185" stroke="#c3c2b7" stroke-width="2"/>
+<circle cx="396.3" cy="185" r="5" fill="#fcfcfb" stroke="#52514e" stroke-width="2"/>
+<line x1="292.1" y1="176" x2="292.1" y2="194" stroke="#898781" stroke-width="2" stroke-linecap="round"/>
+<circle cx="265.7" cy="185" r="5" fill="#898781" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="291.3" cy="185" r="5" fill="#898781" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="319.3" cy="185" r="5" fill="#898781" stroke="#fcfcfb" stroke-width="2"/>
+<text x="484.0" y="189.0" fill="#52514e" font-size="13" text-anchor="end" font-weight="400">53.6%</text>
+<text x="540.0" y="189.0" fill="#52514e" font-size="13" text-anchor="end" font-weight="400">90.8%</text>
+<text x="24.0" y="221.0" fill="#52514e" font-size="13" text-anchor="start" font-weight="400">dagger</text>
+<line x1="314.7" y1="217" x2="417.3" y2="217" stroke="#c3c2b7" stroke-width="2"/>
+<circle cx="417.3" cy="217" r="5" fill="#fcfcfb" stroke="#52514e" stroke-width="2"/>
+<line x1="314.7" y1="208" x2="314.7" y2="226" stroke="#898781" stroke-width="2" stroke-linecap="round"/>
+<circle cx="324.0" cy="217" r="5" fill="#898781" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="335.7" cy="217" r="5" fill="#898781" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="284.3" cy="217" r="5" fill="#898781" stroke="#fcfcfb" stroke-width="2"/>
+<text x="484.0" y="221.0" fill="#52514e" font-size="13" text-anchor="end" font-weight="400">61.7%</text>
+<text x="540.0" y="221.0" fill="#52514e" font-size="13" text-anchor="end" font-weight="400">98.3%</text>
+<text x="24.0" y="262.0" fill="#52514e" font-size="13" text-anchor="start" font-weight="400">bc-multi</text>
+<line x1="292.9" y1="258" x2="297.6" y2="258" stroke="#c3c2b7" stroke-width="2"/>
+<circle cx="297.6" cy="258" r="5" fill="#fcfcfb" stroke="#52514e" stroke-width="2"/>
+<line x1="292.9" y1="249" x2="292.9" y2="267" stroke="#898781" stroke-width="2" stroke-linecap="round"/>
+<circle cx="282.0" cy="258" r="5" fill="#898781" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="275.0" cy="258" r="5" fill="#898781" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="321.7" cy="258" r="5" fill="#898781" stroke="#fcfcfb" stroke-width="2"/>
+<text x="484.0" y="262.0" fill="#52514e" font-size="13" text-anchor="end" font-weight="400">53.9%</text>
+<text x="540.0" y="262.0" fill="#52514e" font-size="13" text-anchor="end" font-weight="400">55.6%</text>
+<text x="24.0" y="294.0" fill="#52514e" font-size="13" text-anchor="start" font-weight="400">bc-volume-multi</text>
+<line x1="330.2" y1="290" x2="282.0" y2="290" stroke="#c3c2b7" stroke-width="2"/>
+<circle cx="282.0" cy="290" r="5" fill="#fcfcfb" stroke="#52514e" stroke-width="2"/>
+<line x1="330.2" y1="281" x2="330.2" y2="299" stroke="#898781" stroke-width="2" stroke-linecap="round"/>
+<circle cx="328.7" cy="290" r="5" fill="#898781" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="345.0" cy="290" r="5" fill="#898781" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="317.0" cy="290" r="5" fill="#898781" stroke="#fcfcfb" stroke-width="2"/>
+<text x="484.0" y="294.0" fill="#52514e" font-size="13" text-anchor="end" font-weight="400">67.2%</text>
+<text x="540.0" y="294.0" fill="#52514e" font-size="13" text-anchor="end" font-weight="400">50.0%</text>
+<text x="24.0" y="326.0" fill="#0b0b0b" font-size="13" text-anchor="start" font-weight="600">dagger-multi</text>
+<line x1="369.9" y1="322" x2="408.0" y2="322" stroke="#c3c2b7" stroke-width="2"/>
+<circle cx="408.0" cy="322" r="5" fill="#fcfcfb" stroke="#52514e" stroke-width="2"/>
+<line x1="369.9" y1="313" x2="369.9" y2="331" stroke="#2a78d6" stroke-width="2" stroke-linecap="round"/>
+<circle cx="363.7" cy="322" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="387.0" cy="322" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="359.0" cy="322" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<text x="484.0" y="326.0" fill="#0b0b0b" font-size="13" text-anchor="end" font-weight="600">81.4%</text>
+<text x="540.0" y="326.0" fill="#52514e" font-size="13" text-anchor="end" font-weight="400">95.0%</text>
+<text x="584.0" y="32.0" fill="#0b0b0b" font-size="15" text-anchor="start" font-weight="600">Failed episodes by cause</text>
+<text x="584.0" y="52.0" fill="#52514e" font-size="12" text-anchor="start" font-weight="400">Three training seeds pooled (360 episodes per arm).</text>
+<rect x="584" y="70" width="10" height="10" rx="2" fill="#2a78d6"/>
+<text x="599.0" y="79.5" fill="#52514e" font-size="12" text-anchor="start" font-weight="400">Token copy error</text>
+<rect x="715.4" y="70" width="10" height="10" rx="2" fill="#eb6834"/>
+<text x="730.4" y="79.5" fill="#52514e" font-size="12" text-anchor="start" font-weight="400">Wrong write</text>
+<rect x="814.8" y="70" width="10" height="10" rx="2" fill="#1baf7a"/>
+<text x="829.8" y="79.5" fill="#52514e" font-size="12" text-anchor="start" font-weight="400">False success</text>
+<rect x="927.0" y="70" width="10" height="10" rx="2" fill="#eda100"/>
+<text x="942.0" y="79.5" fill="#52514e" font-size="12" text-anchor="start" font-weight="400">Other</text>
+<text x="584.0" y="102.0" fill="#52514e" font-size="12" text-anchor="start" font-weight="600">Held-out dialects</text>
+<text x="584.0" y="128.5" fill="#52514e" font-size="13" text-anchor="start" font-weight="400">bc-volume-multi</text>
+<path d="M696.0,112.0 h84.8 q0,0 0,0 v24.0 q0,0 0,0 h-84.8 z" fill="#2a78d6"/>
+<text x="738.4" y="128.5" fill="#ffffff" font-size="12" text-anchor="middle" font-weight="600">73</text>
+<path d="M782.8,112.0 h2.8 q0,0 0,0 v24.0 q0,0 0,0 h-2.8 z" fill="#eb6834"/>
+<path d="M787.5,112.0 h33.7 q0,0 0,0 v24.0 q0,0 0,0 h-33.7 z" fill="#1baf7a"/>
+<text x="804.4" y="128.5" fill="#0b0b0b" font-size="12" text-anchor="middle" font-weight="600">30</text>
+<path d="M823.2,112.0 h9.1 q4,0 4,4 v16.0 q0,4 -4,4 h-9.1 z" fill="#eda100"/>
+<text x="844.3" y="128.5" fill="#52514e" font-size="13" text-anchor="start" font-weight="400">118 failed</text>
+<text x="696.0" y="150.0" fill="#898781" font-size="11" text-anchor="start" font-weight="400">incl. wrong write 4, other 11</text>
+<text x="584.0" y="178.5" fill="#0b0b0b" font-size="13" text-anchor="start" font-weight="600">dagger-multi</text>
+<path d="M696.0,162.0 h9.9 q0,0 0,0 v24.0 q0,0 0,0 h-9.9 z" fill="#eb6834"/>
+<path d="M707.9,162.0 h36.0 q0,0 0,0 v24.0 q0,0 0,0 h-36.0 z" fill="#1baf7a"/>
+<text x="725.9" y="178.5" fill="#0b0b0b" font-size="12" text-anchor="middle" font-weight="600">32</text>
+<path d="M745.9,162.0 h25.7 q4,0 4,4 v16.0 q0,4 -4,4 h-25.7 z" fill="#eda100"/>
+<text x="760.8" y="178.5" fill="#0b0b0b" font-size="12" text-anchor="middle" font-weight="600">25</text>
+<text x="783.7" y="178.5" fill="#0b0b0b" font-size="13" text-anchor="start" font-weight="600">67 failed</text>
+<text x="696.0" y="200.0" fill="#898781" font-size="11" text-anchor="start" font-weight="400">no token copy errors; wrong write 10</text>
+<line x1="696" y1="108" x2="696" y2="190" stroke="#c3c2b7" stroke-width="1"/>
+<text x="584.0" y="226.0" fill="#52514e" font-size="12" text-anchor="start" font-weight="600">Original contract</text>
+<text x="584.0" y="252.5" fill="#52514e" font-size="13" text-anchor="start" font-weight="400">bc-volume-multi</text>
+<path d="M696.0,236.0 h195.4 q0,0 0,0 v24.0 q0,0 0,0 h-195.4 z" fill="#2a78d6"/>
+<text x="793.7" y="252.5" fill="#ffffff" font-size="12" text-anchor="middle" font-weight="600">166</text>
+<path d="M893.4,236.0 h0.4 q0,0 0,0 v24.0 q0,0 0,0 h-0.4 z" fill="#eb6834"/>
+<path d="M895.7,236.0 h10.3 q4,0 4,4 v16.0 q0,4 -4,4 h-10.3 z" fill="#1baf7a"/>
+<text x="918.0" y="252.5" fill="#52514e" font-size="13" text-anchor="start" font-weight="400">180 failed</text>
+<text x="696.0" y="274.0" fill="#898781" font-size="11" text-anchor="start" font-weight="400">incl. wrong write 2, false success 12</text>
+<text x="584.0" y="302.5" fill="#0b0b0b" font-size="13" text-anchor="start" font-weight="600">dagger-multi</text>
+<path d="M696.0,286.0 h5.1 q0,0 0,0 v24.0 q0,0 0,0 h-5.1 z" fill="#eb6834"/>
+<path d="M703.1,286.0 h11.1 q0,0 0,0 v24.0 q0,0 0,0 h-11.1 z" fill="#1baf7a"/>
+<path d="M716.2,286.0 h0.6 q0.5944444444444444,0 0.5944444444444444,0.5944444444444444 v22.8 q0,0.5944444444444444 -0.5944444444444444,0.5944444444444444 h-0.6 z" fill="#eda100"/>
+<text x="725.4" y="302.5" fill="#0b0b0b" font-size="13" text-anchor="start" font-weight="600">18 failed</text>
+<text x="696.0" y="324.0" fill="#898781" font-size="11" text-anchor="start" font-weight="400">no token copy errors; wrong write 6, false success 11, other 1</text>
+<line x1="696" y1="232" x2="696" y2="314" stroke="#c3c2b7" stroke-width="1"/>
+</svg>
