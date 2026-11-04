@@ -177,8 +177,8 @@ failure.
 
 ## Citation and credits
 
-If you use the environment or the evidence, see [CITATION.cff](CITATION.cff). Built with
-substantial AI-assisted coding; every published number is reproducible from the files above.
+If you use the environment or the evidence, see [CITATION.cff](CITATION.cff). Every published
+number is reproducible from the files above.
 Inspired by executable agent evaluation in [τ²-bench](https://github.com/sierra-research/tau2-bench)
 and [AIOpsLab](https://github.com/microsoft/AIOpsLab); ResolveLab does not reproduce their
 tasks or scores. MIT licensed; models keep their own licenses.

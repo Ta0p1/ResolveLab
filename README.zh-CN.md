@@ -113,6 +113,6 @@ python scripts/analyze_casedesk_v2.py test --output .local/v04/analysis-test
 
 ## 引用与致谢
 
-引用方式见 [CITATION.cff](CITATION.cff)。项目开发中大量使用了 AI 辅助编程；所有公开数字都可以用上述文件复现。
+引用方式见 [CITATION.cff](CITATION.cff)。所有公开数字都可以用上述文件复现。
 受 [τ²-bench](https://github.com/sierra-research/tau2-bench) 和 [AIOpsLab](https://github.com/microsoft/AIOpsLab)
 的可执行评测思路启发，但不复现它们的任务或分数。MIT 许可；模型遵守各自许可证。
