@@ -82,7 +82,7 @@
 - `src/` must still match the snapshots, except `providers/`, `main.py`, `__main__.py`, `cli.py`,
   `api.py`, `casedesk/cli.py` and `casedesk/env.py`, which no script imports (a test walks the
   imports). Those can now be maintained; an edit to any other locked file still fails CI.
-- CI edits two files outside the core and re-runs the three audits on a thin sample.
+- CI edits two files outside the core and re-runs the source tests and the three audits, thinned.
 
 ### Documentation
 
