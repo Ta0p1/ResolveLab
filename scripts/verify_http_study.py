@@ -7,6 +7,9 @@ import tempfile
 from itertools import combinations
 from pathlib import Path
 
+from locked_source import run_on_locked_source
+
+import resolvelab
 from resolvelab.benchmark import digest
 from resolvelab.httpdesk.benchmark import cases, load_manifest, validate_rows
 from resolvelab.httpdesk.experiment import collect, compare, episode, summarize
@@ -16,9 +19,9 @@ from resolvelab.training import file_hash
 
 ROOT = Path(__file__).resolve().parents[1]
 BUNDLE = ROOT / "artifacts/v0.3"
-PACKAGE = ROOT / "src/resolvelab"
+PACKAGE = Path(resolvelab.__file__).resolve().parent
 # Exactly the files `httpdesk.benchmark.source_hash()` covered at the v0.3.0 tag. Later
-# versions add modules, so the whole-package hash moves on, but none of these may change.
+# versions add modules, so the whole-package hash moves on; the v0.3 snapshot holds these.
 V03_SOURCE = (
     "__init__.py api.py benchmark.py cli.py curation.py evaluation.py experiments.py "
     "hf_policy.py httpdesk/__init__.py httpdesk/adapter.py httpdesk/benchmark.py "
@@ -240,4 +243,5 @@ def verify():
 
 
 if __name__ == "__main__":
+    run_on_locked_source("v0.3")
     verify()

@@ -16,6 +16,9 @@ import re
 import zipfile
 from pathlib import Path
 
+from locked_source import run_on_locked_source
+
+import resolvelab
 from resolvelab.benchmark import digest
 from resolvelab.casedesk.analysis import analyze
 from resolvelab.casedesk.data import expert_rows
@@ -27,7 +30,7 @@ from resolvelab.store import dumps
 
 ROOT = Path(__file__).resolve().parents[1]
 BUNDLE = ROOT / "artifacts/v0.4"
-PACKAGE = ROOT / "src/resolvelab"
+PACKAGE = Path(resolvelab.__file__).resolve().parent
 # The lock was computed while __init__.py said 0.3.0. The release version is metadata, not
 # behaviour, so that one line is the only text normalised before hashing, and only there.
 LOCKED_VERSION_LINE = b'__version__ = "0.3.0"'
@@ -157,6 +160,7 @@ def verify(every=1, replay_every=1):
 
 
 if __name__ == "__main__":
+    run_on_locked_source("v0.4")
     parser = argparse.ArgumentParser()
     parser.add_argument("--dagger-every", type=int, default=1, help="re-verify every Nth DAgger label")
     parser.add_argument("--replay-every", type=int, default=1, help="replay every Nth test episode")

@@ -29,6 +29,13 @@ jobs:
       # Every hash is checked; replays are thinned for CI. Run without flags for the full audit.
       - run: python scripts/verify_casedesk_v2.py --dagger-every 20 --replay-every 10
       - run: python scripts/verify_dialect_transfer.py --dagger-every 20 --replay-every 10
+      # An edit outside the study core must leave every audit passing.
+      - if: matrix.python == '3.13'
+        run: |
+          printf '\n# A maintenance edit.\n' | tee -a src/resolvelab/cli.py src/resolvelab/providers/base.py
+          python scripts/verify_http_study.py
+          python scripts/verify_casedesk_v2.py --dagger-every 200 --replay-every 60
+          python scripts/verify_dialect_transfer.py --dagger-every 200 --replay-every 60
       - uses: actions/upload-artifact@v7
         with:
           name: evaluation-python-${{ matrix.python }}

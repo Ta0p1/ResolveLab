@@ -72,8 +72,17 @@
   results, which the audit recomputes. CI thins the dialect audit's replays as it does for v0.4.
 - Add `scripts/make_dialect_figure.py`, the README figure rendered from the published bundle; a
   test fails if the committed figure differs from what the bundle produces.
-- `CONTRIBUTING.md` now says the v0.5 lock covers every Python file in the package at that lock,
-  including `providers/`, `casedesk/cli.py`, `casedesk/env.py` and `main.py`.
+
+### Audits
+
+- The v0.3, v0.4 and v0.5 audits now replay on `artifacts/locked-source/<study>.zip`, in a process
+  that can import nothing else from the package. A snapshot must reproduce its lock's source hash
+  first, checked by code outside it. The audit commands are unchanged, and no lock, result or trace
+  changed.
+- `src/` must still match the snapshots, except `providers/`, `main.py`, `__main__.py`, `cli.py`,
+  `api.py`, `casedesk/cli.py` and `casedesk/env.py`, which no script imports (a test walks the
+  imports). Those can now be maintained; an edit to any other locked file still fails CI.
+- CI edits two files outside the core and re-runs the three audits on a thin sample.
 
 ### Documentation
 

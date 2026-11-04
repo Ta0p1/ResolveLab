@@ -5,7 +5,7 @@ learner state, checks training reports against the locked adapters, replays ever
 episode in its dialect (the study-contract runs in the canonical one) over real HTTP, and
 recomputes the registered analysis. Exits cleanly, saying so, while there is no bundle; between
 the lock and the results it checks the lock's inputs only, and any published result switches on
-the full audit.
+the full audit. Once locked, it runs on the snapshot of the locked source (``locked_source.py``).
 """
 
 import argparse
@@ -14,6 +14,7 @@ import json
 import zipfile
 from pathlib import Path
 
+from locked_source import run_on_locked_source
 from summarize_dialect_failures import summarize
 
 from resolvelab.casedesk.manifest import load_manifest
@@ -121,7 +122,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
     if not (BUNDLE / "test-lock.json").exists():
         print("No dialect study bundle yet (artifacts/v0.5): nothing to verify.")
-    elif (counts := verify(args.dagger_every, args.replay_every)) is None:
+        raise SystemExit
+    run_on_locked_source("v0.5")
+    if (counts := verify(args.dagger_every, args.replay_every)) is None:
         print(
             "Test phase locked, no results published yet: verified the lock's manifest, "
             "assignment, study, source files and dialect prompts and grammars."
