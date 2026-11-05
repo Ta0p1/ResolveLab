@@ -25,12 +25,13 @@ import random
 from ..httpdesk.adapter import DeskAdapter
 from ..httpdesk.schema import append_observation, initial_messages, validate_action
 from ..httpdesk.service import DeskServer
+from ..packaged import benchmark_file
 from .grading import diagnose, grade_v2
 from .manifest import load_manifest
 from .runner import MAX_TOOLS
 from .world import WorldState
 
-DEFAULT_MANIFEST = "benchmarks/casedesk-v2.json"
+DEFAULT_MANIFEST = "casedesk-v2.json"
 
 
 class CaseDeskEnv:
@@ -46,10 +47,7 @@ class CaseDeskEnv:
         if pool == "test" and not allow_test:
             raise ValueError("The registered test pool is public; pass allow_test=True to use it anyway")
         if manifest is None or isinstance(manifest, str):
-            from pathlib import Path
-
-            path = Path(manifest or Path(__file__).resolve().parents[3] / DEFAULT_MANIFEST)
-            manifest = load_manifest(path)
+            manifest = load_manifest(manifest or benchmark_file(DEFAULT_MANIFEST))
         self.manifest, self.pool, self.max_tools, self.prompt = manifest, pool, max_tools, prompt
         self.specs = list(manifest["episodes"][pool])
         self.by_id = {s["id"]: s for rows in manifest["episodes"].values() for s in rows}

@@ -9,6 +9,9 @@
   changes, and every audit ignores it. No lock, result, manifest, trace or snapshot changes.
 - A test now requires `pyproject.toml`, `__version__`, `CITATION.cff` and this changelog to
   agree on the version and its date.
+- The wheel now carries the two benchmark files `resolvelab casedesk` reads, so the commands work
+  outside a checkout. Without them the commands failed, and `hf:` models lost their pinned
+  revision without warning. CI installs the built wheel and runs an episode from it.
 - Correct the 0.4.0 date below to the day it was tagged and released.
 
 ### Model adapters and CLI
