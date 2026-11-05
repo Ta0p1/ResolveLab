@@ -13,12 +13,13 @@ import json
 import sys
 from pathlib import Path
 
+from ..packaged import benchmark_file
 from ..providers import make_provider
 from .evaluate import evaluate
 from .manifest import load_manifest
 from .runner import run_episode
 
-MANIFEST = Path(__file__).resolve().parents[3] / "benchmarks/casedesk-v2.json"
+MANIFEST = benchmark_file("casedesk-v2.json")
 POOLS = ["train_core", "train_pool", "dev", "test"]
 
 

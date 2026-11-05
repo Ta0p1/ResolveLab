@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "resolvelab"
-version = "0.4.0"
+version = "0.5.0"
 description = "Fault-injected tool environments with side-effect grading for evaluating and post-training LLM agents."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -37,11 +37,16 @@ resolvelab = "resolvelab.main:main"
 
 [project.urls]
 Repository = "https://github.com/Ta0p1/ResolveLab"
-Results = "https://github.com/Ta0p1/ResolveLab/blob/main/artifacts/v0.4/RESULTS.md"
+Results = "https://github.com/Ta0p1/ResolveLab/blob/main/artifacts/v0.5/RESULTS.md"
 Changelog = "https://github.com/Ta0p1/ResolveLab/blob/main/CHANGELOG.md"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/resolvelab"]
+
+# `resolvelab casedesk` reads these outside a checkout, through `packaged.benchmark_file`.
+[tool.hatch.build.targets.wheel.force-include]
+"benchmarks/casedesk-v2.json" = "resolvelab/benchmarks/casedesk-v2.json"
+"benchmarks/casedesk-v2-study.json" = "resolvelab/benchmarks/casedesk-v2-study.json"
 
 [tool.hatch.build.targets.sdist]
 include = [

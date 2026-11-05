@@ -12,9 +12,10 @@ the study's system prompt, one-shot demonstration, task, then actions and observ
 """
 
 import json
-from pathlib import Path
 
-STUDY = Path(__file__).resolve().parents[3] / "benchmarks/casedesk-v2-study.json"
+from ..packaged import benchmark_file
+
+STUDY = benchmark_file("casedesk-v2-study.json")
 PROVIDERS = ("teacher", "hf", "ollama", "openai", "anthropic")
 MAX_TOOLS = 24
 
