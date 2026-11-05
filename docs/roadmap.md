@@ -43,7 +43,7 @@ labels; grader v2; a registered DAgger vs size-matched behaviour-cloning compari
 90.8%, +7.5 pp, CI [1.9, 13.3]); stronger in-context and thinking-mode baselines (neither
 helped); test lock and a GPU-free verifier that re-derives every DAgger label.
 
-## Since 0.4.0 (on main, unreleased)
+## v0.5 — Transfer to unseen API dialects (released as 0.5.0, 2026-11-04)
 
 - `resolvelab casedesk` and model providers (local Transformers, Ollama, OpenAI-compatible
   servers, Claude), so a model served by any of these can be evaluated on the registered
@@ -56,8 +56,10 @@ helped); test lock and a GPU-free verifier that re-derives every DAgger label.
 - The v0.5 transfer study: [registered protocol](dialect-transfer-protocol.md) and
   [results](../artifacts/v0.5/RESULTS.md). Training across dialects helps on unseen contracts,
   DAgger helps most, and `dagger-multi` fails the registered safety limit against its control.
+- Audits that replay on hash-checked snapshots of the locked source, so files no study ran can
+  be maintained without touching a lock.
 
-## v0.5 — candidates, one at a time
+## Next — candidates, one at a time
 
 1. Durable recovery as an engineering loop: persisted HTTP idempotency receipts, crash
    injection between commit and response, process restart and multi-worker races.

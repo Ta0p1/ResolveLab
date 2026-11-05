@@ -1,6 +1,15 @@
 # Changelog
 
-## Unreleased
+## 0.5.0 — 2026-11-04
+
+### Release
+
+- Version 0.5.0: the registered dialect transfer study with its evidence, the model providers
+  and CLI, and the step-wise environment. In the locked source, only the `__version__` line
+  changes, and every audit ignores it. No lock, result, manifest, trace or snapshot changes.
+- A test now requires `pyproject.toml`, `__version__`, `CITATION.cff` and this changelog to
+  agree on the version and its date.
+- Correct the 0.4.0 date below to the day it was tagged and released.
 
 ### Model adapters and CLI
 
@@ -28,8 +37,8 @@
   changes the concurrency token, pagination, status codes and time unit; `train` and `heldout`
   dialects use disjoint identifiers. The canonical dialect reproduces the study's prompt, schema
   and episodes exactly (tested), and every published v0.4 result translates through it unchanged.
-- Add `examples/dialect_episode.py` (also run in CI), `docs/dialects.md` and a draft, unregistered
-  transfer protocol (`docs/dialect-transfer-protocol.md`).
+- Add `examples/dialect_episode.py` (also run in CI), `docs/dialects.md` and a draft of the
+  transfer protocol (`docs/dialect-transfer-protocol.md`), registered later in this release.
 - Add the transfer-study plumbing: the episode-to-dialect assignment
   (`benchmarks/casedesk-dialects-v1.json`), a dialect-aware constrained policy, expert and DAgger row
   builders in dialects (the multi-dialect `train_core` rows are tested to be exactly v0.4's 396 `bc`
@@ -43,8 +52,8 @@
 - Add `scripts/check_dialect_decoder.py` (GPU): in the canonical dialect, `DialectPolicy` reproduced
   published v0.4 dev traces exactly (raw outputs, observations, verdicts; 6/6 `dagger-42`, 4/4
   `bc-volume-42` including two budget-exhausting failures).
-- No model has been evaluated on held-out dialects; no result, lock, manifest, trace or locked source
-  file changes.
+- This groundwork ran no model on a held-out dialect and changed no result, lock, manifest, trace
+  or locked source file.
 
 ### Dialect transfer study (v0.5)
 
@@ -87,10 +96,9 @@
 ### Documentation
 
 - Bring the roadmap, study history and README layout table up to date with the merged work,
-  mark v0.4 as released, list the draft v0.5 study as not run, and remove a leftover
-  job-search line from the roadmap.
+  mark v0.4 as released, and remove a leftover job-search line from the roadmap.
 
-## 0.4.0 — 2026-10-28
+## 0.4.0 — 2026-10-29
 
 ### Release
 
