@@ -209,6 +209,19 @@ protocol lists every arm, budget and decision rule.
 | `scripts/` | pipelines, audits and figure generation |
 | `examples/` | runnable entry points |
 
+## Where it is going
+
+The studies above run on one synthetic service. The next releases make the method usable on
+other APIs ([roadmap](docs/roadmap.md)):
+
+- **0.6:** a fault proxy that runs in front of any HTTP service and a declarative grader over
+  state snapshots and the request log ([design](docs/fault-proxy-design.md)); durable
+  idempotency receipts with crash and restart faults.
+- **0.7:** reference services beyond ticketing (refunds, inventory), published results for
+  hosted and local models, and an MCP server mode.
+- **0.8:** grader-verified training data from strong-model teachers, larger trained models and
+  RL on the environments.
+
 ## Scope and limits
 
 Synthetic, process-local services with a known contract: held-out compositions, records and

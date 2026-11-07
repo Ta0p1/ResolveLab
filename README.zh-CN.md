@@ -141,6 +141,15 @@ python scripts/run_casedesk_v2.py test --three-demo --v03-adapters <v0.3 的 .lo
 python scripts/analyze_casedesk_v2.py test --output .local/v04/analysis-test
 ```
 
+## 后续方向
+
+上面的实验都在同一个合成服务上进行。接下来的版本会让这套方法可以用在其他 API 上（[路线图](docs/roadmap.md)）：
+
+- **0.6**：可以放在任意 HTTP 服务前面的故障注入代理，以及基于状态快照和请求日志的声明式评分
+  （[设计文档](docs/fault-proxy-design.md)）；持久化的幂等回执，以及崩溃与重启故障。
+- **0.7**：工单之外的参考服务（退款、库存），托管模型与本地模型的公开结果，以及 MCP 服务模式。
+- **0.8**：由强模型担任老师、经评分器验证的训练数据，更大的训练模型，以及在这些环境上的强化学习。
+
 ## 范围与局限
 
 合成的、进程内的服务，接口已知：测试的是没见过的故障组合、记录和措辞，不是新工具、新领域或生产事故。只有一个

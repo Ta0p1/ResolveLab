@@ -99,7 +99,7 @@
 ### Documentation
 
 - Bring the roadmap, study history and README layout table up to date with the merged work,
-  mark v0.4 as released, and remove a leftover job-search line from the roadmap.
+  mark v0.4 as released, and remove a leftover personal note from the roadmap.
 
 ## 0.4.0 — 2026-10-29
 
@@ -117,7 +117,7 @@
   quick start; move the per-version narrative to `docs/history.md`.
 - Add `examples/casedesk_quickstart.py` (one fault-injected episode plus two replayed model
   runs, about two seconds; also run in CI), a docs index, `CITATION.cff` and package metadata.
-- Remove personal job-search notes from the public docs. No result, lock, manifest, trace or
+- Remove personal notes from the public docs. No result, lock, manifest, trace or
   locked source file changes.
 
 ### v0.4 study (2026-10-22/23)
@@ -168,8 +168,8 @@
   control. Explicitly document baseline protocol failures and limited scope.
 - Re-execute all 120 published test tool trajectories without a GPU to audit
   outcomes, alongside split, metric and adapter-selection checks.
-- Add a Post-training view, model card, reproduction commands, updated demo and
-  resume material; keep all v0.1 evidence intact.
+- Add a Post-training view, model card, reproduction commands and an updated demo;
+  keep all v0.1 evidence intact.
 
 ## 0.1.0 — Initial executable baseline
 

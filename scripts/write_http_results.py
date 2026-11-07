@@ -295,29 +295,4 @@ for name in ("README.md", "README.zh-CN.md"):
         encoding="utf-8",
         newline="\n",
     )
-path = root / "docs/resume.md"
-content = path.read_text(encoding="utf-8")
-start, tail = content.split("<!-- HTTP_RESUME_RESULT_START -->", 1)
-_, end = tail.split("<!-- HTTP_RESUME_RESULT_END -->", 1)
-bullet = (
-    f"- Improved Qwen3-0.6B task success from {100 * base['success_rate']:.1f}% to {100 * statistics.mean(rates):.1f}% mean "
-    f"({100 * min(rates):.1f}–{100 * max(rates):.1f}% across three LoRA seeds) on a registered 30-episode, "
-    f"10-composition synthetic HTTP recovery holdout; "
-    f"used identical one-shot prompts and schema-constrained decoding, with independent state verification and complete trace replay."
-)
-path.write_text(
-    start
-    + "<!-- HTTP_RESUME_RESULT_START -->\n\n"
-    + bullet
-    + "\n\n"
-    + (
-        "Both baseline and adapted arms had 100% schema-valid calls; this comparison controls the format-rejection confound.\n"
-        if all_valid
-        else "Consult the call-validity table before describing this as a semantic-only gain.\n"
-    )
-    + "<!-- HTTP_RESUME_RESULT_END -->"
-    + end,
-    encoding="utf-8",
-    newline="\n",
-)
-print("Wrote measured results, README tables and a scoped resume bullet.")
+print("Wrote measured results and README tables.")
