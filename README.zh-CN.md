@@ -146,7 +146,8 @@ python scripts/analyze_casedesk_v2.py test --output .local/v04/analysis-test
 上面的实验都在同一个合成服务上进行。接下来的版本会让这套方法可以用在其他 API 上（[路线图](docs/roadmap.md)）：
 
 - **0.6**：可以放在任意 HTTP 服务前面的故障注入代理，以及基于状态快照和请求日志的声明式评分
-  （[设计文档](docs/fault-proxy-design.md)）；持久化的幂等回执，以及崩溃与重启故障。
+  （[设计文档](docs/fault-proxy-design.md)）；持久化的幂等回执，以及崩溃与重启故障（已在 CaseDesk
+  上实现：[持久化恢复](docs/durable-recovery.md)）。
 - **0.7**：工单之外的参考服务（退款、库存），托管模型与本地模型的公开结果，以及 MCP 服务模式。
 - **0.8**：由强模型担任老师、经评分器验证的训练数据，更大的训练模型，以及在这些环境上的强化学习。
 

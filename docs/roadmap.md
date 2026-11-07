@@ -76,7 +76,9 @@ registration, lock and audit rules above.
 - Acceptance test: CaseDesk behind the proxy reproduces grader v2 verdicts on the published
   v0.4 traces.
 - Durable recovery: persisted idempotency receipts, crash injection between commit and
-  response, process restart and multi-worker races.
+  response, process restart and multi-worker races. Implemented (unreleased) for CaseDesk as
+  `resolvelab.durable`, with an exactly-once grader on top of grader v2
+  ([durable recovery](durable-recovery.md)).
 
 ### 0.7 — More domains and hosted-model results
 

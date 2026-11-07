@@ -18,6 +18,8 @@
 - [CaseDesk as an environment](environment.md): `reset` / `step` / `state`, reward, pools, fidelity tests.
 - [API dialects](dialects.md): generated tool contracts over the same service, faults and grader, for
   transfer experiments.
+- [Durable recovery](durable-recovery.md): the same contract on a persisted store in worker processes
+  that crash, restart and race; exactly-once grading across restarts.
 - [Architecture](architecture.md): the SQLite sync service, the CaseDesk HTTP service and their guarantees.
 - [CaseDesk v0.3 protocol](httpdesk-protocol.md) and [model card](httpdesk-model-card.md).
 - [Evaluation protocol for the sync service](evaluation.md) and its [model card](model-card.md).

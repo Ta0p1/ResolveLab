@@ -31,7 +31,9 @@ commit then return 502. Retry-After uses a deterministic virtual clock, advanced
 an explicit HTTP tool action. Permission can be revoked between a GET and PATCH.
 
 This backend is a **synthetic process-lifetime service**, not durable remote storage.
-State/receipts do not survive its restart. The adapter exercises real TCP requests,
+State/receipts do not survive its restart. (`resolvelab.durable` runs the same handlers on a
+persisted store, in worker processes that crash and restart; see
+[durable recovery](durable-recovery.md).) The adapter exercises real TCP requests,
 not an in-process mock transport. Evaluation starts an isolated bound socket for
 each episode; `scripts/serve_casedesk.py` also runs it as a separate process for
 manual inspection. No fixture/admin API is exposed to the model.

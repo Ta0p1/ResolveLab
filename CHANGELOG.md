@@ -1,5 +1,38 @@
 # Changelog
 
+## Unreleased
+
+### Durable recovery
+
+- Add `resolvelab.durable`: the CaseDesk HTTP contract and graders on a persisted SQLite store
+  (WAL, `synchronous=FULL`, one `BEGIN IMMEDIATE` transaction per request), served by real
+  uvicorn worker processes. The frozen `httpdesk` handlers run unchanged; their `state.lock` is
+  the database transaction, so idempotency receipts, records and the commit log survive a
+  restart and are shared between workers.
+- Process faults: `crash_before_commit` and `crash_after_commit` (the worker exits through
+  `os._exit` before or after the commit, without responding), `restart_after_commit` (every
+  worker killed after the first write, restarted on the same store once a request fails) and
+  `duplicate_delivery` (each PATCH sent to two workers at once). A separate fault ledger makes
+  each fire once across workers.
+- The `casedesk-durable-v1` suite: 14 compositions with the CaseDesk faults, two episodes each,
+  generated in code from records disjoint from every registered episode. It is an engineering
+  suite, not a registered study; the scripted teacher passes all 28.
+- Add `grade_durable`: grader v2 on the state recovered after the episode, plus no duplicate
+  commits per idempotency key, no lost acknowledged commits across boots and a fresh verifying
+  read after the last restart.
+- Tests cover crash after commit (a replayed key gets the saved 200 on the restarted worker),
+  crash before commit (no write, receipt or event survives), restart, two-worker races with
+  the same key, new keys and a reused key, and the teacher on every composition. Registered v2
+  episodes (on one and two workers) and published v0.4 model traces, failures included, give
+  identical observations and v2 verdicts on the durable store. Two wrong recoveries fail (a
+  new-key write after a crash, a claim without a read after the restart), and the v0.3-style
+  process-local store fails as a negative control.
+- Add `resolvelab durable` (`episodes`, `run`, `suite`, `race`) through `main.py`, which is
+  outside the study core, `examples/durable_recovery.py` (also run in CI) and
+  `docs/durable-recovery.md`.
+- No file under `httpdesk/`, `casedesk/` or `dialects/` changes, and no lock, result, manifest,
+  trace or snapshot. No model was run.
+
 ## 0.5.0 — 2026-11-04
 
 ### Release
