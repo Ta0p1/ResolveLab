@@ -22,6 +22,12 @@
 - [CaseDesk v0.3 protocol](httpdesk-protocol.md) and [model card](httpdesk-model-card.md).
 - [Evaluation protocol for the sync service](evaluation.md) and its [model card](model-card.md).
 
+## Design
+
+- [Fault proxy and declarative grading](fault-proxy-design.md): the 0.6 plan for injecting faults in
+  front of any HTTP service and grading from state snapshots and the request log (not implemented).
+- [Roadmap](roadmap.md): released versions and the direction from 0.6.
+
 ## Earlier studies and project notes
 
 - [Study history](history.md): every study, its question, headline, status and evidence.

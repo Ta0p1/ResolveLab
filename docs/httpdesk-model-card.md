@@ -2,7 +2,7 @@
 
 ## Intended use
 
-Research and portfolio demonstration of small-model tool selection and recovery
+Research demonstration of small-model tool selection and recovery
 within the published synthetic CaseDesk contract. This is not a customer-support
 production model. It has no access to arbitrary URLs, shell commands or real tickets.
 

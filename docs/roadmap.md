@@ -59,20 +59,55 @@ helped); test lock and a GPU-free verifier that re-derives every DAgger label.
 - Audits that replay on hash-checked snapshots of the locked source, so files no study ran can
   be maintained without touching a lock.
 
-## Next — candidates, one at a time
+## Direction from 0.6: reliability testing for agents on real APIs
 
-1. Durable recovery as an engineering loop: persisted HTTP idempotency receipts, crash
-   injection between commit and response, process restart and multi-worker races.
-2. Safety after transfer: `dagger-multi` still commits wrong values and claims success on a
-   partial match in unseen dialects ([results](../artifacts/v0.5/RESULTS.md)). A new registered
-   study could target those states directly; the v0.5 result is not reinterpreted.
-3. Token-matched control and more DAgger iterations, if the v0.4 effect is to be sized
-   rather than only detected.
-4. A real SaaS sandbox with authentication, least-privilege scopes and cleanup.
+Through v0.5 ResolveLab answered research questions on one synthetic service. The method is
+what carries over: inject the failures that change the correct next action, and grade the
+agent from the system's state and the request log rather than from its claim. From 0.6 the
+work makes that method usable on services other than CaseDesk, while studies keep the
+registration, lock and audit rules above.
+
+### 0.6 — Fault proxy and declarative grading
+
+- A fault proxy that runs in front of any HTTP service and injects rate limits, precondition
+  conflicts, lost acknowledgements, revoked permissions, concurrent writers and injected
+  text, with a declarative grader over state snapshots and the request log
+  ([design](fault-proxy-design.md)).
+- Acceptance test: CaseDesk behind the proxy reproduces grader v2 verdicts on the published
+  v0.4 traces.
+- Durable recovery: persisted idempotency receipts, crash injection between commit and
+  response, process restart and multi-worker races.
+
+### 0.7 — More domains and hosted-model results
+
+- Two reference services outside ticketing where side effects are expensive: refunds with
+  idempotency, and inventory with concurrent reservations.
+- Published results for hosted and local models on every service, reported by pass rate,
+  each safety category, tokens and latency.
+- MCP server mode and native tool calling, alongside the JSON action format.
+
+### 0.8 — Training on verified data at larger scale
+
+- Teacher labels from a strong model, kept only when the grader verifies the continuation, to
+  replace the hand-written runbook where none exists.
+- Larger trained models than 0.6B, and RL on the step-wise environments now that the reward
+  is grounded in server state.
+- OpenEnv and verifiers packaging of the environments.
+
+### Studies
+
+Registered studies continue alongside, one at a time:
+
+- Safety after transfer: `dagger-multi` still claims success on partial matches and commits
+  wrong values in unseen dialects ([results](../artifacts/v0.5/RESULTS.md)). A study can target
+  those states directly, on a fresh test pool; the v0.5 result is not reinterpreted.
+- A token-matched control and more DAgger iterations, if the v0.4 effect is to be sized
+  rather than only detected.
 
 ## Later
 
-- Preference/RL experiments only when rewards resist obvious shortcuts.
+- A GitHub Actions workflow that runs scenarios on every pull request and posts a report.
+- Integrations with real SaaS sandboxes, with authentication, least-privilege scopes and
+  cleanup.
 - vLLM-specific serving checks beyond the OpenAI-compatible provider.
-- Real SaaS sandbox integrations, authentication and durable job leases.
 - Public reproducibility reports from outside contributors.
