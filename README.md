@@ -143,14 +143,14 @@ grader ([docs/dialects.md](docs/dialects.md)).
 ```bash
 resolvelab casedesk run --episode test-test_conflict_rate-07 --model ollama:qwen3:4b
 resolvelab casedesk eval --pool dev --model ollama:qwen3:4b --output runs/qwen3-4b-dev.json
-resolvelab casedesk eval --pool dev --model openai:<model> --option base_url=http://localhost:8000/v1 --output runs/vllm-dev.json
+resolvelab casedesk eval --pool dev --model openai:<model> --option base_url=http://localhost:8000/v1 --output runs/vllm-dev.json --workers 16
 resolvelab casedesk eval --pool dev --model anthropic:claude-opus-5-5 --output runs/opus-dev.json   # pip install "resolvelab[anthropic]"
 ```
 
 Every model sees the study's prompt, demonstration and tool contract; reports and traces use
-the published format and are resumable. Local Transformers (`hf:`), Ollama, any
-OpenAI-compatible server and Claude are supported. [Options and what is comparable to the
-registered study](docs/models.md).
+the published format and are resumable, and `--workers N` runs N episodes at once. Local
+Transformers (`hf:`), Ollama, any OpenAI-compatible server and Claude are supported.
+[Options and what is comparable to the registered study](docs/models.md).
 
 ## How it works
 

@@ -37,6 +37,59 @@ Options are `--option KEY=VALUE`, repeatable:
 
 API keys are read from the environment and never written to reports.
 
+Reports record no local paths either. A local `adapter=` directory, or an `hf:` model given as
+a directory, is recorded relative to the checkout when it lies inside it, and otherwise by its
+directory name, with the adapter's `adapter_sha256` beside it; a drive letter, home directory
+or user name never reaches a report. Hub ids are recorded as given. Reports published before
+this rule, such as the v0.4 and v0.5 evidence, stay as published.
+
+## Running episodes concurrently
+
+`eval --workers N` runs N episodes at once (default 1, one after another). Each episode has
+its own world and its own HTTP server on a free port, so episodes share nothing but the model.
+The report is the same: the same rows in manifest order, whatever order episodes finish in,
+the same traces and the same identity check, and `--resume` continues an interrupted run with
+any number of workers. With the scripted teacher on the dev pool, `--workers 8` writes the
+rows and traces of `--workers 1` apart from timing (`tests/test_parallel_eval.py`).
+
+| Provider | `--workers > 1` | Why |
+|---|---|---|
+| `teacher` | yes | scripted, no model |
+| `hf:` | no, refused before the model loads | one GPU model in this process decodes one sequence at a time; serve it with vLLM and use `openai:` instead |
+| `openai:` | yes | each running episode has its own client; the server batches the requests |
+| `anthropic:` | yes | each running episode has its own provider instance, because the provider replays that episode's own earlier turns |
+| `ollama:` | yes | Ollama decodes up to `OLLAMA_NUM_PARALLEL` requests at once and queues the rest |
+
+Things to check before raising N:
+
+- **Queued requests time out.** A request that waits in a server queue spends its `timeout`
+  (300 s by default) waiting. For Ollama, set `OLLAMA_NUM_PARALLEL` to at least N on the
+  server (each slot reserves its own `num_ctx` of memory). vLLM schedules up to its
+  `--max-num-seqs` requests at once.
+- **Rate limits end episodes.** `openai:` does not retry and `anthropic:` retries only as the
+  SDK does (twice for 408/409/429/5xx). An episode whose request still fails ends with
+  `error: inference_error` and counts as a failure, so keep N within the API's rate limit and
+  check the rows' `error` field before quoting a score.
+- **Batching is not bit-identical.** A server that batches requests need not decode exactly as
+  it does one request at a time, so a model's outputs can differ slightly between worker
+  counts, as they can between server versions.
+
+A Qwen3 model on vLLM, with thinking off and 16 episodes at a time:
+
+```bash
+vllm serve Qwen/Qwen3-8B --served-model-name qwen3-8b --max-model-len 8192
+resolvelab casedesk eval --pool dev --output runs/qwen3-8b-dev.json \
+  --model openai:qwen3-8b --option base_url=http://127.0.0.1:8000/v1 \
+  --option 'extra={"chat_template_kwargs":{"enable_thinking":false}}' --workers 16
+```
+
+The single quotes keep the shell from removing the JSON's double quotes. Name the served model
+with `--served-model-name`: without it vLLM serves the model under its path, and that path is
+the model name the report records.
+
+`resolvelab durable run --model` runs one episode; the durable suite has no model command that
+runs several, so it has no `--workers`.
+
 ## What is and is not comparable
 
 Every provider sees the identical conversation: the study's system prompt, its one-shot
