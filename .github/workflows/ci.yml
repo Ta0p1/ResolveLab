@@ -23,6 +23,7 @@ jobs:
       - run: resolvelab casedesk run --episode test-test_conflict_rate-07 --model teacher
       - run: python examples/casedesk_env_loop.py
       - run: python examples/dialect_episode.py
+      - run: python examples/durable_recovery.py
       - run: python -m build
       # The wheel has to work with no repository around it.
       - run: |
@@ -30,6 +31,7 @@ jobs:
           "$RUNNER_TEMP/wheel/bin/pip" install -c constraints.txt dist/*.whl
           cd "$RUNNER_TEMP"
           "$RUNNER_TEMP/wheel/bin/resolvelab" casedesk run --episode test-test_conflict_rate-07 --model teacher
+          "$RUNNER_TEMP/wheel/bin/resolvelab" durable run --episode durable-crash_before_after-00
           "$RUNNER_TEMP/wheel/bin/python" -c "from resolvelab.casedesk.env import CaseDeskEnv; from resolvelab.providers import STUDY; assert CaseDeskEnv().specs and STUDY.is_file()"
       - run: python scripts/verify_experiment.py
       - run: python scripts/verify_http_study.py

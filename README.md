@@ -203,6 +203,7 @@ protocol lists every arm, budget and decision rule.
 | `src/resolvelab/providers/` | model providers for the CLI: local Transformers, Ollama, OpenAI-compatible servers, Claude |
 | `src/resolvelab/dialects/` | generated API dialects of the CaseDesk contract, and the tooling of the v0.5 transfer study |
 | `src/resolvelab/httpdesk/` | the CaseDesk HTTP contract: service, adapter, schema, v0.3 grader (frozen) |
+| `src/resolvelab/durable/` | the same contract on a persisted store in worker processes that crash, restart and race; exactly-once grading ([docs](docs/durable-recovery.md)) |
 | `src/resolvelab/*.py` | the original SQLite sync service and workbench (v0.1–v0.2) |
 | `benchmarks/` | registered manifests and study configurations |
 | `artifacts/v0.*` | each study's results, locks, reports and zipped traces |
@@ -216,7 +217,8 @@ other APIs ([roadmap](docs/roadmap.md)):
 
 - **0.6:** a fault proxy that runs in front of any HTTP service and a declarative grader over
   state snapshots and the request log ([design](docs/fault-proxy-design.md)); durable
-  idempotency receipts with crash and restart faults.
+  idempotency receipts with crash and restart faults (built for CaseDesk:
+  [durable recovery](docs/durable-recovery.md)).
 - **0.7:** reference services beyond ticketing (refunds, inventory), published results for
   hosted and local models, and an MCP server mode.
 - **0.8:** grader-verified training data from strong-model teachers, larger trained models and
