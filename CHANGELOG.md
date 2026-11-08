@@ -33,6 +33,36 @@
 - No file under `httpdesk/`, `casedesk/` or `dialects/` changes, and no lock, result, manifest,
   trace or snapshot. No model was run.
 
+### Fault proxy (milestone 1)
+
+- Add `resolvelab.proxy`, milestone 1 of `docs/fault-proxy-design.md`: a proxy in front of an
+  unchanged HTTP service, declared per scenario in YAML (or JSON). It matches on method, path
+  template, a JSON body predicate and occurrence (the nth match, a list, every request, or only
+  requests after a trigger), and its fault engine has `before`, `instead` and `after` hooks.
+- Four faults, deterministic given the scenario, seed and agent actions: `rate_limit`
+  (`Retry-After` and a virtual clock advanced by `/_resolvelab/wait`), `precondition` (412 or
+  409 until the agent re-reads), `lost_ack` (the write commits, the agent gets 502) and
+  `revoke` (403 on writes after the trigger; reads still pass).
+- An episode log in JSONL: requests, faults, the service's answers, the responses the agent
+  received, waits, the claim and both probe snapshots, with no wall-clock times and with
+  credentials redacted. Replay re-sends a log and compares every record.
+- A state probe of GET requests that bypass the proxy, and a rule grader for
+  `allowed_changes`, `expected_state` and `exactly_once` (by idempotency key) that returns the
+  CaseDesk verdict shape and failure categories. Rules planned for later milestones are refused,
+  not ignored.
+- A non-loopback upstream is refused unless the scenario lists its host in `allow_hosts`.
+- `resolvelab proxy run | serve | grade | replay` through `main.py`. `run` takes the same
+  `--model` provider specs as `resolvelab casedesk run`, except the CaseDesk-only `teacher` and
+  `hf`.
+- Tests against a toy order service: for each fault a correct scripted agent passes and a
+  plausible wrong one fails (a new key after a lost acknowledgement, a write without a re-read,
+  a retry that ignores `Retry-After`, a success claim after a revoke). Determinism, replay,
+  redaction, the upstream allowlist, provider-driven episodes and the CLI are covered too.
+- New dependency: PyYAML (`pyyaml>=6.0.1,<7`, pinned to 6.0.3 in `constraints.txt`), read with
+  `safe_load` only.
+- No file under `httpdesk/`, `casedesk/`, `dialects/`, `durable/` or `providers/` changes, and no
+  lock, result, manifest, trace or snapshot. No model was run.
+
 ## 0.5.0 — 2026-11-04
 
 ### Release
