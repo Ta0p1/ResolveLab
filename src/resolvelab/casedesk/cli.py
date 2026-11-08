@@ -3,9 +3,11 @@
     resolvelab casedesk episodes --pool dev
     resolvelab casedesk run --episode test-test_conflict_rate-07 --model ollama:qwen3:4b
     resolvelab casedesk eval --pool dev --model anthropic:claude-opus-5-5 --output dev.json
+    resolvelab casedesk eval --pool dev --model openai:qwen3-8b --workers 16 --output dev.json
 
 Reports are resumable and identity-checked (``casedesk.evaluate``); traces are written next
-to them, one JSON file per episode.
+to them, one JSON file per episode. ``--workers`` runs that many episodes at once
+(``casedesk.parallel``); the report is the same.
 """
 
 import argparse
@@ -14,9 +16,9 @@ import sys
 from pathlib import Path
 
 from ..packaged import benchmark_file
-from ..providers import make_provider
-from .evaluate import evaluate
+from ..providers import make_provider, parse_spec
 from .manifest import load_manifest
+from .parallel import check_workers, evaluate
 from .runner import run_episode
 
 MANIFEST = benchmark_file("casedesk-v2.json")
@@ -31,6 +33,13 @@ def parse_options(pairs):
             raise SystemExit(f"--option expects KEY=VALUE, got {pair!r}")
         options[key] = value
     return options
+
+
+def worker_count(text):
+    value = int(text)
+    if value < 1:
+        raise argparse.ArgumentTypeError(f"must be at least 1, got {value}")
+    return value
 
 
 def show(trace, out=None):
@@ -74,6 +83,12 @@ def main(argv=None):
     many.add_argument("--output", type=Path, required=True)
     many.add_argument("--limit", type=int)
     many.add_argument("--resume", action="store_true")
+    many.add_argument(
+        "--workers",
+        type=worker_count,
+        default=1,
+        help="episodes run at once (default 1); hf: allows only 1",
+    )
     args = parser.parse_args(argv)
     manifest = load_manifest(args.manifest)
 
@@ -85,7 +100,13 @@ def main(argv=None):
             )
         return 0
 
-    provider, arm = make_provider(args.model, parse_options(args.option))
+    options = parse_options(args.option)
+    if args.command == "eval":
+        try:  # before make_provider, which loads an hf: model
+            check_workers(parse_spec(args.model)[0], args.workers)
+        except ValueError as exc:
+            raise SystemExit(str(exc)) from None
+    provider, arm = make_provider(args.model, options)
     if args.command == "run":
         specs = {s["id"]: s for rows in manifest["episodes"].values() for s in rows}
         if args.episode not in specs:
@@ -105,7 +126,17 @@ def main(argv=None):
             "measurement, not a fresh held-out result.",
             file=sys.stderr,
         )
-    report = evaluate(manifest, args.pool, arm, args.output, provider, args.resume, args.limit)
+    report = evaluate(
+        manifest,
+        args.pool,
+        arm,
+        args.output,
+        provider,
+        args.resume,
+        args.limit,
+        workers=args.workers,
+        spawn=lambda: make_provider(args.model, options)[0],
+    )
     summary = report["summary"]
     print(
         json.dumps(

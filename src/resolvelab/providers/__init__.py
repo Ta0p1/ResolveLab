@@ -9,15 +9,29 @@
 Options are ``key=value`` strings passed to the provider (for example ``base_url=...``,
 ``effort=high``, ``adapter=path/to/lora``). Every provider sees the identical conversation:
 the study's system prompt, one-shot demonstration, task, then actions and observations.
+
+The arm is what reports record, so it never holds a local absolute path: a local adapter or
+model directory is recorded relative to this checkout when it lies inside it, and otherwise
+by its name alone, with the adapter's ``adapter_sha256`` beside it.
 """
 
 import json
+from pathlib import Path
 
 from ..packaged import benchmark_file
+from ..training import file_hash
 
 STUDY = benchmark_file("casedesk-v2-study.json")
 PROVIDERS = ("teacher", "hf", "ollama", "openai", "anthropic")
 MAX_TOOLS = 24
+
+
+def _checkout():
+    root = Path(__file__).resolve().parents[3]
+    return root if (root / "pyproject.toml").is_file() else None
+
+
+CHECKOUT = _checkout()  # the checkout this package runs from; None for an installed wheel
 
 
 def parse_spec(spec):
@@ -29,6 +43,24 @@ def parse_spec(spec):
     return provider, model
 
 
+def is_local(value):
+    """Whether a model or adapter reference is a local path rather than a Hub id."""
+    path = Path(value).expanduser()
+    return path.is_absolute() or path.exists()
+
+
+def portable_path(value, root=None):
+    """A local path as a report records it: relative to the checkout inside it, else its name.
+
+    Never a drive letter, home directory or user name, so reports can be published as written.
+    """
+    root = root or CHECKOUT
+    path = Path(value).expanduser().resolve()
+    if root is not None and path.is_relative_to(root.resolve()):
+        return path.relative_to(root.resolve()).as_posix()
+    return path.name
+
+
 def _hf(model, options):
     from ..casedesk.policy import make_policy
 
@@ -37,7 +69,7 @@ def _hf(model, options):
     if STUDY.exists():
         study = json.loads(STUDY.read_text(encoding="utf-8"))
         pinned = next((m for m in study["models"].values() if m["base"] == base), {})
-    arm = {
+    config = {
         "base": base,
         "revision": revision or pinned.get("revision"),
         "max_output": int(options.pop("max_output", 192)),
@@ -45,9 +77,25 @@ def _hf(model, options):
         "adapter": options.pop("adapter", None),
     }
     if "thinking" in options:
-        arm["thinking_budget"] = int(options.pop("thinking"))
-        arm["sampling_seed"] = int(options.pop("seed", 0))
-    return make_policy(arm, arm["adapter"]), arm
+        config["thinking_budget"] = int(options.pop("thinking"))
+        config["sampling_seed"] = int(options.pop("seed", 0))
+    arm = dict(config)
+    adapter = config["adapter"]
+    if adapter is not None:
+        local = is_local(adapter)
+        # Hashed before the model loads, so a wrong directory fails fast.
+        weights = Path(adapter).expanduser() / "adapter_model.safetensors"
+        if local and not weights.is_file():
+            raise ValueError(f"No adapter_model.safetensors in the adapter directory {adapter}")
+        arm["adapter"] = portable_path(adapter) if local else adapter
+        arm["adapter_sha256"] = file_hash(weights) if local else None
+    policy = make_policy(config, adapter)
+    if is_local(base):
+        arm["base"] = portable_path(base)
+        arm["model"] = arm["base"] + (f"@{revision}" if revision else "")
+        arm["name"] = f"hf:{arm['model']}"
+        policy.metadata["base"] = arm["base"]
+    return policy, arm
 
 
 def make_provider(spec, options=None):

@@ -112,11 +112,11 @@ python scripts/verify_dialect_transfer.py                                  # v0.
 ```bash
 resolvelab casedesk run --episode test-test_conflict_rate-07 --model ollama:qwen3:4b
 resolvelab casedesk eval --pool dev --model ollama:qwen3:4b --output runs/qwen3-4b-dev.json
-resolvelab casedesk eval --pool dev --model openai:<model> --option base_url=http://localhost:8000/v1 --output runs/vllm-dev.json
+resolvelab casedesk eval --pool dev --model openai:<model> --option base_url=http://localhost:8000/v1 --output runs/vllm-dev.json --workers 16
 resolvelab casedesk eval --pool dev --model anthropic:claude-opus-5-5 --output runs/opus-dev.json   # 需 pip install "resolvelab[anthropic]"
 ```
 
-所有模型看到的都是实验同一套提示、示范和工具接口；报告和轨迹格式与公开证据一致，中断后可续跑。
+所有模型看到的都是实验同一套提示、示范和工具接口；报告和轨迹格式与公开证据一致，中断后可续跑；`--workers N` 可同时跑 N 个回合。
 支持本地 Transformers（`hf:`）、Ollama、任何 OpenAI 兼容服务和 Claude。各选项以及哪些结果能和登记实验
 直接比较，见 [docs/models.md](docs/models.md)。
 
