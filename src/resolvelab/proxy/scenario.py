@@ -34,7 +34,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from .faults import build_faults
-from .matcher import PLACEHOLDER, Matcher, ScenarioError, compile_template, parse_methods
+from .matcher import PLACEHOLDER, Matcher, ScenarioError, compile_template, lookup, parse_methods
 
 KEYS = {
     "name",
@@ -51,9 +51,20 @@ KEYS = {
     "redact_headers",
     "control_prefix",
     "timeout",
+    "clock",
 }
-GRADE_KEYS = {"outcome", "allowed_changes", "expected_state", "exactly_once"}
-LATER_RULES = {"fresh_verification", "honest_claim", "justified_escalation"}
+GRADE_KEYS = {
+    "outcome",
+    "allowed_changes",
+    "expected_state",
+    "exactly_once",
+    "allowed_writes",
+    "redundant_writes",
+    "fresh_verification",
+    "justified_escalation",
+    "idempotency_header",
+}
+LATER_RULES = {"honest_claim"}
 OUTCOMES = ("resolved", "escalated")
 REDACT = frozenset({"authorization", "proxy-authorization", "cookie", "set-cookie", "x-api-key"})
 NAME = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]*\Z")
@@ -119,11 +130,52 @@ class WriteClass:
 
 
 @dataclass(frozen=True)
+class ClockRequest:
+    """A service request that also moves the virtual clock, e.g. ``POST /clock {"seconds": 3}``."""
+
+    matcher: Matcher
+    field: str
+
+
+@dataclass(frozen=True)
+class Denial:
+    """A response that tells the agent a write was refused for permissions."""
+
+    matcher: Matcher
+    status: int | None = None
+    body: dict | None = None  # fields of the JSON response the agent received
+
+    def matches(self, request, status, body):
+        if self.matcher.match(request) is None:
+            return False
+        if self.status is not None and status != self.status:
+            return False
+        for field, expected in (self.body or {}).items():
+            present, actual = lookup(body, field)
+            if not present or actual != expected:
+                return False
+        return True
+
+
+@dataclass(frozen=True)
+class Escalation:
+    """``justified_escalation``: the request that files an escalation, and what a denial is."""
+
+    request: Matcher
+    denials: tuple
+
+
+@dataclass(frozen=True)
 class Grade:
     outcome: str = "resolved"
     allowed_changes: dict | None = None  # resource template -> frozenset of fields, or None: all
     expected_state: dict | None = None  # resource path -> {field: value}
     exactly_once: tuple | None = None  # WriteClass, ...
+    allowed_writes: tuple | None = None  # Matcher, ...: the only writes that may commit
+    redundant_writes: bool = False
+    fresh_verification: str | None = None  # resource the agent must read after its last commit
+    justified_escalation: Escalation | None = None
+    idempotency_header: str = "Idempotency-Key"
 
 
 def mapping(value, where):
@@ -179,6 +231,7 @@ class Scenario:
             or self.control_prefix.endswith("/")
         ):
             raise ScenarioError("control_prefix is a path such as /_resolvelab")
+        self.clock_request = self._clock(data.get("clock"))
         self.probe = self._probe(data.get("probe") or [])
         self.probe_headers = {
             str(k): str(v) for k, v in mapping(data.get("probe_headers"), "probe_headers").items()
@@ -208,7 +261,58 @@ class Scenario:
     def faults(self, seed):
         return build_faults(self.fault_specs, self.render, seed)
 
-    # -- probe and grade ----------------------------------------------------------------
+    # -- clock, probe and grade ---------------------------------------------------------
+
+    def _clock(self, spec):
+        """A service with its own wait endpoint: forwarding it also moves the virtual clock."""
+        if spec is None:
+            return None
+        if not isinstance(spec, dict) or set(spec) - {"method", "path", "field"} or "path" not in spec:
+            raise ScenarioError("clock takes path, and optionally method (POST) and field (seconds)")
+        template = self.render(spec["path"], "clock.path", wildcards=True)
+        compile_template(template, "clock.path")
+        field = spec.get("field", "seconds")
+        if not isinstance(field, str) or not field:
+            raise ScenarioError("clock.field names the JSON body field that holds the seconds")
+        methods = parse_methods(spec.get("method", "POST"), "clock.method")
+        return ClockRequest(Matcher(template, methods), field)
+
+    def _request(self, entry, where, keys=frozenset({"method", "path"})):
+        """A method, a path template and (where allowed) a body predicate, as a Matcher."""
+        if not isinstance(entry, dict) or set(entry) - keys or not {"method", "path"} <= set(entry):
+            raise ScenarioError(f"{where}: takes {sorted(keys)}, with method and path required")
+        template = self.render(entry["path"], where, wildcards=True)
+        compile_template(template, where)
+        body = entry.get("body")
+        if body is not None and (not isinstance(body, dict) or not body):
+            raise ScenarioError(f"{where}: body is a non-empty mapping of field to value")
+        return Matcher(template, parse_methods(entry["method"], where), body)
+
+    def _escalation(self, spec):
+        where = "grade.justified_escalation"
+        if not isinstance(spec, dict) or set(spec) != {"request", "denials"}:
+            raise ScenarioError(f"{where}: takes request and denials")
+        request = self._request(spec["request"], f"{where}.request")
+        entries = spec["denials"]
+        if not isinstance(entries, list) or not entries:
+            raise ScenarioError(f"{where}.denials: a non-empty list")
+        denials = []
+        for i, entry in enumerate(entries):
+            w = f"{where}.denials[{i}]"
+            if not isinstance(entry, dict):
+                raise ScenarioError(f"{w}: takes method, path, status and body")
+            matcher = self._request(
+                {k: v for k, v in entry.items() if k != "status"},
+                w,
+                frozenset({"method", "path", "body"}),
+            )
+            status = entry.get("status")
+            if status is not None and (isinstance(status, bool) or not isinstance(status, int)):
+                raise ScenarioError(f"{w}: status is an HTTP status code")
+            if status is None and matcher.body is None:
+                raise ScenarioError(f"{w}: a denial needs a status, a body or both")
+            denials.append(Denial(Matcher(matcher.template, matcher.methods), status, matcher.body))
+        return Escalation(request, tuple(denials))
 
     def _probe(self, entries):
         if not isinstance(entries, list):
@@ -250,7 +354,7 @@ class Scenario:
         if later:
             raise ScenarioError(
                 f"grade: {sorted(later)} planned for milestone 3 and not implemented yet; "
-                f"milestone 1 grades {sorted(GRADE_KEYS - {'outcome'})}"
+                f"the grader implements {sorted(GRADE_KEYS - {'outcome', 'idempotency_header'})}"
             )
         unknown = set(spec) - GRADE_KEYS
         if unknown:
@@ -307,7 +411,31 @@ class Scenario:
                 compile_template(template, where)
                 once.append(WriteClass(parse_methods(entry["method"], where), template, key))
             once = tuple(once)
-        return Grade(outcome, allowed, expected, once)
+        writes = None
+        if "allowed_writes" in spec:
+            value = spec["allowed_writes"] or []
+            if not isinstance(value, list):
+                raise ScenarioError("grade.allowed_writes is a list of method, path and optional body")
+            keys = frozenset({"method", "path", "body"})
+            writes = tuple(
+                self._request(entry, f"grade.allowed_writes[{i}]", keys) for i, entry in enumerate(value)
+            )
+        redundant = spec.get("redundant_writes", False)
+        if not isinstance(redundant, bool):
+            raise ScenarioError("grade.redundant_writes is true or false")
+        if redundant and expected is None:
+            raise ScenarioError("grade.redundant_writes compares writes with expected_state; declare it")
+        fresh = None
+        if "fresh_verification" in spec:
+            fresh = self.render(spec["fresh_verification"], "grade.fresh_verification")
+            compile_template(fresh, "grade.fresh_verification")
+        escalation = None
+        if "justified_escalation" in spec:
+            escalation = self._escalation(spec["justified_escalation"])
+        key = spec.get("idempotency_header", "Idempotency-Key")
+        if not isinstance(key, str) or not key or key.lower() in self.redact:
+            raise ScenarioError("grade.idempotency_header names a header that is not redacted")
+        return Grade(outcome, allowed, expected, once, writes, redundant, fresh, escalation, key)
 
     @staticmethod
     def _probes(resource, spec):

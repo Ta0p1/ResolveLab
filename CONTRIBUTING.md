@@ -13,6 +13,7 @@ python scripts/verify_experiment.py
 python scripts/verify_http_study.py
 python scripts/verify_casedesk_v2.py --dagger-every 20 --replay-every 10
 python scripts/verify_dialect_transfer.py --dagger-every 20 --replay-every 10
+python scripts/check_proxy_parity.py --every 10                 # the fault proxy against grader v2
 ```
 
 Optionally `pip install pre-commit && pre-commit install` to run ruff (pinned to CI's version)

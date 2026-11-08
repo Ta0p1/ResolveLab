@@ -63,6 +63,28 @@
 - No file under `httpdesk/`, `casedesk/`, `dialects/`, `durable/` or `providers/` changes, and no
   lock, result, manifest, trace or snapshot. No model was run.
 
+### Fault proxy (milestone 2: CaseDesk parity)
+
+- `resolvelab.proxy.casedesk` runs a CaseDesk v2 episode behind the proxy: an unchanged CaseDesk
+  service with its HTTP faults off, and a scenario that injects `rate_limit`, `revoke` and
+  `lost_ack` in CaseDesk's order and declares the grading rules.
+- `scripts/check_proxy_parity.py` replays every in-scope published v0.4 test episode (16 arms,
+  960 episodes, every failure category) through it. The proxy's rules give grader v2's
+  published verdict and failure category on all 960. Out of scope until actor requests exist
+  (milestone 3): the compositions with `conflict` or `concurrent_resolve`.
+- Scenario `clock`: a service's own wait endpoint (CaseDesk's `POST /clock`) is forwarded and
+  also moves the virtual clock, logged as a `clock` record.
+- `revoke.reads`: once the fault has refused a write, matching reads report the revocation
+  (CaseDesk's `write_allowed: false`).
+- New rules: `allowed_writes` (only declared writes may commit, which catches a wrong value later
+  corrected), `redundant_writes` (a write to a resource that already had its expected values),
+  and, brought forward from milestone 3, `fresh_verification` and `justified_escalation`. Rules
+  count a repeated idempotency key once, so a retry answered from the service's receipt is not a
+  new commit. The verdict gains `spurious_escalation`, in grader v2's precedence.
+- `tests/test_proxy_parity.py`: a thinned published sample, and crafted sequences compared with
+  grader v2 on the same actions.
+- No locked file, lock, result, manifest, trace or snapshot changes. No model was run.
+
 ## 0.5.0 — 2026-11-04
 
 ### Release

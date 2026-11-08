@@ -15,11 +15,21 @@ A fault implements up to four hooks. The engine calls them in scenario order:
 a generator seeded by the episode seed and the fault's position, never from the wall clock.
 """
 
+import json
 import random
 from dataclasses import dataclass
 
 from .log import Response
-from .matcher import PLACEHOLDER, WRITE, ScenarioError, parse_selector
+from .matcher import (
+    PLACEHOLDER,
+    READ,
+    WRITE,
+    Matcher,
+    ScenarioError,
+    compile_template,
+    json_body,
+    parse_selector,
+)
 
 LATER = ("concurrent_write", "stale_read", "partial_page", "injected_text", "timeout")
 
@@ -201,7 +211,12 @@ class LostAck(Fault):
 
 
 class Revoke(Fault):
-    """403 on writes once the trigger (``match.after``) has been seen; reads still pass."""
+    """403 on writes once the trigger (``match.after``) has been seen; reads still pass.
+
+    ``reads`` makes the revocation visible where the service would show it: once the fault
+    has refused a write, 2xx JSON responses to matching GETs get these fields overwritten,
+    e.g. ``reads: {path: "/tickets/{id}", set: {write_allowed: false}}``.
+    """
 
     kind = "revoke"
     statuses = (401, 403)
@@ -210,10 +225,40 @@ class Revoke(Fault):
     methods = WRITE
     allowed = WRITE
     occurrence = "every"
+    keys = Fault.keys | {"reads"}
+
+    def __init__(self, index, spec, render, seed):
+        super().__init__(index, spec, render, seed)
+        self.fired, self.reads = False, None
+        reads = spec.get("reads")
+        if reads is not None:
+            values = reads.get("set") if isinstance(reads, dict) else None
+            if set(reads) != {"path", "set"} or not isinstance(values, dict) or not values:
+                raise ScenarioError(f"{self.where}: reads takes path and a non-empty set mapping")
+            template = render(reads["path"], f"{self.where}.reads.path", wildcards=True)
+            compile_template(template, f"{self.where}.reads.path")
+            self.reads = (Matcher(template, READ), dict(values))
 
     def before(self, request, env):
         _, selected, _ = self.selector.see(request)
-        return self.respond({"reason": "fired"}) if selected else None
+        if not selected:
+            return None
+        self.fired = True
+        return self.respond({"reason": "fired"})
+
+    def after(self, request, response, env):
+        if not self.fired or self.reads is None or not 200 <= response.status < 300:
+            return None
+        matcher, values = self.reads
+        body = json_body(response.body)
+        if matcher.match(request) is None or not isinstance(body, dict):
+            return None
+        patched = {**body, **values}
+        if patched == body:
+            return None
+        headers = {**response.headers, "content-type": "application/json"}
+        content = json.dumps(patched, sort_keys=True).encode()
+        return Injected(Response(response.status, headers, content), {"reason": "read_patched"})
 
 
 KINDS = {cls.kind: cls for cls in (RateLimit, Precondition, LostAck, Revoke)}
