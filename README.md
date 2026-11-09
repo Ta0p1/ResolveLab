@@ -215,11 +215,13 @@ protocol lists every arm, budget and decision rule.
 The studies above run on one synthetic service. The next releases make the method usable on
 other APIs ([roadmap](docs/roadmap.md)):
 
-- **0.6:** a fault proxy that runs in front of any HTTP service and a declarative grader over
-  state snapshots and the request log ([design](docs/fault-proxy-design.md)); durable
-  idempotency receipts with crash and restart faults (built for CaseDesk:
-  [durable recovery](docs/durable-recovery.md)).
-- **0.7:** reference services beyond ticketing (refunds, inventory), published results for
+- **0.6 (released):** a fault proxy that runs in front of any HTTP service, with declarative
+  grading over state snapshots and the request log. Behind it, CaseDesk reproduces grader v2 on
+  960 of 960 in-scope published test episodes ([design and usage](docs/fault-proxy-design.md)).
+  Durable idempotency receipts with crash and restart faults
+  ([durable recovery](docs/durable-recovery.md)), and parallel model evaluation.
+- **0.7:** the remaining proxy faults (concurrent writers, stale reads, partial pages, injected
+  text), reference services beyond ticketing (refunds, inventory), published results for
   hosted and local models, and an MCP server mode.
 - **0.8:** grader-verified training data from strong-model teachers, larger trained models and
   RL on the environments.

@@ -1,6 +1,21 @@
 # Changelog
 
-## Unreleased
+## 0.6.0 — 2026-11-09
+
+### Release
+
+- Version 0.6.0: the fault proxy (milestones 1 and 2), durable recovery for CaseDesk and
+  concurrent model evaluation. In the locked source only the `__version__` line changes, and
+  every audit ignores it. No lock, result, manifest, trace or snapshot changes.
+
+### Evaluation
+
+- `resolvelab casedesk eval --workers N` runs N episodes at once (`casedesk/parallel.py`). The
+  report is the same, its rows are in manifest order and `--resume` works with any number of
+  workers. Each running episode has its own provider instance. `hf:` refuses more than one
+  worker; for `ollama:` set `OLLAMA_NUM_PARALLEL` to at least N.
+- Reports record a local `hf:` adapter or model directory relative to the checkout, or by its
+  name with the adapter's `adapter_sha256`, never as an absolute path.
 
 ### Durable recovery
 
