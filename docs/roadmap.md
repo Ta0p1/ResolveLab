@@ -67,21 +67,23 @@ agent from the system's state and the request log rather than from its claim. Fr
 work makes that method usable on services other than CaseDesk, while studies keep the
 registration, lock and audit rules above.
 
-### 0.6 — Fault proxy and declarative grading
+### 0.6 — Fault proxy and declarative grading (released as 0.6.0, 2026-11-09)
 
 - A fault proxy that runs in front of any HTTP service and injects rate limits, precondition
-  conflicts, lost acknowledgements, revoked permissions, concurrent writers and injected
-  text, with a declarative grader over state snapshots and the request log
-  ([design](fault-proxy-design.md)).
-- Acceptance test: CaseDesk behind the proxy reproduces grader v2 verdicts on the published
-  v0.4 traces.
+  conflicts, lost acknowledgements and revoked permissions, with a declarative grader over
+  state snapshots and the request log ([design and usage](fault-proxy-design.md)).
+- Acceptance test, passed: CaseDesk behind the proxy reproduces grader v2's verdict and failure
+  category on all 960 in-scope published v0.4 test episodes. Compositions with concurrent
+  writers wait for milestone 3.
 - Durable recovery: persisted idempotency receipts, crash injection between commit and
-  response, process restart and multi-worker races. Implemented (unreleased) for CaseDesk as
-  `resolvelab.durable`, with an exactly-once grader on top of grader v2
-  ([durable recovery](durable-recovery.md)).
+  response, process restart and multi-worker races, for CaseDesk as `resolvelab.durable`, with
+  an exactly-once grader on top of grader v2 ([durable recovery](durable-recovery.md)).
+- `resolvelab casedesk eval --workers N`, so a served model is evaluated episodes in parallel.
 
 ### 0.7 — More domains and hosted-model results
 
+- Fault proxy milestone 3: concurrent writers (actor requests), stale reads, partial pages and
+  injected text, and CaseDesk parity for `conflict` and `concurrent_resolve`.
 - Two reference services outside ticketing where side effects are expensive: refunds with
   idempotency, and inventory with concurrent reservations.
 - Published results for hosted and local models on every service, reported by pass rate,
