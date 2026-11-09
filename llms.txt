@@ -1,0 +1,33 @@
+# ResolveLab
+
+> A Python evaluation and post-training toolkit that runs LLM agents against fault-injected HTTP tool environments and grades what the agent actually did to the system.
+
+Requires Python 3.11; runs on CPU with no GPU or API key for examples, audits and episode replays. Main parts: a fault-injecting HTTP service, a side-effect grader, a replay-verified teacher, the CaseDeskEnv RL environment, and registered studies with reproducible scripts. Documentation covers fault types, grading, API dialects, evaluating external models, and reproducing the study on an 8 GB GPU.
+
+## Docs
+
+- [ResolveLab](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/README.md): Fault-injected agent benchmark and registered post-training studies, graded from server state.
+- [API dialects](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/dialects.md): Generating alternative tool contracts that keep the CaseDesk service, faults and grader unchanged.
+- [Dialect transfer study (v0.5) — protocol, registered 2026-10-30](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/dialect-transfer-protocol.md): Registered questions, arms, outcomes and decision rules for testing adapters on held-out dialects.
+- [CaseDesk v2 study protocol — registered before any v2 model run](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/casedesk-v2-protocol.md): Registered v0.2-era protocol on coverage, DAgger versus extra expert rows, and baseline strength.
+- [Review of the v0.3 CaseDesk study](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/v0.3-review.md): Independent audit of v0.3 claims, verified by replay, with what holds up and verified problems.
+- [CaseDesk as an environment](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/environment.md): Python API of the CaseDeskEnv step interface: observations, sparse reward, termination and fidelity.
+- [Development experiment log](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/experiments.md): Chronological log of adapter smoke tests, protocol changes and v0.2 repairs, with raw traces and caveats.
+- [Durable recovery](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/durable-recovery.md): Running the CaseDesk HTTP contract and graders on a persisted store with crashing, racing uvicorn workers.
+- [Architecture](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/architecture.md): ResolveLab's two synthetic services, HTTP boundary, serialization and receipt semantics, plus optional LoRA workers.
+- [CaseDesk experiment protocol — registered before model runs](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/httpdesk-protocol.md): Registered CaseDesk suite: HTTP faults, frozen benchmark splits, 30 test episodes and seed reuse limits.
+- [ResolveLab CaseDesk LoRA policy — v0.3](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/httpdesk-model-card.md): Intended use, pinned Qwen3-0.6B base, LoRA configuration, verified episode counts and training settings.
+- [Evaluation protocol](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/evaluation.md): What sync-recovery-v1 measures, fixed controls, seed reuse caveats and metric definitions.
+- [ResolveLab Qwen3-0.6B LoRA, experiment v1](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/model-card.md): Adapter for the ResolveLab JSON action protocol: base revision, selected epoch-2 SHA-256, licenses, and full training setup.
+- [Fault proxy and declarative side-effect grading — design](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/fault-proxy-design.md): Design of a fault proxy injecting rate_limit, precondition, lost_ack and revoke faults plus declarative side-effect grading on any HTTP API.
+- [Roadmap](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/roadmap.md): Delivered and planned releases from v0.1 executable baseline through HTTP adapter, composition holdouts and later milestones.
+- [Study history](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/history.md): Registered protocols, results and superseded findings per study version, with later corrections kept next to earlier records.
+- [Post-training protocol: composition-v1](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/post-training.md): Frozen composition-v1 protocol: manifest SHA-256, train/dev/test split rules, disjoint seeds, and stated evaluation limits.
+- [A four-minute demo](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/demo.md): Four-minute scripted demo: lost_ack recovery, local Ollama agent with validated arguments, and the permission boundary scenario.
+- [Evaluate your own model on CaseDesk](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/models.md): Running run and eval on your own model: resumable reports, per-episode traces, provider options for hf, ollama, openai, anthropic.
+- [Documentation](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/docs/README.md): Overview of the v0.5 and v0.4 studies, CaseDesk and recovery environments, design plans, earlier studies and notes.
+
+## Optional
+
+- [Changelog](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/CHANGELOG.md): Recent changes: resolvelab.durable on persisted SQLite, process faults, the casedesk-durable-v1 suite and grade_durable checks.
+- [Contributing to ResolveLab](https://raw.githubusercontent.com/Ta0p1/ResolveLab/main/CONTRIBUTING.md): Development setup, pre-commit and browser checks, reporting bad grader results or security issues, rules for new scenarios and policies.
