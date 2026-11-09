@@ -10,7 +10,9 @@ Two control endpoints live under the scenario's ``control_prefix`` (``/_resolvel
 are never forwarded:
 
 - ``POST /_resolvelab/wait`` with ``{"seconds": n}`` advances the virtual clock. Rate limits
-  read this clock, so waiting is deterministic and instant.
+  read this clock, so waiting is deterministic and instant. A service with a wait endpoint
+  of its own names it in the scenario's ``clock``; that request is forwarded and, when the
+  service answers 2xx, moves the clock by its body's seconds as well (a ``clock`` record).
 - ``POST /_resolvelab/finish`` with ``{"outcome": "resolved" | "escalated", "summary": ...}``
   records the agent's claim and ends the episode; later requests get 409.
 
@@ -23,6 +25,7 @@ import threading
 import httpx
 
 from .log import UNLOGGED, Request, Response, encode_body, logged_headers
+from .matcher import json_body, lookup
 from .scenario import OUTCOMES
 
 MAX_WAIT = 3600
@@ -56,6 +59,7 @@ class Proxy:
             if response is None:
                 response, reached = self.forward(seq, request)
                 if reached:
+                    self.advance(seq, request, response)
                     for fault in self.faults:
                         injected = fault.after(request, response, self)
                         if injected is not None:
@@ -113,6 +117,17 @@ class Proxy:
         response = Response(answer.status_code, kept, answer.content)
         self.log.write(self.record("upstream", seq, response, status=response.status))
         return response, True
+
+    def advance(self, seq, request, upstream):
+        """The scenario's ``clock`` request, answered 2xx by the service, moves the clock too."""
+        spec = self.scenario.clock_request
+        if spec is None or not 200 <= upstream.status < 300 or spec.matcher.match(request) is None:
+            return
+        found, seconds = lookup(json_body(request.body), spec.field)
+        if not found or isinstance(seconds, bool) or not isinstance(seconds, int) or seconds < 0:
+            return
+        self.clock += seconds
+        self.log.write({"type": "clock", "seq": seq, "seconds": seconds, "clock": self.clock})
 
     def record(self, kind, seq, message, **fields):
         record = {"type": kind, "seq": seq, **fields}
